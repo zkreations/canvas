@@ -1,0 +1,762 @@
+/*! Blogger core/canvas 1.00 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - date: 01/10/2016 */
+
+/*all widgets*/
+.widget {margin-bottom: 1em;}
+.widget:last-child {margin: 0;}
+.widget > h2 {
+    font-size: 1.2em;
+    padding-bottom: 14px;
+    border-bottom: 5px solid rgba(0,0,0,0.05);
+    font-weight: 500;
+    color: rgba(0,0,0,0.6);
+    margin-bottom: 0;
+}
+.widget-content, .post-summary, .contact-form-widget {
+    width: 100%;
+    padding: 1em 0;
+}
+.widget-content ul, .widget-content li {
+    margin: 0;
+    list-style: none outside none;
+}
+
+header .widget {margin:0;}
+header .widget h2 {display:none;}
+header .widget .widget-content, header .post-summary, header .contact-form-widget, header .wikipedia-search-main-container {
+    padding: 1.5em;
+    background: rgba(0,0,0,0.08);
+}
+
+@media only screen and (max-width: 860px){
+header .widget .widget-content, header .post-summary, header .contact-form-widget, header .wikipedia-search-main-container {
+    padding: 1em;
+    background: rgba(0,0,0,0.08);
+}
+}
+/*form default*/
+.widget input[type="text"], .widget input[type="submit"], .widget input[type="button"], .contact-form-widget textarea {
+    padding: 1em;
+    outline: 0 none;
+    border: 0 none;
+    box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.075), inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+.widget input[type="submit"], .widget input[type="button"] {
+    border-radius: 3px;
+    border: 3px solid transparent;
+}
+.widget input[type="submit"]:hover, .widget input[type="button"]:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+.widget input[type="text"], .contact-form-widget textarea {
+    font-size: 0.9em;
+    width: 100%;
+    color: rgba(0,0,0,0.5);
+    background: #fff;
+}
+
+/*end all widgets*/
+
+/*Independent widgets*/
+
+/* Top entry
+Entrada destacada*/
+.post-summary p {
+    padding: 1em;
+    display: block;
+    margin-bottom: 1em;
+    background: rgba(0,0,0,0.05);
+}
+.post-summary .image {
+    width: 100%;
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+/* Search
+Buscador*/
+.BlogSearch .gsc-input {
+    width: 100%;
+}
+.BlogSearch input.gsc-search-button {
+    text-indent: -9999px;
+    background: url(https://goo.gl/tRcLC4) no-repeat center #00BCD4;
+    width: 50px;
+    margin-left: 10px;
+}
+
+/* Profile User or team
+Perfil del usuario o equipo*/
+.Profile .widget-content {
+    margin-top: 1em;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1) inset, 0 1px 3px -1px rgba(0, 0, 0, 0.2);
+    padding: 0;
+    position: relative;
+    text-align: center;
+    background: #fff;
+}
+.Profile .widget-content:before {
+	background-image: url("https://goo.gl/W8hwej");
+    background-color: rgba(0,0,0,0.8);
+	background-repeat: no-repeat;
+	background-size: cover;
+    content: "";
+    height: 140px;
+    width: 100%;
+    display: block;
+}
+.Profile .widget-content .profile-img {
+    overflow: hidden;
+    border-radius: 50%;
+    margin-top: -40px;
+}
+.Profile .widget-content .g-profile {
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-image: none !important;
+    font-size: 1em;
+    color: rgba(0,0,0,0.6);
+    font-weight: 700;
+    margin-bottom: 1em;
+}
+.Profile .widget-content .profile-datablock {padding: 1em;}
+.Profile .widget-content .profile-textblock {padding: 1em 0;}
+.Profile .widget-content .profile-link {display: none;}
+
+/*option --> team/equipo*/
+.Profile .widget-content > ul {padding: 1em;}
+.Profile .widget-content > ul > li {
+    text-align: left;
+    display: block;
+}
+.Profile .widget-content > ul > li > a {
+    padding: 0.5em 0.8em;
+    background: rgba(0,0,0,0.05);
+    width: 100%;
+    margin: 0;
+}
+.Profile .widget-content > ul > li > a:hover {
+    text-decoration: none;
+    background: rgba(0,0,0,0.07);
+}
+/*option --> header*/
+header .Profile .widget-content {
+    padding: 0;
+    margin: 0;
+    background: #fff;
+}
+/*List archive blog
+Archivo del blog*/
+/*option --> dropdown/desplegable*/
+#ArchiveList select {
+    border: 0 none;
+    padding: 1.2em;
+    width: 100%;
+    background: url("https://goo.gl/2CrfDh") 95% no-repeat rgba(0,0,0,0.05);
+    font-size: 0.8em;
+    color: rgba(0,0,0,0.55);
+    cursor: pointer;
+    outline: 0 none;
+    position: relative;
+    border-radius: 2px;
+    font-weight: 700;
+    -webkit-appearance: none;
+	   -moz-appearance: none;
+			appearance: none;
+}
+#ArchiveList select:hover {
+    background-color: rgba(0,0,0,0.08);
+}
+#ArchiveList select > option {
+    background: #fff;
+}
+
+/*option --> simple list/lista simple*/
+#ArchiveList .flat > li {
+    display: block;
+    padding: 0.5em 0.8em;
+    background: rgba(0,0,0,0.05);
+    margin-bottom: 5px;
+    text-transform: capitalize;
+}
+
+#ArchiveList .flat > li > a {
+    text-decoration: none;
+    color: rgba(0,0,0,0.5);
+}
+
+#ArchiveList .flat > li > a:hover {
+    color: rgba(0,0,0,0.7);
+}
+
+/*option --> hierarchy/jerarquia*/
+#ArchiveList > div > .hierarchy > li, #ArchiveList > div > .hierarchy, .hierarchy > li, .hierarchy .posts > l {margin: 0;}
+.hierarchy .expanded > ul {display: block;}/*Se muestra*/
+.hierarchy .collapsed > ul {display: none;}/*Se oculta*/
+.hierarchy {margin: 8px 0 0 20px;}
+
+ul.hierarchy {
+    margin-top: 8px;
+}
+ul.hierarchy, ul.posts {
+    margin-left: 20px;
+}
+.hierarchy > li {
+    text-transform: capitalize;
+    position: relative;
+}
+.hierarchy > li > a {
+    color: rgba(0,0,0,0.5);
+    vertical-align: middle;
+    z-index: 5;
+    font-weight: 700;
+    font-size: 0.95em;
+}
+.hierarchy > li > a:hover {
+    text-decoration: none;
+    color: rgba(0,0,0,0.7);
+}
+.hierarchy > li .toggle:before {
+	content: "";
+	position: absolute;
+	top: 0;left: 0;width: 100%;height: 42px;
+	background: rgba(0, 0, 0, 0.05);
+	border-radius: 2px;
+}
+.hierarchy .toggle {
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.08);
+    margin: 8px;
+    border-radius: 2px;
+    vertical-align: middle;
+}
+.hierarchy .toggle:hover {
+    background: rgba(0, 0, 0, 0.12);
+	text-decoration: none;
+}
+.hierarchy .zippy  {
+    text-indent: -99999px;
+    display: inline-block;
+    width: 26px;
+    background: url(https://goo.gl/0zXfzY) no-repeat center center transparent;
+    height: 26px;
+    opacity: 0.5;
+}
+.hierarchy .zippy.toggle-open  {background-image: url(https://goo.gl/SnRNaf);}
+.hierarchy .posts {padding: 12px 12px 0;}
+.hierarchy .posts a {
+    color: rgba(0,0,0,0.5);
+    display: block;
+    padding-bottom: 5px;
+}
+.hierarchy .posts a:hover {color: rgba(0,0,0,0.7);}
+
+/*Image
+Imagen*/
+.widget.Image a > img {
+    height: auto;
+    width: auto;
+}
+.widget.Image .caption {
+    padding: 1em;
+    background: rgba(0,0,0,0.05);
+    display: block;
+    margin-top: 1em;
+}
+
+/*option --> header/cabecera*/
+header .widget.Image .widget-content {
+    position: relative;
+    padding: 0;
+}
+header .widget.Image .caption {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+}
+
+/*List label or cloud
+Lista de etiquetas o nube*/
+[class*="label-widget-content"] li, [class*="label-widget-content"] .label-size {
+    padding: 0.6em;
+    background: rgba(0,0,0,0.05);
+    border-radius: 2px;
+	display: block;
+}
+
+[class*="label-widget-content"] li:before, [class*="label-widget-content"] .label-size:before {
+	content: "";
+	background: url(https://goo.gl/6kbZHG) no-repeat center center transparent;
+	width: 18px;height: 18px;
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 3px;
+	opacity: 0.4;
+}
+[class*="label-widget-content"] a {
+    color: rgba(0,0,0,0.5);
+    text-transform: capitalize;
+    font-size: 13px;
+    font-weight: 700;
+}
+[class*="label-widget-content"] a:hover {
+    color: rgba(0,0,0,0.7);
+	text-decoration: none;
+}
+/*option --> list/lista*/
+.widget-content[class*=" list-"] li {
+	margin-bottom: 5px;
+}
+
+/*option --> cloud/nube*/
+.widget-content[class*=" cloud-"] .label-size {
+	float: left;
+	margin: 0 5px 5px 0;
+}
+
+/*Page List
+Lista de paginas*/
+.PageList li {float: left;}
+.PageList li > a {
+    padding: 0.8em;
+    display: block;
+    background: rgba(0,0,0,0.05);
+    color: rgba(0,0,0,0.5);
+    border-right: 5px solid rgba(0,0,0,0.2);
+    font-size: 0.9em;
+}
+.PageList li > a:hover {
+    color: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.07);
+	text-decoration: none;
+}
+/*option --> sidebar*/
+.sidebar .PageList li {float: none;}
+.sidebar .PageList li > a {margin-bottom: 5px;}
+.PageList li.selected > a {
+    background: rgba(0,0,0,0.15);
+    border-color: rgba(0,0,0,0.5);
+    font-weight: 700;
+}
+/*option --> header*/
+header .PageList {
+    width: 100%;
+    background: rgba(0,0,0,0.1);
+    padding: 1em 1em 0;
+}
+header .PageList .widget-content {
+    padding: 0;
+    background: transparent;
+}
+header .PageList li > a {
+    border-right: 0;
+    border-top: 5px solid rgba(0,0,0,0.2);
+    margin-right: 2px;
+}
+/*Link List
+Lista de vinculos*/
+.LinkList .widget-content li {display: inline-block;}
+.LinkList .widget-content li > a:before {
+	content: "";
+	display: inline-block;
+	background: url(https://goo.gl/zl0EFV) no-repeat center center transparent;
+	height: 18px;width: 18px;
+	vertical-align: middle;
+	margin: -4px 5px 0 0;
+	opacity: 0.5;
+}
+.LinkList .widget-content li > a {
+    padding: 0.8em;
+    display: inline-block;
+    background: rgba(0,0,0,0.05);
+    margin-bottom: 5px;
+    border-radius: 2px;
+    color: rgba(0,0,0,0.5);
+}
+.LinkList .widget-content li > a:hover {
+    color: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.07);
+	text-decoration: none;
+}
+.LinkList .widget-content li:last-child > a {margin: 0;}
+
+/*Popular posts
+Entradas populares*/
+.popular-posts > ul > li {
+    margin-bottom: 1em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.popular-posts .item-thumbnail {
+    float: left;
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px 0px rgba(0, 0, 0, 0.2);
+    margin-right: 15px;
+}
+.popular-posts > ul > li > a, .popular-posts .item-title > a {
+    padding: 16px;
+    display: block;
+    margin-bottom: 0.4em;
+    background: rgba(0,0,0,0.1);
+    color: rgba(0,0,0,0.5);
+    font-weight: 700;
+    font-size: 0.9em;
+    overflow: hidden;
+}
+.popular-posts > ul > li > a:before, .popular-posts .item-title > a:before {
+    content: "";
+    background: url(https://goo.gl/5JdMe7) no-repeat center transparent;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    opacity: 0.5;
+    vertical-align: middle;
+    margin: -3px 5px 0 0;
+}
+.popular-posts > ul > li > a:hover, .popular-posts .item-title > a:hover {
+    color: rgba(0,0,0,0.6);
+    background: rgba(0,0,0,0.12);
+	text-decoration: none;
+}
+.popular-posts > ul > li:last-child {
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+}
+.popular-posts .item-snippet {
+    display: block;
+    padding: 10px 16px;
+    background: rgba(0,0,0,0.03);
+    font-size: 0.9em;
+}
+
+/*My list of blogs
+Mi lista de blogs*/
+.blog-list-container .blog-icon {
+    position: absolute;
+    right: 16px;
+    top: 8px;
+}
+.blog-list-container ul[id*="blogs"] li {position: relative;}
+.blog-list-container .blog-content {
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.blog-list-container .blog-title > a {
+    padding: 12px 16px;
+    background: rgba(0,0,0,0.15);
+    display: block;
+    margin-bottom: 10px;
+    color: rgba(0,0,0,0.7);
+    font-size: 0.9em;
+    font-weight: 700;
+}
+.blog-list-container .blog-title > a:hover {
+    background: rgba(0,0,0,0.18);
+    color: rgba(0,0,0,0.9);
+	text-decoration: none;
+}
+.blog-list-container .item-thumbnail {
+    float: left;
+    margin: 0 15px 15px 0;
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px 0px rgba(0, 0, 0, 0.2);
+}
+.blog-list-container .item-content {
+    padding: 1em;
+    background: rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+.blog-list-container .item-title > a {
+    color: rgba(0,0,0,0.5);
+    font-weight: 700;
+}
+.blog-list-container .item-title > a:hover {
+    color: rgba(0,0,0,0.7);
+    text-decoration: none;
+}
+.blog-list-container .item-time:before {
+    background: url(https://goo.gl/PNwhlQ) no-repeat center transparent;
+    height: 18px;
+    width: 18px;
+    display: inline-block;
+    content: "";
+    vertical-align: middle;
+    margin: -3px 3px 0 0;
+    opacity: 0.7;
+}
+.blog-list-container .item-time {
+    padding-top: 0.8em;
+    margin-top: 0.5em;
+    border-top: 1px dashed rgba(0,0,0,0.2);
+}
+/*Stats Counter
+Contador de visitas*/
+.graph-counter-wrapper {
+    padding-top: 6px;
+    /*soporte para flex*/
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: flex;
+    /*justify*/
+    -webkit-justify-content: flex-start;
+       -moz-justify-content: flex-start;
+            justify-content: flex-start;
+    /*align*/
+    -webkit-align-items: flex-start;
+       -moz-align-items: flex-start;
+            align-items: flex-start;
+}
+.graph-counter-wrapper > span {
+    padding: 0.2em 0.3em;
+    display: block;
+    color: #fff;
+    background-color: rgba(0,0,0,0.85);
+    font-size: 1.5em;
+    margin: 3px;
+    border-radius: 2px;
+    position: relative;
+    border: 1px solid rgba(0,0,0,0.9);
+    box-shadow: 0 60px 60px -30px rgba(255,255,255,0.05) inset, 0 0 0 2px rgba(0,0,0,0.15), 0 1px 0 0 rgba(255,255,255,0.15) inset;
+}
+.graph-counter-wrapper > span .blind-plate {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    display: block;
+    border-top: 1px solid rgba(0,0,0,0.7);
+    margin-top: -1px;
+    left: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+/*follow by email
+Seguir por correo electrónico*/
+.follow-by-email-submit {
+    text-indent: -9999px;
+    background: url(https://goo.gl/YoC0GJ) no-repeat center #00BCD4;
+    width: 50px;
+    margin-left: 10px;
+}
+.follow-by-email-inner td {width: 100%;}
+
+/* Feeds
+Canal RSS */
+.Feed ul > li {
+    display: block;
+    padding: 1em;
+    background: rgba(0,0,0,0.05);
+    margin-bottom: 5px;
+}
+.Feed ul > li a {
+    color: rgba(0,0,0,0.5);
+    font-weight: bold;
+}
+.Feed ul > li a:hover {
+    color: rgba(0,0,0,0.7);
+	text-decoration: none;
+}
+.Feed ul > li .item-title:before {
+    content: "";
+    background: url(https://goo.gl/konZFx) no-repeat center transparent;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    margin: -3px 8px 0 0;
+    vertical-align: middle;
+    opacity: 0.5;
+}
+
+/* Google translate
+traductor Google*/
+.goog-te-gadget {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal !important;
+    padding: 2em 0;
+}
+
+/* Text list
+Lista de texto */
+.TextList ul li {
+    margin: 0 0 5px 20px;
+    list-style: disc;
+}
+
+/*Search by Wikipedia
+Buscar con Wikipedia */
+.widget.Wikipedia {
+    margin: 0;
+}
+.wikipedia-search-main-container {
+    padding: 1em 0 0;
+}
+.wikipedia-search-wiki-link > img {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 1em;
+}
+.wikipedia-search-main-container input.wikipedia-search-button {
+    width: 100%;
+    margin-top: 1em;
+    background-color: rgb(156, 174, 183);
+    font-weight: 700;
+    font-size: 0.9em;
+    color: #fff;
+}
+.wikipedia-search-results-header {
+    padding: 1em;
+    background: rgba(0,0,0,0.1);
+}
+.wikipedia-search-results > div > a {
+    display: block;
+    padding: 0.5em;
+    margin-top: 5px;
+    background: rgba(0,0,0,0.05);
+    color: rgba(0,0,0,0.5);
+}
+.wikipedia-search-results > div > a:hover {
+    background: rgba(0,0,0,0.07);
+    color: rgba(0,0,0,0.7);
+	text-decoration: none;
+}
+.wikipedia-search-results {
+    padding-top: 1em;
+}
+.wikipedia-search-main-container > nobr a {
+    padding: 0.5em 1em;
+    display: block;
+    background: #9caeb7;
+    color: #fff;
+    margin-top: 10px;
+    text-align: center;
+}
+.wikipedia-search-main-container > nobr a:hover {
+    opacity: 0.9;
+    text-decoration: none;
+}
+/*Contact form
+Formulario de contacto*/
+.contact-form-widget input[class^="contact-form"], .contact-form-widget textarea {
+    margin: 0.5em 0 1em;
+}
+.contact-form-widget input.contact-form-button {
+    margin: 0;
+    width: 100%;
+    background-color: #00BCD4;
+    font-weight: 700;
+    font-size: 0.9em;
+    color: #fff;
+}
+/*end independent widgets*/
+
+/*all comments*/
+.comentarios {
+    position: relative;
+}
+.comentarios > h3 {
+    border-bottom: 5px solid rgba(0,0,0,0.05);
+    margin-bottom: 0.5em;
+    padding: 0.5em 0;
+    font-size: 1.2em;
+    color: rgba(0,0,0,0.5);
+}
+.comentarios > h3 > span {
+    font-weight: 700;
+}
+.comments-content {padding-top: 20px;}
+.comments-content .comment {
+    position: relative;
+    margin: 0 0 10px;
+}
+.avatar-image-container {
+    background: url("https://goo.gl/QJvbo0") no-repeat center center/cover #00bcd4;
+    float: left;
+    height: 60px;
+    overflow: hidden;
+    position: relative;
+    width: 60px;
+    box-sizing: initial;
+    margin: 0 15px 0 0;
+}
+.avatar-image-container > img {width: 100%;}
+.comments .comment-block {
+    background-color: rgba(0,0,0,0.05);
+    color: rgba(0,0,0,0.5);
+    font-size: 1em;
+    position: relative;
+    padding: 15px;
+    margin-left: 70px;
+}
+.avatar-image-container img[src="https://img1.blogblog.com/img/anon36.png"], 
+.avatar-image-container img[src="https://img2.blogblog.com/img/b36-rounded.png"]{opacity:0}
+.comment-header {
+    padding-bottom: 5px;
+}
+.comment-header .user {
+    font-weight: 700;
+    color: rgba(0,0,0,0.6);
+    font-style: normal;
+    margin-right: 5px;
+}
+.comment-header .user > a {
+	font-weight: 700;
+	color: rgba(0,0,0,0.6);
+}
+.comment-header .user > a:hover {
+    text-decoration: none;
+    color: rgba(0,0,0,0.8);
+}
+.comment-header .datetime a {
+    font-size: 0.9em;
+    color: rgba(0,0,0,0.4);
+}
+.comment-header .datetime a:hover {
+    text-decoration: none;
+    color: rgba(0,0,0,0.6);
+}
+/*fix comments*/
+.continue, .item-control, .loadmore {display:none}
+.comments .comments-replybox{border:0 none; width:100%}
+.comments .comment-replybox-thread, .comment-form {max-height: 280px;}
+.comments .comments-content .comment-thread ol {
+    list-style-type: none;
+    padding: 0;
+	margin: 0;
+    text-align: left;
+}
+/*replies*/
+.thread-toggle {
+    display: block;
+    text-align: right;
+    margin-bottom: 10px;
+}
+.thread-toggle a {
+    padding: 5px 20px;
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    display: inline-block;
+}
+.thread-toggle a:hover {
+    background: rgba(0,0,0,0.5);
+    text-decoration: none;
+}
+.comment-replies .avatar-image-container{width:45px;height:45px}
+.comment-replies .comment-block {margin-left: 55px;}
+.comment-replies, .comment-replybox-single {
+    margin-left: 2em;
+    margin-top: 0;
+}
+.thread-chrome.thread-collapsed {display:none}
+.thread-chrome.thread-expanded {display:block;}
+/*end comments*/
+
+/*fix core*/
+.widget-item-control, .item-control.blog-admin {
+    display: none;
+}
+/*!-- End Blogger core --*/

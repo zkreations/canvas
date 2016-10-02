@@ -1,1 +1,1 @@
-# blogger-core
+# BloggerCore

@@ -1,0 +1,8 @@
+{
+  "packageManager": "github",
+  "name": "blogger.core",
+  "repo": "zkreations/BloggerCore",
+  "files": {
+    "include": ["blogger.core.css", "blogger.core.min.css"]
+  }
+}
