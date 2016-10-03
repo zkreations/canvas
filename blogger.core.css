@@ -1,65 +1,6 @@
-/*! Blogger core/canvas 1.00 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - date: 01/10/2016 */
-
-/*all widgets*/
-.widget {margin-bottom: 1em;}
-.widget:last-child {margin: 0;}
-.widget > h2 {
-    font-size: 1.2em;
-    padding-bottom: 14px;
-    border-bottom: 5px solid rgba(0,0,0,0.05);
-    font-weight: 500;
-    color: rgba(0,0,0,0.6);
-    margin-bottom: 0;
-}
-.widget-content, .post-summary, .contact-form-widget {
-    width: 100%;
-    padding: 1em 0;
-}
-.widget-content ul, .widget-content li {
-    margin: 0;
-    list-style: none outside none;
-}
-
-header .widget {margin:0;}
-header .widget h2 {display:none;}
-header .widget .widget-content, header .post-summary, header .contact-form-widget, header .wikipedia-search-main-container {
-    padding: 1.5em;
-    background: rgba(0,0,0,0.08);
-}
-
-@media only screen and (max-width: 860px){
-header .widget .widget-content, header .post-summary, header .contact-form-widget, header .wikipedia-search-main-container {
-    padding: 1em;
-    background: rgba(0,0,0,0.08);
-}
-}
-/*form default*/
-.widget input[type="text"], .widget input[type="submit"], .widget input[type="button"], .contact-form-widget textarea {
-    padding: 1em;
-    outline: 0 none;
-    border: 0 none;
-    box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.075), inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.05);
-    border-radius: 3px;
-}
-.widget input[type="submit"], .widget input[type="button"] {
-    border-radius: 3px;
-    border: 3px solid transparent;
-}
-.widget input[type="submit"]:hover, .widget input[type="button"]:hover {
-    cursor: pointer;
-    opacity: 0.8;
-}
-.widget input[type="text"], .contact-form-widget textarea {
-    font-size: 0.9em;
-    width: 100%;
-    color: rgba(0,0,0,0.5);
-    background: #fff;
-}
-
-/*end all widgets*/
+/*! Blogger core/canvas 1.0.1 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - date: 01/10/2016 */
 
 /*Independent widgets*/
-
 /* Top entry
 Entrada destacada*/
 .post-summary p {
@@ -69,7 +10,7 @@ Entrada destacada*/
     background: rgba(0,0,0,0.05);
 }
 .post-summary .image {
-    width: 100%;
+    width: auto;
     border: 4px solid #fff;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 1px 3px 0px rgba(0, 0, 0, 0.2);
 }
@@ -81,7 +22,7 @@ Buscador*/
 }
 .BlogSearch input.gsc-search-button {
     text-indent: -9999px;
-    background: url(https://goo.gl/tRcLC4) no-repeat center #00BCD4;
+    background: url(src/search.png) no-repeat center #00BCD4;
     width: 50px;
     margin-left: 10px;
 }
@@ -97,7 +38,6 @@ Perfil del usuario o equipo*/
     background: #fff;
 }
 .Profile .widget-content:before {
-	background-image: url("https://goo.gl/W8hwej");
     background-color: rgba(0,0,0,0.8);
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -153,7 +93,7 @@ Archivo del blog*/
     border: 0 none;
     padding: 1.2em;
     width: 100%;
-    background: url("https://goo.gl/2CrfDh") 95% no-repeat rgba(0,0,0,0.05);
+    background: url(src/arrow.png) 95% no-repeat rgba(0,0,0,0.05);
     font-size: 0.8em;
     color: rgba(0,0,0,0.55);
     cursor: pointer;
@@ -239,11 +179,11 @@ ul.hierarchy, ul.posts {
     text-indent: -99999px;
     display: inline-block;
     width: 26px;
-    background: url(https://goo.gl/0zXfzY) no-repeat center center transparent;
+    background: url(src/more.png) no-repeat center center transparent;
     height: 26px;
     opacity: 0.5;
 }
-.hierarchy .zippy.toggle-open  {background-image: url(https://goo.gl/SnRNaf);}
+.hierarchy .zippy.toggle-open  {background-image: url(src/remove.png);}
 .hierarchy .posts {padding: 12px 12px 0;}
 .hierarchy .posts a {
     color: rgba(0,0,0,0.5);
@@ -286,10 +226,9 @@ Lista de etiquetas o nube*/
     border-radius: 2px;
 	display: block;
 }
-
 [class*="label-widget-content"] li:before, [class*="label-widget-content"] .label-size:before {
 	content: "";
-	background: url(https://goo.gl/6kbZHG) no-repeat center center transparent;
+	background: url(src/label.png) no-repeat center center transparent;
 	width: 18px;height: 18px;
 	display: inline-block;
 	vertical-align: middle;
@@ -310,7 +249,6 @@ Lista de etiquetas o nube*/
 .widget-content[class*=" list-"] li {
 	margin-bottom: 5px;
 }
-
 /*option --> cloud/nube*/
 .widget-content[class*=" cloud-"] .label-size {
 	float: left;
@@ -334,8 +272,8 @@ Lista de paginas*/
 	text-decoration: none;
 }
 /*option --> sidebar*/
-.sidebar .PageList li {float: none;}
-.sidebar .PageList li > a {margin-bottom: 5px;}
+.bw .PageList li {float: none;}
+.bw .PageList li > a {margin-bottom: 5px;}
 .PageList li.selected > a {
     background: rgba(0,0,0,0.15);
     border-color: rgba(0,0,0,0.5);
@@ -362,7 +300,7 @@ Lista de vinculos*/
 .LinkList .widget-content li > a:before {
 	content: "";
 	display: inline-block;
-	background: url(https://goo.gl/zl0EFV) no-repeat center center transparent;
+	background: url(src/open.png) no-repeat center center transparent;
 	height: 18px;width: 18px;
 	vertical-align: middle;
 	margin: -4px 5px 0 0;
@@ -408,7 +346,7 @@ Entradas populares*/
 }
 .popular-posts > ul > li > a:before, .popular-posts .item-title > a:before {
     content: "";
-    background: url(https://goo.gl/5JdMe7) no-repeat center transparent;
+    background: url(src/rate.png) no-repeat center transparent;
     width: 18px;
     height: 18px;
     display: inline-block;
@@ -480,7 +418,7 @@ Mi lista de blogs*/
     text-decoration: none;
 }
 .blog-list-container .item-time:before {
-    background: url(https://goo.gl/PNwhlQ) no-repeat center transparent;
+    background: url(src/date.png) no-repeat center transparent;
     height: 18px;
     width: 18px;
     display: inline-block;
@@ -538,7 +476,7 @@ Contador de visitas*/
 Seguir por correo electrónico*/
 .follow-by-email-submit {
     text-indent: -9999px;
-    background: url(https://goo.gl/YoC0GJ) no-repeat center #00BCD4;
+    background: url(src/email.png) no-repeat center #00BCD4;
     width: 50px;
     margin-left: 10px;
 }
@@ -562,7 +500,7 @@ Canal RSS */
 }
 .Feed ul > li .item-title:before {
     content: "";
-    background: url(https://goo.gl/konZFx) no-repeat center transparent;
+    background: url(src/rss.png) no-repeat center transparent;
     width: 18px;
     height: 18px;
     display: inline-block;
@@ -654,109 +592,8 @@ Formulario de contacto*/
 }
 /*end independent widgets*/
 
-/*all comments*/
-.comentarios {
-    position: relative;
-}
-.comentarios > h3 {
-    border-bottom: 5px solid rgba(0,0,0,0.05);
-    margin-bottom: 0.5em;
-    padding: 0.5em 0;
-    font-size: 1.2em;
-    color: rgba(0,0,0,0.5);
-}
-.comentarios > h3 > span {
-    font-weight: 700;
-}
-.comments-content {padding-top: 20px;}
-.comments-content .comment {
-    position: relative;
-    margin: 0 0 10px;
-}
-.avatar-image-container {
-    background: url("https://goo.gl/QJvbo0") no-repeat center center/cover #00bcd4;
-    float: left;
-    height: 60px;
-    overflow: hidden;
-    position: relative;
-    width: 60px;
-    box-sizing: initial;
-    margin: 0 15px 0 0;
-}
-.avatar-image-container > img {width: 100%;}
-.comments .comment-block {
-    background-color: rgba(0,0,0,0.05);
-    color: rgba(0,0,0,0.5);
-    font-size: 1em;
-    position: relative;
-    padding: 15px;
-    margin-left: 70px;
-}
-.avatar-image-container img[src="https://img1.blogblog.com/img/anon36.png"], 
-.avatar-image-container img[src="https://img2.blogblog.com/img/b36-rounded.png"]{opacity:0}
-.comment-header {
-    padding-bottom: 5px;
-}
-.comment-header .user {
-    font-weight: 700;
-    color: rgba(0,0,0,0.6);
-    font-style: normal;
-    margin-right: 5px;
-}
-.comment-header .user > a {
-	font-weight: 700;
-	color: rgba(0,0,0,0.6);
-}
-.comment-header .user > a:hover {
-    text-decoration: none;
-    color: rgba(0,0,0,0.8);
-}
-.comment-header .datetime a {
-    font-size: 0.9em;
-    color: rgba(0,0,0,0.4);
-}
-.comment-header .datetime a:hover {
-    text-decoration: none;
-    color: rgba(0,0,0,0.6);
-}
-/*fix comments*/
-.continue, .item-control, .loadmore {display:none}
-.comments .comments-replybox{border:0 none; width:100%}
-.comments .comment-replybox-thread, .comment-form {max-height: 280px;}
-.comments .comments-content .comment-thread ol {
-    list-style-type: none;
-    padding: 0;
-	margin: 0;
-    text-align: left;
-}
-/*replies*/
-.thread-toggle {
-    display: block;
-    text-align: right;
-    margin-bottom: 10px;
-}
-.thread-toggle a {
-    padding: 5px 20px;
-    background: rgba(0,0,0,0.4);
-    color: #fff;
-    display: inline-block;
-}
-.thread-toggle a:hover {
-    background: rgba(0,0,0,0.5);
-    text-decoration: none;
-}
-.comment-replies .avatar-image-container{width:45px;height:45px}
-.comment-replies .comment-block {margin-left: 55px;}
-.comment-replies, .comment-replybox-single {
-    margin-left: 2em;
-    margin-top: 0;
-}
-.thread-chrome.thread-collapsed {display:none}
-.thread-chrome.thread-expanded {display:block;}
-/*end comments*/
-
 /*fix core*/
 .widget-item-control, .item-control.blog-admin {
     display: none;
 }
-/*!-- End Blogger core --*/
+/*-- End Blogger core --*/
