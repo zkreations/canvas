@@ -1,4 +1,4 @@
-/*! Blogger core/canvas 1.0.1 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - date: 01/10/2016 */
+﻿/*! Blogger core/canvas 1.0.1 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - date: 01/10/2016 */
 
 /*Independent widgets*/
 /* Top entry
@@ -194,7 +194,7 @@ ul.hierarchy, ul.posts {
 
 /*Image
 Imagen*/
-.widget.Image a > img {
+.widget.Image img {
     height: auto;
     width: auto;
 }
