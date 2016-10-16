@@ -3,7 +3,7 @@
 <html class='v2 no-js' expr:dir='data:blog.languageDirection' lang='es' prefix='og: http://ogp.me/ns# article: http://ogp.me/ns/article#'>
 
 <head>
-<!-- Canvas 1.0.4 -->
+<!-- Canvas 1.0.5 -->
 <!-- Meta content-type está obsoleta, usamos charset -->
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
@@ -208,16 +208,16 @@ etiquetas meta [avanzado] ///-->
 <b:else/>
 
 <div class='main-entry left'><!-- Entradas -->
-<b:section class='locked' id='Entradas' showaddelement='no'>
-  <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' version='1' visible='true'>
+<b:section id='Blog'>
+  <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' visible='true'>
     <b:includable id='main' var='top'>
 
-		<b:if cond='data:blog.pageType in {&quot;index&quot;, &quot;archive&quot;}'>
+		<b:if cond='data:blog.pageType == &quot;index&quot;'>
       		<b:loop values='data:posts' var='post'>
 				<!-- insertamos entradas -->
         		<b:include data='post' name='post'/>
 			</b:loop>
-			<b:include cond='data:blog.pageType == &quot;index&quot;' name='nextprev'/>
+			<b:include name='nextprev'/>
 		<b:else/>
 			<b:loop values='data:posts' var='post'>
 				<!-- insertamos entradas -->
@@ -706,6 +706,6 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 </b:if><!-- Fin Error -->
 
 <b:include data='blog' name='google-analytics'/><!-- Google Analytics -->
-</body>
+&lt;!--</body>--&gt;&lt;/body&gt;
 
 </html>

@@ -1,5 +1,9 @@
 # Canvas.xml Changelog
 
+### Canvas 1.0.5 [16/10/2016]
+
+* fix al error "no-items".
+
 ### Canvas 1.0.4 [11/10/2016]
 
 * Agregado texto "default" para forzar la validacion de las twitter card
