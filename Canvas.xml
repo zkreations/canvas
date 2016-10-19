@@ -3,7 +3,7 @@
 <html class='v2 no-js' expr:dir='data:blog.languageDirection' lang='es' prefix='og: http://ogp.me/ns# article: http://ogp.me/ns/article#'>
 
 <head>
-<!-- Canvas 1.0.5 -->
+<!-- Canvas 1.0.6 -->
 <!-- Meta content-type está obsoleta, usamos charset -->
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
@@ -222,21 +222,15 @@ etiquetas meta [avanzado] ///-->
 			<b:loop values='data:posts' var='post'>
 				<!-- insertamos entradas -->
         		<b:include data='post' name='post'/>
-				<!-- insertamos Comentarios solo en post y paginas -->
-
-        		<b:if cond='data:blog.pageType in {&quot;item&quot;, &quot;static_page&quot;}'>
+				<!-- insertamos Comentarios -->
 				<div class='comentarios'>
-
 				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
                   	<h3><span><data:post.numComments/></span> Comentario<b:if cond='data:post.numComments &gt; 1'>s</b:if></h3>
           			<b:include data='post' name='comment_picker'/>
-				<b:else/><!-- Caso contrario -->
-					<b:if cond='data:blog.pageType == &quot;item&quot;'>
-          				<span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
-					</b:if>
+				<b:elseif cond='data:blog.pageType == &quot;item&quot;'/><!-- Caso contrario -->
+                    <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
 				</b:if>
           		</div>
-        		</b:if>
 			</b:loop>
 		</b:if>
 
