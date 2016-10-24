@@ -3,7 +3,7 @@
 <html class='v2 no-js' expr:dir='data:blog.languageDirection' lang='es' prefix='og: http://ogp.me/ns# article: http://ogp.me/ns/article#'>
 
 <head>
-<!-- Canvas 1.0.6 | BCore 1.0.1 -->
+<!-- Canvas 1.0.7 | BCore 1.0.1 -->
 <!-- Meta content-type está obsoleta, usamos charset -->
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
@@ -22,7 +22,6 @@
 
 <!-- Scalable device -->
 <meta content='width=device-width, initial-scale=1, user-scalable=no' name='viewport'/>
-<meta content='blogger' name='generator'/>
 
 <!-- License -->
 <link href='http://www.zkreations.com/p/mit-license.html' rel='license'/>
@@ -48,13 +47,13 @@
 		<b:if cond='data:blog.pageType == &quot;index&quot;'>
 			<b:if cond='data:blog.homepageUrl == data:blog.url'>
 				<meta content='index,follow' name='robots'/>
-				<meta content='noodp' name='robots'/>
+				<meta content='noodp,noydir' name='robots'/>
 			<b:else/>
 				<meta content='noindex,nofollow' name='robots'/>
 			</b:if>
 		<b:else/>
 			<meta content='index,follow' name='robots'/>
-			<meta content='noodp' name='robots'/>
+			<meta content='noodp,noydir' name='robots'/>
 		</b:if>
 	</b:if>
 </b:if>
