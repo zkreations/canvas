@@ -1,5 +1,10 @@
 # Canvas.xml Changelog
 
+### Canvas 1.0.7 [24/10/2016]
+
+* Añadido "noodp, NOYDIR" a los meta tipo "robots".
+* Arreglado los meta tipo "generator" duplicados.
+
 ### Canvas 1.0.5 [16/10/2016]
 
 * fix al error "no-items".
