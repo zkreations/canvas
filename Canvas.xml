@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html class='v2 no-js' expr:dir='data:blog.languageDirection' lang='es' prefix='og: http://ogp.me/ns# article: http://ogp.me/ns/article#'>
+<html lang='es'>
 
 <head>
-<!-- Canvas 1.0.7 -->
-<!-- Meta content-type está obsoleta, usamos charset -->
+<!-- Canvas 1.0.12 -->
+<meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
 <b:if cond='data:blog.url == data:blog.homepageUrl'>
 	<meta content='blog' property='og:type'/>
-<b:elseif cond='data:blog.pageType == &quot;item&quot;'/>
+<b:elseif cond='data:blog.pageType == "item"'/>
 	<meta content='article' property='og:type'/>
 </b:if>
 
@@ -21,30 +21,29 @@
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
 <!-- Scalable device -->
-<meta content='width=device-width, initial-scale=1, user-scalable=no' name='viewport'/>
+<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
 <!-- License -->
 <link href='http://www.zkreations.com/p/mit-license.html' rel='license'/>
 
-<!-- Descripcion y Metakeywords -->
+<!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
 	<meta expr:content='data:blog.metaDescription' property='og:description'/>
 	<meta expr:content='data:blog.metaDescription' name='description'/>
 	<meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+    <meta expr:content='data:blog.metaDescription' name='DC.description'/>
 <b:else/>
-	<meta expr:content='data:blog.pageName + &quot; : Entra para leer el articulo completo.&quot;' name='twitter:description'/>
+	<meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
-<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
-
 <!-- Añadiendo follow Robots solo a post e index -->
-<b:if cond='data:blog.pageType == &quot;archive&quot;'>
+<b:if cond='data:blog.pageType == "archive"'>
 	<meta content='noindex,nofollow' name='robots'/>
 <b:else/>
-	<b:if cond='data:blog.pageType == &quot;error_page&quot;'>
+	<b:if cond='data:blog.pageType == "error_page"'>
 		<meta content='noindex,nofollow' name='robots'/>
 	<b:else/>
-		<b:if cond='data:blog.pageType == &quot;index&quot;'>
+		<b:if cond='data:blog.pageType == "index"'>
 			<b:if cond='data:blog.homepageUrl == data:blog.url'>
 				<meta content='index,follow' name='robots'/>
 				<meta content='noodp,noydir' name='robots'/>
@@ -59,7 +58,7 @@
 </b:if>
 
 <!-- Optimizando los post -->
-<b:if cond='data:blog.pageType == &quot;item&quot;'>
+<b:if cond='data:blog.pageType == "item"'>
 	<!-- La primera imagen del post -->
 	<b:if cond='data:blog.postImageUrl'>
 		<link expr:href='data:blog.postImageUrl' rel='image_src'/>
@@ -75,16 +74,15 @@
 	</b:if>
 </b:if>
 
-<!-- Clasificacion de la Pagina -->
-<meta content='general' name='rating'/>
-
 <!-- Optimizando Titulos -->
-<b:if cond='data:blog.pageType == &quot;error_page&quot;'>
+<meta expr:content='data:blog.title' name='DC.Publisher'/>
+<b:if cond='data:blog.pageType == "error_page"'>
 	<title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
 	<b:if cond='data:blog.url != data:blog.homepageUrl'>
 		<meta expr:content='data:blog.pageName' property='og:title'/>
 		<meta expr:content='data:blog.pageName' name='twitter:title'/>
+        <meta expr:content='data:blog.pageName' name='DC.title'/>
 		<b:if cond='data:blog.pageName'>
 			<title><data:blog.pageName/></title>
 		<b:else/>
@@ -93,6 +91,7 @@
 	<b:else/>
 		<meta expr:content='data:blog.pageTitle' property='og:title'/>
 		<meta expr:content='data:blog.pageTitle' name='twitter:title'/>
+        <meta expr:content='data:blog.pageTitle' name='DC.title'/>
 		<title><data:blog.pageTitle/></title>
 	</b:if>
 </b:if>
@@ -101,31 +100,28 @@
 etiquetas meta [avanzado] ///-->
 
 <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
+<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
 <meta content='@blogger' name='twitter:site'/>
 <meta content='@google' name='twitter:creator'/>
+<meta content='TuNombre' name='DC.Creator'/>
 
 <!-- Fin de etiquetas meta -->
 
-<!-- Incluimos los datos de blogger para SEO -->
+<!-- Incluimos los datos de blogger -->
 <!-- favicon -->
 <b:if cond='data:blog.blogspotFaviconUrl'>
 	<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 </b:if>
 
-<!-- Link rel=me si existe -->
-<b:if cond='data:blog.meTag'>
-	<data:blog.meTag/>
-</b:if>
-
 <!-- feeds -->
 <b:if cond='data:blog.feedLinks'>
-<link expr:href='data:blog.homepageUrl + &quot;feeds/posts/default&quot;' expr:title='data:blog.title + &quot; - Atom&quot;' rel='alternate' type='application/atom+xml'/>
-<link expr:href='data:blog.homepageUrl + &quot;feeds/posts/default?alt=rss&quot;' expr:title='data:blog.title + &quot; - RSS&quot;' rel='alternate' type='application/rss+xml'/>
+<link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
+<link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
 </b:if>
 
 <!-- schema ld+json -->
 <script type='application/ld+json'>
-{&quot;@context&quot;:&quot;http://schema.org&quot;,&quot;@type&quot;:&quot;WebSite&quot;,&quot;name&quot;:&quot;<data:blog.title/>&quot;,&quot;url&quot;:&quot;<data:blog.homepageUrl/>&quot;,&quot;potentialAction&quot;:{&quot;@type&quot;:&quot;SearchAction&quot;,&quot;target&quot;:&quot;<data:blog.homepageUrl/>search?q={search_term_string}&quot;,&quot;query-input&quot;:&quot;required name=search_term_string&quot;}}
+{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
 <!-- HTML5 para IE9 -->
@@ -137,64 +133,51 @@ etiquetas meta [avanzado] ///-->
 &lt;style id=&#39;page-skin-1&#39;&gt;/*
 <b:skin><![CDATA[*/
 /*Core Style*/
+
 /*Design: admin blog layoud*/
 .left {float: left;width: 50%;}
 .right {float: right;width: 50%;}
 ]]></b:skin>
 
 <!--Global-->
-<style type='text/css'>
-/*<![CDATA[*/
+<style type='text/css'>/*<![CDATA[*/
 
-/*]]>*/
-</style>
+/*]]>*/</style>
 
-<b:if cond='data:blog.pageType == &quot;index&quot;'><!--Index-->
-<style type='text/css'>
-/*<![CDATA[*/
+<b:if cond='data:blog.pageType == "index"'><!--Index-->
+<style type='text/css'>/*<![CDATA[*/
 
-/*]]>*/
-</style>
+/*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType != &quot;index&quot;'><!--Todo menos Index-->
-<style type='text/css'>
-/*<![CDATA[*/
+<b:if cond='data:blog.pageType != "index"'><!--Todo menos Index-->
+<style type='text/css'>/*<![CDATA[*/
 
-/*]]>*/
-</style>
+/*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType == &quot;item&quot;'><!--Entradas-->
-<style type='text/css'>
-/*<![CDATA[*/
+<b:if cond='data:blog.pageType == "item"'><!--Entradas-->
+<style type='text/css'>/*<![CDATA[*/
 
-/*]]>*/
-</style>
+/*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType == &quot;static_page&quot;'><!--Paginas Estaticas-->
-<style type='text/css'>
-/*<![CDATA[*/
+<b:if cond='data:blog.pageType == "static_page"'><!--Paginas Estaticas-->
+<style type='text/css'>/*<![CDATA[*/
 
-/*]]>*/
-</style>
+/*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType == &quot;archive&quot;'><!--Archive-->
-<style type='text/css'>
-/*<![CDATA[*/
+<b:if cond='data:blog.pageType == "archive"'><!--Archive-->
+<style type='text/css'>/*<![CDATA[*/
 
-/*]]>*/
-</style>
+/*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType == &quot;error_page&quot;'><!--404-->
-<style type='text/css'>
-/*<![CDATA[*/
+<b:if cond='data:blog.pageType == "error_page"'><!--404-->
+<style type='text/css'>/*<![CDATA[*/
 
-/*]]>*/
-</style>
+/*]]>*/</style>
 </b:if>
 
 &lt;!-- </head> --&gt;&lt;/head&gt;
@@ -202,34 +185,34 @@ etiquetas meta [avanzado] ///-->
 <body>
 
 
-<b:if cond='data:blog.pageType == &quot;error_page&quot;'><!-- Error -->
+<b:if cond='data:blog.pageType == "error_page"'><!-- Error -->
 <!-- Tu error 404 -->
 <b:else/>
 
-<div class='main-entry left'><!-- Entradas -->
+<!-- Entradas -->
 <b:section id='Blog'>
   <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' visible='true'>
     <b:includable id='main' var='top'>
 
-		<b:if cond='data:blog.pageType == &quot;index&quot;'>
+		<b:if cond='data:blog.pageType == "index"'>
       		<b:loop values='data:posts' var='post'>
-				<!-- insertamos entradas -->
-        		<b:include data='post' name='post'/>
+        		<b:include data='post' name='post'/><!-- insertamos entradas -->
 			</b:loop>
 			<b:include name='nextprev'/>
 		<b:else/>
 			<b:loop values='data:posts' var='post'>
-				<!-- insertamos entradas -->
-        		<b:include data='post' name='post'/>
+        		<b:include data='post' name='post'/><!-- insertamos entradas -->
+        		
 				<!-- insertamos Comentarios -->
 				<div class='comentarios'>
 				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
                   	<h3><span><data:post.numComments/></span> Comentario<b:if cond='data:post.numComments &gt; 1'>s</b:if></h3>
           			<b:include data='post' name='comment_picker'/>
-				<b:elseif cond='data:blog.pageType == &quot;item&quot;'/><!-- Caso contrario -->
+				<b:elseif cond='data:blog.pageType == "item"'/><!-- Caso contrario -->
                     <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
 				</b:if>
           		</div>
+          		
 			</b:loop>
 		</b:if>
 
@@ -251,7 +234,7 @@ etiquetas meta [avanzado] ///-->
   </div>
 </b:includable>
     <b:includable id='commentDeleteIcon' var='comment'>
-  <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+  <span expr:class='"item-control " + data:comment.adminClass'>
     <b:if cond='data:showCmtPopup'>
       <div class='goog-toggle-button'>
         <div class='goog-inline-block comment-action-icon'/>
@@ -286,7 +269,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
   		<b:else/>
     		<b:include data='post' name='comments'/>
   		</b:if>
-		<b:include cond='data:blog.pageType in {&quot;item&quot;, &quot;static_page&quot;}' name='comment_fix'/>
+		<b:include cond='data:blog.pageType in {"item", "static_page"}' name='comment_fix'/>
 	</b:includable>
     <b:includable id='comments' var='post'>
   <div class='comments' id='comments'>
@@ -312,10 +295,10 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
         </span>
       </b:if>
 
-      <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+      <div expr:id='data:widget.instanceId + "_comments-block-wrapper"'>
         <dl expr:class='data:post.avatarIndentClass' id='comments-block'>
           <b:loop values='data:post.comments' var='comment'>
-            <dt expr:class='&quot;comment-author &quot; + data:comment.authorClass' expr:id='data:comment.anchorName'>
+            <dt expr:class='"comment-author " + data:comment.authorClass' expr:id='data:comment.anchorName'>
               <b:if cond='data:comment.favicon'>
                 <img expr:src='data:comment.favicon' height='16px' style='margin-bottom:-2px;' width='16px'/>
               </b:if>
@@ -391,14 +374,14 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
     </b:if>
 
     <div id='backlinks-container'>
-    <div expr:id='data:widget.instanceId + &quot;_backlinks-container&quot;'>
+    <div expr:id='data:widget.instanceId + "_backlinks-container"'>
        <b:include cond='data:post.showBacklinks' data='post' name='backlinks'/>
     </div>
     </div>
   </div>
 </b:includable>
     <b:includable id='feedLinks'>
-  <b:if cond='data:blog.pageType != &quot;item&quot;'> <!-- Blog feed links -->
+  <b:if cond='data:blog.pageType != "item"'> <!-- Blog feed links -->
     <b:if cond='data:feedLinks'>
       <div class='blog-feeds'>
         <b:include data='feedLinks' name='feedLinksBody'/>
@@ -425,7 +408,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
   </b:loop>
   </div>
 </b:includable>
-    <b:includable id='iframe_comments' var='post'><b:if cond='data:post.allowIframeComments'><script expr:src='data:post.iframeCommentSrc' type='text/javascript'/><div class='cmt_iframe_holder' expr:data-href='data:post.canonicalUrl' expr:data-viewtype='data:post.viewType'/><b:if cond='data:post.embedCommentForm == &quot;false&quot;'><a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:postCommentMsg/></a></b:if></b:if></b:includable>
+    <b:includable id='iframe_comments' var='post'><b:if cond='data:post.allowIframeComments'><script expr:src='data:post.iframeCommentSrc' type='text/javascript'/><div class='cmt_iframe_holder' expr:data-href='data:post.canonicalUrl' expr:data-viewtype='data:post.viewType'/><b:if cond='data:post.embedCommentForm == "false"'><a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:postCommentMsg/></a></b:if></b:if></b:includable>
     <b:includable id='mobile-index-post' var='post'><!-- Vacío--></b:includable>
     <b:includable id='mobile-main' var='top'><!--Vacío--></b:includable>
     <b:includable id='mobile-nextprev'><!-- Vacío--></b:includable>
@@ -459,11 +442,11 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
     <b:includable id='postQuickEdit' var='post'><!--Vacío--></b:includable>
     <b:includable id='shareButtons' var='post'>
 	<div class='share'>
-		<a class='fb' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' rel='nofollow' target='_blank'/>
-		<a class='tt' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url' rel='nofollow' target='_blank'/>
-		<a class='gg' expr:href='&quot;https://plus.google.com/share?url=&quot; + data:post.url' rel='nofollow' target='_blank'/>
-		<a class='pt' expr:href='&quot;https://pinterest.com/pin/create/button/?url=&quot; + data:post.url + &quot;&amp;media=&quot; + data:post.firstImageUrl' rel='nofollow' target='_blank'/>
-		<a class='tb' expr:href='&quot;https://www.tumblr.com/share/photo?url=&quot; + data:post.firstImageUrl + &quot;&amp;caption=&quot; + data:post.url' rel='nofollow' target='_blank'/>
+		<a class='fb' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url' rel='nofollow' target='_blank'/>
+		<a class='tt' expr:href='"https://twitter.com/intent/tweet?url=" + data:post.url' rel='nofollow' target='_blank'/>
+		<a class='gg' expr:href='"https://plus.google.com/share?url=" + data:post.url' rel='nofollow' target='_blank'/>
+		<a class='pt' expr:href='"https://pinterest.com/pin/create/button/?url=" + data:post.url + "&amp;media=" + data:post.firstImageUrl' rel='nofollow' target='_blank'/>
+		<a class='tb' expr:href='"https://www.tumblr.com/share/photo?url=" + data:post.firstImageUrl + "&amp;caption=" + data:post.url' rel='nofollow' target='_blank'/>
 	</div>
 	</b:includable>
     <b:includable id='status-message'><!--Vacío--></b:includable>
@@ -687,7 +670,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
     </b:if>
 
     <div id='backlinks-container'>
-    <div expr:id='data:widget.instanceId + &quot;_backlinks-container&quot;'>
+    <div expr:id='data:widget.instanceId + "_backlinks-container"'>
       <b:include cond='data:post.showBacklinks' data='post' name='backlinks'/>
     </div>
     </div>
@@ -695,7 +678,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 </b:includable>
   </b:widget>
 </b:section>
-</div>
+
 </b:if><!-- Fin Error -->
 
 <b:include data='blog' name='google-analytics'/><!-- Google Analytics -->

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html class='v2 no-js' expr:dir='data:blog.languageDirection' lang='es' prefix='og: http://ogp.me/ns# article: http://ogp.me/ns/article#'>
+<html lang='es'>
 
 <head>
-<!-- Canvas 1.0.7 | BCore 1.0.1 -->
-<!-- Meta content-type está obsoleta, usamos charset -->
+<!-- Canvas 1.0.12 -->
+<meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
 <b:if cond='data:blog.url == data:blog.homepageUrl'>
 	<meta content='blog' property='og:type'/>
-<b:elseif cond='data:blog.pageType == &quot;item&quot;'/>
+<b:elseif cond='data:blog.pageType == "item"'/>
 	<meta content='article' property='og:type'/>
 </b:if>
 
@@ -21,30 +21,29 @@
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
 <!-- Scalable device -->
-<meta content='width=device-width, initial-scale=1, user-scalable=no' name='viewport'/>
+<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
 <!-- License -->
 <link href='http://www.zkreations.com/p/mit-license.html' rel='license'/>
 
-<!-- Descripcion y Metakeywords -->
+<!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
 	<meta expr:content='data:blog.metaDescription' property='og:description'/>
 	<meta expr:content='data:blog.metaDescription' name='description'/>
 	<meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+    <meta expr:content='data:blog.metaDescription' name='DC.description'/>
 <b:else/>
-	<meta expr:content='data:blog.pageName + &quot; : Entra para leer el articulo completo.&quot;' name='twitter:description'/>
+	<meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
-<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
-
 <!-- Añadiendo follow Robots solo a post e index -->
-<b:if cond='data:blog.pageType == &quot;archive&quot;'>
+<b:if cond='data:blog.pageType == "archive"'>
 	<meta content='noindex,nofollow' name='robots'/>
 <b:else/>
-	<b:if cond='data:blog.pageType == &quot;error_page&quot;'>
+	<b:if cond='data:blog.pageType == "error_page"'>
 		<meta content='noindex,nofollow' name='robots'/>
 	<b:else/>
-		<b:if cond='data:blog.pageType == &quot;index&quot;'>
+		<b:if cond='data:blog.pageType == "index"'>
 			<b:if cond='data:blog.homepageUrl == data:blog.url'>
 				<meta content='index,follow' name='robots'/>
 				<meta content='noodp,noydir' name='robots'/>
@@ -59,7 +58,7 @@
 </b:if>
 
 <!-- Optimizando los post -->
-<b:if cond='data:blog.pageType == &quot;item&quot;'>
+<b:if cond='data:blog.pageType == "item"'>
 	<!-- La primera imagen del post -->
 	<b:if cond='data:blog.postImageUrl'>
 		<link expr:href='data:blog.postImageUrl' rel='image_src'/>
@@ -75,16 +74,15 @@
 	</b:if>
 </b:if>
 
-<!-- Clasificacion de la Pagina -->
-<meta content='general' name='rating'/>
-
 <!-- Optimizando Titulos -->
-<b:if cond='data:blog.pageType == &quot;error_page&quot;'>
+<meta expr:content='data:blog.title' name='DC.Publisher'/>
+<b:if cond='data:blog.pageType == "error_page"'>
 	<title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
 	<b:if cond='data:blog.url != data:blog.homepageUrl'>
 		<meta expr:content='data:blog.pageName' property='og:title'/>
 		<meta expr:content='data:blog.pageName' name='twitter:title'/>
+        <meta expr:content='data:blog.pageName' name='DC.title'/>
 		<b:if cond='data:blog.pageName'>
 			<title><data:blog.pageName/></title>
 		<b:else/>
@@ -93,6 +91,7 @@
 	<b:else/>
 		<meta expr:content='data:blog.pageTitle' property='og:title'/>
 		<meta expr:content='data:blog.pageTitle' name='twitter:title'/>
+        <meta expr:content='data:blog.pageTitle' name='DC.title'/>
 		<title><data:blog.pageTitle/></title>
 	</b:if>
 </b:if>
@@ -101,31 +100,28 @@
 etiquetas meta [avanzado] ///-->
 
 <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
+<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
 <meta content='@blogger' name='twitter:site'/>
 <meta content='@google' name='twitter:creator'/>
+<meta content='TuNombre' name='DC.Creator'/>
 
 <!-- Fin de etiquetas meta -->
 
-<!-- Incluimos los datos de blogger para SEO -->
+<!-- Incluimos los datos de blogger -->
 <!-- favicon -->
 <b:if cond='data:blog.blogspotFaviconUrl'>
 	<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 </b:if>
 
-<!-- Link rel=me si existe -->
-<b:if cond='data:blog.meTag'>
-	<data:blog.meTag/>
-</b:if>
-
 <!-- feeds -->
 <b:if cond='data:blog.feedLinks'>
-<link expr:href='data:blog.homepageUrl + &quot;feeds/posts/default&quot;' expr:title='data:blog.title + &quot; - Atom&quot;' rel='alternate' type='application/atom+xml'/>
-<link expr:href='data:blog.homepageUrl + &quot;feeds/posts/default?alt=rss&quot;' expr:title='data:blog.title + &quot; - RSS&quot;' rel='alternate' type='application/rss+xml'/>
+<link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
+<link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
 </b:if>
 
 <!-- schema ld+json -->
 <script type='application/ld+json'>
-{&quot;@context&quot;:&quot;http://schema.org&quot;,&quot;@type&quot;:&quot;WebSite&quot;,&quot;name&quot;:&quot;<data:blog.title/>&quot;,&quot;url&quot;:&quot;<data:blog.homepageUrl/>&quot;,&quot;potentialAction&quot;:{&quot;@type&quot;:&quot;SearchAction&quot;,&quot;target&quot;:&quot;<data:blog.homepageUrl/>search?q={search_term_string}&quot;,&quot;query-input&quot;:&quot;required name=search_term_string&quot;}}
+{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
 <!-- HTML5 para IE9 -->
