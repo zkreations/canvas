@@ -1,6 +1,6 @@
 # Canvas.xml Changelog
 
-### Canvas 1.0.12 [24/10/2016]
+### Canvas 1.0.12 [03/11/2016]
 
 * Añadido Dublin Core Metadata
 * Reemplazo de la etiqueta html (arriba del head) por html5 valido.
