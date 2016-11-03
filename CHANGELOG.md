@@ -1,5 +1,13 @@
 # Canvas.xml Changelog
 
+### Canvas 1.0.12 [24/10/2016]
+
+* Añadido Dublin Core Metadata
+* Reemplazo de la etiqueta html (arriba del head) por html5 valido.
+* Se elimino data:blog.meTag (desuso)
+* Se elimino metaTag rating (desuso)
+* Pequeñas mejoras en el codigo para comodidad.
+
 ### Canvas 1.0.7 [24/10/2016]
 
 * Añadido "noodp, NOYDIR" a los meta tipo "robots".
