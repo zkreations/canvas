@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+﻿<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html lang='es'>
 
@@ -137,6 +137,8 @@ etiquetas meta [avanzado] ///-->
 /*Design: admin blog layoud*/
 .left {float: left;width: 50%;}
 .right {float: right;width: 50%;}
+.item-control.blog-admin,
+.widget-item-control {display: none;}
 ]]></b:skin>
 
 <!--Global-->

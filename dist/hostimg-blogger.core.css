@@ -1,4 +1,4 @@
-/*! Blogger core/canvas 1.0.1 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - Date [first version]: 01/10/2016 */
+﻿/*! Blogger core/canvas 1.0.2 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - Date [first version]: 01/10/2016 */
 
 /*Independent widgets*/
 /* Top entry
@@ -627,8 +627,4 @@ Formulario de contacto*/
     font-weight: 700;
     font-size: .9em;
     color: #fff;
-}
-.item-control.blog-admin,
-.widget-item-control {
-    display: none;
 }
