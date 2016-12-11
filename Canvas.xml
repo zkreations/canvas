@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
 <html lang='es'>
 
 <head>
-<!-- Canvas 1.0.12 -->
+<!-- Canvas 1.0.14 -->
 <meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
@@ -23,16 +23,13 @@
 <!-- Scalable device -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
-<!-- License -->
-<link href='http://www.zkreations.com/p/mit-license.html' rel='license'/>
-
 <!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
 	<meta expr:content='data:blog.metaDescription' property='og:description'/>
 	<meta expr:content='data:blog.metaDescription' name='description'/>
 	<meta expr:content='data:blog.metaDescription' name='twitter:description'/>
     <meta expr:content='data:blog.metaDescription' name='DC.description'/>
-<b:else/>
+<b:elseif cond='data:blog.pageType != "index"'/>
 	<meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
@@ -130,62 +127,49 @@ etiquetas meta [avanzado] ///-->
 <![endif]-->
 <!-- Fin de datos-->
 
-&lt;style id=&#39;page-skin-1&#39;&gt;/*
+&lt;style&gt;/*
 <b:skin><![CDATA[*/
-/*Core Style*/
+/*! Core Style */
 
-/*Design: admin blog layoud*/
+/*Design: admin blog*/
 .left {float: left;width: 50%;}
 .right {float: right;width: 50%;}
+
 .item-control.blog-admin,
 .widget-item-control {display: none;}
 ]]></b:skin>
 
-<!--Global-->
 <style type='text/css'>/*<![CDATA[*/
-
+	/*-- 
+	=> GLOBAL 
+	--*/
 /*]]>*/</style>
 
-<b:if cond='data:blog.pageType == "index"'><!--Index-->
+<b:if cond='data:blog.pageType == "index"'>
 <style type='text/css'>/*<![CDATA[*/
-
+	/*-- 
+	=> INDEX 
+	--*/
 /*]]>*/</style>
-</b:if>
-
-<b:if cond='data:blog.pageType != "index"'><!--Todo menos Index-->
+<b:else/>
 <style type='text/css'>/*<![CDATA[*/
-
-/*]]>*/</style>
-</b:if>
-
-<b:if cond='data:blog.pageType == "item"'><!--Entradas-->
-<style type='text/css'>/*<![CDATA[*/
-
+	/*-- 
+	=> TODO MENOS INDEX 
+	--*/
 /*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType == "static_page"'><!--Paginas Estaticas-->
+<b:if cond='data:blog.pageType == "item"'>
 <style type='text/css'>/*<![CDATA[*/
-
+	/*-- 
+	=> ENTRADAS
+	--*/
 /*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType == "archive"'><!--Archive-->
-<style type='text/css'>/*<![CDATA[*/
-
-/*]]>*/</style>
-</b:if>
-
-<b:if cond='data:blog.pageType == "error_page"'><!--404-->
-<style type='text/css'>/*<![CDATA[*/
-
-/*]]>*/</style>
-</b:if>
-
-&lt;!-- </head> --&gt;&lt;/head&gt;
+</head>
 
 <body>
-
 
 <b:if cond='data:blog.pageType == "error_page"'><!-- Error -->
 <!-- Tu error 404 -->
@@ -210,7 +194,7 @@ etiquetas meta [avanzado] ///-->
 				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
                   	<h3><span><data:post.numComments/></span> Comentario<b:if cond='data:post.numComments &gt; 1'>s</b:if></h3>
           			<b:include data='post' name='comment_picker'/>
-				<b:elseif cond='data:blog.pageType == "item"'/><!-- Caso contrario -->
+				<b:else/><!-- Caso contrario -->
                     <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
 				</b:if>
           		</div>
@@ -471,7 +455,6 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
       var items = <data:post.commentJso/>;
       var msgs = <data:post.commentMsgs/>;
       var config = <data:post.commentConfig/>;
-
 // <![CDATA[
       var cursor = null;
       if (items && items.length > 0) {
@@ -683,7 +666,8 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 
 </b:if><!-- Fin Error -->
 
-<b:include data='blog' name='google-analytics'/><!-- Google Analytics -->
+<!-- Google Analytics -->
+<b:include data='blog' name='google-analytics'/>
 &lt;!--</body>--&gt;&lt;/body&gt;
 
 </html>

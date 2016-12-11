@@ -1,4 +1,11 @@
-# Canvas.xml Changelog
+# Changelog.md
+
+## Canvas.xml Changelog
+
+### Canvas 1.0.14 [01/12/2016]
+
+* Solucion a pequeño detalle al compartir la pagiha principal en twitter
+* Pequeña reducción del codigo
 
 ### Canvas 1.0.12 [03/11/2016]
 
@@ -32,7 +39,7 @@
 * Primera version
 
 
-# BCore.css Changelog
+## BCore.css Changelog
 
 ### BCore.css 1.0.1 [06/10/2016]
 

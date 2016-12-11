@@ -1,8 +1,0 @@
-{
-  "packageManager": "github",
-  "name": "blogger.core",
-  "repo": "zkreations/blogger-core",
-  "files": {
-    "include": ["dist/blogger.core.css", "dist/blogger.core.min.css"]
-  }
-}

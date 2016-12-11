@@ -1,47 +1,48 @@
-# BloggerCore
+# Blogger-core
 
-# Changelog.md
+Canvas te proporciona una base para blogger limpia, eliminando el código css/javascript por defecto, integra facebook Open Graph, twitter card y metadatos necesarios que mejoran el SEO. Una gran opción para empezar a diseñar en blogger desde 0. 
 
-## Canvas.xml Changelog
+### Ventajas de usar Canvas
 
-### Canvas 1.0.12 [03/11/2016]
+Es mucho mas fácil diseñar para blogger e incluso puedes hacerlo en local. Tus diseños pueden ser como que tu quieras debido a la exclusión del código de blogger, el limite está en tu imaginación. Con canvas.xml es fácil lograr un blog con una velocidad de carga optima. Para tener un ejemplo claro, los siguientes blogs usan **Canvas** y pasaron por diferentes test de velocidad: 
 
-* Añadido Dublin Core Metadata
-* Reemplazo de la etiqueta html (arriba del head) por html5 valido.
-* Se elimino data:blog.meTag (desuso)
-* Se elimino metaTag rating (desuso)
-* Pequeñas mejoras en el codigo para comodidad.
+* [zkreations](http://www.zkreations.com/) usa Canvas.nano 1.0.14 - [PageSpeed](https://goo.gl/ldwghm) [thinkwithgoogle](https://goo.gl/7hAh2S) [pingdom](https://goo.gl/sWuryK)
 
-### Canvas 1.0.7 [24/10/2016]
+## Formas de uso
 
-* Añadido "noodp, NOYDIR" a los meta tipo "robots".
-* Arreglado los meta tipo "generator" duplicados.
+Hay 3 distintas formas de usar Canvas, las cuales son **Canvas**, **Canvas.core** y **Canvas.nano**.
 
-### Canvas 1.0.5 [16/10/2016]
+### Canvas.xml
 
-* fix al error "no-items".
+Base que elimina todo el código css/javascript y la mayor parte del código propio de blogger, solo conserva los comentarios nativos. 
 
-### Canvas 1.0.4 [11/10/2016]
+### Canvas.core.xml
 
-* Agregado texto "default" para forzar la validacion de las twitter card
-* Organización del código css mas práctica.
+Base que elimina todo el código css y la mayor parte del código de blogger, pero conserva javascript y los comentarios nativos. También cuenta con **blogger.core.css**, desarrollado por daniel, el cual re-diseña los widgets de blogger. 
 
-### Canvas 1.0.2 [03/10/2016]
+### Canvas.nano.xml
 
-* Se agrego schema ld+json como recurso para indexar
-* Se agregaron los datos estructurados del tipo microdatos (solo incluidos en plantillas open source)
+Base que elimina por completo el código css/javascript de blogger, y reemplaza los comentarios nativos por **disqus** y **facebook** (a elección). **Canvas.nano** es la versión mas pequeña de las 3 opciones.
 
-### Canvas 1.0.0 [01/10/2016]
+## Instalación
 
-* Primera version
+Descarga **Canvas**, **Canvas.core** o **Canvas.nano**, abre el archivo de tu elección con cualquier editor de texto (hasta blog de notas sirve) y copia todo el contenido. Ahora ve a blogger, crea un nuevo blog con cualquier diseño, luego ve a edición html y elimina todo el código dentro del editor, pega el código copiado con anterioridad y guarda los cambios.
 
+## Configuración solo para Canvas.nano
 
-## BCore.css Changelog
+En la linea **221** se encuentra el siguiente código:
 
-### BCore.css 1.0.1 [06/10/2016]
+```javascript
+b.src = "//[Shortname_DISQUS].disqus.com/embed.js";
+```
+Reemplazar `[Shortname_DISQUS]` por el nombre corto que se encuentra en tu panel de Disqus. Si deseas utilizar los **comentarios de facebook** en lugar de **Disqus** crea una [app en facebook](https://developers.facebook.com/apps/), luego dirígete a [Plugin de comentarios](https://developers.facebook.com/docs/plugins/comments/) y da clic en **Obtener código**, Solo copia **SDK para JavaScript** y pégalo debajo de `<body>` dentro de **Canvas.nano**. Por ultimo, busca esto: 
 
-* Fix widget imagen
+```html
+<b:include name='comment-disqus'/>
+```
 
-### BCore.css 1.0.0 [01/10/2016]
+Y Cambia **disqus** por **facebook**
 
-* Primera version
+## Licencia
+
+**Canvas**, **Canvas.core** and **Canvas.nano** is licensed under the GNU GENERAL PUBLIC LICENSE.
