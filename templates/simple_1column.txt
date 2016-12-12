@@ -3,7 +3,7 @@
 <html lang='es'>
 
 <head>
-<!-- Canvas 1.0.12 -->
+<!-- Canvas.core 1.0.14 -->
 <meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
@@ -23,16 +23,13 @@
 <!-- Scalable device -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
-<!-- License -->
-<link href='http://www.zkreations.com/p/mit-license.html' rel='license'/>
-
 <!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
 	<meta expr:content='data:blog.metaDescription' property='og:description'/>
 	<meta expr:content='data:blog.metaDescription' name='description'/>
 	<meta expr:content='data:blog.metaDescription' name='twitter:description'/>
     <meta expr:content='data:blog.metaDescription' name='DC.description'/>
-<b:else/>
+<b:elseif cond='data:blog.pageType != "index"'/>
 	<meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
@@ -130,7 +127,7 @@ etiquetas meta [avanzado] ///-->
 <![endif]-->
 <!-- Fin de datos-->
 
-&lt;style id=&#39;page-skin-1&#39;&gt;/*
+&lt;style&gt;/*
 <b:skin><![CDATA[*/
 /*Core Style*/
 body {
