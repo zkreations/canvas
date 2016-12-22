@@ -1,8 +1,134 @@
-﻿/*! Blogger core/canvas 1.0.2 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - Date [first version]: 01/10/2016 */
+/*<![CDATA[*/
+/*! Blogger.core 1.0.4 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - Date [first version]: 01/10/2016 */
 
-/*Independent widgets*/
+/*-- 
+	=> WIDGETS DEFAULT
+--*/
+
+/*all widgets*/
+.widget {margin-bottom: 1em;}
+.widget:last-child {margin: 0;}
+
+.widget > h2 {
+    font-size: 1.1em;
+    padding-bottom: 10px;
+    border-bottom: 5px solid rgba(0,0,0,0.05);
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.widget, .widget a {color: rgba(0,0,0,0.6);}
+.widget a:hover {text-decoration: none;color: rgba(0,0,0,0.7);}
+
+/*reset content and list*/
+.widget-content, .post-summary, .contact-form-widget {width: 100%;padding: 1em 0;}
+.widget-content ul, .widget-content li {margin: 0;list-style: none outside none;}
+
+/*all Header*/
+header .widget {margin:0;}
+header .widget h2 {display:none;}
+header .widget .widget-content, 
+header .post-summary, 
+header .contact-form-widget, 
+header .wikipedia-search-main-container {
+    padding: 1.5em;
+    background: rgba(0,0,0,0.08);
+}
+
+/*-- 
+	=> FORMS
+--*/
+
+/*input*/
+.widget input[type="text"], 
+.widget input[type="submit"], 
+.widget input[type="button"], 
+.contact-form-widget textarea {
+    padding: 1em;
+    outline: 0 none;
+    border: 0 none;
+    box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.075), inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+/*button*/
+.widget input[type="submit"], 
+.widget input[type="button"] {
+    border-radius: 3px;
+    border: 3px solid transparent;
+    background-position: center;
+    background-repeat: no-repeat;
+	background-color: #00BCD4;    
+}
+
+.widget input[type="submit"]:hover, 
+.widget input[type="button"]:hover {
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+/*textarea*/
+.widget input[type="text"], 
+.contact-form-widget textarea {
+    font-size: 0.9em;
+    width: 100%;
+    color: rgba(0,0,0,0.5);
+    background: #fff;
+}
+
+/*-- 
+	=> GENERAL CONTAINER
+--*/
+
+/*option --> general*/
+#General .widget {padding: 0 1.5em;}
+#General .widget:last-child {padding-bottom: 1.5em;border-bottom: 4px double rgba(0,0,0,0.1);}
+#General .widget:first-child {padding-top: 1.5em;}
+
+@media only screen and (max-width: 860px){
+	header .widget .widget-content,	header .post-summary, header .contact-form-widget, header .wikipedia-search-main-container {padding: 1em;}
+	#general .widget {padding: 0;}
+}
+
+/*-- 
+	=> SETTINGS 
+--*/
+
+/*Profile cover*/
+.Profile .widget-content:before {background-image: url("https://goo.gl/W8hwej");}
+
+/*icons*/
+input.gsc-search-button {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAPUExURQAAAAAAAAAAAAAAAAAAAE8O540AAAAFdFJOUwBiEEIx3PO39AAAAFNJREFUKM+tkjEOACAIA2nh/29WE6Mi4gRT03oBVJHqogJQBn/YozT6RqHdCQF6sQCbyjyyz3XEBy/5I9Ie6VTpHsfmN7LuCiHZ7WoTJo/G4l/QAA/3ANU3mzTWAAAAAElFTkSuQmCC');}
+
+.follow-by-email-submit {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAQlBMVEX///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACGKEuzAAAAFnRSTlMAZgAgXVJhZQUURgELOlstXjkMWiwfgwPX/QAAAGhJREFUeF690EsOgCAMRVFfWwHx/9v/VjWN+hKNU+6kgwMpoSqTGl5N6mD4ZA6ADmBYFbhAUh9viHOSB3InTQ2vbmTJDyCMbTuGc24+CX6yy7xJQOyTcBfhbFC+jsDKwvQF+/l226siHSnNAzsAVc/nAAAAAElFTkSuQmCC');}
+
+#ArchiveList select {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAPUExURQAAAAAAAAAAAAAAAAAAAE8O540AAAAFdFJOU00ALRpEkwEwqAAAAGhJREFUKM+VklESwDAERLe4/5lbIa3IbDvdTy9YBAcRPoGKASbagF7RkGkFgiJ5wBJP4kDRpAmsAwuwJYwUbB2yC2al8JKvbIDqZWZX4OSuWko5kWLrrTm1SwfkK6FL5Gvnh+Kn/fFLTurhAaEpwryxAAAAAElFTkSuQmCC');}
+
+.hierarchy .zippy {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAHUlEQVR4AWNAgFHwHwhHNWBVhBtSqgETjMbDKAAA6iwzzdTyG+0AAAAASUVORK5CYII=');}
+
+.hierarchy .zippy.toggle-open {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAGElEQVR4AWMgDEbBKPiPG1KqAROMglEAAAoWG+UEvH49AAAAAElFTkSuQmCC');}
+
+[class*=label-widget-content] .label-size:before,
+[class*=label-widget-content] li:before {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAZUlEQVR4AWMYGGDM4IAGVdGVNDL8x4B/GXxRFe0HCmLC1wwSyIoOgAUx4Q4GRkxFmDCfGEU/GHQJK/rOoENYUR5h67YRDoJXDOLIiuqxKPnD4IUe5noMNkBoC4R2QGgPhEoMAwUAR7KAT78O+kIAAAAASUVORK5CYII=');}
+
+.LinkList .widget-content li>a:before {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAb0lEQVR4Aa3RsQ2CIRRF4dPpLCY6E/vYoE6CLPBGotYCk7+4Bblgw7kNxZdQPDZ3oxIaJL0zqtIM+tIJVBCMZTofgwZyJ1bocRAWSAQSyaOniBKyxH73EpmiMyEyRXCC/wiP3Fk0GgV15W1R4cLWfpLAUhXqdlk8AAAAAElFTkSuQmCC');}
+
+.popular-posts>ul>li a:before {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAoElEQVR4AWMgD/ACIUGQy5BNSAkjww2Ga4QUuTH8B0Jn/Io2gxWtx5TgZtBisGcIZchiaGb4C1b0h6EJyAsFimoBZcFAiOEQUAI7PAiUhQJ2hmVYlSxhYEP1VSuGkiZsjp6IoqQHq8fQrFyIXdEjFEV3sSmRA0tdZrBlsGO4AmZLYiqKYvjMUMzAAmICyVKGL8BwwgBeDNIofBkGDwaqAwDhl1KIWy42QwAAAABJRU5ErkJggg==');}
+
+.blog-list-container .item-time:before {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAY0lEQVR4AWMgDTgwNKDwG4AicIAQ/I/C/4+miSGU4TNQEAMCRYMRivZABTHhboSiAzgVHUBW9AGIMeEHFEVAiA0cwFQ0AQiRSLIVYYChoGghzhCfh1DEz1DE0IAFFjLwEZ3UAArTaLUIkCu8AAAAAElFTkSuQmCC');}
+
+.Feed ul>li .item-title:before {background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAQAAAD8x0bcAAAAqUlEQVQoFcXBIVICAQAF0BdwCwSKNpI6HoEAQU/iNj2AB2B09A6ktWnjBByB4HoHA4mZTYSd7xjXVSrvOY7Ki9KZgyKitTbzr4WlWkS8GzngQqUVtYk/lG4UfsxtxYeRnoidJ0Oc24o3PRt7EbUJ5lox03PiTiNqQ7yKtV8GpsauNOIRl6J1qmMlvozdi50Cn+JWRyNiqrAX11iKZx0PGisDbESJhagcwzcVdECiouJolAAAAABJRU5ErkJggg==');}
+
+/*-- 
+	=> INDEPENDENT WIDGETS 
+--*/
+
 /* Top entry
 Entrada destacada*/
+.post-summary h3 {
+    font-size: 1.2em;
+    text-align: center;
+}
 .post-summary p {
     padding: 1em;
     display: block;
@@ -22,7 +148,6 @@ Buscador*/
 }
 .BlogSearch input.gsc-search-button {
     text-indent: -9999px;
-    background: url(../src/search.png) center no-repeat #00BCD4;
     width: 50px;
     margin-left: 10px;
 }
@@ -93,7 +218,7 @@ Archivo del blog*/
     border: 0;
     padding: 1.2em;
     width: 100%;
-    background: url(../src/arrow.png) 95% no-repeat rgba(0, 0, 0, .05);
+    background: 95% no-repeat rgba(0, 0, 0, .05);
     font-size: .8em;
     color: rgba(0, 0, 0, .55);
     cursor: pointer;
@@ -191,12 +316,10 @@ ul.posts {
     text-indent: -99999px;
     display: inline-block;
     width: 26px;
-    background: url(../src/more.png) center center no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
     height: 26px;
     opacity: .5;
-}
-.hierarchy .zippy.toggle-open {
-    background-image: url(../src/remove.png)
 }
 .hierarchy .posts {
     padding: 12px 12px 0;
@@ -214,7 +337,7 @@ ul.posts {
 Imagen*/
 .widget.Image img {
     height: auto;
-    width: auto;
+    width: 100%;
 }
 .widget.Image .caption {
     padding: 1em;
@@ -248,7 +371,8 @@ Lista de etiquetas o nube*/
 [class*=label-widget-content] .label-size:before,
 [class*=label-widget-content] li:before {
     content: "";
-    background: url(../src/label.png) center center no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
     width: 18px;
     height: 18px;
     display: inline-block;
@@ -295,7 +419,7 @@ Lista de paginas*/
     text-decoration: none;
 }
 /*option --> sidebar*/
-.bw .PageList li {
+.side .PageList li {
     float: none;
 }
 .blog-list-container .item-thumbnail,
@@ -303,7 +427,7 @@ Lista de paginas*/
     float: left;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 1px 3px 0 rgba(0, 0, 0, .2);
 }
-.bw .PageList li>a {
+.side .PageList li>a {
     margin-bottom: 5px;
 }
 .PageList li.selected>a {
@@ -333,7 +457,7 @@ Lista de vinculos*/
 .LinkList .widget-content li>a:before,
 .blog-list-container .item-time:before,
 .popular-posts .item-title>a:before,
-.popular-posts>ul>li>a:before {
+.popular-posts>ul>li a:before {
     width: 18px;
     content: "";
     height: 18px;
@@ -344,7 +468,8 @@ Lista de vinculos*/
 }
 .LinkList .widget-content li>a:before {
     display: inline-block;
-    background: url(../src/open.png) center center no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
     margin: -4px 5px 0 0;
     opacity: .5;
 }
@@ -389,7 +514,8 @@ Entradas populares*/
 }
 .popular-posts .item-title>a:before,
 .popular-posts>ul>li>a:before {
-    background: url(../src/rate.png) center no-repeat;
+	background-repeat: no-repeat;
+	background-position: center;
     display: inline-block;
     opacity: .5;
     margin: -3px 5px 0 0;
@@ -459,7 +585,8 @@ Mi lista de blogs*/
     text-decoration: none;
 }
 .blog-list-container .item-time:before {
-    background: url(../src/date.png) center no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
     display: inline-block;
     margin: -3px 3px 0 0;
     opacity: .7;
@@ -474,15 +601,18 @@ Mi lista de blogs*/
 Contador de visitas*/
 .graph-counter-wrapper {
     padding-top: 6px;
-    display: -webkit-flex;
     display: -moz-flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    -webkit-justify-content: flex-start;
     -moz-justify-content: flex-start;
-    justify-content: flex-start;
-    -webkit-align-items: flex-start;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
     -moz-align-items: flex-start;
-    align-items: flex-start;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
 }
 .graph-counter-wrapper>span {
     padding: .2em .3em;
@@ -511,7 +641,6 @@ Contador de visitas*/
 Seguir por correo electrónico*/
 .follow-by-email-submit {
     text-indent: -9999px;
-    background: url(../src/email.png) center no-repeat #00BCD4;
     width: 50px;
     margin-left: 10px;
 }
@@ -537,7 +666,8 @@ Canal RSS */
 }
 .Feed ul>li .item-title:before {
     content: "";
-    background: url(../src/rss.png) center no-repeat;
+    background-repeat: no-repeat;
+    background-position: center;
     width: 18px;
     height: 18px;
     display: inline-block;
@@ -628,3 +758,4 @@ Formulario de contacto*/
     font-size: .9em;
     color: #fff;
 }
+/*]]>*/
