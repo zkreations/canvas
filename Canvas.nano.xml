@@ -193,7 +193,13 @@ etiquetas meta [avanzado] ///-->
 				<div class='comentarios'>
 				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
                   	<h3>Comentarios</h3>
-          			<b:include name='comment-disqus'/><!-- elige entre facebook o disqus -->
+
+					<b:with var='disqus' value='"[Shortname_DISQUS]"'><!-- Shortname_DISQUS -->
+
+          				<b:include name='comment-disqus'/><!-- elige entre facebook o disqus -->
+
+                  	</b:with>
+
 				<b:else/><!-- Caso contrario -->
                     <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
 				</b:if>
@@ -217,8 +223,8 @@ etiquetas meta [avanzado] ///-->
     			};
 			(function() {
 				var a = document,
-					b = a.createElement("script");
-    				b.src = "//[Shortname_DISQUS].disqus.com/embed.js";
+					b = a.createElement("script");//]]>
+					b.src = "//<data:disqus/>.disqus.com/embed.js";//<![CDATA[					
     				b.setAttribute("data-timestamp", +new Date);
     				(a.head || a.body).appendChild(b)
 			})();

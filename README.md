@@ -30,10 +30,10 @@ Descarga **Canvas**, **Canvas.core** o **Canvas.nano**, abre el archivo de tu el
 
 ## Configuración solo para Canvas.nano
 
-En la linea **221** se encuentra el siguiente código:
+En la linea **197** se encuentra el siguiente código:
 
-```javascript
-b.src = "//[Shortname_DISQUS].disqus.com/embed.js";
+```html
+<b:with var='disqus' value='"[Shortname_DISQUS]"'>
 ```
 Reemplazar `[Shortname_DISQUS]` por el nombre corto que se encuentra en tu panel de Disqus. Si deseas utilizar los **comentarios de facebook** en lugar de **Disqus** crea una [app en facebook](https://developers.facebook.com/apps/), luego dirígete a [Plugin de comentarios](https://developers.facebook.com/docs/plugins/comments/) y da clic en **Obtener código**, Solo copia **SDK para JavaScript** y pégalo debajo de `<body>` dentro de **Canvas.nano**. Por ultimo, busca esto: 
 
