@@ -6,7 +6,7 @@ Canvas te proporciona una base para blogger limpia, eliminando el código css/ja
 
 Es mucho mas fácil diseñar para blogger e incluso puedes hacerlo en local. Tus diseños pueden ser como que tu quieras debido a la exclusión del código de blogger, el limite está en tu imaginación. Con canvas.xml es fácil lograr un blog con una velocidad de carga optima. Para tener un ejemplo claro, los siguientes blogs usan **Canvas** y pasaron por diferentes test de velocidad: 
 
-* [zkreations](http://www.zkreations.com/) usa Canvas.nano 1.0.14 - [PageSpeed](https://goo.gl/ldwghm) [thinkwithgoogle](https://goo.gl/7hAh2S) [pingdom](https://goo.gl/sWuryK)
+* [zkreations](http://www.zkreations.com/) usa Canvas.nano 1.0.15 - [PageSpeed](https://goo.gl/ldwghm) [thinkwithgoogle](https://goo.gl/7hAh2S) [pingdom](https://goo.gl/sWuryK)
 
 ## Formas de uso
 

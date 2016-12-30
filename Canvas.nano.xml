@@ -275,15 +275,7 @@ etiquetas meta [avanzado] ///-->
 	</b:switch>
 	</b:includable>
     <b:includable id='postQuickEdit' var='post'><!--Vacío--></b:includable>
-    <b:includable id='shareButtons' var='post'>
-	<div class='share'>
-		<a class='fb' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url' rel='nofollow' target='_blank'/>
-		<a class='tt' expr:href='"https://twitter.com/intent/tweet?url=" + data:post.url' rel='nofollow' target='_blank'/>
-		<a class='gg' expr:href='"https://plus.google.com/share?url=" + data:post.url' rel='nofollow' target='_blank'/>
-		<a class='pt' expr:href='"https://pinterest.com/pin/create/button/?url=" + data:post.url + "&amp;media=" + data:post.firstImageUrl' rel='nofollow' target='_blank'/>
-		<a class='tb' expr:href='"https://www.tumblr.com/share/photo?url=" + data:post.firstImageUrl + "&amp;caption=" + data:post.url' rel='nofollow' target='_blank'/>
-	</div>
-	</b:includable>
+    <b:includable id='shareButtons'><!--Vacío--></b:includable>
     <b:includable id='status-message'><!--Vacío--></b:includable>
     <b:includable id='threaded-comment-form' var='post'><!--Vacío--></b:includable>
     <b:includable id='threaded_comment_js' var='post'><!--Vacío--></b:includable>

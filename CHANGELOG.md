@@ -2,6 +2,10 @@
 
 ## Canvas.xml Changelog
 
+### Canvas 1.0.15 [29/12/2016]
+
+* fix share buttons
+
 ### Canvas 1.0.14 [01/12/2016]
 
 * Solucion a pequeño detalle al compartir la pagiha principal en twitter

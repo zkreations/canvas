@@ -426,7 +426,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 	</b:switch>
 	</b:includable>
     <b:includable id='postQuickEdit' var='post'><!--Vacío--></b:includable>
-    <b:includable id='shareButtons' var='post'>
+    <b:includable id='shareButtons'>
 	<div class='share'>
 		<a class='fb' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url' rel='nofollow' target='_blank'/>
 		<a class='tt' expr:href='"https://twitter.com/intent/tweet?url=" + data:post.url' rel='nofollow' target='_blank'/>
