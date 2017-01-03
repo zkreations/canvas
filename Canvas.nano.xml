@@ -233,7 +233,6 @@ etiquetas meta [avanzado] ///-->
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
 	</b:includable>
 	<b:includable id='comment-facebook'>
-		<div id='disqus_thread'/>
       	<div class="fb-comments" expr:data-href="data:blog.canonicalUrl" data-numposts="10"/>
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
 	</b:includable>
