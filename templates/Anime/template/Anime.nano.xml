@@ -2,15 +2,24 @@
 <!DOCTYPE html>
 <html lang='es'>
 
+<!-- 
+	=> Anime 1.0.5 ?= Canvas.nano 1.0.15
+ -->
+<b:with var='enableDisqus' value='"0"'><!-- Comentar con disqus? -->
+<b:with var='enableFb' value='"0"'><!--  Comentar con facebook? -->
+<b:with var='DqShortName' value='"[Shortname_DISQUS]"'><!-- ShortName Disqus-->
 <head>
-
-<!-- Anime 1.0.0 ?= Canvas.nano 1.0.15 -->
+<!--
+	=> Variables de Paginacion
+-->
+<b:with var='pageNum' value='"0"'><!-- Activar paginacion? -->
+<b:with var='mainpageNum' value='"8"'><!-- Numero de post configurados -->
+<b:with var='pageNumbtns' value='"6"'><!-- cantidad de la numeracion del paginador -->
 
 <!--
 	=> Variables de Personalizacion
 -->
 <!-- more colors: https://material.io/guidelines/style/color.html#color-color-palette -->
-
 <!-- Color y fuente global -->
 <b:with var='maincolor' value='"#00BCD4"'>
 <b:with var='mainfont' value='"Francois One"'>
@@ -30,7 +39,7 @@
 <b:with var='usercover' value='"https://3.bp.blogspot.com/-31afqlXguJw/WGWRnpo8smI/AAAAAAAACAo/60rvoumyYdoKaBv4CeBnaJOwQJ6RUJxIgCLcB/s1600/cover1.jpg"'>
 
 <!--
-	Variables de Metadatos
+	=> Variables de Metadatos
 -->
 <b:with var='ttsite' value='"@blogger"'>
 <b:with var='ttcreator' value='"@google"'>
@@ -950,7 +959,7 @@ a:hover, .endpage a:hover {color: <data:maincolor/>;}
     font-size: 1.2em;
     border-radius: 3px;
 }
-.blog-pager > a {
+.blog-pager > a, .pagenum > a, .pagenum > span {
     display: inline-block;
     border: 2px solid rgba(0, 0, 0, 0.2);
     color: rgba(0, 0, 0, 0.5);
@@ -958,10 +967,12 @@ a:hover, .endpage a:hover {color: <data:maincolor/>;}
     margin-right: 4px;
 }
 
-.blog-pager > a:hover {
+.blog-pager > a:hover, .pagenum > a:hover, .pagenum > span {
     border-color: rgba(0, 0, 0, 0.3);
     color: rgba(0, 0, 0, 0.7);
 }
+/*PageNum*/
+
 @media only screen and (max-width: 1024px) {
     .item > a {height: 200px;}
     .top-entry {
@@ -971,12 +982,44 @@ a:hover, .endpage a:hover {color: <data:maincolor/>;}
 
 @media only screen and (max-width: 560px) {
     .items .item {width: 100%;}
+	.items .item:nth-child(2n+1) {
+    margin-right: 0;
+	}
     .item > a {height: 280px;}  
 	.next, .prev {
     	display: none;
 	}
 }
 /*]]>*/</style>
+
+<b:if cond='data:pageNum >= 1'>
+<script src='http://dl.dropbox.com/u/71679931/share/paginacion-min.js'/>
+<script>//<![CDATA[
+var opcionesPaginacion = {
+//]]>
+    postPorPag: <data:mainpageNum/>,
+    postsPrimeraPag: <data:mainpageNum/>,
+	numerosDePag: <data:pageNumbtns/>,
+//<![CDATA[
+    textoAnterior: "&#8592; Anterior",
+    textoSiguiente: "Siguiente &#8594;",
+    textoPrimera: "&laquo;",
+    textoFin: "&raquo;",
+    mostrarPuntos: true,
+    plantillaPagLink: "<a href='{{link}}'>{{num}}<\/a>",
+    plantillaPagPlain: "<span>{{num}}<\/span>",
+    htmlBefore: '<div class="pagenum">',
+    htmlAfter: '<\/div>'
+};
+(function(d,s){
+	var src = '/feeds/posts/summary', url = d.URL, js = d.createElement(s), p = d.getElementsByTagName(s)[0];
+	src += /\/label\//.test( url ) ? "/-/"+ url.match(/\/label\/[^?^]*/)[0].substring(7): '';
+	js.src = src + "?alt=json-in-script&max-results=9999&callback=paginacion"
+p.parentNode.insertBefore(js,p)
+})(document,'script')
+//]]></script>
+</b:if>
+
 <b:else/>
 <style type='text/css'>/*<![CDATA[*/
 	/*-- 
@@ -1182,6 +1225,7 @@ li.comment {
 
 /*]]>*/</style>
 </b:if>
+</b:with></b:with></b:with>
 
 <b:if cond='data:blog.pageType == "item"'>
 <style type='text/css'>/*<![CDATA[*/
@@ -1238,6 +1282,8 @@ li.comment {
     width: 100%;
     display: block;
 }
+/*fb responsive hack*/
+.fb-comments,.fb-comments iframe span[style],.fb-comments iframe[style],.fb-comments span,.fb-like-box,.fb-like-box iframe span[style],.fb-like-box iframe[style],.fb-like-box span{width:100%!important}
 
 @media only screen and (max-width: 560px) {
     .rel > li  {width: 100%;}
@@ -1290,9 +1336,10 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 </b:if>
 </head>
 
-
-
 <body>
+<b:if cond='data:enableFb >= 1'><div id="fb-root"></div><script>//<![CDATA[
+(function(a,b,c){var d=a.getElementsByTagName(b)[0];a.getElementById(c)||(a=a.createElement(b),a.id=c,a.src="//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8",d.parentNode.insertBefore(a,d))})(document,"script","facebook-jssdk");
+//]]></script></b:if>
 
 <div class='prebox'>
 <div class='mainbox'>
@@ -1300,6 +1347,7 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 <!-- 
 	=> HEADER
 -->
+
 <header class='header'>
 <b:section id='Header' showaddelement='no'>
   <b:widget id='Header1' locked='true' title='Canvas (Cabecera)' type='Header' version='1' visible='true'>
@@ -1360,6 +1408,7 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 <!-- 
 	=> MAIN
 -->
+
 <div class='main box flx'><!--main-->
 <b:if cond='data:blog.pageType == "error_page"'>
 <!-- 
@@ -1453,16 +1502,25 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 				<b:include cond='data:blog.pageType == "item"' name='relacionados'/>
 				<!-- insertamos Comentarios -->
 				<div class='comentarios' id='CommentUrl'>
-				<h3 class='ttitle'><span class='ti font'>Comentarios</span></h3>
+
 				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
 
-					<b:with var='disqus' value='"[Shortname_DISQUS]"'><!-- Shortname_DISQUS -->
-
-          				<b:include name='comment-disqus'/><!-- elige entre facebook o disqus -->
-
-                  	</b:with>
-
+				<b:if cond='data:enableDisqus >= 1 and data:enableFb >= 1'>
+					<h3 class='ttitle'><span class='ti font'>facebook</span></h3>
+					<b:include name='comment-facebook'/>
+					<h3 class='ttitle'><span class='ti font'>Disqus</span></h3>
+					<b:include name='comment-disqus'/>
+				<b:else/>
+					<b:if cond='data:enableDisqus >= 1'>
+						<h3 class='ttitle'><span class='ti font'>Disqus</span></h3>
+						<b:include name='comment-disqus'/>
+					<b:elseif cond='data:enableFb >= 1'/>
+						<h3 class='ttitle'><span class='ti font'>facebook</span></h3>
+						<b:include name='comment-facebook'/>
+					</b:if>
+				</b:if>
 				<b:elseif cond='data:blog.pageType == "item"'/><!-- Caso contrario -->
+				<h3 class='ttitle'><span class='ti font'>Cerrado</span></h3>
                     <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
 				</b:if>
           		</div>
@@ -1486,7 +1544,7 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 			(function() {
 				var a = document,
 					b = a.createElement("script");//]]>
-					b.src = "//<data:disqus/>.disqus.com/embed.js";//<![CDATA[					
+					b.src = "//<data:DqShortName/>.disqus.com/embed.js";//<![CDATA[					
     				b.setAttribute("data-timestamp", +new Date);
     				(a.head || a.body).appendChild(b)
 			})();
@@ -1535,7 +1593,9 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 			<div class='data'>
 				<h2><a class='font' expr:href='data:post.url'><data:post.title/></a></h2>
 				<p><data:post.snippet/></p>
-				<a expr:href='data:post.url + "#CommentUrl"'><svg fill='#000' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><circle cx='7.2' cy='14.4' r='3.2'/><circle cx='14.8' cy='18' r='2'/><circle cx='15.2' cy='8.8' r='4.8'/></svg> <data:post.numComments/> Comentario<b:if cond='data:post.numComments &gt; 1 or data:post.numComments == 0'>s</b:if></a>
+				<b:if cond='data:enableDisqus >= 1'>
+				<a expr:href='data:post.url + "#CommentUrl"'><svg fill='#000' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><circle cx='7.2' cy='14.4' r='3.2'/><circle cx='14.8' cy='18' r='2'/><circle cx='15.2' cy='8.8' r='4.8'/></svg> <span class="disqus-comment-count" expr:data-disqus-url="data:post.url"></span></a>
+				</b:if>
 			</div>
 		</div>
 
@@ -1543,7 +1603,7 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 
         <header class='article-header'>
 			<div class='tagspost'>
-			<b:loop values='data:post.labels filter (l =&gt; l.name != "github")' var='label'>
+			<b:loop values='data:post.labels' var='label'>
 				<a expr:href='data:label.url' rel='tag'><data:label.name/></a>
 			</b:loop>
 			</div>
@@ -1552,7 +1612,7 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 				<meta expr:content='data:post.url.canonical' itemprop='url'/>
 				<b:if cond='data:blog.metaDescription'><meta expr:content='data:blog.metaDescription' itemprop='description'/></b:if>
 
-				<time class='published date updated' expr:datetime='data:post.timestampISO8601'><svg fill='#000' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/><path d='M0 0h24v24H0z' fill='none'/><path d='M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z'/></svg> <data:post.timestamp/></time> &#8212; <span><svg fill='#000' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><circle cx='7.2' cy='14.4' r='3.2'/><circle cx='14.8' cy='18' r='2'/><circle cx='15.2' cy='8.8' r='4.8'/></svg> <data:post.numComments/> Comentario<b:if cond='data:post.numComments &gt; 1 or data:post.numComments == 0'>s</b:if></span>
+				<time class='published date updated' expr:datetime='data:post.timestampISO8601'><svg fill='#000' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z'/><path d='M0 0h24v24H0z' fill='none'/><path d='M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z'/></svg> <data:post.timestamp/></time><b:if cond='data:enableDisqus >= 1'> &#8212; <span><svg fill='#000' height='18' viewBox='0 0 24 24' width='18' xmlns='http://www.w3.org/2000/svg'><path d='M0 0h24v24H0z' fill='none'/><circle cx='7.2' cy='14.4' r='3.2'/><circle cx='14.8' cy='18' r='2'/><circle cx='15.2' cy='8.8' r='4.8'/></svg> <span class="disqus-comment-count" expr:data-disqus-url="data:post.url"></span></span></b:if>
 			</div>
 		</header>
 		<div class='article-content' expr:data-id='data:post.id' itemprop='articleBody'>
@@ -1671,6 +1731,7 @@ var h=document.querySelector(".share").children;i=0;for(t=h.length;i<t;i++)h[i].
 <!-- 
 	=> FOOTER
 -->
+
 <footer class='footer'>
     <div class='endpage flex--justify'>
                 <div class='social'>
@@ -1709,6 +1770,11 @@ var h=document.querySelector(".share").children;i=0;for(t=h.length;i<t;i++)h[i].
 </div><!--end prebox-->
 
 <!-- Javscript -->
+
+<b:if cond='data:enableDisqus >= 1'>
+<script id="dsq-count-scr" expr:src='"https://" + data:DqShortName + ".disqus.com/count.js"' async="async"/>
+</b:if>
+
 <script src='https://cdnjs.cloudflare.com/ajax/libs/classlist/2014.01.31/classList.min.js'/>
 <b:if cond='data:blog.pageType == "index"'>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/lory.js/2.2.0/lory.min.js'/>
@@ -1725,5 +1791,9 @@ Array.prototype.forEach=function(b,c){var a=0;for(ii=this.length;a<ii;a++)a in t
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
 &lt;!--</body>--&gt;&lt;/body&gt;
+
+</b:with>
+</b:with>
+</b:with>
 
 </html>
