@@ -811,7 +811,7 @@ a:hover, .endpage a:hover {color: <data:maincolor/>;}
     display: block;
     opacity: 0.3;
 }
-.frame {
+.frame, .js_slide img {
     width: 100%;
 }
 .js_slide {

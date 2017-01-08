@@ -836,7 +836,7 @@ input.gsc-search-button {background-image: url('data:image/png;base64,iVBORw0KGg
     display: block;
     opacity: 0.3;
 }
-.frame {
+.frame, .js_slide img {
     width: 100%;
 }
 .js_slide {
