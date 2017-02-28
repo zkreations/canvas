@@ -3,7 +3,7 @@
 <html lang='es'>
 
 <head>
-<!-- Canvas 1.0.15 -->
+<!-- Canvas.xml 1.0.16 -->
 <meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
@@ -129,41 +129,34 @@ etiquetas meta [avanzado] ///-->
 
 &lt;style&gt;/*
 <b:skin><![CDATA[*/
-/*! Core Style */
-
 /*Design: admin blog*/
 .left {float: left;width: 50%;}
 .right {float: right;width: 50%;}
-
 .item-control.blog-admin,
 .widget-item-control {display: none;}
 ]]></b:skin>
 
 <style type='text/css'>/*<![CDATA[*/
-	/*-- 
-	=> GLOBAL 
-	--*/
+/* => GLOBAL */
+
 /*]]>*/</style>
 
 <b:if cond='data:blog.pageType == "index"'>
 <style type='text/css'>/*<![CDATA[*/
-	/*-- 
-	=> INDEX 
-	--*/
+/* => INDEX */
+
 /*]]>*/</style>
 <b:else/>
+
 <style type='text/css'>/*<![CDATA[*/
-	/*-- 
-	=> TODO MENOS INDEX 
-	--*/
+/* => TODO MENOS INDEX */
+
 /*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType == "item"'>
-<style type='text/css'>/*<![CDATA[*/
-	/*-- 
-	=> ENTRADAS
-	--*/
+<b:if cond='data:blog.pageType == "item"'><style type='text/css'>/*<![CDATA[*/
+/* => ENTRADAS */
+
 /*]]>*/</style>
 </b:if>
 
@@ -171,13 +164,9 @@ etiquetas meta [avanzado] ///-->
 
 <body>
 
-<b:if cond='data:blog.pageType == "error_page"'><!-- Error -->
-<!-- Tu error 404 -->
-<b:else/>
-
 <!-- Entradas -->
 <b:section id='Blog'>
-  <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' visible='true'>
+  <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' version='1' visible='true'>
     <b:includable id='main' var='top'>
 
 		<b:if cond='data:blog.pageType == "index"'>
@@ -192,8 +181,10 @@ etiquetas meta [avanzado] ///-->
 				<!-- insertamos Comentarios -->
 				<div class='comentarios'>
 				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
-                  	<h3><span><data:post.numComments/></span> Comentario<b:if cond='data:post.numComments &gt; 1'>s</b:if></h3>
-          			<b:include data='post' name='comment_picker'/>
+                  	<h3>Comentarios</h3>
+					<b:with var='disqus' value='"[Shortname_DISQUS]"'><!-- Shortname_DISQUS -->
+          				<b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
+                  	</b:with>
 				<b:else/><!-- Caso contrario -->
                     <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
 				</b:if>
@@ -205,197 +196,48 @@ etiquetas meta [avanzado] ///-->
     </b:includable>
     <b:includable id='backlinkDeleteIcon' var='backlink'><!--Vacío--></b:includable>
     <b:includable id='backlinks' var='post'><!--Vacío--></b:includable>
-    <b:includable id='comment-form' var='post'>
-  <div class='comment-form'>
-    <a name='comment-form'/>
-		<b:if cond='data:blogCommentMessage'>
-      		<p class='info'><data:blogCommentMessage/></p>
-    	</b:if>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
-    <data:post.cmtfpIframe/>
-    <script type='text/javascript'>
-      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
-    </script>
-  </div>
-</b:includable>
-    <b:includable id='commentDeleteIcon' var='comment'>
-  <span expr:class='"item-control " + data:comment.adminClass'>
-    <b:if cond='data:showCmtPopup'>
-      <div class='goog-toggle-button'>
-        <div class='goog-inline-block comment-action-icon'/>
-      </div>
-    <b:else/>
-      <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:top.deleteCommentMsg'>
-        <img src='https://resources.blogblog.com/img/icon_delete13.gif'/>
-      </a>
-    </b:if>
-  </span>
-</b:includable>
-    <b:includable id='comment_count_picker' var='post'>
-  <b:if cond='data:post.commentSource == 1'>
-    <span class='cmt_count_iframe_holder' expr:data-count='data:post.numComments' expr:data-onclick='data:post.addCommentOnclick' expr:data-post-url='data:post.url' expr:data-url='data:post.canonicalUrl'>
-    </span>
-  <b:else/>
-    <a class='comment-link' expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'>
-      <data:post.commentLabelFull/>:
-    </a>
-  </b:if>
-</b:includable>
-    <b:includable id='comment_fix'><script type='text/javascript'>
-//<![CDATA[
-var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));
-//]]>
-	</script></b:includable>
-    <b:includable id='comment_picker' var='post'>
-  		<b:if cond='data:post.commentSource == 1'>
-    		<b:include data='post' name='iframe_comments'/>
-  		<b:elseif cond='data:post.showThreadedComments'/>
-    		<b:include data='post' name='threaded_comments'/>
-  		<b:else/>
-    		<b:include data='post' name='comments'/>
-  		</b:if>
-		<b:include cond='data:blog.pageType in {"item", "static_page"}' name='comment_fix'/>
+    <b:includable id='comment-blogger' var='post'>
+    	<div class='comments' id='comments'>
+      		<div class='comments-content'>
+				<div id='comment-holder'><data:post.commentHtml/></div>
+				<b:include data='post' name='threaded_comment_js'/>
+    		</div>
+			<div class='comment-footer'>
+				<b:if cond='data:post.allowNewComments'>
+					<b:include data='post' name='threaded-comment-form'/>
+				<b:else/>
+					<span class='info'>No se permiten nuevos comentarios</span>
+				</b:if>
+			</div>
+  		</div>
 	</b:includable>
-    <b:includable id='comments' var='post'>
-  <div class='comments' id='comments'>
-    <a name='comments'/>
-    <b:if cond='data:post.allowComments'>
-      <b:if cond='data:post.commentPagingRequired'>
-        <span class='paging-control-container'>
-          <b:if cond='data:post.hasOlderLinks'>
-            <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'><data:post.oldestLinkText/></a>
-              &#160;
-            <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'><data:post.olderLinkText/></a>
-              &#160;
-          </b:if>
-
-          <data:post.commentRangeText/>
-
-          <b:if cond='data:post.hasNewerLinks'>
-            &#160;
-            <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'><data:post.newerLinkText/></a>
-            &#160;
-            <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'><data:post.newestLinkText/></a>
-          </b:if>
-        </span>
-      </b:if>
-
-      <div expr:id='data:widget.instanceId + "_comments-block-wrapper"'>
-        <dl expr:class='data:post.avatarIndentClass' id='comments-block'>
-          <b:loop values='data:post.comments' var='comment'>
-            <dt expr:class='"comment-author " + data:comment.authorClass' expr:id='data:comment.anchorName'>
-              <b:if cond='data:comment.favicon'>
-                <img expr:src='data:comment.favicon' height='16px' style='margin-bottom:-2px;' width='16px'/>
-              </b:if>
-              <a expr:name='data:comment.anchorName'/>
-              <b:if cond='data:blog.enabledCommentProfileImages'>
-                <data:comment.authorAvatarImage/>
-              </b:if>
-              <b:if cond='data:comment.authorUrl'>
-                <a expr:href='data:comment.authorUrl' rel='nofollow'><data:comment.author/></a>
-              <b:else/>
-                <data:comment.author/>
-              </b:if>
-              <data:commentPostedByMsg/>
-            </dt>
-            <dd class='comment-body' expr:id='data:widget.instanceId + data:comment.cmtBodyIdPostfix'>
-              <b:if cond='data:comment.isDeleted'>
-                <span class='deleted-comment'><data:comment.body/></span>
-              <b:else/>
-                <p>
-                  <data:comment.body/>
-                </p>
-              </b:if>
-            </dd>
-            <dd class='comment-footer'>
-              <span class='comment-timestamp'>
-                <a expr:href='data:comment.url' title='comment permalink'>
-                  <data:comment.timestamp/>
-                </a>
-                <b:include data='comment' name='commentDeleteIcon'/>
-              </span>
-            </dd>
-          </b:loop>
-        </dl>
-      </div>
-
-      <b:if cond='data:post.commentPagingRequired'>
-        <span class='paging-control-container'>
-          <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'>
-            <data:post.oldestLinkText/>
-          </a>
-          <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'>
-            <data:post.olderLinkText/>
-          </a>
-          &#160;
-          <data:post.commentRangeText/>
-          &#160;
-          <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'>
-            <data:post.newerLinkText/>
-          </a>
-          <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'>
-            <data:post.newestLinkText/>
-          </a>
-        </span>
-      </b:if>
-
-      <p class='comment-footer'>
-        <b:if cond='data:post.embedCommentForm'>
-          <b:if cond='data:post.allowNewComments'>
-            <b:include data='post' name='comment-form'/>
-          <b:else/>
-            <data:post.noNewCommentsText/>
-          </b:if>
-        <b:elseif cond='data:post.allowComments'/>
-          <a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:postCommentMsg/></a>
-        </b:if>
-      </p>
-    </b:if>
-    <b:if cond='data:showCmtPopup'>
-      <div id='comment-popup'>
-        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
-        </iframe>
-      </div>
-    </b:if>
-
-    <div id='backlinks-container'>
-    <div expr:id='data:widget.instanceId + "_backlinks-container"'>
-       <b:include cond='data:post.showBacklinks' data='post' name='backlinks'/>
-    </div>
-    </div>
-  </div>
-</b:includable>
-    <b:includable id='feedLinks'>
-  <b:if cond='data:blog.pageType != "item"'> <!-- Blog feed links -->
-    <b:if cond='data:feedLinks'>
-      <div class='blog-feeds'>
-        <b:include data='feedLinks' name='feedLinksBody'/>
-      </div>
-    </b:if>
-
-    <b:else/> <!--Post feed links -->
-    <div class='post-feeds'>
-      <b:loop values='data:posts' var='post'>
-        <b:if cond='data:post.allowComments'>
-          <b:if cond='data:post.feedLinks'>
-            <b:include data='post.feedLinks' name='feedLinksBody'/>
-          </b:if>
-        </b:if>
-      </b:loop>
-    </div>
-  </b:if>
-</b:includable>
-    <b:includable id='feedLinksBody' var='links'>
-  <div class='feed-links'>
-  <data:feedLinksMsg/>
-  <b:loop values='data:links' var='f'>
-     <a class='feed-link' expr:href='data:f.url' expr:type='data:f.mimeType' target='_blank'><data:f.name/> (<data:f.feedType/>)</a>
-  </b:loop>
-  </div>
-</b:includable>
-    <b:includable id='iframe_comments' var='post'><b:if cond='data:post.allowIframeComments'><script expr:src='data:post.iframeCommentSrc' type='text/javascript'/><div class='cmt_iframe_holder' expr:data-href='data:post.canonicalUrl' expr:data-viewtype='data:post.viewType'/><b:if cond='data:post.embedCommentForm == "false"'><a expr:href='data:post.addCommentUrl' expr:onclick='data:post.addCommentOnclick'><data:postCommentMsg/></a></b:if></b:if></b:includable>
-    <b:includable id='mobile-index-post' var='post'><!-- Vacío--></b:includable>
+    <b:includable id='comment-disqus'>
+		<div id='disqus_thread'/>
+		<script type='text/javascript'>
+    	var disqus_shortname = "<data:disqus/>";
+    	var disqus_url = "<data:blog.canonicalUrl/>"; 
+		//<![CDATA[
+    	(function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    	    })();
+		//]]>
+        </script>
+		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
+	</b:includable>
+    <b:includable id='comment-facebook'>
+      	<div class="fb-comments" expr:data-href="data:blog.canonicalUrl" data-numposts="10"/>
+		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
+	</b:includable>
+    <b:includable id='comment-form' var='post'><!--Vacío--></b:includable>
+    <b:includable id='commentDeleteIcon' var='comment'><!--Vacío--></b:includable>
+    <b:includable id='comment_count_picker' var='post'><!--Vacío--></b:includable>
+    <b:includable id='comment_picker' var='post'><!--Vacío--></b:includable>
+    <b:includable id='comments' var='post'><!--Vacío--></b:includable>
+    <b:includable id='feedLinks'><!--Vacío--></b:includable>
+    <b:includable id='feedLinksBody' var='links'><!--Vacío--></b:includable>
+    <b:includable id='iframe_comments' var='post'><!--Vacio--></b:includable>
     <b:includable id='mobile-main' var='top'><!--Vacío--></b:includable>
     <b:includable id='mobile-nextprev'><!-- Vacío--></b:includable>
     <b:includable id='mobile-post' var='post'><!-- Vacío--></b:includable>
@@ -407,264 +249,48 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 	</b:includable>
     <b:includable id='post' var='post'>
 	<b:switch var='data:blog.pageType'>
-        <b:case value='index'/><!--index-->
+        <b:case value='index'/>
 
-		<!--Soy una entrada en la pagina principal-->
+		<!--{{ Entrada en la pagina principal }}-->
 
-        <b:case value='item'/><!--item-->
+        <b:case value='item'/>
 
-        <!--Soy una entrada dentro de las entradas-->
+        <!--{{ Entrada dentro de las entradas }}-->
 
-        <b:case value='static_page'/><!--static page-->
+        <b:case value='static_page'/>
 
-        <!--Soy una pagina independiente-->
-
-		<b:case value='archive'/><!--archive-->
-
-		<!--Soy una pagina de archivo-->
+        <!--{{ Pagina independiente }}-->
 
 	</b:switch>
 	</b:includable>
     <b:includable id='postQuickEdit' var='post'><!--Vacío--></b:includable>
-    <b:includable id='shareButtons'>
-	<div class='share'>
-		<a class='fb' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url' rel='nofollow' target='_blank'/>
-		<a class='tt' expr:href='"https://twitter.com/intent/tweet?url=" + data:post.url' rel='nofollow' target='_blank'/>
-		<a class='gg' expr:href='"https://plus.google.com/share?url=" + data:post.url' rel='nofollow' target='_blank'/>
-		<a class='pt' expr:href='"https://pinterest.com/pin/create/button/?url=" + data:post.url + "&amp;media=" + data:post.firstImageUrl' rel='nofollow' target='_blank'/>
-		<a class='tb' expr:href='"https://www.tumblr.com/share/photo?url=" + data:post.firstImageUrl + "&amp;caption=" + data:post.url' rel='nofollow' target='_blank'/>
-	</div>
-	</b:includable>
+    <b:includable id='shareButtons'><!--Vacío--></b:includable>
     <b:includable id='status-message'><!--Vacío--></b:includable>
     <b:includable id='threaded-comment-form' var='post'>
-  <div class='comment-form'>
-    <a name='comment-form'/>
+	<div class='comment-form'><a name='comment-form'/>
       <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
-    <data:post.cmtfpIframe/>
-    <script type='text/javascript'>
-      BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
-    </script>
-  </div>
-</b:includable>
+      	<iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    	<data:post.cmtfpIframe/>
+    	<script type='text/javascript'>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
+	</div>
+	</b:includable>
     <b:includable id='threaded_comment_js' var='post'>
-  <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
-
-  <script type='text/javascript'>
+	    <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+	    <script type='text/javascript'>
     (function() {
       var items = <data:post.commentJso/>;
       var msgs = <data:post.commentMsgs/>;
-      var config = <data:post.commentConfig/>;
-// <![CDATA[
-      var cursor = null;
-      if (items && items.length > 0) {
-        cursor = parseInt(items[items.length - 1].timestamp) + 1;
-      }
-
-      var bodyFromEntry = function(entry) {
-        if (entry.gd$extendedProperty) {
-          for (var k in entry.gd$extendedProperty) {
-            if (entry.gd$extendedProperty[k].name == 'blogger.contentRemoved') {
-              return '<span class="deleted-comment">' + entry.content.$t + '</span>';
-            }
-          }
-        }
-        return entry.content.$t;
-      }
-
-      var parse = function(data) {
-        cursor = null;
-        var comments = [];
-        if (data && data.feed && data.feed.entry) {
-          for (var i = 0, entry; entry = data.feed.entry[i]; i++) {
-            var comment = {};
-            // comment ID, parsed out of the original id format
-            var id = /blog-(\d+).post-(\d+)/.exec(entry.id.$t);
-            comment.id = id ? id[2] : null;
-            comment.body = bodyFromEntry(entry);
-            comment.timestamp = Date.parse(entry.published.$t) + '';
-            if (entry.author && entry.author.constructor === Array) {
-              var auth = entry.author[0];
-              if (auth) {
-                comment.author = {
-                  name: (auth.name ? auth.name.$t : undefined),
-                  profileUrl: (auth.uri ? auth.uri.$t : undefined),
-                  avatarUrl: (auth.gd$image ? auth.gd$image.src : undefined)
-                };
-              }
-            }
-            if (entry.link) {
-              if (entry.link[2]) {
-                comment.link = comment.permalink = entry.link[2].href;
-              }
-              if (entry.link[3]) {
-                var pid = /.*comments\/default\/(\d+)\?.*/.exec(entry.link[3].href);
-                if (pid && pid[1]) {
-                  comment.parentId = pid[1];
-                }
-              }
-            }
-            comment.deleteclass = 'item-control blog-admin';
-            if (entry.gd$extendedProperty) {
-              for (var k in entry.gd$extendedProperty) {
-                if (entry.gd$extendedProperty[k].name == 'blogger.itemClass') {
-                  comment.deleteclass += ' ' + entry.gd$extendedProperty[k].value;
-                } else if (entry.gd$extendedProperty[k].name == 'blogger.displayTime') {
-                  comment.displayTime = entry.gd$extendedProperty[k].value;
-                }
-              }
-            }
-            comments.push(comment);
-          }
-        }
-        return comments;
-      };
-
-      var paginator = function(callback) {
-        if (hasMore()) {
-          var url = config.feed + '?alt=json&v=2&orderby=published&reverse=false&max-results=50';
-          if (cursor) {
-            url += '&published-min=' + new Date(cursor).toISOString();
-          }
-          window.bloggercomments = function(data) {
-            var parsed = parse(data);
-            cursor = parsed.length < 50 ? null
-                : parseInt(parsed[parsed.length - 1].timestamp) + 1
-            callback(parsed);
-            window.bloggercomments = null;
-          }
-          url += '&callback=bloggercomments';
-          var script = document.createElement('script');
-          script.type = 'text/javascript';
-          script.src = url;
-          document.getElementsByTagName('head')[0].appendChild(script);
-        }
-      };
-      var hasMore = function() {
-        return !!cursor;
-      };
-      var getMeta = function(key, comment) {
-        if ('iswriter' == key) {
-          var matches = !!comment.author
-              && comment.author.name == config.authorName
-              && comment.author.profileUrl == config.authorUrl;
-          return matches ? 'true' : '';
-        } else if ('deletelink' == key) {
-          return config.baseUri + '/delete-comment.g?blogID='
-               + config.blogId + '&postID=' + comment.id;
-        } else if ('deleteclass' == key) {
-          return comment.deleteclass;
-        }
-        return '';
-      };
-
-      var replybox = null;
-      var replyUrlParts = null;
-      var replyParent = undefined;
-
-      var onReply = function(commentId, domId) {
-        if (replybox == null) {
-          // lazily cache replybox, and adjust to suit this style:
-          replybox = document.getElementById('comment-editor');
-          if (replybox != null) {
-            replybox.height = '250px';
-            replybox.style.display = 'block';
-            replyUrlParts = replybox.src.split('#');
-          }
-        }
-        if (replybox && (commentId !== replyParent)) {
-          replybox.src = '';
-          document.getElementById(domId).insertBefore(replybox, null);
-          replybox.src = replyUrlParts[0]
-              + (commentId ? '&parentID=' + commentId : '')
-              + '#' + replyUrlParts[1];
-          replyParent = commentId;
-        }
-      };
-
-      var hash = (window.location.hash || '#').substring(1);
-      var startThread, targetComment;
-      if (/^comment-form_/.test(hash)) {
-        startThread = hash.substring('comment-form_'.length);
-      } else if (/^c[0-9]+$/.test(hash)) {
-        targetComment = hash.substring(1);
-      }
-
-      // Configure commenting API:
-      var configJso = {
-        'maxDepth': config.maxThreadDepth
-      };
-      var provider = {
-        'id': config.postId,
-        'data': items,
-        'loadNext': paginator,
-        'hasMore': hasMore,
-        'getMeta': getMeta,
-        'onReply': onReply,
-        'rendered': true,
-        'initComment': targetComment,
-        'initReplyThread': startThread,
-        'config': configJso,
-        'messages': msgs
-      };
-
-      var render = function() {
-        if (window.goog && window.goog.comments) {
-          var holder = document.getElementById('comment-holder');
-          window.goog.comments.render(holder, provider);
-        }
-      };
-
-      // render now, or queue to render when library loads:
-      if (window.goog && window.goog.comments) {
-        render();
-      } else {
-        window.goog = window.goog || {};
-        window.goog.comments = window.goog.comments || {};
-        window.goog.comments.loadQueue = window.goog.comments.loadQueue || [];
-        window.goog.comments.loadQueue.push(render);
-      }
-    })();
-// ]]>
+      var config = <data:post.commentConfig/>;// <![CDATA[
+      var cursor=null;items&&items.length>0&&(cursor=parseInt(items[items.length-1].timestamp)+1);var bodyFromEntry=function(e){if(e.gd$extendedProperty)for(var r in e.gd$extendedProperty)if("blogger.contentRemoved"==e.gd$extendedProperty[r].name)return'<span class="deleted-comment">'+e.content.$t+"</span>";return e.content.$t},parse=function(e){cursor=null;var r=[];if(e&&e.feed&&e.feed.entry)for(var t,o=0;t=e.feed.entry[o];o++){var n={},a=/blog-(\d+).post-(\d+)/.exec(t.id.$t);if(n.id=a?a[2]:null,n.body=bodyFromEntry(t),n.timestamp=Date.parse(t.published.$t)+"",t.author&&t.author.constructor===Array){var l=t.author[0];l&&(n.author={name:l.name?l.name.$t:void 0,profileUrl:l.uri?l.uri.$t:void 0,avatarUrl:l.gd$image?l.gd$image.src:void 0})}if(t.link&&(t.link[2]&&(n.link=n.permalink=t.link[2].href),t.link[3])){var d=/.*comments\/default\/(\d+)\?.*/.exec(t.link[3].href);d&&d[1]&&(n.parentId=d[1])}if(n.deleteclass="item-control blog-admin",t.gd$extendedProperty)for(var i in t.gd$extendedProperty)"blogger.itemClass"==t.gd$extendedProperty[i].name?n.deleteclass+=" "+t.gd$extendedProperty[i].value:"blogger.displayTime"==t.gd$extendedProperty[i].name&&(n.displayTime=t.gd$extendedProperty[i].value);r.push(n)}return r},paginator=function(e){if(hasMore()){var r=config.feed+"?alt=json&v=2&orderby=published&reverse=false&max-results=50";cursor&&(r+="&published-min="+new Date(cursor).toISOString()),window.bloggercomments=function(r){var t=parse(r);cursor=t.length<50?null:parseInt(t[t.length-1].timestamp)+1,e(t),window.bloggercomments=null},r+="&callback=bloggercomments";var t=document.createElement("script");t.type="text/javascript",t.src=r,document.getElementsByTagName("head")[0].appendChild(t)}},hasMore=function(){return!!cursor},getMeta=function(e,r){if("iswriter"==e){var t=!!r.author&&r.author.name==config.authorName&&r.author.profileUrl==config.authorUrl;return t?"true":""}return"deletelink"==e?config.baseUri+"/delete-comment.g?blogID="+config.blogId+"&postID="+r.id:"deleteclass"==e?r.deleteclass:""},replybox=null,replyUrlParts=null,replyParent=void 0,onReply=function(e,r){null==replybox&&(replybox=document.getElementById("comment-editor"),null!=replybox&&(replybox.height="250px",replybox.style.display="block",replyUrlParts=replybox.src.split("#"))),replybox&&e!==replyParent&&(replybox.src="",document.getElementById(r).insertBefore(replybox,null),replybox.src=replyUrlParts[0]+(e?"&parentID="+e:"")+"#"+replyUrlParts[1],replyParent=e)},hash=(window.location.hash||"#").substring(1),startThread,targetComment;/^comment-form_/.test(hash)?startThread=hash.substring("comment-form_".length):/^c[0-9]+$/.test(hash)&&(targetComment=hash.substring(1));var configJso={maxDepth:config.maxThreadDepth},provider={id:config.postId,data:items,loadNext:paginator,hasMore:hasMore,getMeta:getMeta,onReply:onReply,rendered:!0,initComment:targetComment,initReplyThread:startThread,config:configJso,messages:msgs},render=function(){if(window.goog&&window.goog.comments){var e=document.getElementById("comment-holder");window.goog.comments.render(e,provider)}};window.goog&&window.goog.comments?render():(window.goog=window.goog||{},window.goog.comments=window.goog.comments||{},window.goog.comments.loadQueue=window.goog.comments.loadQueue||[],window.goog.comments.loadQueue.push(render));})();// ]]>
   </script>
-</b:includable>
-    <b:includable id='threaded_comments' var='post'>
-  <div class='comments' id='comments'>
-    <a name='comments'/>
-
-    <div class='comments-content'>
-      <b:include cond='data:post.embedCommentForm' data='post' name='threaded_comment_js'/>
-      <div id='comment-holder'>
-         <data:post.commentHtml/>
-      </div>
-    </div>
-
-    <p class='comment-footer'>
-      <b:if cond='data:post.allowNewComments'>
-        <b:include data='post' name='threaded-comment-form'/>
-      <b:else/>
-        <span class='info'>No se permiten nuevos comentarios</span>
-      </b:if>
-    </p>
-
-    <b:if cond='data:showCmtPopup'>
-      <div id='comment-popup'>
-        <iframe allowtransparency='true' frameborder='0' id='comment-actions' name='comment-actions' scrolling='no'>
-        </iframe>
-      </div>
-    </b:if>
-
-    <div id='backlinks-container'>
-    <div expr:id='data:widget.instanceId + "_backlinks-container"'>
-      <b:include cond='data:post.showBacklinks' data='post' name='backlinks'/>
-    </div>
-    </div>
-  </div>
-</b:includable>
+	    <script type='text/javascript'>//<![CDATA[
+var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));
+//]]></script>
+    </b:includable>
+    <b:includable id='threaded_comments' var='post'><!--none--></b:includable>
   </b:widget>
-</b:section>
+  </b:section>
 
-</b:if><!-- Fin Error -->
 
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
