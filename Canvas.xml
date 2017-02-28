@@ -241,8 +241,8 @@ etiquetas meta [avanzado] ///-->
     <b:includable id='iframe_comments' var='post'><!--none--></b:includable>
     <b:includable id='mobile-index-post' var='post'><!--none--></b:includable>
     <b:includable id='mobile-main' var='top'><!--none--></b:includable>
-    <b:includable id='mobile-nextprev'><!-- Vacío--></b:includable>
-    <b:includable id='mobile-post' var='post'><!-- Vacío--></b:includable>
+    <b:includable id='mobile-nextprev'><!--none--></b:includable>
+    <b:includable id='mobile-post' var='post'><!--none--></b:includable>
     <b:includable id='nextprev'>
 		<div class='blog-pager' id='blog-pager'>
 			<b:if cond='data:newerPageUrl'><a class='newer-link' expr:href='data:newerPageUrl' expr:title='data:newerPageTitle'>Anterior</a></b:if>
