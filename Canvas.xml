@@ -154,7 +154,8 @@ etiquetas meta [avanzado] ///-->
 /*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType == "item"'><style type='text/css'>/*<![CDATA[*/
+<b:if cond='data:blog.pageType == "item"'>
+<style type='text/css'>/*<![CDATA[*/
 /* => ENTRADAS */
 
 /*]]>*/</style>
@@ -194,8 +195,8 @@ etiquetas meta [avanzado] ///-->
 		</b:if>
 
     </b:includable>
-    <b:includable id='backlinkDeleteIcon' var='backlink'><!--Vacío--></b:includable>
-    <b:includable id='backlinks' var='post'><!--Vacío--></b:includable>
+    <b:includable id='backlinkDeleteIcon' var='backlink'><!--none--></b:includable>
+    <b:includable id='backlinks' var='post'><!--none--></b:includable>
     <b:includable id='comment-blogger' var='post'>
     	<div class='comments' id='comments'>
       		<div class='comments-content'>
@@ -230,15 +231,16 @@ etiquetas meta [avanzado] ///-->
       	<div class="fb-comments" expr:data-href="data:blog.canonicalUrl" data-numposts="10"/>
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
 	</b:includable>
-    <b:includable id='comment-form' var='post'><!--Vacío--></b:includable>
-    <b:includable id='commentDeleteIcon' var='comment'><!--Vacío--></b:includable>
-    <b:includable id='comment_count_picker' var='post'><!--Vacío--></b:includable>
-    <b:includable id='comment_picker' var='post'><!--Vacío--></b:includable>
-    <b:includable id='comments' var='post'><!--Vacío--></b:includable>
-    <b:includable id='feedLinks'><!--Vacío--></b:includable>
-    <b:includable id='feedLinksBody' var='links'><!--Vacío--></b:includable>
-    <b:includable id='iframe_comments' var='post'><!--Vacio--></b:includable>
-    <b:includable id='mobile-main' var='top'><!--Vacío--></b:includable>
+    <b:includable id='comment-form' var='post'><!--none--></b:includable>
+    <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
+    <b:includable id='comment_count_picker' var='post'><!--none--></b:includable>
+    <b:includable id='comment_picker' var='post'><!--none--></b:includable>
+    <b:includable id='comments' var='post'><!--none--></b:includable>
+    <b:includable id='feedLinks'><!--none--></b:includable>
+    <b:includable id='feedLinksBody' var='links'><!--none--></b:includable>
+    <b:includable id='iframe_comments' var='post'><!--none--></b:includable>
+    <b:includable id='mobile-index-post' var='post'><!--none--></b:includable>
+    <b:includable id='mobile-main' var='top'><!--none--></b:includable>
     <b:includable id='mobile-nextprev'><!-- Vacío--></b:includable>
     <b:includable id='mobile-post' var='post'><!-- Vacío--></b:includable>
     <b:includable id='nextprev'>
@@ -263,9 +265,9 @@ etiquetas meta [avanzado] ///-->
 
 	</b:switch>
 	</b:includable>
-    <b:includable id='postQuickEdit' var='post'><!--Vacío--></b:includable>
-    <b:includable id='shareButtons'><!--Vacío--></b:includable>
-    <b:includable id='status-message'><!--Vacío--></b:includable>
+    <b:includable id='postQuickEdit' var='post'><!--none--></b:includable>
+    <b:includable id='shareButtons'><!--none--></b:includable>
+    <b:includable id='status-message'><!--none--></b:includable>
     <b:includable id='threaded-comment-form' var='post'>
 	<div class='comment-form'><a name='comment-form'/>
       <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
