@@ -3,7 +3,7 @@
 <html lang='es'>
 
 <head>
-<!-- Canvas.xml 1.0.17 -->
+<!-- Canvas.xml 1.0.18 -->
 <meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
@@ -182,10 +182,7 @@ etiquetas meta [avanzado] ///-->
 				<!-- insertamos Comentarios -->
 				<div class='comentarios'>
 				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
-                  	<h3>Comentarios</h3>
-					<b:with var='disqus' value='"[Shortname_DISQUS]"'><!-- Shortname_DISQUS -->
-          				<b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
-                  	</b:with>
+                    <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
 				<b:else/><!-- Caso contrario -->
                     <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
 				</b:if>
@@ -198,6 +195,7 @@ etiquetas meta [avanzado] ///-->
     <b:includable id='backlinkDeleteIcon' var='backlink'><!--none--></b:includable>
     <b:includable id='backlinks' var='post'><!--none--></b:includable>
     <b:includable id='comment-blogger' var='post'>
+		<h4><data:post.numComments/> Comentario<b:if cond='data:post.numComments &gt; 1 or data:post.numComments == 0'>s</b:if></h4>		
     	<div class='comments' id='comments'>
       		<div class='comments-content'>
 				<div id='comment-holder'><data:post.commentHtml/></div>
@@ -213,9 +211,10 @@ etiquetas meta [avanzado] ///-->
   		</div>
 	</b:includable>
     <b:includable id='comment-disqus'>
+		<h4><span class="disqus-comment-count" expr:data-disqus-url="data:post.url"></span></h4>
 		<div id='disqus_thread'/>
 		<script type='text/javascript'>
-    	var disqus_shortname = "<data:disqus/>";
+    	var disqus_shortname = "[Shortname_DISQUS]";
     	var disqus_url = "<data:blog.canonicalUrl/>"; 
 		//<![CDATA[
     	(function() {
@@ -226,9 +225,10 @@ etiquetas meta [avanzado] ///-->
 		//]]>
         </script>
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
+		<script id="dsq-count-scr" src='[Shortname_DISQUS].disqus.com/count.js' async="async"/>
 	</b:includable>
     <b:includable id='comment-facebook'>
-      	<div class="fb-comments" expr:data-href="data:blog.canonicalUrl" data-numposts="10"/>
+      	<div class='fb-comments' data-numposts='10' expr:data-href='data:blog.canonicalUrl'/>
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
 	</b:includable>
     <b:includable id='comment-form' var='post'><!--none--></b:includable>

@@ -1,5 +1,4 @@
-/*<![CDATA[*/
-/*! Blogger.core 1.0.4 - Autor: Daniel Abel - License: GNU GENERAL PUBLIC LICENSE - Date [first version]: 01/10/2016 */
+/*! => blogger.core v1.0.7 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
 
 /*-- 
 	=> WIDGETS DEFAULT
@@ -226,9 +225,7 @@ Archivo del blog*/
     position: relative;
     border-radius: 2px;
     font-weight: 700;
-    -webkit-appearance: none;
-	   -moz-appearance: none;
-			appearance: none;
+    appearance: none;
 }
 #ArchiveList select:hover {
     background-color: rgba(0, 0, 0, .08);
@@ -601,18 +598,9 @@ Mi lista de blogs*/
 Contador de visitas*/
 .graph-counter-wrapper {
     padding-top: 6px;
-    display: -moz-flex;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -moz-justify-content: flex-start;
-    -webkit-box-pack: start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
-    -moz-align-items: flex-start;
-    -webkit-box-align: start;
-        -ms-flex-align: start;
-            align-items: flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 .graph-counter-wrapper>span {
     padding: .2em .3em;
@@ -758,4 +746,3 @@ Formulario de contacto*/
     font-size: .9em;
     color: #fff;
 }
-/*]]>*/
