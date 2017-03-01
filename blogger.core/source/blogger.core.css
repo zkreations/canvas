@@ -1,4 +1,4 @@
-/*! => blogger.core v1.0.10 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
+/*! => blogger.core v1.0.11 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
 
 /*-- 
 	=> WIDGETS DEFAULT
@@ -607,11 +607,11 @@ Contador de visitas*/
 
 .graph-counter-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: flex-start;
 }
 .graph-counter-wrapper > span {
-    padding: .2em .3em;
+    padding: 1rem .5rem;
     display: block;
     color: #fff;
     background-color: rgba(0, 0, 0, .85);
