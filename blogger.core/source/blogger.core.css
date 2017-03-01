@@ -1,11 +1,10 @@
-/*! => blogger.core v1.0.7 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
+/*! => blogger.core v1.0.9 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
 
 /*-- 
 	=> WIDGETS DEFAULT
 --*/
 
 /*all widgets*/
-.widget {margin-bottom: 1em;}
 .widget:last-child {margin: 0;}
 
 .widget > h2 {
@@ -20,8 +19,8 @@
 .widget a:hover {text-decoration: none;color: rgba(0,0,0,0.7);}
 
 /*reset content and list*/
-.widget-content, .post-summary, .contact-form-widget {width: 100%;padding: 1em 0;}
-.widget-content ul, .widget-content li {margin: 0;list-style: none outside none;}
+.widget-content, .post-summary, .contact-form-widget {width: 100%;padding: 0;}
+.widget-content ul, .widget-content li {padding: 0;margin: 0;list-style: none outside none;}
 
 /*all Header*/
 header .widget {margin:0;}
@@ -135,7 +134,7 @@ Entrada destacada*/
     background: rgba(0, 0, 0, .05);
 }
 .post-summary .image {
-    width: auto;
+    width: 100%;
     border: 4px solid #fff;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 1px 3px 0 rgba(0, 0, 0, .2);
 }
@@ -185,8 +184,15 @@ Perfil del usuario o equipo*/
     font-weight: 700;
     margin-bottom: 1em;
 }
-.Profile .widget-content .profile-datablock {padding: 1em;}
-.Profile .widget-content .profile-textblock {padding: 1em 0;}
+.Profile .widget-content .profile-datablock {
+    padding: 1rem 2rem 2rem;
+    font-size: 1.2rem;
+    margin: 0;
+}
+.Profile .widget-content .profile-textblock {
+    padding: 1rem 0;
+    margin: 0;
+}
 .Profile .widget-content .profile-link {display: none;}
 
 /*option --> team/equipo*/
@@ -269,6 +275,7 @@ Archivo del blog*/
 }
 ul.hierarchy {
     margin-top: 8px;
+    padding: 0;
 }
 ul.hierarchy,
 ul.posts {
@@ -597,13 +604,13 @@ Mi lista de blogs*/
 
 /*Stats Counter
 Contador de visitas*/
+
 .graph-counter-wrapper {
-    padding-top: 6px;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
 }
-.graph-counter-wrapper>span {
+.graph-counter-wrapper > span {
     padding: .2em .3em;
     display: block;
     color: #fff;
@@ -615,7 +622,7 @@ Contador de visitas*/
     border: 1px solid rgba(0, 0, 0, .9);
     box-shadow: 0 60px 60px -30px rgba(255, 255, 255, .05) inset, 0 0 0 2px rgba(0, 0, 0, .15), 0 1px 0 0 rgba(255, 255, 255, .15) inset;
 }
-.graph-counter-wrapper>span .blind-plate {
+.graph-counter-wrapper > span .blind-plate {
     position: absolute;
     width: 100%;
     top: 50%;
@@ -633,8 +640,9 @@ Seguir por correo electrónico*/
     width: 50px;
     margin-left: 10px;
 }
-.follow-by-email-inner td {
+.follow-by-email-inner td, .follow-by-email-inner td input {
     width: 100%;
+	height: 100%;
 }
 
 /* Feeds
@@ -746,4 +754,10 @@ Formulario de contacto*/
     font-weight: 700;
     font-size: .9em;
     color: #fff;
+}
+
+/*Google Plus
+Badge*/
+.widget.PlusBadge > div, .widget.PlusBadge > div > iframe {
+    width: 100% !important;
 }
