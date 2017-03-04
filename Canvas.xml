@@ -129,6 +129,15 @@ etiquetas meta [avanzado] ///-->
 
 &lt;style&gt;/*
 <b:skin><![CDATA[*/
+/*!
+=> Theme Name: {{ NAME }}
+=> Theme URI: {{ URL }}
+=> Author: {{ AUTOR NAME }}
+=> Author URI: {{ AUTOR URL }}
+=> License: Creative Commons Atribución-NoComercial 4.0 Internacional
+=> License URI: http://creativecommons.org/licenses/by-nc/4.0/
+*/
+
 /*Design: admin blog*/
 .left {float: left;width: 50%;}
 .right {float: right;width: 50%;}
@@ -253,7 +262,7 @@ etiquetas meta [avanzado] ///-->
 	<b:switch var='data:blog.pageType'>
         <b:case value='index'/>
 
-		<!--{{ Entrada en la pagina principal }}-->
+        <!--{{ Entrada en la pagina principal }}-->
 
         <b:case value='item'/>
 
