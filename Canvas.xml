@@ -138,11 +138,13 @@ etiquetas meta [avanzado] ///-->
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
 
+.item-control.blog-admin,
+.widget-item-control {display: none;}
+
 /*Design: admin blog*/
 .left {float: left;width: 50%;}
 .right {float: right;width: 50%;}
-.item-control.blog-admin,
-.widget-item-control {display: none;}
+
 ]]></b:skin>
 
 <style type='text/css'>/*<![CDATA[*/
