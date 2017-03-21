@@ -3,7 +3,7 @@
 <html lang='es'>
 
 <head>
-<!-- Canvas.xml 1.0.18 -->
+<!-- Canvas.xml 1.0.20 -->
 <meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
@@ -237,6 +237,16 @@ etiquetas meta [avanzado] ///-->
 		<script id="dsq-count-scr" src='[Shortname_DISQUS].disqus.com/count.js' async="async"/>
 	</b:includable>
     <b:includable id='comment-facebook'>
+		<div id="fb-root"></div>
+		<script>//<![CDATA[
+			(function(d, s, id) {
+  				var js, fjs = d.getElementsByTagName(s)[0];
+  				if (d.getElementById(id)) return;
+  				js = d.createElement(s); js.id = id;
+  				js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8";
+  				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		//]]></script>
       	<div class='fb-comments' data-numposts='10' expr:data-href='data:blog.canonicalUrl'/>
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
 	</b:includable>
@@ -287,13 +297,8 @@ etiquetas meta [avanzado] ///-->
 	</b:includable>
     <b:includable id='threaded_comment_js' var='post'>
 	    <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
-	    <script type='text/javascript'>
-    (function() {
-      var items = <data:post.commentJso/>;
-      var msgs = <data:post.commentMsgs/>;
-      var config = <data:post.commentConfig/>;// <![CDATA[
-      var cursor=null;items&&items.length>0&&(cursor=parseInt(items[items.length-1].timestamp)+1);var bodyFromEntry=function(e){if(e.gd$extendedProperty)for(var r in e.gd$extendedProperty)if("blogger.contentRemoved"==e.gd$extendedProperty[r].name)return'<span class="deleted-comment">'+e.content.$t+"</span>";return e.content.$t},parse=function(e){cursor=null;var r=[];if(e&&e.feed&&e.feed.entry)for(var t,o=0;t=e.feed.entry[o];o++){var n={},a=/blog-(\d+).post-(\d+)/.exec(t.id.$t);if(n.id=a?a[2]:null,n.body=bodyFromEntry(t),n.timestamp=Date.parse(t.published.$t)+"",t.author&&t.author.constructor===Array){var l=t.author[0];l&&(n.author={name:l.name?l.name.$t:void 0,profileUrl:l.uri?l.uri.$t:void 0,avatarUrl:l.gd$image?l.gd$image.src:void 0})}if(t.link&&(t.link[2]&&(n.link=n.permalink=t.link[2].href),t.link[3])){var d=/.*comments\/default\/(\d+)\?.*/.exec(t.link[3].href);d&&d[1]&&(n.parentId=d[1])}if(n.deleteclass="item-control blog-admin",t.gd$extendedProperty)for(var i in t.gd$extendedProperty)"blogger.itemClass"==t.gd$extendedProperty[i].name?n.deleteclass+=" "+t.gd$extendedProperty[i].value:"blogger.displayTime"==t.gd$extendedProperty[i].name&&(n.displayTime=t.gd$extendedProperty[i].value);r.push(n)}return r},paginator=function(e){if(hasMore()){var r=config.feed+"?alt=json&v=2&orderby=published&reverse=false&max-results=50";cursor&&(r+="&published-min="+new Date(cursor).toISOString()),window.bloggercomments=function(r){var t=parse(r);cursor=t.length<50?null:parseInt(t[t.length-1].timestamp)+1,e(t),window.bloggercomments=null},r+="&callback=bloggercomments";var t=document.createElement("script");t.type="text/javascript",t.src=r,document.getElementsByTagName("head")[0].appendChild(t)}},hasMore=function(){return!!cursor},getMeta=function(e,r){if("iswriter"==e){var t=!!r.author&&r.author.name==config.authorName&&r.author.profileUrl==config.authorUrl;return t?"true":""}return"deletelink"==e?config.baseUri+"/delete-comment.g?blogID="+config.blogId+"&postID="+r.id:"deleteclass"==e?r.deleteclass:""},replybox=null,replyUrlParts=null,replyParent=void 0,onReply=function(e,r){null==replybox&&(replybox=document.getElementById("comment-editor"),null!=replybox&&(replybox.height="250px",replybox.style.display="block",replyUrlParts=replybox.src.split("#"))),replybox&&e!==replyParent&&(replybox.src="",document.getElementById(r).insertBefore(replybox,null),replybox.src=replyUrlParts[0]+(e?"&parentID="+e:"")+"#"+replyUrlParts[1],replyParent=e)},hash=(window.location.hash||"#").substring(1),startThread,targetComment;/^comment-form_/.test(hash)?startThread=hash.substring("comment-form_".length):/^c[0-9]+$/.test(hash)&&(targetComment=hash.substring(1));var configJso={maxDepth:config.maxThreadDepth},provider={id:config.postId,data:items,loadNext:paginator,hasMore:hasMore,getMeta:getMeta,onReply:onReply,rendered:!0,initComment:targetComment,initReplyThread:startThread,config:configJso,messages:msgs},render=function(){if(window.goog&&window.goog.comments){var e=document.getElementById("comment-holder");window.goog.comments.render(e,provider)}};window.goog&&window.goog.comments?render():(window.goog=window.goog||{},window.goog.comments=window.goog.comments||{},window.goog.comments.loadQueue=window.goog.comments.loadQueue||[],window.goog.comments.loadQueue.push(render));})();// ]]>
-  </script>
+  		<b:template-script inline='true' name='threaded_comments'/>
+  		<script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);</script>
 	    <script type='text/javascript'>//<![CDATA[
 var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));
 //]]></script>
