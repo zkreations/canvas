@@ -142,8 +142,8 @@ etiquetas meta [avanzado] ///-->
 .widget-item-control {display: none;}
 
 /*Design: admin blog*/
-.left {float: left;width: 50%;}
-.right {float: right;width: 50%;}
+body#layout .left {float: left;width: 50%;}
+body#layout .right {float: right;width: 50%;}
 
 ]]></b:skin>
 
