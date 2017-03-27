@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html lang='es'>
+<html lang='es' b:responsive='true' b:css='false'>
 
+<!-- Canvas.xml v1.0.21 -->
 <head>
-<!-- Canvas.xml 1.0.20 -->
+
 <meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
