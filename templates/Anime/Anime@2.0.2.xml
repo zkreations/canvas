@@ -1,0 +1,2029 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html lang='es' b:responsive='true' b:css='false'>
+
+<!-- Anime v2.0.2 ?= Canvas.xml v1.0.21 -->
+<head>
+
+<meta content='es' name='DC.Language'/>
+<meta expr:charset='data:blog.encoding'/>
+<meta content='blogger' name='generator'/>
+<meta content='summary_large_image' name='twitter:card'/>
+<b:if cond='data:blog.url == data:blog.homepageUrl'>
+	<meta content='blog' property='og:type'/>
+<b:elseif cond='data:blog.pageType == "item"'/>
+	<meta content='article' property='og:type'/>
+</b:if>
+
+<!-- Añadiendo URL Canónica -->
+<meta expr:content='data:blog.canonicalUrl' property='og:url'/>
+<meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
+<!-- Link rel=canonical -->
+<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+
+<!-- Scalable device -->
+<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
+
+<!-- Descripcion -->
+<b:if cond='data:blog.metaDescription'>
+	<meta expr:content='data:blog.metaDescription' property='og:description'/>
+	<meta expr:content='data:blog.metaDescription' name='description'/>
+	<meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+    <meta expr:content='data:blog.metaDescription' name='DC.description'/>
+<b:elseif cond='data:blog.pageType != "index"'/>
+	<meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
+</b:if>
+
+<!-- Añadiendo follow Robots solo a post e index -->
+<b:if cond='data:blog.pageType == "archive"'>
+	<meta content='noindex,nofollow' name='robots'/>
+<b:else/>
+	<b:if cond='data:blog.pageType == "error_page"'>
+		<meta content='noindex,nofollow' name='robots'/>
+	<b:else/>
+		<b:if cond='data:blog.pageType == "index"'>
+			<b:if cond='data:blog.homepageUrl == data:blog.url'>
+				<meta content='index,follow' name='robots'/>
+				<meta content='noodp,noydir' name='robots'/>
+			<b:else/>
+				<meta content='noindex,nofollow' name='robots'/>
+			</b:if>
+		<b:else/>
+			<meta content='index,follow' name='robots'/>
+			<meta content='noodp,noydir' name='robots'/>
+		</b:if>
+	</b:if>
+</b:if>
+
+<!-- Optimizando los post -->
+<b:if cond='data:blog.pageType == "item"'>
+	<!-- La primera imagen del post -->
+	<b:if cond='data:blog.postImageUrl'>
+		<link expr:href='data:blog.postImageUrl' rel='image_src'/>
+		<meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+		<meta expr:content='data:blog.postImageUrl' property='og:image'/>
+	</b:if>
+
+	<!-- La navegacion -->
+	<b:if cond='data:blog.newerPageUrl'>
+		<link expr:href='data:blog.newerPageUrl' rel='next'/>
+	<b:elseif cond='data:blog.olderPageUrl'/>
+		<link expr:href='data:blog.olderPageUrl' rel='prev'/>
+	</b:if>
+</b:if>
+
+<!-- Optimizando Titulos -->
+<meta expr:content='data:blog.title' name='DC.Publisher'/>
+<b:if cond='data:blog.pageType == "error_page"'>
+	<title>Error 404 en <data:blog.pageTitle/></title>
+<b:else/>
+	<b:if cond='data:blog.url != data:blog.homepageUrl'>
+		<meta expr:content='data:blog.pageName' property='og:title'/>
+		<meta expr:content='data:blog.pageName' name='twitter:title'/>
+        <meta expr:content='data:blog.pageName' name='DC.title'/>
+		<b:if cond='data:blog.pageName'>
+			<title><data:blog.pageName/></title>
+		<b:else/>
+			<title><data:blog.pageTitle/></title>
+		</b:if>
+	<b:else/>
+		<meta expr:content='data:blog.pageTitle' property='og:title'/>
+		<meta expr:content='data:blog.pageTitle' name='twitter:title'/>
+        <meta expr:content='data:blog.pageTitle' name='DC.title'/>
+		<title><data:blog.pageTitle/></title>
+	</b:if>
+</b:if>
+
+<!--/// Agrega aqui tus propias 
+etiquetas meta [avanzado] ///-->
+
+<link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
+<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
+<meta content='@blogger' name='twitter:site'/>
+<meta content='@google' name='twitter:creator'/>
+<meta content='TuNombre' name='DC.Creator'/>
+
+<!-- Fin de etiquetas meta -->
+
+<!-- Incluimos los datos de blogger -->
+<!-- favicon -->
+<b:if cond='data:blog.blogspotFaviconUrl'>
+	<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
+</b:if>
+
+<!-- feeds -->
+<b:if cond='data:blog.feedLinks'>
+<link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
+<link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
+</b:if>
+
+<!-- schema ld+json -->
+<script type='application/ld+json'>
+{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
+</script>
+
+<!-- HTML5 para IE9 -->
+<!--[if lt IE 9]>
+	<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+<![endif]-->
+<!-- Fin de datos-->
+
+&lt;style&gt;/*
+<b:skin><![CDATA[*/
+/*!
+=> Theme Name: Anime
+=> Theme URI: http://www.zkreations.com
+=> Author: Daniel
+=> Author URI: https://fb.com/daniei.abel
+=> License: Creative Commons Atribución-NoComercial 4.0 Internacional
+=> License URI: http://creativecommons.org/licenses/by-nc/4.0/
+*/
+
+.item-control.blog-admin,
+.widget-item-control {display: none;}
+
+/*Design: admin blog*/
+body#layout .left {float: left;width: 50%;}
+body#layout .right {float: right;width: 50%;}
+
+]]></b:skin>
+
+<style type='text/css'>/*<![CDATA[*/
+/* => GLOBAL */
+/*! => whale.css v1.0.4 | Copyright 2017 zkreations | Licensed under MIT | github.com/zkreations/whale.css/blob/master/LICENSE | normalize.css v5.0.0 | MIT License | github.com/necolas/normalize.css*/a,table{background-color:transparent}button,hr,input{overflow:visible}img,legend{max-width:100%}audio,canvas,img,progress,video{display:inline-block}progress,sub,sup{vertical-align:baseline}[type=checkbox],[type=radio],legend{box-sizing:border-box;padding:0}.column,.column-reverse{-webkit-box-orient:vertical}.embed,sub,sup{position:relative}*,::after,::before{box-sizing:border-box}html{-webkit-tap-highlight-color:transparent;-ms-overflow-style:scrollbar;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:sans-serif;font-size:14px;line-height:20px}body{font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;font-weight:400;overflow-x:hidden;margin:0}a{color:#2196f3;text-decoration:none;-webkit-text-decoration-skip:objects}a:focus,a:hover{color:#1565c0;text-decoration:underline}a:active,a:hover{outline-width:0}a:visited{color:#7e57c2}b,strong{font-weight:bolder}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}ol,ol li,ul,ul li{margin:0;list-style:none}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section{display:block}h1,h2,h3,h4,h5,h6{font-weight:500;line-height:1.1;color:inherit;margin-bottom:.5rem}h1{font-size:2em;margin:.67em 0}h2{font-size:1.5rem}h3{font-size:1.4rem}h4{font-size:1.3rem}h5{font-size:1.2rem}h6{font-size:1.1rem}table{border-spacing:0;border-collapse:collapse}[role=button],a,button,input,label,select,textarea{-ms-touch-action:manipulation;touch-action:manipulation}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}figure{margin:1em 40px}img{vertical-align:middle;border-style:none}svg:not(:root){overflow:hidden}legend{color:inherit;display:table;white-space:normal}.arrow,.button{vertical-align:middle}textarea{overflow:auto}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}.none{display:none!important}.clearfix::after{display:block;content:"";clear:both}.flex{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column{-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse,.row-reverse{-webkit-box-direction:reverse}.column-reverse{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-reverse{-webkit-box-orient:horizontal;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.justify-content-center{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center{-ms-flex-line-pack:center;align-content:center}.align-content-end{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end{-ms-flex-item-align:end;align-self:flex-end}.align-self-start{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.button{display:inline-block;white-space:nowrap;font-weight:400;line-height:1.25;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;font-size:100%;padding:.5em 1em;text-decoration:none!important;color:rgba(0,0,0,.5)}.button:visited{color:inherit}.font-xsmall{font-size:75%}.font-small{font-size:90%}.font-medium{font-size:110%}.font-large{font-size:125%}.font-xlarge{font-size:150%}embed,iframe,object{margin:0;padding:0;border:0;outline:0}.embed{padding-bottom:56.25%;height:0}.embed embed,.embed iframe,.embed object,.embed video{width:100%;height:100%;position:absolute;top:0;bottom:0;left:0}.table{display:block;width:100%;overflow-x:auto}.container{margin:0 auto;padding:0 1rem}.navmenu li,.navmenu ul{padding:0;margin:0}.navmenu--menu li{position:relative}.navmenu--menu a{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;font-size:1rem}.navmenu--menu ul{visibility:hidden;max-height:0}.arrow{width:10px;height:10px;border-width:0 5px 5px 0;border-style:solid;display:inline-block;margin-left:.5rem;-webkit-transform:rotate(45deg);transform:rotate(45deg)}@media (max-width:767px){.navmenu--menu ul{overflow:hidden}.navmenu--menu ul.visible{visibility:visible;max-height:1000px}}@media (min-width:768px){.navmenu--menu>li{display:inline-block}.navmenu--menu ul{text-align:left;min-width:200px;position:absolute}.navmenu--menu ul ul{top:0;left:100%}.navmenu--menu li:hover>ul{visibility:visible;max-height:1000px}.navmenu--menu ul .arrow{-webkit-transform:rotate(-45deg);transform:rotate(-45deg)}}@media print{.none-print{display:none!important}}
+
+/* anime */
+@font-face {
+  font-family: "anime";
+  src: url(data:application/font-woff;charset=utf-8;base64,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) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  font-family: "anime" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+  font-family: "anime" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-twitter:before {
+  content: "\62";
+}
+.icon-google:before {
+  content: "\63";
+}
+.icon-tumblr:before {
+  content: "\64";
+}
+.icon-clock:before {
+  content: "\68";
+}
+.icon-search:before {
+  content: "\6a";
+}
+.icon-cancel:before {
+  content: "\6b";
+}
+.icon-arrow-l:before {
+  content: "\65";
+}
+.icon-arrow-r:before {
+  content: "\67";
+}
+.icon-facebook:before {
+  content: "\66";
+}
+.icon-youtube:before {
+  content: "\61";
+}
+.icon-link:before {
+  content: "\69";
+}
+.icon-comment:before {
+  content: "\6c";
+}
+.icon-pinterest:before {
+  content: "\6d";
+}
+.icon-instagram:before {
+  content: "\6e";
+}
+/*Oswald*/
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Oswald Regular'), local('Oswald-Regular'), url(https://fonts.gstatic.com/s/oswald/v13/-g5pDUSRgvxvOl5u-a_WHw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Oswald';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Oswald Bold'), local('Oswald-Bold'), url(https://fonts.gstatic.com/s/oswald/v13/bH7276GfdCjMjApa_dkG6T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
+}
+
+/*RobotoDraft*/
+@font-face {
+    font-family: RobotoDraft;
+    font-style: normal;
+    font-weight: 400;
+    src: local('RobotoDraft'), local('RobotoDraft-Regular'), url(https://fonts.gstatic.com/s/robotodraft/v1/0xES5Sl_v6oyT7dAKuoni7rIa-7acMAeDBVuclsi6Gc.woff) format('woff');
+}
+@font-face {
+    font-family: RobotoDraft;
+    font-style: normal;
+    font-weight: 500;
+    src: local('RobotoDraft Medium'), local('RobotoDraft-Medium'), url(https://fonts.gstatic.com/s/robotodraft/v1/u0_CMoUf3y3-4Ss4ci-VwaTA90I55Xt7owhZwpPnMsc.woff) format('woff');
+}
+@font-face {
+    font-family: RobotoDraft;
+    font-style: normal;
+    font-weight: 700;
+    src: local('RobotoDraft Bold'), local('RobotoDraft-Bold'), url(https://fonts.gstatic.com/s/robotodraft/v1/u0_CMoUf3y3-4Ss4ci-VwRbnBKKEOwRKgsHDreGcocg.woff) format('woff');
+}
+
+html {font-size: 12px;}
+
+body {
+    background-position: top center;;
+}
+
+.logo {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 1.1;
+}
+
+.logo a {
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 700;
+    -webkit-transition: color .3s;
+    transition: color .3s;    
+}
+
+.logo a:hover,
+.logo a:active,
+.logo a:focus {
+    color: rgba(0, 0, 0, 0.95);
+    text-decoration: none;
+}
+
+.mainlogo p {
+    margin: 0;
+    font-size: 1.2rem;
+    padding-top: .5rem;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 400;
+}
+
+.box {
+    padding: 1rem; 
+}
+
+.box--border {
+    padding: 0 2rem; 
+}
+
+.mainbox {
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);
+    background: #fff;
+}
+
+.container {
+    padding: 0;
+}
+
+/*header*/
+.header .box {
+    background-color: rgba(0, 0, 0, 0.05);
+    background-position: top right;
+    background-repeat: no-repeat;
+}
+.header .box {
+    position:relative;
+}
+/*menu*/
+.navmenu {
+    background: #232323;
+    position: relative;
+    z-index: 900;
+}
+.navmenu--menu > li {
+    -webkit-transition: background .2s;
+    transition: background .2s;    
+    display: block;
+}
+.navmenu--menu li a > .arrow {
+    border-width: 2px;
+	margin-left: .8rem;
+     -webkit-transition: -webkit-transform .3s;
+    transition: -webkit-transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+}
+
+.navmenu a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 1.5rem 2rem;
+}
+.navmenu a:hover {
+    text-decoration: none;
+    color: #fff;
+}
+.navmenu li ul li:hover > a {
+    background: rgba(255, 255, 255, 0.12);
+}
+.navmenu ul ul {
+  -webkit-transition: -webkit-transform .2s;
+  transition: -webkit-transform .2s;
+  transition: transform .2s;
+  transition: transform .2s, -webkit-transform .2s;
+  -webkit-transform: scaleY(0) translateZ(0);
+  transform: scaleY(0) translateZ(0);
+  -webkit-transform-origin: top left;
+  transform-origin: top left;
+}
+
+/*Error 404*/
+.error {
+    padding: 2rem;    
+}
+.error--box {
+    text-align: center;
+}
+.error h2 {
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.75);
+    margin: 0;
+}
+.error p {
+    font-size: 1.4rem;
+    color: rgba(0, 0, 0, 0.5);
+    margin: 0;
+    padding: .5rem 0 1.5rem;
+}
+.mott {
+    font-size: 2rem;
+    display: inline-block;
+    line-height: initial;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width:767px){
+  .navmenu--menu li ul.visible {
+    -webkit-transform: scaleY(1) translateZ(0);
+    transform: scaleY(1) translateZ(0);
+}
+
+.navmenu--menu a.active > .arrow {
+    -webkit-transform: rotate(-45deg) translateZ(0);
+    transform: rotate(-45deg) translateZ(0);
+}
+.navmenu--menu ul ul {
+    background: rgba(0, 0, 0, 0.2) !important;
+}
+.navmenu--menu {
+    -webkit-transform: scaleY(0) translateZ(0);
+    transform: scaleY(0) translateZ(0);
+    -webkit-transform-origin: top left;
+    transform-origin: top left;
+    max-height: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #212121;
+}
+.navmenu--menu.visible {
+    -webkit-transform: scaleY(1) translateZ(0);
+    transform: scaleY(1) translateZ(0);
+    -webkit-transition: -webkit-transform .2s;
+    transition: -webkit-transform .2s;
+    transition: transform .2s;
+    transition: transform .2s, -webkit-transform .2s;
+    max-height: 1000vh;
+}  
+}
+/*toggle*/
+.navmenu .toggle {
+    padding: 1.5rem;
+    display: block;    
+}
+.toggle--icon {
+    width: 30px;
+    position: relative;
+    z-index: 80;
+    height: 17px;
+    cursor: pointer;
+}
+.toggle--icon span:after, .toggle--icon span:before {
+    content: "";
+}
+.toggle--icon span, .toggle--icon span::after, .toggle--icon span::before {
+    position: absolute;
+    left: 0;
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    -webkit-transition: top .3s,-webkit-transform .3s;
+    transition: top .3s,-webkit-transform .3s;
+    transition: transform .3s,top .3s;
+    transition: transform .3s,top .3s,-webkit-transform .3s;
+}
+
+.toggle--icon span::before {
+    top: -7px;
+}
+.toggle--icon span::after {
+    bottom: -7px;
+}
+
+.toggle--icon span {
+    top: 50%;
+    margin-top: -1px;
+}
+
+.toggle.active .toggle--icon span {
+    -webkit-transform: rotate(225deg) translateZ(0);
+    transform: rotate(225deg) translateZ(0);
+}
+
+.toggle.active .toggle--icon span::before {
+    opacity: 0;
+    top: 0;
+}
+
+.toggle.active .toggle--icon span::after {
+    top: 0;
+    -webkit-transform: rotate(-90deg) translateZ(0);
+    transform: rotate(-90deg) translateZ(0);
+}
+
+/*
+  => Main
+*/
+
+/*
+  => Sidebar
+*/
+
+/*widgets*/
+.widget {
+    margin-bottom: 1rem;
+    background: #f1f1f1;
+}
+.widget:last-child {margin: 0;}
+#Destacados .widget:last-child {margin-bottom: 1rem;}
+
+.widget > h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    position: relative;
+    padding: 1rem;
+    color: #fff;
+    display: inline-block;
+    margin: 0;
+    letter-spacing: 1px;
+	border: 0 none;
+} 
+.widget-content,
+.user-content {
+    width: 100%;
+    padding: 1rem 0;
+    background: #fff;
+}
+.widget-content::after {
+    display: block;
+    content: "";
+    clear: both;
+}
+header .widget, #PopularPosts1 {margin:0;background: none transparent;}
+/*
+Custom Widget Search
+*/
+.search {
+    position: relative;
+    background: #f9f9f9;
+}
+.error .search {
+    margin-bottom: 2rem;
+}
+.search input[type=text] {
+    margin: 0;
+    padding: 1rem 4rem 1rem 1rem;
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, 0.5);
+    vertical-align: middle;
+    width: 100%;
+    background: transparent;
+    border: 4px solid rgba(0, 0, 0, 0.06);
+    font-weight: 500;
+    box-shadow: 0 0 transparent;
+}
+.search input:focus {
+    outline: 0 none;
+    box-shadow: 0 0 transparent;
+}
+.search button {
+    border: 0;
+    padding: 0 1.2rem;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 1;
+    cursor: pointer;
+    right: 0;
+	border-radius: 2px;
+}
+.search button:hover {
+    opacity: 0.8;
+}
+.search button::before {
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1.2rem;
+}
+/*
+Custom Widget Profile
+*/
+.user-card:before {
+    background-color: rgba(0,0,0,.8);
+    background-repeat: no-repeat;
+    background-size: cover;
+    content: "";
+    height: 158px;
+    width: 100%;
+    display: block;
+}
+.user-card {
+    text-align: center;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.user-card a {
+    padding: 1rem 1rem 0;
+    display: block;
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1.4rem;
+    -webkit-transition: color .2s;
+    transition: color .2s;
+}
+
+.user-card a:hover {
+    color: rgba(0, 0, 0, 0.9);
+    text-decoration: none;
+}
+
+.user-card img {
+    display: block;
+    margin: -40px auto 0;
+    border-radius: 50%;
+}
+.user-card p {
+    padding: 1rem 2rem 2rem;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1.1rem;
+}
+/*
+Custom Widget tags
+*/
+.tags {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+.tags > li {
+    float: left;
+}
+.tags > li > a {
+    display: block;
+    padding: .8rem;
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.04);
+    margin: 0 4px 4px 0;
+    font-weight: 500;
+}
+.tags > li > a > span {
+    color: #607D8B;
+    font-weight: 700;
+}
+.tags > li > a:hover, .tags > li > a.here {
+    background: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+}
+/*widget fix*/
+.post-summary h3 {
+    margin: 0;
+    padding-top: 1rem;
+}
+.post-summary {
+    background: #fff;
+}
+#PopularPosts1 {
+    background: #f1f1f1;
+}
+.Profile .widget-content {
+    margin: 0;
+}
+#Destacados .widget:first-child {
+    margin: 0;
+}
+/*footer*/
+.footer__end {
+    background: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.4);
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
+.footer--last > span {
+    font-size: 1.5rem;
+    line-height: 1;
+    font-weight: 700;
+}
+.footer--last > p {
+    font-size: .9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    margin: 0;    
+}
+.footer--last > p > a {
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 700;
+    text-decoration: none;
+
+}
+.footer--links {
+    position: relative;
+    background: #212121;
+    padding: 1.5rem 2rem;    
+}
+.footer--links::after, .header .box::after {
+    position: absolute;
+    content: "";
+    height: 2px;
+    top: -2px;left: 0; width: 100%;
+}
+
+.header .box::after {
+    top: auto;bottom: 0;
+}
+
+.footer .widget {
+    background: transparent;
+}
+/*social*/
+.footer--social {
+    padding-bottom: 1rem;
+}
+.footer--social a {
+    float: left;
+    opacity: 0.5;
+    font-size: 1.5rem;
+    color: #000;
+    padding: 0 .5rem;
+}
+.footer--social a:hover {
+    opacity: 0.8;
+    text-decoration: none;
+}
+/*links*/
+.footer--links nav > a {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 1rem;
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.footer--links nav > a:hover {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;    
+}
+.footer--links nav > a::before {
+    position: relative;
+    top: 2px;
+    margin-right: .5rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+/*botones*/
+.cyan {background-color: #00BCD4;}
+.teal {background-color: #009688;}
+.blue {background-color: #2196F3;}
+
+
+.info {
+    background-color: rgba(0,0,0,0.05);
+    color: rgba(0,0,0,0.5);
+    display: block;
+    margin: .5rem 0;
+    padding: 1.5rem;
+    text-align: center;
+}
+.no-entrys .info {
+	background-color: rgba(0,0,0,0.02);
+    font-size: 1.2rem;
+    padding: 2rem 1.5rem;
+}
+
+.container {
+    max-width: 1080px;
+}
+/*
+=>MediaQuerys
+*/
+/* Extra small devices */
+@media (max-width: 575px) {
+.header .box {
+    background-image: none !important;
+}  
+}
+
+/* Small devices */
+@media (min-width: 576px) {
+.mott {
+    font-size: 4rem;
+} 
+}
+/* Medium devices */
+@media (min-width: 768px) {
+
+.navmenu--menu > li {
+    float: left;
+}
+.box--menu {
+    padding: 0 .8rem; 
+}
+.navmenu--menu > li > a {
+    padding: 1.2rem;
+}
+.navmenu li ul a {
+    padding: 1.2rem;
+}
+.navmenu li:hover > ul {
+  -webkit-transform: scaleY(1) translateZ(0);
+  transform: scaleY(1) translateZ(0);
+}    
+.navmenu--menu li:hover a > .arrow {
+    -webkit-transform: rotate(-45deg) translateZ(0);
+    transform: rotate(-45deg) translateZ(0);
+}
+.navmenu--menu li ul li:hover > a > .arrow {
+    -webkit-transform: rotate(45deg) translateZ(0);
+    transform: rotate(45deg) translateZ(0);
+}
+.navmenu--menu li a.active {
+    background: transparent !important;
+} 
+.navmenu .toggle {
+    display: none;
+}
+.container {
+    padding: 0 1rem;
+}
+.box {
+    padding: 1.5rem 2rem; 
+}
+ 
+.logo {
+    font-size: 2.4rem;
+}
+.footer__end {
+    text-align: right;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+}
+.footer--social {
+    padding-bottom: 0;
+}
+.footer--social a {
+    padding: 0 1rem 0 0;
+}
+}
+
+/* Large devices */
+@media (min-width: 992px) {
+.main-content {
+    float: left;
+    width: 68%;
+}
+.sidebar {
+    float: right;
+    width: 30%;
+}
+}
+
+/* Extra Large devices */
+@media (min-width: 1367px) {
+html {font-size: 14px;}
+.container {
+    max-width: 1240px;
+}
+}
+
+/*]]>*/</style>
+
+<b:if cond='data:blog.pageType == "index"'>
+<style type='text/css'>/*<![CDATA[*/
+/* => INDEX */
+/*top entry with lory*/
+.slides,
+.js_slide {
+    display: inline-block
+}
+.js_slide img {
+    width: 100%;
+}
+.frame {
+    font-size: 0;
+    position: relative;    
+    line-height: 0;
+    overflow: hidden;
+    white-space: nowrap
+}
+
+.next, .prev {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    font-size: 2.2rem;
+    background: rgba(255, 255, 255, 0.8);
+    height: 35px;
+    opacity: .5;
+    width: 70px;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+    color: rgba(0, 0, 0, 0.8);
+}
+.next:hover, .prev:hover {
+    opacity: .8;   
+}
+.next {
+    right: 0;
+}
+.prev {
+    left: 0;
+}
+.frame {
+    width: 100%;
+}
+.js_slide {
+    width: 286px;
+}
+.js_slide:not(:last-child) {
+    margin-right: 4px;
+}
+/*entrys*/
+.entrys {
+    padding: 0;
+    margin: 0;
+}
+.top-entry {
+    margin-bottom: 1.5rem;
+    position: relative;
+    background: #fff;
+}
+.entrys li > a {
+    display: block;
+    position: relative;
+	height: 195px;
+}
+.entrys li > a > span {
+    display: block;
+    line-height: 1.5;
+    font-size: 1rem;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    padding: .8rem 1rem;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    white-space: normal;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: #41555f;
+    -webkit-transition: background .2s;
+    transition: background .2s;
+}
+
+/*Posts*/
+.card {
+    width: 100%;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    background: #f5f5f5;
+    margin-bottom: 1rem;
+}
+.card > a {
+    overflow: hidden;
+    display: block;
+    position: relative;
+    max-height: 340px;
+}
+.card > a::before, .card > a::after {
+    display: block;
+    position: absolute;
+}
+.card > a::before {
+    font-family: "anime";
+    content: "\6a";
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,-50%, 0) scale(2);
+    transform: translate3d(-50%,-50%, 0) scale(2);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 400;
+    z-index: 15;
+    opacity: 0;
+    -webkit-transition: opacity .2s, -webkit-transform .2s;
+    transition: opacity .2s, -webkit-transform .2s;
+    transition: transform .2s, opacity .2s;
+    transition: transform .2s, opacity .2s, -webkit-transform .2s;
+ }
+.card > a::after {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 10;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+}
+.card > a img{
+	display:block;
+    width: 100%;
+    -webkit-transition: -webkit-transform .2s;
+    transition: -webkit-transform .2s;
+    transition: transform .2s;
+    transition: transform .2s, -webkit-transform .2s;
+}
+
+.card > a:hover img{
+    -webkit-transform: scale(1.1) translateZ(0);
+    transform: scale(1.1) translateZ(0);
+}
+
+.card > a:hover::after  {
+    opacity: .75;
+}
+.card > a:hover::before  {
+    -webkit-transform: translate3d(-50%,-50%, 0) scale(1);
+    transform: translate3d(-50%,-50%, 0) scale(1);
+    opacity: 1;    
+}
+.card-data {
+    padding: 1.5rem;
+}
+
+.card-data h2 {
+    margin: 0;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    color: rgba(0, 0, 0, 0.75);
+    font-weight: 400;
+}
+.metadata a {
+    padding: .8rem;
+    font-size: 1rem;
+    vertical-align: middle;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    margin-right: .5rem;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    line-height: 1;
+}
+.metadata .date {
+    text-transform: capitalize;
+    display: inline-block;
+}
+
+.metadata a:hover {
+    border-color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.metadata a::before {
+    margin-right: .5rem;
+    font-size: 1.2rem;
+}
+
+.card-data p {
+    margin: 0;
+    padding: 1.2rem 0;
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 400;
+}
+
+/*Page post*/
+.blog-pager {
+    text-align: center;
+}
+.blog-pager > a, .pagenum > a, .pagenum > span {
+    display: inline-block;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.5);
+    padding: 0.5rem 1rem;
+    margin-right: 4px;
+    font-size: 1.1rem;
+}
+
+.blog-pager > a:hover, .pagenum > a:hover, .pagenum > span {
+    border-color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.7);
+    text-decoration: none
+}
+/*
+=>MediaQuerys
+*/
+
+/* Small devices */
+@media (min-width: 576px) {
+.card {
+    width: 49%;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 49%;
+    flex: 0 0 49%;
+}
+}
+/*]]>*/</style>
+<b:else/>
+
+<style type='text/css'>/*<![CDATA[*/
+/* => TODO MENOS INDEX */
+/*fb responsive hack*/
+.fb-comments,
+.fb-comments iframe span[style],
+.fb-comments iframe[style],
+.fb-comments span,
+.fb-like-box,
+.fb-like-box iframe span[style],
+.fb-like-box iframe[style],
+.fb-like-box span{width:100%!important}
+
+.blog--content {
+    padding: 0;
+}
+
+/*formato entradas - estatica*/
+article .post-body {
+    font-size: 1.15rem;
+    line-height: 1.7rem;
+    color: rgba(0, 0, 0, 0.6);
+    padding-bottom: 2rem;
+}
+
+article h1, article h2, article h3, article h4, article h5, article h6 {
+	color: rgba(0, 0, 0, 0.7);
+    margin: 0 0 1rem;
+}
+
+article blockquote {
+    border-left: 4px solid #EEE;
+    margin: 0 15px;
+    padding: 1rem 2rem;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.post-body .button {
+    color: #fff;
+    padding: .8em 1.5em;
+    border-radius: 2px;
+    -webkit-transition: opacity .2s;
+    transition: opacity .2s;
+}
+
+.post-body .button:hover {
+    opacity: 0.8;
+}
+
+.gray {background-color: #808080;}
+.amber {background-color: #d1c3ae;}
+.brown {background-color: #BCAAA4;}
+
+
+article ul li, article ol li {margin: 0.5em 0 0.5em 2em;}
+article ul li {list-style-type: circle;}
+article ol li {list-style-type: decimal;}
+article img {max-width: 100%;}
+article a {font-weight: normal;}
+article table {text-align: left;}
+article table tbody td, article table thead th {padding: 1rem;border-bottom: 1px solid rgba(0,0,0,0.08);}
+article table thead {border-bottom: 2px solid rgba(0,0,0,0.08);}
+article table thead th {white-space: nowrap;font-weight: normal;}
+
+article p {
+    margin: 0;
+}
+
+article pre {
+    padding: 1rem;
+    overflow: auto;
+    margin: 0;
+    border-radius: 3px;
+    display: block;
+    color: rgba(0, 0, 0, 0.7);
+    overflow-x: auto;
+    font-size: 1rem;
+    line-height: 1.45;
+}
+article code {
+    padding: .3em .4em;
+    white-space: nowrap;
+}
+article code, article pre {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+/*Comentarios*/
+.comentarios {
+    position: relative;
+    z-index: 200;
+}
+.title--box {
+    margin-bottom: 1rem;
+    background: #f1f1f1;
+}
+
+.title--box h4 {
+    font-size: 1rem;
+    display: inline-block;
+    color: #fff;
+    padding: 1rem;
+    text-transform: uppercase;
+    margin: 0;
+    letter-spacing: 1px;
+}
+/**fix comment**/
+.comments .comments-content .loadmore.loaded{max-height:0;opacity:0;overflow:hidden;display:none}.comments .comments-content .comment-thread ol{list-style-type:none;padding:0;text-align:left}.comments .comment-block{background-color:#f7f7f7;margin:0 0 0 100px;padding:20px 26px;color:#777;font-size:1.2em;line-height:1.6;position:relative}.avatar-image-container{box-shadow:0 2px 2px -2px rgba(0,0,0,0.2),0 0 2px 0 rgba(0,0,0,0.1);float:left;height:80px;overflow:hidden;position:relative;width:80px;border-radius:4px;margin-top:1rem;background-origin:border-box;background-size:cover}.avatar-image-container > img{width:100%;}
+.comment-replies .avatar-image-container {
+    width: 38px;
+    height: 38px;
+    border-radius: 4px;
+}
+.continue,.item-control{display:none}.comments .comments-replybox{border:medium none;height:250px;width:100%}.comments .comment-replybox-single{margin-left:100px;margin-top:0}
+.comments .comment-replybox-thread, .comment-form {
+	max-height: 280px;
+}
+.comments .thread-chrome.thread-collapsed{display:none}.comment-header .user,.comment-header a{font-style:normal;font-weight:700;color:#555}.comment-header .user{margin-right:4px}.avatar-image-container img[src="https://img1.blogblog.com/img/anon36.png"],.avatar-image-container img[src="https://img2.blogblog.com/img/b36-rounded.png"]{opacity:0}
+li.comment {
+    position: relative;
+    margin: 0 0 1rem 0;
+}
+.comments-content{}
+/**fin fix**/
+li.comment {
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    padding: 1rem 0;
+    margin: 0;
+}
+.avatar-image-container {
+    width: 60px;
+    height: 60px;
+    margin: 5px 0 0;
+}
+.comments .comment-block {
+    margin-left: 80px;
+    background: none;
+    padding: 0;
+    font-size: 1.15rem;
+}
+.comment-content {
+    margin: 0;
+}
+.comment-header span.datetime {
+    font-size: 0.9em;
+}
+
+.comment-header span.datetime > a {
+    color: #aaa;
+    font-weight: 400;
+}
+
+.thread-toggle {
+    position: absolute;
+    right: 0;
+    top: 1rem;
+    z-index: 40;
+}
+.deleted-comment {
+    padding: 1rem;
+    display: block;
+    background: rgba(0, 0, 0, 0.04);
+    border-radius: 3px;
+    margin: .5rem 0;
+}
+.thread-toggle a {
+    text-indent: -9999px;
+    display: block;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-position: center center;
+    opacity: 0.5;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAU0lEQVR4AWOgBxgFHPhEMIEXw2MGHRQRPaCIB24NGxn+M7wCakEofw0U2YDPQTugWhDKd4AcRUALUKEumnLCWtCUE9aCUE6kFphyorUA4SAGowAAbSweD6CmcT8AAAAASUVORK5CYII=');
+}
+
+.thread-toggle.thread-expanded a {
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAARUlEQVR4AWMY1GAUNAAhScr/A2EDKcr/ACFcC2HlvxnCGMIhWohVDgQwLYSVh8K4hLU0AJWHQNkILXX47NDCIjIIwSgAAGEBHc5iOzTwAAAAAElFTkSuQmCC');
+}
+.thread-toggle a:hover {
+    opacity: 0.9;
+}
+.comment-replies li.comment {
+    border-bottom: 0 none;
+    margin-left: 5em;
+}
+.comment-replies .comment-block {
+    margin-left: 58px;
+}
+.comentarios .info {
+    margin: 1em 0;
+}
+/*]]>*/</style>
+</b:if>
+
+<b:if cond='data:blog.pageType == "item"'>
+<style type='text/css'>/*<![CDATA[*/
+/* => ENTRADAS */
+.tagspost {
+    padding-bottom: 1rem;
+}
+
+.tagspost > a {
+    display: inline-block;
+    margin-right: .5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.5);
+    font-size: 1rem;
+    margin-bottom: .5rem;
+    font-weight: 500;
+}
+
+.tagspost > a:hover {
+    border-color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+}
+/*article*/
+.article-header {
+    padding-bottom: 1.5rem;
+}
+.article-header > h1 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.7);
+    padding-bottom: 1rem;
+}
+
+.metadata {
+    color: rgba(0, 0, 0, 0.4);
+}
+.metadata > * {
+    margin-right: 1rem;
+}
+.metadata--author {
+    display: block;
+}
+.metadata--author img {
+    width: 30px;
+    border-radius: 50%;
+}
+.metadata time::before, 
+.metadata > span::before {
+    position: relative;
+    top: 3px;
+    margin-right: .5rem;
+    font-size: 1.2rem;
+}
+
+.metadata span {
+    display: inline-block;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+/*share*/
+.share {
+    padding-top: 2rem;
+    clear: both;
+}
+
+.share a {
+    float: left;
+    margin: 0 .5rem .5rem 0;
+    padding: .4rem .6rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+    background: rgba(0, 0, 0, 0.03);
+    font-size: 1rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.2);
+    -webkit-transition: color .2s, border .2s;
+    transition: color .2s, border .2s;
+}
+
+.share a::before {
+    margin-right: .5rem;
+    font-size: 1.2rem;
+}
+
+.share a:hover,
+.share a:focus,
+.share a:active {
+    text-decoration: none;
+}
+
+.share a:hover {
+    border-color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.75);
+}
+/*relacionados*/
+.rel li {
+    width: 50%;
+	flex: 0 0 auto;
+    padding: 0 .5rem 1rem;
+}
+
+.rel, .rel li {
+    list-style: none;
+    text-align: center;
+    margin: 0;
+}
+
+.rel li span {
+    display: block;
+    padding: .8rem 1rem;
+    background: #41555f;
+    color: #fff;
+    -webkit-transition: background .2s;
+    transition: background .2s;
+}
+
+.Blog .rel {
+    margin-right: -.5rem;
+    margin-left: -.5rem;
+    padding: 0;
+}
+.rel li a, .rel li img {
+    display: block;
+	width: 100%;
+}
+
+/* Small devices */
+@media (min-width: 576px) {
+.rel li {
+    width: 33.333333%;
+} 
+}
+
+/*]]>*/</style>
+<script type='text/javascript'>//<![CDATA[
+//! => relacionados.js | Licensed under MIT | JMiur vagabundia.blogspot.com | Emilio Cobos emiliocobos.net | Daniel zkreations.com
+function eliminattags(c,d){for(var b=c.split("<"),a=0;a<b.length;a++)-1!=b[a].indexOf(">")&&(b[a]=b[a].substring(b[a].indexOf(">")+1,b[a].length));return b=b.join(""),b.substring(0,d-1)+"..."}
+function mostrarrelacionados(c){var d,b=relacionados.posts,a=Math.floor(Math.random()*b.length),f=b[a],e=0,g="";for(a===b.length-1?a=0:a++;b[a]&&(d=b[a],g+=relacionados.plantilla.replace(/{{titulo}}/g,d.tit).replace(/{{url}}/g,d.url).replace(/{{img}}/g,d.img).replace(/{{resumen}}/g,d.contenido),d!==f)&&++e!==relacionados.max;a++)a===b.length-1&&(a=-1);c?(c="string"==typeof c?document.getElementById(c):c,c.innerHTML=g):document.write(g)}
+function leerpostetiquetas(c){for(var d,b,a,f=c.feed.entry,e=0;f[e];e++){c=0;a={};d=f[e];b=d.link;a.tit=d.title.$t;contenido=d.content||d.summary;a.contenido=eliminattags(contenido.$t,relacionados.maxLen);for(a.img=d.media$thumbnail?d.media$thumbnail.url.replace(/s\B\d{2,4}/,"w300-h180"):relacionados.imgPorDefecto||"";b[c];c++)if("alternate"===b[c].rel){a.url=b[c].href;break}postRepetido(relacionados.posts,a)||a.url===document.URL||relacionados.posts.push(a)}}
+var relacionados={posts:[],max:6,maxLen:100,imgPorDefecto:"https://4.bp.blogspot.com/-S82veBwr6GY/WGXba_QzE1I/AAAAAAAACBI/jV5d4YA4iTEbo8xZiZ6l4D8Fcw9ecMVrgCLcB/w300-h180-c/no-image-blogger.png",plantilla:'<li><a href="{{url}}"><img src="{{img}}" alt="{{titulo}}"/></a><span class="font">{{titulo}}</span></li>'},postRepetido=function(c,d){for(var b=0;c[b];b++)if(c[b].url===d.url)return!0;return!1};
+//]]></script>
+<b:elseif cond='data:blog.pageType == "static_page"'/>
+<style type='text/css'>/*<![CDATA[*/
+/* => PAGINAS */
+.article-header > h1 {
+    font-size: 1.8rem;
+    margin: 0 0 2rem;
+    color: rgba(0, 0, 0, 0.7);
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+/*]]>*/</style>
+</b:if>
+
+<style type='text/css'>/*<![CDATA[*/
+
+/* CONFIGURACION
+   ================================================== */
+/**
+ * 1. Imagen del header
+ * 2. Imagen de fondo
+ 	* 2.1  Controla si se repite o no la imagen del fondo
+	* 2.2  Color de fondo
+ * 3. Fuente global
+ * 4. Fuente del logo, menus y titulos
+ * 5. Color principal
+ * 6. Color de los enlaces
+ * 7. Cover del widget perfil
+ * 8. Avatar de los comentarios 
+ */
+
+.header .box { /* 1 */
+    background-image: url(https://4.bp.blogspot.com/-SwRCMGzb4js/WM4Hkm_ug-I/AAAAAAAACOE/7Kb1fDwbgUgoFyFFjA5jPwfZ6pSMO2FDgCLcB/s1600/hg-03.png);
+}
+
+body {
+    /*background-image: url(../imagen.jpg);*/ /* 2 */
+	background-repeat: repeat; /* 2.1 */
+    background-color: #e1e1e1; /* 2.2 */
+	font-family: RobotoDraft, sans-serif; /* 3 */
+}
+
+.font,
+.widget > h2 {
+	font-family: 'Oswald', sans-serif; /* 4 */
+}
+
+.navmenu ul ul,
+.navmenu--menu li a.active,
+.navmenu--menu > li:hover,
+.widget > h2,
+.footer--links::after,
+.header .box::after,
+.card > a::after,
+.search button,
+.entrys li > a:hover > span,
+.title--box h4,
+.rel li:hover span {
+    background: #23a6b3; /* 5 */
+}
+
+a, a:hover, .footer--last > p > a:hover {
+    color: #00BCD4; /* 6 */
+}
+
+.user-card::before,
+.Profile .widget-content::before { /* 7 */ 
+    background-image: url(https://1.bp.blogspot.com/-VOk6H4fyhyg/WNR3TCV9MPI/AAAAAAAACRE/w_PEPNeUstQ9jrHyvV2yiJqHXr1DnOjEACLcB/w350-h196-p-k-no-nu/anokana-jpg.jpg);
+}
+
+.avatar-image-container {/* 8 */
+    background-image: url(https://2.bp.blogspot.com/-FEtfrzjnhUI/WGa0Ype8HsI/AAAAAAAACC4/ajnTMZIbWuI9P-PP06LyaFGWNNw81I4_ACLcB/s1600/anon.png);
+}
+
+/*]]>*/</style>
+</head>
+
+<body>
+
+<div class='container'>
+<div class='mainbox'>
+
+<!-- 
+=> HEADER
+-->
+<header class='header'>
+<b:section id='Header' showaddelement='no'>
+  <b:widget id='Header1' locked='true' title='Anime v2 (Cabecera)' type='Header' version='1'>
+    <b:widget-settings>
+      <b:widget-setting name='displayUrl'/>
+      <b:widget-setting name='displayHeight'>0</b:widget-setting>
+      <b:widget-setting name='sectionWidth'>-1</b:widget-setting>
+      <b:widget-setting name='useImage'>false</b:widget-setting>
+      <b:widget-setting name='shrinkToFit'>false</b:widget-setting>
+      <b:widget-setting name='imagePlacement'>BEHIND</b:widget-setting>
+      <b:widget-setting name='displayWidth'>0</b:widget-setting>
+    </b:widget-settings>
+    <b:includable id='main'>
+	<div class='box flex justify-content-between'>
+		<div class='mainlogo'>
+		<b:if cond='data:useImage'>
+			<b:include name='logo'/>
+			<b:include cond='data:imagePlacement == "BEFORE_DESCRIPTION"' name='description'/>
+		<b:else/>
+			<b:include name='title'/>
+			<b:include cond='data:description' name='description'/>
+		</b:if>
+		</div>
+	</div>
+	<nav class='navmenu box--menu'>
+		<div class='toggle' id='toggle'>
+			<div class='toggle--icon'><span/></div>
+		</div>
+		<b:include name='menu'/>
+	</nav>
+	</b:includable>
+    <b:includable id='description'><p class='font'><data:description/></p></b:includable>
+    <b:includable id='logo'>
+		<a expr:href='data:blog.homepageUrl' expr:title='data:title'>
+			<img expr:alt='data:title' expr:height='data:height' expr:src='data:sourceUrl' expr:width='data:width'/>
+		</a>
+	</b:includable>
+    <b:includable id='menu'>
+		<ul class='navmenu--menu font clearfix' id='menu'>
+			<li><a expr:href='data:blog.canonicalHomepageUrl'>Inicio</a></li>
+			<li><a href='#'>Elemento A</a>
+				<ul>
+					<li><a href='#'>Elemento A1</a></li>
+					<li><a href='#'>Elemento A2</a>
+						<ul>
+							<li><a href='#'>Elemento A2.1</a></li>
+							<li><a href='#'>Elemento A2.2</a>
+								<ul>
+									<li><a href='#'>Elemento A2.2.1</a></li>
+									<li><a href='#'>Elemento A2.2.2</a></li>
+									<li><a href='#'>Elemento A2.2.3</a></li>
+								</ul>
+							</li>
+							<li><a href='#'>Elemento A2.3</a></li>
+						</ul>
+					</li>
+					<li><a href='#'>Elemento A3</a></li>
+				</ul>
+			</li>
+			<li><a href='#'>Elemento B</a></li>
+			<li><a href='#'>Elemento C</a>
+				<ul>
+					<li><a href='#'>Elemento C1</a>
+						<ul>
+							<li><a href='#'>Elemento C1.1</a></li>
+							<li><a href='#'>Elemento C1.2</a></li>
+							<li><a href='#'>Elemento C1.3</a></li>
+						</ul>
+					</li>
+					<li><a href='#'>Elemento C2</a></li>
+				</ul>
+			</li>
+		</ul>
+	</b:includable>
+    <b:includable id='title'>
+		<b:if cond='data:blog.url == data:blog.homepageUrl'>
+			<h1 class='logo font'><a expr:href='data:blog.homepageUrl' expr:title='data:title'><data:title/></a></h1>
+		<b:else/>
+			<div class='logo font'><a expr:href='data:blog.homepageUrl' expr:title='data:title'><data:title/></a></div>
+		</b:if>
+	</b:includable>
+  </b:widget>
+</b:section>
+</header>
+
+<!-- 
+=> MAIN
+-->
+
+<b:if cond='data:blog.pageType == "error_page"'>
+<!-- 
+=> ERROR 404
+-->
+<div class='error'>
+    <div class='error--box'>
+        <h2>Soy un error</h2>
+        <p>Como mi padre japonés decía. "あなたは馬鹿であり".</p>
+        <form action='' class='search' method='get'>
+            <input name='q' onblur='if(this.value==&apos;&apos;) this.value = this.defaultValue' onfocus='if(this.value==this.defaultValue) this.value = &apos;&apos;' type='text' value='Buscar'/>
+            <button class='icon-search' type='submit'/>
+        </form>
+        <span class='mott'>(இ&#65103;இ`&#65377;)</span>
+    </div>
+</div>
+
+<b:else/>
+
+<div class='box clearfix'>
+
+<!-- 
+	=> TOP-ENTRYS
+-->
+<b:section cond='data:blog.pageType == "index"' id='Destacados' showaddelement='no'>
+  <b:widget cond='data:blog.pageType == "index"' id='PopularPosts10' locked='false' title='Destacados' type='PopularPosts' version='1'>
+    <b:widget-settings>
+      <b:widget-setting name='numItemsToShow'>10</b:widget-setting>
+      <b:widget-setting name='showThumbnails'>true</b:widget-setting>
+      <b:widget-setting name='showSnippets'>true</b:widget-setting>
+      <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
+    </b:widget-settings>
+    <b:includable id='main'>
+	<b:if cond='data:posts count (l =&gt; l != "") != 0'>
+	<div class='top-entry slider js_multislides multislides'>
+	<div class='frame js_frame'>
+		<ul class='entrys slides js_slides'>
+ 		<b:loop values='data:posts' var='post'>
+			<li class='js_slide'>
+				<a expr:href='data:post.href' expr:title='data:post.title'>
+					<b:include name='images'/>
+					<b:include name='titles'/>
+				</a>
+			</li>
+		</b:loop>
+		</ul>
+	</div>
+	<b:include name='buttons'/>
+	</div>
+	</b:if>
+     </b:includable>
+    <b:includable id='buttons'>
+		<span class='js_prev prev flex align-items-center justify-content-center icon-arrow-l'/>
+		<span class='js_next next flex align-items-center justify-content-center icon-arrow-r'/>
+	</b:includable>
+    <b:includable id='images'>
+		<b:if cond='data:post.thumbnail'>
+			<img expr:alt='data:post.title' expr:src='resizeImage(data:post.thumbnail,350,"16:9")'/>
+		<b:else/>
+			<img expr:alt='data:post.title' src='https://4.bp.blogspot.com/-S82veBwr6GY/WGXba_QzE1I/AAAAAAAACBI/jV5d4YA4iTEbo8xZiZ6l4D8Fcw9ecMVrgCLcB/s350-c/no-image-blogger.png'/>
+		</b:if>
+	</b:includable>
+    <b:includable id='titles'><span class='font'><data:post.title/></span></b:includable>
+  </b:widget>
+</b:section>
+
+<!-- Entradas -->
+<div class='main-content left'>
+
+<b:section id='Blog'>
+  <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' version='1'>
+    <b:widget-settings>
+      <b:widget-setting name='showDateHeader'>true</b:widget-setting>
+      <b:widget-setting name='style.textcolor'>#000000</b:widget-setting>
+      <b:widget-setting name='showShareButtons'>true</b:widget-setting>
+      <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+      <b:widget-setting name='style.urlcolor'>#008000</b:widget-setting>
+      <b:widget-setting name='showAuthor'>true</b:widget-setting>
+      <b:widget-setting name='style.linkcolor'>#0000ff</b:widget-setting>
+      <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+      <b:widget-setting name='style.bgcolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='timestampLabel'>a la/s</b:widget-setting>
+      <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+      <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+      <b:widget-setting name='showLabels'>true</b:widget-setting>
+      <b:widget-setting name='showLocation'>true</b:widget-setting>
+      <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+      <b:widget-setting name='postsPerAd'>1</b:widget-setting>
+      <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+      <b:widget-setting name='style.bordercolor'>#ffffff</b:widget-setting>
+      <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+      <b:widget-setting name='showReactions'>false</b:widget-setting>
+    </b:widget-settings>
+    <b:includable id='main' var='top'>
+		<b:if cond='data:blog.pageType == "index"'>
+		<h2>Nuevas Entradas</h2>
+		<div class='widget-content'>
+		<b:if cond='data:numPosts == 0'>
+			<div class='no-entrys'>
+			<p class='info'><b:if cond='data:blog.searchQuery'>No hay entradas con esos términos de búsqueda<br/><span class='mott'>( &#172;_&#172;)</span><b:else/>Este blog aún no tiene entradas<br/><span class='mott'>อ_อ</span></b:if></p>
+			</div>
+		<b:else/>
+            <div class='items flex wrap justify-content-between align-items-start'>
+      		<b:loop values='data:posts' var='post'>
+        		<b:include data='post' name='post'/><!-- insertamos entradas -->
+			</b:loop>
+			</div>
+			<b:include name='nextprev'/>
+		</b:if>
+		</div>
+		<b:else/>
+		<div class='widget-content blog--content'>
+			
+			<b:loop values='data:posts' var='post'>
+				<article>
+        		<b:include data='post' name='post'/><!-- insertamos entradas -->
+        		</article>
+				<!-- insertamos Comentarios -->
+				<div class='comentarios' id='comment'>
+				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
+                    <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
+				<b:else/><!-- Caso contrario -->
+                    <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
+				</b:if>
+          		</div>
+			</b:loop>
+			
+		</div>
+		</b:if>
+
+    </b:includable>
+    <b:includable id='backlinkDeleteIcon' var='backlink'><!--none--></b:includable>
+    <b:includable id='backlinks' var='post'><!--none--></b:includable>
+    <b:includable id='comment-blogger' var='post'>
+		<div class='title--box font'><h4><data:post.numComments/> Comentario<b:if cond='data:post.numComments &gt; 1 or data:post.numComments == 0'>s</b:if></h4></div>		
+    	<div class='comments' id='comments'>
+      		<div class='comments-content'>
+				<div id='comment-holder'><data:post.commentHtml/></div>
+				<b:include data='post' name='threaded_comment_js'/>
+    		</div>
+			<div class='comment-footer'>
+				<b:if cond='data:post.allowNewComments'>
+					<b:include data='post' name='threaded-comment-form'/>
+				<b:else/>
+					<span class='info'>No se permiten nuevos comentarios</span>
+				</b:if>
+			</div>
+  		</div>
+	</b:includable>
+    <b:includable id='comment-disqus'>
+		<div class='title--box font'><h4><span class='disqus-comment-count' expr:data-disqus-url='data:post.url'/></h4></div>
+		<div id='disqus_thread'/>
+		<script type='text/javascript'>
+    	var disqus_shortname = "[Shortname_DISQUS]";
+    	var disqus_url = "<data:blog.canonicalUrl/>"; 
+		//<![CDATA[
+    	(function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    	    })();
+		//]]>
+        </script>
+		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
+		<script async='async' id='dsq-count-scr' src='[Shortname_DISQUS].disqus.com/count.js'/>
+	</b:includable>
+    <b:includable id='comment-facebook'>
+		<div id='fb-root'/>
+		<script>//<![CDATA[
+			(function(d, s, id) {
+  				var js, fjs = d.getElementsByTagName(s)[0];
+  				if (d.getElementById(id)) return;
+  				js = d.createElement(s); js.id = id;
+  				js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8";
+  				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		//]]></script>
+      	<div class='fb-comments' data-numposts='10' expr:data-href='data:blog.canonicalUrl'/>
+		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
+	</b:includable>
+    <b:includable id='comment-form' var='post'><!--none--></b:includable>
+    <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
+    <b:includable id='comment_count_picker' var='post'><!--none--></b:includable>
+    <b:includable id='comment_picker' var='post'><!--none--></b:includable>
+    <b:includable id='comments' var='post'><!--none--></b:includable>
+    <b:includable id='feedLinks'><!--none--></b:includable>
+    <b:includable id='feedLinksBody' var='links'><!--none--></b:includable>
+    <b:includable id='iframe_comments' var='post'><!--none--></b:includable>
+    <b:includable id='mobile-index-post' var='post'><!--none--></b:includable>
+    <b:includable id='mobile-main' var='top'><!--none--></b:includable>
+    <b:includable id='mobile-nextprev'><!--none--></b:includable>
+    <b:includable id='mobile-post' var='post'><!--none--></b:includable>
+    <b:includable id='nextprev'>
+		<div class='blog-pager' id='blog-pager'>
+			<b:if cond='data:newerPageUrl'><a class='newer-link' expr:href='data:newerPageUrl' expr:title='data:newerPageTitle'>&#8592; Anterior</a></b:if>
+			<b:if cond='data:olderPageUrl'><a class='older-link' expr:href='data:olderPageUrl' expr:title='data:olderPageTitle'>Siguiente &#8594;</a></b:if>
+		</div>
+	</b:includable>
+    <b:includable id='post' var='post'>
+	<b:switch var='data:blog.pageType'>
+        <b:case value='index'/>
+
+			<div class='card'>
+				<a expr:href='data:post.url' expr:title='data:post.title'>
+					<b:if cond='data:post.thumbnailUrl'>
+						<img expr:alt='data:post.title' expr:src='resizeImage(data:post.thumbnailUrl,350,"16:9")'/>
+					<b:else/>
+            			<b:if cond='data:post.firstImageUrl'>
+							<img expr:alt='data:post.title' expr:src='data:post.firstImageUrl' expr:title='data:post.title'/>
+						<b:else/>				
+							<img expr:alt='data:post.title' expr:title='data:post.title' src='https://4.bp.blogspot.com/-S82veBwr6GY/WGXba_QzE1I/AAAAAAAACBI/jV5d4YA4iTEbo8xZiZ6l4D8Fcw9ecMVrgCLcB/s350-c/no-image-blogger.png'/>
+						</b:if>
+					</b:if>
+				</a>
+				<div class='card-data'>
+					<h2 class='font'><data:post.title/></h2>
+                  	<b:if cond='data:post.snippet != ""'><p><data:post.snippet/></p></b:if>
+					<div class='metadata flex'>
+						<a class='icon-clock flex align-items-center' expr:href='data:post.url.canonical'>
+							<time class='published date updated' expr:datetime='data:post.timestampISO8601'><data:post.timestamp/></time>
+						</a>
+						<a class='icon-comment flex align-items-center' expr:href='data:post.url + "#comment"'><data:post.numComments/></a>
+					</div>
+				</div>
+			</div>
+
+        <b:case value='item'/>
+
+			<header class='article-header'>
+				<div class='tagspost'>
+					<b:loop values='data:post.labels' var='label'>
+						<a expr:href='data:label.url' rel='tag'><data:label.name/></a>
+					</b:loop>
+				</div>
+				<h1 class='font'><data:post.title/></h1>
+				<div class='metadata flex wrap align-items-center'>
+					<a class='g-profile metadata--author' rel='author' expr:href="data:post.authorProfileUrl"><img expr:title="data:post.author" expr:src="data:post.authorPhoto.url"/></a><time class='published date updated icon-clock' expr:datetime='data:post.timestampISO8601'><span><data:post.timestamp/></span></time><span class='icon-comment'><data:post.numComments/> Comentario<b:if cond='data:post.numComments &gt; 1 or data:post.numComments == 0'>s</b:if></span>
+				</div>
+			</header>
+        	<div class='post-body' expr:data-id='data:post.id'>
+				<data:post.body/>
+				<b:include name='shareButtons'/>
+			</div>
+			<b:include name='relacionados'/>
+
+        <b:case value='static_page'/>
+
+			<header class='article-header'>
+				<h1 class='font'><data:post.title/></h1>
+			</header>
+        	<div class='post-body' expr:data-id='data:post.id'>
+				<data:post.body/>
+			</div>
+
+	</b:switch>
+	</b:includable>
+    <b:includable id='postQuickEdit' var='post'><!--none--></b:includable>
+    <b:includable id='relacionados'>
+		<div class='relacionados'>
+            <div class='title--box font'><h4>Entradas similares</h4></div>
+			<b:loop values='data:post.labels' var='label'>
+  				<script expr:src='data:blog.homepageUrl + "/feeds/posts/default/-/" + data:label.name + "?alt=json-in-script&amp;amp;callback=leerpostetiquetas&amp;amp;max-results=12"' type='text/javascript'/>
+			</b:loop>
+            <ul class='rel clearfix flex align-items-start wrap'>
+				<script type='text/javascript'>mostrarrelacionados();</script>
+			</ul>
+		</div>
+	</b:includable>
+    <b:includable id='shareButtons'>
+		<div class='share clearfix'>
+            <a class='flex align-items-center icon-facebook' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url'>Compartir en facebook</a>
+            <a class='flex align-items-center icon-twitter' expr:href='"https://twitter.com/intent/tweet?url=" + data:post.url'>twitter</a>
+            <a class='flex align-items-center icon-google' expr:href='"https://plus.google.com/share?url=" + data:post.url'>google</a>
+            <a class='flex align-items-center icon-tumblr' expr:href='"https://www.tumblr.com/share/photo?url=" + data:post.firstImageUrl + "&amp;caption=" + data:post.url'>tumblr</a>
+            <a class='flex align-items-center icon-pinterest' expr:href='"https://pinterest.com/pin/create/button/?url=" + data:post.url + "&amp;media=" + data:post.firstImageUrl'>pinterest</a>
+		</div>
+	</b:includable>
+    <b:includable id='status-message'><!--none--></b:includable>
+    <b:includable id='threaded-comment-form' var='post'>
+	<div class='comment-form'><a name='comment-form'/>
+      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      	<iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+    	<data:post.cmtfpIframe/>
+    	<script type='text/javascript'>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
+	</div>
+	</b:includable>
+    <b:includable id='threaded_comment_js' var='post'>
+	    <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+  		<b:template-script inline='true' name='threaded_comments'/>
+  		<script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);</script>
+	    <script type='text/javascript'>//<![CDATA[
+var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));
+//]]></script>
+    </b:includable>
+    <b:includable id='threaded_comments' var='post'><!--none--></b:includable>
+  </b:widget>
+</b:section>
+
+</div><!-- end main-content -->
+
+<aside class='sidebar clearfix side right'>
+<b:section id='sidebar'>
+  <b:widget id='BlogSearch10' locked='false' title='Buscar este blog' type='BlogSearch' version='1'>
+    <b:includable id='main'>
+	<b:if cond='data:title != ""'>
+		<h2><data:title/></h2>
+	</b:if>
+	<div class='widget-content'>
+		<form class='search' expr:action='data:blog.searchUrl' method='get'>
+			<input name='q' onblur='if(this.value==&apos;&apos;) this.value = this.defaultValue' onfocus='if(this.value==this.defaultValue) this.value = &apos;&apos;' type='text' value='Buscar'/>
+			<button class='icon-search' type='submit'/>
+		</form>
+	</div>
+    </b:includable>
+  </b:widget>
+  <b:widget id='Profile10' locked='false' title='Acerca de mí' type='Profile' version='1'>
+    <b:widget-settings>
+      <b:widget-setting name='showaboutme'>true</b:widget-setting>
+      <b:widget-setting name='showlocation'>false</b:widget-setting>
+    </b:widget-settings>
+    <b:includable id='main'>
+    <b:if cond='data:title != ""'>
+		<h2><data:title/></h2>
+    </b:if>
+    <div class='user-content'>
+		<div class='user-card'>
+			<img expr:alt='data:displayname' expr:height='data:photo.height' expr:src='data:photo.url' expr:width='data:photo.width'/>
+			<a class='font' expr:href='data:userUrl' rel='author'><data:displayname/></a>
+			<p><data:aboutme/></p>
+		</div>
+    </div>
+    </b:includable>
+  </b:widget>
+  <b:widget id='Label10' locked='false' title='Etiquetas' type='Label' version='1'>
+    <b:includable id='main'>
+    <b:if cond='data:title != ""'>
+		<h2><data:title/></h2>
+    </b:if>
+	<div class='widget-content'>
+		<ul class='tags flx'>
+		<b:loop values='data:labels' var='label'>
+			<li>
+			<b:if cond='data:blog.url == data:label.url'>
+				<a class='here' expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/> <span dir='ltr'><data:label.count/></span></a>
+			<b:else/>
+				<a expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/> <span dir='ltr'><data:label.count/></span></a>
+			</b:if>
+			</li>
+		</b:loop>
+		</ul>
+    </div>
+    </b:includable>
+  </b:widget>
+</b:section>
+</aside>
+
+</div><!-- end box clearfix -->
+
+</b:if><!-- end b:if == error_page -->
+
+<footer class='footer'>
+    <div class='footer__end flex column justify-content-between align-items-center'>
+    <div class='footer--social'>
+        <b:section id='footer-social' maxwidgets='1' showaddelement='no'>
+          <b:widget id='LinkList10' locked='true' title='Redes sociales' type='LinkList' version='1'>
+            <b:includable id='main'>
+                    <b:loop values='data:links' var='link'>
+                        <a expr:class='"icon-" + data:link.name + " flex align-items-center"' expr:href='data:link.target'/>
+                    </b:loop>
+                </b:includable>
+          </b:widget>
+        </b:section>
+    </div>
+    <div class='footer--last'>
+        <span class='font'><data:blog.title/> 2017</span>
+        <!--Esta obra está licenciada bajo la Licencia Creative Commons Atribución-NoComercial 4.0 Internacional. Para ver una copia de esta licencia, visita http://creativecommons.org/licenses/by-nc/4.0/-->
+        <p>Powered by <a href='https://www.blogger.com' rel='nofollow' target='_blank'>Blogger</a> Created by <a data-rel='cc:attributionName' href='http://www.zkreations.com' property='cc:attributionName' rel='nofollow' target='_blank'>zkreations</a></p>
+    </div>
+</div>
+
+<div class='footer--links'>
+    <b:section id='footer-end' maxwidgets='1' showaddelement='no'>
+      <b:widget id='LinkList20' locked='true' title='Enlaces del footer' type='LinkList' version='1'>
+        <b:includable id='main' var='top'>
+                <nav>
+                    <b:loop values='data:links' var='link'>
+                        <a class='icon-link' expr:href='data:link.target'>
+                            <data:link.name/>
+                        </a>
+                    </b:loop>
+                </nav>
+            </b:includable>
+      </b:widget>
+    </b:section>
+</div>
+</footer>
+
+</div><!-- end mainbox -->
+</div><!-- end container -->
+
+<!-- => END TEMPLATE -->
+
+<!-- => All VANILLA JS (No Dependency) -->
+<script type='text/javascript'>//<![CDATA[
+//! loadjs v3.4.0 | MIT License | github.com/muicss/loadjs
+loadjs=function(){function n(n,e){n=n.push?n:[n];var t,r,i,o,c=[],s=n.length,h=s;for(t=function(n,t){t.length&&c.push(n),h--,h||e(c)};s--;)r=n[s],i=u[r],i?t(r,i):(o=f[r]=f[r]||[],o.push(t))}function e(n,e){if(n){var t=f[n];if(u[n]=e,t)for(;t.length;)t[0](n,e),t.splice(0,1)}}function t(n,e,r,i){var c,u,f=document,s=r.async,h=(r.numRetries||0)+1,a=r.before||o;i=i||0,/\.css$/.test(n)?(c=!0,u=f.createElement("link"),u.rel="stylesheet",u.href=n):(u=f.createElement("script"),u.src=n,u.async=void 0===s||s),u.onload=u.onerror=u.onbeforeload=function(o){var f=o.type[0];if(c&&"hideFocus"in u)try{u.sheet.cssText.length||(f="e")}catch(n){f="e"}return"e"==f&&(i+=1,i<h)?t(n,e,r,i):void e(n,f,o.defaultPrevented)},a(n,u),f.head.appendChild(u)}function r(n,e,r){n=n.push?n:[n];var i,o,c=n.length,u=c,f=[];for(i=function(n,t,r){if("e"==t&&f.push(n),"b"==t){if(!r)return;f.push(n)}c--,c||e(f)},o=0;o<u;o++)t(n[o],i,r)}function i(n,t,i){var u,f;if(t&&t.trim&&(u=t),f=(u?i:t)||{},u){if(u in c)throw"LoadJS";c[u]=!0}r(n,function(n){n.length?(f.error||o)(n):(f.success||o)(),e(u,n)},f)}var o=function(){},c={},u={},f={};return i.ready=function(e,t){return n(e,function(n){n.length?(t.error||o)(n):(t.success||o)()}),i},i.done=function(n){e(n,[])},i.reset=function(){c={},u={},f={}},i.isDefined=function(n){return n in c},i}();
+//]]></script>
+<script type='text/javascript'>//<![CDATA[
+loadjs(['//cdn.rawgit.com/zkreations/whale.css/master/dist/whale.min.js'], 'whale');
+loadjs.ready('whale', {
+	success: function() {
+whale.menu(document.querySelector(".navmenu--menu")),whale.social(document.querySelectorAll(".share a"),{width:600,height:400}),toggle.addEventListener("click",function(){whale.toggleClass.parentChild(toggle,menu)});
+	}
+});
+//]]></script>
+<b:if cond='data:blog.pageType == "index"'>
+<script type='text/javascript'>//<![CDATA[
+loadjs(['//cdn.jsdelivr.net/lory-js/2.1.0/lory.min.js'], 'lory');
+loadjs.ready('lory', {
+	success: function() {
+function startAnimating(e){fpsInterval=500/e,then=Date.now(),startTime=then,animate()}function animate(){requestAnimationFrame(animate),now=Date.now(),elapsed=now-then,elapsed>fpsInterval&&!stop&&(then=now-elapsed%fpsInterval,lorySlider.next())}function resetTimer(){now=Date.now(),elapsed=now-then,then=now-elapsed%fpsInterval}var slidesToScroll=4,slider=document.querySelector(".js_multislides"),stop=!1,frameCount=0,fps,fpsInterval,startTime,now,then,elapsed,lorySlider=lory(slider,{infinite:0,rewind:!0,enableMouseEvents:!0});startAnimating(.2),slider.addEventListener("mouseover",function(){stop=!0}),slider.addEventListener("mouseout",function(){resetTimer(),stop=!1});
+	}
+});
+//]]></script>
+</b:if>
+
+<!-- Google Analytics -->
+<b:include data='blog' name='google-analytics'/>
+</body>
+
+</html>
