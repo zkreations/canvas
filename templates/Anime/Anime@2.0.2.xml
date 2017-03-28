@@ -1284,11 +1284,11 @@ li.comment {
 <b:if cond='data:blog.pageType == "item"'>
 <style type='text/css'>/*<![CDATA[*/
 /* => ENTRADAS */
-.tagspost {
+.blog--content .tagspost {
     padding-bottom: 1rem;
 }
 
-.tagspost > a {
+.blog--content .tagspost > a {
     display: inline-block;
     margin-right: .5rem;
     padding: 0.5rem 1rem;
@@ -1299,7 +1299,7 @@ li.comment {
     font-weight: 500;
 }
 
-.tagspost > a:hover {
+.blog--content .tagspost > a:hover {
     border-color: rgba(0, 0, 0, 0.3);
     color: rgba(0, 0, 0, 0.7);
     text-decoration: none;
