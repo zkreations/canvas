@@ -1342,12 +1342,12 @@ li.comment {
     text-transform: uppercase;
 }
 /*share*/
-.share {
+.blog--content .share {
     padding-top: 2rem;
     clear: both;
 }
 
-.share a {
+.blog--content .share a {
     float: left;
     margin: 0 .5rem .5rem 0;
     padding: .4rem .6rem;
@@ -1362,18 +1362,18 @@ li.comment {
     transition: color .2s, border .2s;
 }
 
-.share a::before {
+.blog--content .share a::before {
     margin-right: .5rem;
     font-size: 1.2rem;
 }
 
-.share a:hover,
-.share a:focus,
-.share a:active {
+.blog--content .share a:hover,
+.blog--content .share a:focus,
+.blog--content .share a:active {
     text-decoration: none;
 }
 
-.share a:hover {
+.blog--content .share a:hover {
     border-color: rgba(0, 0, 0, 0.3);
     color: rgba(0, 0, 0, 0.75);
 }
