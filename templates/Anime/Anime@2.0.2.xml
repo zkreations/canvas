@@ -1450,6 +1450,7 @@ var relacionados={posts:[],max:6,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
  * 4. Fuente del logo, menus y titulos
  * 5. Color principal
  * 6. Color de los enlaces
+    * 6.1  Color de los enlaces visitados
  * 7. Cover del widget perfil
  * 8. Avatar de los comentarios 
  */
@@ -1484,8 +1485,12 @@ body {
     background: #23a6b3; /* 5 */
 }
 
-a, a:hover, .footer--last > p > a:hover {
+a, a:hover, .footer--last > p > a:hover, .blog--content a {
     color: #00BCD4; /* 6 */
+}
+
+.blog--content a:visited {
+    color: #7e57c2; /* 6.1 */ 
 }
 
 .user-card::before,
