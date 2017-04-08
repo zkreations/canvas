@@ -1452,7 +1452,6 @@ var relacionados={posts:[],max:6,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
  * 4. Fuente del logo, menus y titulos
  * 5. Color principal
  * 6. Color de los enlaces
-    * 6.1  Color de los enlaces visitados
  * 7. Cover del widget perfil
  * 8. Avatar de los comentarios 
  */
@@ -1489,10 +1488,6 @@ body {
 
 a, a:hover, .footer--last > p > a:hover, .blog--content a {
     color: #00BCD4; /* 6 */
-}
-
-.blog--content a:visited {
-    color: #7e57c2; /* 6.1 */ 
 }
 
 .user-card::before,
@@ -1767,7 +1762,7 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 		//]]>
         </script>
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
-		<script async='async' id='dsq-count-scr' src='[Shortname_DISQUS].disqus.com/count.js'/>
+		<script async='async' id='dsq-count-scr' src='https://[Shortname_DISQUS].disqus.com/count.js'/>
 	</b:includable>
     <b:includable id='comment-facebook'>
 		<div id='fb-root'/>
