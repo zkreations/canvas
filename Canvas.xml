@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang='es' b:responsive='true' b:css='false'>
 
-<!-- Canvas.xml v1.0.21 -->
+<!-- Canvas.xml v1.0.22 -->
 <head>
 
 <meta content='es' name='DC.Language'/>
@@ -14,6 +14,15 @@
 <b:elseif cond='data:blog.pageType == "item"'/>
 	<meta content='article' property='og:type'/>
 </b:if>
+
+<!--/// Cambia estos valores por los tuyos
+========================================================================== ///-->
+
+<link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
+<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
+<meta content='@blogger' name='twitter:site'/>
+<meta content='@google' name='twitter:creator'/>
+<meta content='TuNombre' name='DC.Creator'/>
 
 <!-- Añadiendo URL Canónica -->
 <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
@@ -93,15 +102,6 @@
 		<title><data:blog.pageTitle/></title>
 	</b:if>
 </b:if>
-
-<!--/// Agrega aqui tus propias 
-etiquetas meta [avanzado] ///-->
-
-<link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
-<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
-<meta content='@blogger' name='twitter:site'/>
-<meta content='@google' name='twitter:creator'/>
-<meta content='TuNombre' name='DC.Creator'/>
 
 <!-- Fin de etiquetas meta -->
 
