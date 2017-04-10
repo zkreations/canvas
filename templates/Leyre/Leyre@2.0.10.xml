@@ -1674,6 +1674,16 @@ body {/* 1 */
 		<script async='async' id='dsq-count-scr' src='https://[Shortname_DISQUS].disqus.com/count.js'/>
 	</b:includable>
     <b:includable id='comment-facebook'>
+		<div id='fb-root'/>
+		<script>//<![CDATA[
+			(function(d, s, id) {
+  				var js, fjs = d.getElementsByTagName(s)[0];
+  				if (d.getElementById(id)) return;
+  				js = d.createElement(s); js.id = id;
+  				js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8";
+  				fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+		//]]></script>
       	<div class='fb-comments' data-numposts='10' expr:data-href='data:blog.canonicalUrl'/>
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
 	</b:includable>
