@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang='es' b:responsive='true' b:css='false'>
 
-<!-- Canvas.xml v1.0.22 -->
+<!-- Canvas.xml v1.1.22 -->
 <head>
 
 <meta content='es' name='DC.Language'/>
@@ -11,7 +11,7 @@
 <meta content='summary_large_image' name='twitter:card'/>
 <b:if cond='data:blog.url == data:blog.homepageUrl'>
 	<meta content='blog' property='og:type'/>
-<b:elseif cond='data:blog.pageType == "item"'/>
+<b:elseif cond='data:view.isPost'/>
 	<meta content='article' property='og:type'/>
 </b:if>
 
@@ -39,18 +39,18 @@
 	<meta expr:content='data:blog.metaDescription' name='description'/>
 	<meta expr:content='data:blog.metaDescription' name='twitter:description'/>
     <meta expr:content='data:blog.metaDescription' name='DC.description'/>
-<b:elseif cond='data:blog.pageType != "index"'/>
+<b:elseif cond='data:view.isSingleItem'/>
 	<meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
 <!-- Añadiendo follow Robots solo a post e index -->
-<b:if cond='data:blog.pageType == "archive"'>
+<b:if cond='data:view.isArchive'>
 	<meta content='noindex,nofollow' name='robots'/>
 <b:else/>
-	<b:if cond='data:blog.pageType == "error_page"'>
+	<b:if cond='data:view.isError'>
 		<meta content='noindex,nofollow' name='robots'/>
 	<b:else/>
-		<b:if cond='data:blog.pageType == "index"'>
+		<b:if cond='data:view.isMultipleItems'>
 			<b:if cond='data:blog.homepageUrl == data:blog.url'>
 				<meta content='index,follow' name='robots'/>
 				<meta content='noodp,noydir' name='robots'/>
@@ -65,7 +65,7 @@
 </b:if>
 
 <!-- Optimizando los post -->
-<b:if cond='data:blog.pageType == "item"'>
+<b:if cond='data:view.isPost'>
 	<!-- La primera imagen del post -->
 	<b:if cond='data:blog.postImageUrl'>
 		<link expr:href='data:blog.postImageUrl' rel='image_src'/>
@@ -83,7 +83,7 @@
 
 <!-- Optimizando Titulos -->
 <meta expr:content='data:blog.title' name='DC.Publisher'/>
-<b:if cond='data:blog.pageType == "error_page"'>
+<b:if cond='data:view.isError'>
 	<title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
 	<b:if cond='data:blog.url != data:blog.homepageUrl'>
@@ -153,7 +153,7 @@ body#layout .right {float: right;width: 50%;}
 
 /*]]>*/</style>
 
-<b:if cond='data:blog.pageType == "index"'>
+<b:if cond='data:view.isMultipleItems'>
 <style type='text/css'>/*<![CDATA[*/
 /* => INDEX */
 
@@ -166,7 +166,7 @@ body#layout .right {float: right;width: 50%;}
 /*]]>*/</style>
 </b:if>
 
-<b:if cond='data:blog.pageType == "item"'>
+<b:if cond='data:view.isPost'>
 <style type='text/css'>/*<![CDATA[*/
 /* => ENTRADAS */
 
@@ -182,7 +182,7 @@ body#layout .right {float: right;width: 50%;}
   <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' version='1' visible='true'>
     <b:includable id='main' var='top'>
 
-		<b:if cond='data:blog.pageType == "index"'>
+		<b:if cond='data:view.isMultipleItems'>
       		<b:loop values='data:posts' var='post'>
         		<b:include data='post' name='post'/><!-- insertamos entradas -->
 			</b:loop>
