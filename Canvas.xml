@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' lang='es'>
 
-<!-- Canvas.xml v1.1.23 -->
+<!-- Canvas.xml v1.1.24 -->
 <head>
 
 <meta content='es' name='DC.Language'/>
@@ -128,8 +128,7 @@
 <![endif]-->
 <!-- Fin de datos-->
 
-&lt;style&gt;/*
-<b:skin><![CDATA[*/
+<b:skin><![CDATA[
 /*!
 => Theme Name: {{ NAME }}
 => Theme URI: {{ URL }}
@@ -174,7 +173,7 @@ body#layout .right {float: right;width: 50%;}
 /*]]>*/</style>
 </b:if>
 
-</head>
+&lt;!--</head>--&gt;&lt;/head&gt;
 
 <body>
 
