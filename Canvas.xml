@@ -2,105 +2,105 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' lang='es'>
 
-<!-- Canvas.xml v1.1.24 -->
+<!-- Canvas.xml v1.1.28 -->
 <head>
 
+<!-- Datos generales -->
 <meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:if cond='data:blog.url == data:blog.homepageUrl'>
-	<meta content='blog' property='og:type'/>
+<b:if cond='data:view.isHomepage'>
+   <meta content='blog' property='og:type'/>
 <b:elseif cond='data:view.isPost'/>
-	<meta content='article' property='og:type'/>
+   <meta content='article' property='og:type'/>
 </b:if>
+
+<!-- Responsive -->
+<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
 <!--/// Cambia estos valores por los tuyos
 ========================================================================== ///-->
 
 <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
-<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
 <meta content='@blogger' name='twitter:site'/>
 <meta content='@google' name='twitter:creator'/>
 <meta content='TuNombre' name='DC.Creator'/>
 
-<!-- Añadiendo URL Canónica -->
+<!-- Enlace Canonico -->
 <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
 <meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
 <!-- Link rel=canonical -->
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
-<!-- Scalable device -->
-<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
-
 <!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
-	<meta expr:content='data:blog.metaDescription' property='og:description'/>
-	<meta expr:content='data:blog.metaDescription' name='description'/>
-	<meta expr:content='data:blog.metaDescription' name='twitter:description'/>
-    <meta expr:content='data:blog.metaDescription' name='DC.description'/>
+   <meta expr:content='data:blog.metaDescription' property='og:description'/>
+   <meta expr:content='data:blog.metaDescription' name='description'/>
+   <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+   <meta expr:content='data:blog.metaDescription' name='DC.description'/>
 <b:elseif cond='data:view.isSingleItem'/>
-	<meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
+   <meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
-<!-- Añadiendo follow Robots solo a post e index -->
+<!-- Robots solo en Post y MultipleItems -->
 <b:if cond='data:view.isArchive'>
-	<meta content='noindex,nofollow' name='robots'/>
+   <meta content='noindex,nofollow' name='robots'/>
 <b:else/>
-	<b:if cond='data:view.isError'>
-		<meta content='noindex,nofollow' name='robots'/>
-	<b:else/>
-		<b:if cond='data:view.isMultipleItems'>
-			<b:if cond='data:blog.homepageUrl == data:blog.url'>
-				<meta content='index,follow' name='robots'/>
-				<meta content='noodp,noydir' name='robots'/>
-			<b:else/>
-				<meta content='noindex,nofollow' name='robots'/>
-			</b:if>
-		<b:else/>
-			<meta content='index,follow' name='robots'/>
-			<meta content='noodp,noydir' name='robots'/>
-		</b:if>
-	</b:if>
+   <b:if cond='data:view.isError'>
+      <meta content='noindex,nofollow' name='robots'/>
+   <b:else/>
+      <b:if cond='data:view.isMultipleItems'>
+         <b:if cond='data:view.isHomepage'>
+            <meta content='index,follow' name='robots'/>
+            <meta content='noodp,noydir' name='robots'/>
+         <b:else/>
+            <meta content='noindex,nofollow' name='robots'/>
+         </b:if>
+      <b:else/>
+         <meta content='index,follow' name='robots'/>
+         <meta content='noodp,noydir' name='robots'/>
+      </b:if>
+   </b:if>
 </b:if>
 
 <!-- Optimizando los post -->
 <b:if cond='data:view.isPost'>
-	<!-- La primera imagen del post -->
-	<b:if cond='data:blog.postImageUrl'>
-		<link expr:href='data:blog.postImageUrl' rel='image_src'/>
-		<meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
-		<meta expr:content='data:blog.postImageUrl' property='og:image'/>
-	</b:if>
+   <!-- La primera imagen del post -->
+   <b:if cond='data:blog.postImageUrl'>
+      <link expr:href='data:blog.postImageUrl' rel='image_src'/>
+      <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+      <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+   </b:if>
 
-	<!-- La navegacion -->
-	<b:if cond='data:blog.newerPageUrl'>
-		<link expr:href='data:blog.newerPageUrl' rel='next'/>
-	<b:elseif cond='data:blog.olderPageUrl'/>
-		<link expr:href='data:blog.olderPageUrl' rel='prev'/>
-	</b:if>
+   <!-- La navegacion -->
+   <b:if cond='data:blog.newerPageUrl'>
+      <link expr:href='data:blog.newerPageUrl' rel='next'/>
+   <b:elseif cond='data:blog.olderPageUrl'/>
+      <link expr:href='data:blog.olderPageUrl' rel='prev'/>
+   </b:if>
 </b:if>
 
 <!-- Optimizando Titulos -->
 <meta expr:content='data:blog.title' name='DC.Publisher'/>
 <b:if cond='data:view.isError'>
-	<title>Error 404 en <data:blog.pageTitle/></title>
+   <title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
-	<b:if cond='data:blog.url != data:blog.homepageUrl'>
-		<meta expr:content='data:blog.pageName' property='og:title'/>
-		<meta expr:content='data:blog.pageName' name='twitter:title'/>
-        <meta expr:content='data:blog.pageName' name='DC.title'/>
-		<b:if cond='data:blog.pageName'>
-			<title><data:blog.pageName/></title>
-		<b:else/>
-			<title><data:blog.pageTitle/></title>
-		</b:if>
-	<b:else/>
-		<meta expr:content='data:blog.pageTitle' property='og:title'/>
-		<meta expr:content='data:blog.pageTitle' name='twitter:title'/>
-        <meta expr:content='data:blog.pageTitle' name='DC.title'/>
-		<title><data:blog.pageTitle/></title>
-	</b:if>
+   <b:if cond='data:blog.url != data:blog.homepageUrl'>
+      <meta expr:content='data:blog.pageName' property='og:title'/>
+      <meta expr:content='data:blog.pageName' name='twitter:title'/>
+      <meta expr:content='data:blog.pageName' name='DC.title'/>
+      <b:if cond='data:blog.pageName'>
+         <title><data:blog.pageName/></title>
+      <b:else/>
+         <title><data:blog.pageTitle/></title>
+      </b:if>
+   <b:else/>
+      <meta expr:content='data:blog.pageTitle' property='og:title'/>
+      <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
+      <meta expr:content='data:blog.pageTitle' name='DC.title'/>
+      <title><data:blog.pageTitle/></title>
+   </b:if>
 </b:if>
 
 <!-- Fin de etiquetas meta -->
@@ -108,13 +108,13 @@
 <!-- Incluimos los datos de blogger -->
 <!-- favicon -->
 <b:if cond='data:blog.blogspotFaviconUrl'>
-	<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
+   <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 </b:if>
 
 <!-- feeds -->
 <b:if cond='data:blog.feedLinks'>
-<link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
-<link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
+   <link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
+   <link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
 </b:if>
 
 <!-- schema ld+json -->
@@ -124,7 +124,7 @@
 
 <!-- HTML5 para IE9 -->
 <!--[if lt IE 9]>
-	<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
 <!-- Fin de datos-->
 
@@ -134,7 +134,7 @@
 => Theme URI: {{ URL }}
 => Author: {{ AUTOR NAME }}
 => Author URI: {{ AUTOR URL }}
-=> License: Creative Commons Atribución-NoComercial 4.0 Internacional
+=> License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
 
@@ -179,136 +179,133 @@ body#layout .right {float: right;width: 50%;}
 
 <!-- Entradas -->
 <b:section id='Blog'>
-  <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' version='1' visible='true'>
-    <b:includable id='main' var='top'>
+   <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' version='1' visible='true'>
+      <b:includable id='main' var='top'>
 
-		<b:if cond='data:view.isMultipleItems'>
-      		<b:loop values='data:posts' var='post'>
-        		<b:include data='post' name='post'/><!-- insertamos entradas -->
-			</b:loop>
-			<b:include name='nextprev'/>
-		<b:else/>
-			<b:loop values='data:posts' var='post'>
-        		<b:include data='post' name='post'/><!-- insertamos entradas -->
-        		
-				<!-- insertamos Comentarios -->
-				<div class='comentarios'>
-				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
-                    <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
-				<b:else/><!-- Caso contrario -->
-                    <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
-				</b:if>
-          		</div>
-          		
-			</b:loop>
-		</b:if>
+      <b:if cond='data:view.isMultipleItems'>
+         <b:loop values='data:posts' var='post'>
+            <b:include data='post' name='post'/><!-- insertamos entradas -->
+         </b:loop>
+         <b:include name='nextprev'/>
+      <b:else/>
+         <b:loop values='data:posts' var='post'>
+            <b:include data='post' name='post'/><!-- insertamos entradas -->
+            <!-- insertamos Comentarios -->
+            <div class='comentarios'>
+               <b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
+                  <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
+               <b:else/><!-- Caso contrario -->
+                  <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
+               </b:if>
+            </div>
+         </b:loop>
+      </b:if>
 
-    </b:includable>
-    <b:includable id='backlinkDeleteIcon' var='backlink'><!--none--></b:includable>
-    <b:includable id='backlinks' var='post'><!--none--></b:includable>
-    <b:includable id='comment-blogger' var='post'>
-		<h4><data:post.numComments/> Comentario<b:if cond='data:post.numComments &gt; 1 or data:post.numComments == 0'>s</b:if></h4>		
-    	<div class='comments' id='comments'>
-      		<div class='comments-content'>
-				<div id='comment-holder'><data:post.commentHtml/></div>
-				<b:include data='post' name='threaded_comment_js'/>
-    		</div>
-			<div class='comment-footer'>
-				<b:if cond='data:post.allowNewComments'>
-					<b:include data='post' name='threaded-comment-form'/>
-				<b:else/>
-					<span class='info'>No se permiten nuevos comentarios</span>
-				</b:if>
-			</div>
-  		</div>
-	</b:includable>
-    <b:includable id='comment-disqus'>
-		<h4><span class="disqus-comment-count" expr:data-disqus-url="data:post.url"></span></h4>
-		<div id='disqus_thread'/>
-		<script type='text/javascript'>
-    	var disqus_shortname = "[Shortname_DISQUS]";
-    	var disqus_url = "<data:blog.canonicalUrl/>"; 
-		//<![CDATA[
-    	(function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    	    })();
-		//]]>
-        </script>
-		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
-		<script id="dsq-count-scr" src='https://[Shortname_DISQUS].disqus.com/count.js' async="async"/>
-	</b:includable>
-    <b:includable id='comment-facebook'>
-		<div id="fb-root"></div>
-		<script>//<![CDATA[
-			(function(d, s, id) {
-  				var js, fjs = d.getElementsByTagName(s)[0];
-  				if (d.getElementById(id)) return;
-  				js = d.createElement(s); js.id = id;
-  				js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8";
-  				fjs.parentNode.insertBefore(js, fjs);
-			}(document, 'script', 'facebook-jssdk'));
-		//]]></script>
-      	<div class='fb-comments' data-numposts='10' expr:data-href='data:blog.canonicalUrl'/>
-		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
-	</b:includable>
-    <b:includable id='comment-form' var='post'><!--none--></b:includable>
-    <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
-    <b:includable id='comment_count_picker' var='post'><!--none--></b:includable>
-    <b:includable id='comment_picker' var='post'><!--none--></b:includable>
-    <b:includable id='comments' var='post'><!--none--></b:includable>
-    <b:includable id='feedLinks'><!--none--></b:includable>
-    <b:includable id='feedLinksBody' var='links'><!--none--></b:includable>
-    <b:includable id='iframe_comments' var='post'><!--none--></b:includable>
-    <b:includable id='mobile-index-post' var='post'><!--none--></b:includable>
-    <b:includable id='mobile-main' var='top'><!--none--></b:includable>
-    <b:includable id='mobile-nextprev'><!--none--></b:includable>
-    <b:includable id='mobile-post' var='post'><!--none--></b:includable>
-    <b:includable id='nextprev'>
-		<div class='blog-pager' id='blog-pager'>
-			<b:if cond='data:newerPageUrl'><a class='newer-link' expr:href='data:newerPageUrl' expr:title='data:newerPageTitle'>Anterior</a></b:if>
-			<b:if cond='data:olderPageUrl'><a class='older-link' expr:href='data:olderPageUrl' expr:title='data:olderPageTitle'>Siguiente</a></b:if>
-		</div>
-	</b:includable>
-    <b:includable id='post' var='post'>
-	<b:switch var='data:blog.pageType'>
-        <b:case value='index'/>
+      </b:includable>
+      <b:includable id='backlinkDeleteIcon' var='backlink'><!--none--></b:includable>
+      <b:includable id='backlinks' var='post'><!--none--></b:includable>
+      <b:includable id='comment-blogger' var='post'>
+      <h4><data:post.numComments/> Comentario<b:if cond='data:post.numComments > 1 or data:post.numComments == 0'>s</b:if></h4>      
+      <div class='comments' id='comments'>
+         <div class='comments-content'>
+            <div id='comment-holder'><data:post.commentHtml/></div>
+            <b:include data='post' name='threaded_comment_js'/>
+         </div>
+         <div class='comment-footer'>
+            <b:if cond='data:post.allowNewComments'>
+               <b:include data='post' name='threaded-comment-form'/>
+            <b:else/>
+               <span class='info'>No se permiten nuevos comentarios</span>
+            </b:if>
+         </div>
+         </div>
+      </b:includable>
+      <b:includable id='comment-disqus'>
+         <div id='disqus_thread'/>
+         <script type='text/javascript'>
+         var disqus_shortname = "[Shortname_DISQUS]";
+         var disqus_url = "<data:blog.canonicalUrl/>"; 
+         //<![CDATA[
+         (function() {
+               var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+               dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+               (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+         })();
+         //]]></script>
+         <noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
+         <script id="dsq-count-scr" src='https://[Shortname_DISQUS].disqus.com/count.js' async="async"/>
+      </b:includable>
+      <b:includable id='comment-facebook'>
+         <div id="fb-root"></div>
+         <script>//<![CDATA[
+            (function(d, s, id) {
+               var js, fjs = d.getElementsByTagName(s)[0];
+               if (d.getElementById(id)) return;
+               js = d.createElement(s); js.id = id;
+               js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8";
+               fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+         //]]></script>
+         <div class='fb-comments' data-numposts='10' expr:data-href='data:blog.canonicalUrl'/>
+         <noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
+      </b:includable>
+      <b:includable id='comment-form' var='post'><!--none--></b:includable>
+      <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
+      <b:includable id='comment_count_picker' var='post'><!--none--></b:includable>
+      <b:includable id='comment_picker' var='post'><!--none--></b:includable>
+      <b:includable id='comments' var='post'><!--none--></b:includable>
+      <b:includable id='feedLinks'><!--none--></b:includable>
+      <b:includable id='feedLinksBody' var='links'><!--none--></b:includable>
+      <b:includable id='iframe_comments' var='post'><!--none--></b:includable>
+      <b:includable id='mobile-index-post' var='post'><!--none--></b:includable>
+      <b:includable id='mobile-main' var='top'><!--none--></b:includable>
+      <b:includable id='mobile-nextprev'><!--none--></b:includable>
+      <b:includable id='mobile-post' var='post'><!--none--></b:includable>
+      <b:includable id='nextprev'>
+         <div class='blog-pager' id='blog-pager'>
+            <b:if cond='data:newerPageUrl'><a class='newer-link' expr:href='data:newerPageUrl' expr:title='data:newerPageTitle'>Anterior</a></b:if>
+            <b:if cond='data:olderPageUrl'><a class='older-link' expr:href='data:olderPageUrl' expr:title='data:olderPageTitle'>Siguiente</a></b:if>
+         </div>
+      </b:includable>
+      <b:includable id='post' var='post'>
+       
+         <b:if cond='data:view.isMultipleItems'>
 
-        <!--{{ Entrada en la pagina principal }}-->
+         <!--{{ Entrada en la pagina principal }}-->
 
-        <b:case value='item'/>
+         <b:elseif cond='data:view.isPost'/>
 
-        <!--{{ Entrada dentro de las entradas }}-->
+         <!--{{ Entrada dentro de las entradas }}-->
 
-        <b:case value='static_page'/>
+         <b:elseif cond='data:view.isPage'/>
 
-        <!--{{ Pagina independiente }}-->
+         <!--{{ Pagina independiente }}-->
+      
+         </b:if>
 
-	</b:switch>
-	</b:includable>
-    <b:includable id='postQuickEdit' var='post'><!--none--></b:includable>
-    <b:includable id='shareButtons'><!--none--></b:includable>
-    <b:includable id='status-message'><!--none--></b:includable>
-    <b:includable id='threaded-comment-form' var='post'>
-	<div class='comment-form'><a name='comment-form'/>
-      <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-      	<iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
-    	<data:post.cmtfpIframe/>
-    	<script type='text/javascript'>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
-	</div>
-	</b:includable>
-    <b:includable id='threaded_comment_js' var='post'>
-	    <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
-  		<b:template-script inline='true' name='threaded_comments'/>
-  		<script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);</script>
-	    <script type='text/javascript'>//<![CDATA[
+      </b:includable>
+      <b:includable id='postQuickEdit' var='post'><!--none--></b:includable>
+      <b:includable id='shareButtons'><!--none--></b:includable>
+      <b:includable id='status-message'><!--none--></b:includable>
+      <b:includable id='threaded-comment-form' var='post'>
+         <div class='comment-form'><a name='comment-form'/>
+            <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+               <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+            <data:post.cmtfpIframe/>
+            <script type='text/javascript'>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
+         </div>
+      </b:includable>
+      <b:includable id='threaded_comment_js' var='post'>
+         <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+            <b:template-script inline='true' name='threaded_comments'/>
+            <script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);</script>
+         <script type='text/javascript'>//<![CDATA[
 var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));
 //]]></script>
-    </b:includable>
-    <b:includable id='threaded_comments' var='post'><!--none--></b:includable>
-  </b:widget>
-  </b:section>
+      </b:includable>
+      <b:includable id='threaded_comments' var='post'><!--none--></b:includable>
+   </b:widget>
+</b:section>
 
 
 <!-- Google Analytics -->
