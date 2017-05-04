@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' lang='es'>
 
-<!-- Canvas.xml v1.1.28 -->
+<!-- Canvas.xml v1.1.29 -->
 <head>
 
 <!-- Datos generales -->
@@ -192,10 +192,14 @@ body#layout .right {float: right;width: 50%;}
             <b:include data='post' name='post'/><!-- insertamos entradas -->
             <!-- insertamos Comentarios -->
             <div class='comentarios'>
-               <b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
-                  <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
-               <b:else/><!-- Caso contrario -->
-                  <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
+               <b:if cond='data:view.url != data:blog.homepageUrl'>
+                  <b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
+                     <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
+                  <b:else/><!-- Caso contrario -->
+                     <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
+                  </b:if>
+               <b:else/>
+                  <span class='info'>Los comentarios no estan disponibles en la vista previa de la entrada, ya deberias saber eso ¬_¬</span>
                </b:if>
             </div>
          </b:loop>
