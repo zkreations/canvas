@@ -1,4 +1,4 @@
-# Blogger-core
+# Canvas.xml
 
 Canvas te proporciona una base para blogger limpia, eliminando el código css/javascript por defecto, integra facebook Open Graph, twitter card y metadatos necesarios que mejoran el SEO. Una gran opción para empezar a diseñar en blogger desde 0. 
 
@@ -25,6 +25,11 @@ Busca `<b:include data='post' name='comment-blogger'/>` y cambia **blogger** por
 En caso de usar disqus o facebook, puedes volver a los comentarios de blogger dejando el valor por defecto del include: `<b:include data='post' name='comment-blogger'/>`
 
 
+# Single.css
+
+Single es un archivo css que rediseña los widgets de blogger, les añade aspectos responsive y ademas los vuelve modulares, de tal forma que dependiendo del maquetado, el widget interactue cambiando su diseño en caso de encontrarse en el sidebar, el main o el header.
+
 ## Licencia
 
 **Canvas.xml** is licensed under the GNU GENERAL PUBLIC LICENSE.
+**Single.css** is licensed under the GNU GENERAL PUBLIC LICENSE.
