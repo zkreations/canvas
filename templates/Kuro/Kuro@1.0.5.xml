@@ -2124,7 +2124,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 	<div class='footer'>
     <div class='container align-items-start'>
     <div class='footer--content'>
-      <div class='flogo'><span>Kuro</span></div>
+      <div class='flogo'><span><data:blog.title/></span></div>
         <!--Esta obra está licenciada bajo la Licencia Creative Commons Atribución-NoComercial 4.0 Internacional. Para ver una copia de esta licencia, visita http://creativecommons.org/licenses/by-nc/4.0/-->
         <p class='fcopy'>Made with <strong class='love'>&#9829;</strong> <a data-rel='cc:attributionName' href='http://www.zkreations.com' property='cc:attributionName' rel='nofollow' target='_blank'>by zkreations</a> &amp; <a href='https://www.blogger.com' rel='nofollow' target='_blank'>Blogger</a></p>    
 		<b:section id='footer-social' maxwidgets='1' showaddelement='no'>
