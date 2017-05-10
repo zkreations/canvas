@@ -787,8 +787,9 @@ Custom Widget tags
 /*Loader*/
 .items--loader {
     width: 100%;
-    padding: 1rem .5rem;
+    padding: 2rem .5rem;
     position: relative;
+    margin: 0;
 }
 
 .items--loader::before {
