@@ -2,105 +2,105 @@
 <!DOCTYPE html>
 <html lang='es' b:responsive='true' b:css='false'>
 
-<!-- Anime v2.0.8 ?= Canvas.xml v1.0.22 -->
+<!-- Anime v2.0.18 ?= Canvas.xml v1.1.29 -->
 <head>
 
+<!-- Datos generales -->
 <meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:if cond='data:blog.url == data:blog.homepageUrl'>
-	<meta content='blog' property='og:type'/>
-<b:elseif cond='data:blog.pageType == "item"'/>
-	<meta content='article' property='og:type'/>
+<b:if cond='data:view.isHomepage'>
+   <meta content='blog' property='og:type'/>
+<b:elseif cond='data:view.isPost'/>
+   <meta content='article' property='og:type'/>
 </b:if>
+
+<!-- Responsive -->
+<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
 <!--/// Cambia estos valores por los tuyos
 ========================================================================== ///-->
 
 <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
-<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
 <meta content='@blogger' name='twitter:site'/>
 <meta content='@google' name='twitter:creator'/>
 <meta content='TuNombre' name='DC.Creator'/>
 
-<!-- Añadiendo URL Canónica -->
+<!-- Enlace Canonico -->
 <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
 <meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
 <!-- Link rel=canonical -->
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
-<!-- Scalable device -->
-<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
-
 <!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
-	<meta expr:content='data:blog.metaDescription' property='og:description'/>
-	<meta expr:content='data:blog.metaDescription' name='description'/>
-	<meta expr:content='data:blog.metaDescription' name='twitter:description'/>
-    <meta expr:content='data:blog.metaDescription' name='DC.description'/>
-<b:elseif cond='data:blog.pageType != "index"'/>
-	<meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
+   <meta expr:content='data:blog.metaDescription' property='og:description'/>
+   <meta expr:content='data:blog.metaDescription' name='description'/>
+   <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+   <meta expr:content='data:blog.metaDescription' name='DC.description'/>
+<b:elseif cond='data:view.isSingleItem'/>
+   <meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
-<!-- Añadiendo follow Robots solo a post e index -->
-<b:if cond='data:blog.pageType == "archive"'>
-	<meta content='noindex,nofollow' name='robots'/>
+<!-- Robots solo en Post y MultipleItems -->
+<b:if cond='data:view.isArchive'>
+   <meta content='noindex,nofollow' name='robots'/>
 <b:else/>
-	<b:if cond='data:blog.pageType == "error_page"'>
-		<meta content='noindex,nofollow' name='robots'/>
-	<b:else/>
-		<b:if cond='data:blog.pageType == "index"'>
-			<b:if cond='data:blog.homepageUrl == data:blog.url'>
-				<meta content='index,follow' name='robots'/>
-				<meta content='noodp,noydir' name='robots'/>
-			<b:else/>
-				<meta content='noindex,nofollow' name='robots'/>
-			</b:if>
-		<b:else/>
-			<meta content='index,follow' name='robots'/>
-			<meta content='noodp,noydir' name='robots'/>
-		</b:if>
-	</b:if>
+   <b:if cond='data:view.isError'>
+      <meta content='noindex,nofollow' name='robots'/>
+   <b:else/>
+      <b:if cond='data:view.isMultipleItems'>
+         <b:if cond='data:view.isHomepage'>
+            <meta content='index,follow' name='robots'/>
+            <meta content='noodp,noydir' name='robots'/>
+         <b:else/>
+            <meta content='noindex,nofollow' name='robots'/>
+         </b:if>
+      <b:else/>
+         <meta content='index,follow' name='robots'/>
+         <meta content='noodp,noydir' name='robots'/>
+      </b:if>
+   </b:if>
 </b:if>
 
 <!-- Optimizando los post -->
-<b:if cond='data:blog.pageType == "item"'>
-	<!-- La primera imagen del post -->
-	<b:if cond='data:blog.postImageUrl'>
-		<link expr:href='data:blog.postImageUrl' rel='image_src'/>
-		<meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
-		<meta expr:content='data:blog.postImageUrl' property='og:image'/>
-	</b:if>
+<b:if cond='data:view.isPost'>
+   <!-- La primera imagen del post -->
+   <b:if cond='data:blog.postImageUrl'>
+      <link expr:href='data:blog.postImageUrl' rel='image_src'/>
+      <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+      <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+   </b:if>
 
-	<!-- La navegacion -->
-	<b:if cond='data:blog.newerPageUrl'>
-		<link expr:href='data:blog.newerPageUrl' rel='next'/>
-	<b:elseif cond='data:blog.olderPageUrl'/>
-		<link expr:href='data:blog.olderPageUrl' rel='prev'/>
-	</b:if>
+   <!-- La navegacion -->
+   <b:if cond='data:blog.newerPageUrl'>
+      <link expr:href='data:blog.newerPageUrl' rel='next'/>
+   <b:elseif cond='data:blog.olderPageUrl'/>
+      <link expr:href='data:blog.olderPageUrl' rel='prev'/>
+   </b:if>
 </b:if>
 
 <!-- Optimizando Titulos -->
 <meta expr:content='data:blog.title' name='DC.Publisher'/>
-<b:if cond='data:blog.pageType == "error_page"'>
-	<title>Error 404 en <data:blog.pageTitle/></title>
+<b:if cond='data:view.isError'>
+   <title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
-	<b:if cond='data:blog.url != data:blog.homepageUrl'>
-		<meta expr:content='data:blog.pageName' property='og:title'/>
-		<meta expr:content='data:blog.pageName' name='twitter:title'/>
-        <meta expr:content='data:blog.pageName' name='DC.title'/>
-		<b:if cond='data:blog.pageName'>
-			<title><data:blog.pageName/></title>
-		<b:else/>
-			<title><data:blog.pageTitle/></title>
-		</b:if>
-	<b:else/>
-		<meta expr:content='data:blog.pageTitle' property='og:title'/>
-		<meta expr:content='data:blog.pageTitle' name='twitter:title'/>
-        <meta expr:content='data:blog.pageTitle' name='DC.title'/>
-		<title><data:blog.pageTitle/></title>
-	</b:if>
+   <b:if cond='data:blog.url != data:blog.homepageUrl'>
+      <meta expr:content='data:blog.pageName' property='og:title'/>
+      <meta expr:content='data:blog.pageName' name='twitter:title'/>
+      <meta expr:content='data:blog.pageName' name='DC.title'/>
+      <b:if cond='data:blog.pageName'>
+         <title><data:blog.pageName/></title>
+      <b:else/>
+         <title><data:blog.pageTitle/></title>
+      </b:if>
+   <b:else/>
+      <meta expr:content='data:blog.pageTitle' property='og:title'/>
+      <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
+      <meta expr:content='data:blog.pageTitle' name='DC.title'/>
+      <title><data:blog.pageTitle/></title>
+   </b:if>
 </b:if>
 
 <!-- Fin de etiquetas meta -->
@@ -108,13 +108,13 @@
 <!-- Incluimos los datos de blogger -->
 <!-- favicon -->
 <b:if cond='data:blog.blogspotFaviconUrl'>
-	<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
+   <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 </b:if>
 
 <!-- feeds -->
 <b:if cond='data:blog.feedLinks'>
-<link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
-<link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
+   <link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
+   <link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
 </b:if>
 
 <!-- schema ld+json -->
@@ -124,29 +124,9 @@
 
 <!-- HTML5 para IE9 -->
 <!--[if lt IE 9]>
-	<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
 <!-- Fin de datos-->
-
-&lt;style&gt;/*
-<b:skin><![CDATA[*/
-/*!
-=> Theme Name: Anime
-=> Theme URI: http://www.zkreations.com
-=> Author: Daniel
-=> Author URI: https://fb.com/daniei.abel
-=> License: Creative Commons Atribución-NoComercial 4.0 Internacional
-=> License URI: http://creativecommons.org/licenses/by-nc/4.0/
-*/
-
-.item-control.blog-admin,
-.widget-item-control {display: none;}
-
-/*Design: admin blog*/
-body#layout .left {float: left;width: 50%;}
-body#layout .right {float: right;width: 50%;}
-
-]]></b:skin>
 
 <style type='text/css'>/*<![CDATA[*/
 /* => GLOBAL */
@@ -512,8 +492,16 @@ body {
     letter-spacing: 1px;
 	border: 0 none;
 } 
-.widget-content,
-.user-content {
+
+/* Para que Single v1.x.xx funcione correctamente
+ * Se debe formatear todas los class de los widgets que carecen
+ * de "widget-content" como se muestra acontinuacion.
+ */
+.widget-content, 
+.user-content,
+.contact-form-widget,
+.wikipedia-search-main-container,
+.post-summary {
     width: 100%;
     padding: 1rem 0;
     background: #fff;
@@ -640,23 +628,7 @@ Custom Widget tags
     color: rgba(0, 0, 0, 0.7);
     text-decoration: none;
 }
-/*widget fix*/
-.post-summary h3 {
-    margin: 0;
-    padding-top: 1rem;
-}
-.post-summary {
-    background: #fff;
-}
-#PopularPosts1 {
-    background: #f1f1f1;
-}
-.Profile .widget-content {
-    margin: 0;
-}
-#Destacados .widget:first-child {
-    margin: 0;
-}
+
 /*footer*/
 .footer__end {
     background: rgba(0, 0, 0, 0.05);
@@ -945,12 +917,14 @@ html {font-size: 14px;}
     flex: 0 0 100%;
     background: #f5f5f5;
     margin-bottom: 1rem;
+	-webkit-backface-visibility: hidden;backface-visibility: hidden;/*hack*/
 }
 .card > a {
     overflow: hidden;
     display: block;
     position: relative;
     max-height: 340px;
+	-webkit-backface-visibility: hidden;backface-visibility: hidden;/*hack*/
 }
 .card > a::before, .card > a::after {
     display: block;
@@ -972,6 +946,7 @@ html {font-size: 14px;}
     transition: opacity .2s, -webkit-transform .2s;
     transition: transform .2s, opacity .2s;
     transition: transform .2s, opacity .2s, -webkit-transform .2s;
+	-webkit-backface-visibility: hidden;backface-visibility: hidden;/*hack*/
  }
 .card > a::after {
     content: "";
@@ -983,6 +958,7 @@ html {font-size: 14px;}
     z-index: 10;
     -webkit-transition: opacity .2s;
     transition: opacity .2s;
+	-webkit-backface-visibility: hidden;backface-visibility: hidden;/*hack*/
 }
 .card > a img{
 	display:block;
@@ -991,6 +967,7 @@ html {font-size: 14px;}
     transition: -webkit-transform .2s;
     transition: transform .2s;
     transition: transform .2s, -webkit-transform .2s;
+	-webkit-backface-visibility: hidden;backface-visibility: hidden;/*hack*/
 }
 
 .card > a:hover img{
@@ -1443,7 +1420,38 @@ var relacionados={posts:[],max:6,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 => CONFIGURACION BASICA
 -->
 
-<style type='text/css'>/*<![CDATA[*/
+<b:skin><![CDATA[
+/*!
+=> Theme Name: Anime
+=> Theme URI: http://www.zkreations.com
+=> Author: Daniel
+=> Author URI: https://fb.com/daniei.abel
+=> License: Creative Commons Atribución-NoComercial 4.0 Internacional
+=> License URI: http://creativecommons.org/licenses/by-nc/4.0/
+*/
+
+.singleton-element,
+.item-control.blog-admin,
+.widget-item-control {display: none;}
+
+/*Design: admin blog*/
+body#layout .left {float: left;width: 50%;}
+body#layout .right {float: right;width: 50%;}
+
+/* Variable definitions
+   ====================
+
+   <Group description="Colores" selector="color">
+      <Variable name="maincolor" description="Color principal" type="color" default="#23a6b3" value="#23a6b3"/>
+      <Variable name="bgcolor" description="Color de fondo" type="color" default="#e1e1e1" value="#e1e1e1"/>
+      <Variable name="textcolor" description="Color de fuentes" type="color" default="#00BCD4" value="#00BCD4"/>
+   </Group>
+
+   <Group description="Fuentes" selector="body">
+      <Variable name="logofont" description="fuente del logo" type="font" family="Custom" default="Custom" value="Custom"/>
+      <Variable name="mainfont" description="fuente del texto" type="font" family="RobotoDraft" default="RobotoDraft" value="RobotoDraft"/>
+   </Group>
+*/
 
 /* Fondo y Header
    ========================================================================== */
@@ -1451,14 +1459,12 @@ var relacionados={posts:[],max:6,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 /**
  * 1. Cambia "../imagen.jpg" por la url de tu imagen para el fondo
    => 1.1 Elige entre "repeat" y "no-repeat" para no repetir el fondo
-   => 1.2 Color del fondo
  * 2. Imagen del header   
  */
 
 body {
     background-image: url(../imagen.jpg); /* 1 */
 	background-repeat: repeat; /* => 1.1 */
-    background-color: #e1e1e1; /* => 1.2 */
 }
 
 .header .box { /* 2 */
@@ -1475,12 +1481,12 @@ body {
  */
 
 body {
-	font-family: RobotoDraft, sans-serif; /* 1 */
+	font-family: '$(mainfont.family)', sans-serif; /* 1 */
 }
 
 .font,
 .widget > h2 {
-	font-family: 'Oswald', sans-serif; /* 2 */
+	font-family: '$(logofont.family)', Oswald, sans-serif; /* 2 */
 }
 
 
@@ -1488,21 +1494,26 @@ body {
    ========================================================================== */
 
 /**
- * 1. Color principal
- * 2. Color de los enlaces
+ * 1. Color de fondo
+ * 2. Color principal
+ * 3. Color de los enlaces
  */
+
+body {
+    background-color: $bgcolor; /* 1 */
+}
 
 .color, .navmenu ul ul, .navmenu--menu li a.active,
 .navmenu--menu > li:hover, .widget > h2, .footer--links::after,
 .header .box::after, .card > a::after, .search button,
-.entrys li > a:hover > span, .title--box h4, .rel li:hover span {
-    background: #23a6b3; /* 1 */
+.entrys li > a:hover > span, .title--box h4, .rel li:hover span,
+.widget input[type=submit], .widget input[type=button] {
+    background-color: $maincolor; /* 2 */
 }
 
 a, a:hover, .footer--last > p > a:hover, .blog--content a {
-    color: #00BCD4; /* 2 */
+    color: $textcolor; /* 3 */
 }
-
 
 /* Cover y avatar
    ========================================================================== */
@@ -1521,8 +1532,10 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
     background-image: url(https://2.bp.blogspot.com/-FEtfrzjnhUI/WGa0Ype8HsI/AAAAAAAACC4/ajnTMZIbWuI9P-PP06LyaFGWNNw81I4_ACLcB/s1600/anon.png);
 }
 
-/*]]>*/</style>
-</head>
+/*Custom css ==>*/
+
+]]></b:skin>
+&lt;!--</head>--&gt;&lt;/head&gt;
 
 <body>
 
@@ -1740,10 +1753,15 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
         		</article>
 				<!-- insertamos Comentarios -->
 				<div class='comentarios' id='comment'>
-				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
-                    <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
+				<b:if cond='data:view.url != data:blog.homepageUrl'>
+					<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
+                    	<b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
+					<b:else/><!-- Caso contrario -->
+                    	<span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
+					</b:if>
 				<b:else/><!-- Caso contrario -->
-                    <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
+					<div class="title--box font"><h4>No disponible</h4></div>
+					<span class='info'>Los comentarios no estan disponibles en la vista previa de la entrada &#172;_&#172;</span>
 				</b:if>
           		</div>
 			</b:loop>
@@ -1771,7 +1789,7 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
   		</div>
 	</b:includable>
     <b:includable id='comment-disqus'>
-		<div class='title--box font'><h4><span class='disqus-comment-count' expr:data-disqus-url='data:post.url'/></h4></div>
+		<div class='title--box font'><h4>Disqus</h4></div>
 		<div id='disqus_thread'/>
 		<script type='text/javascript'>
     	var disqus_shortname = "[Shortname_DISQUS]";
@@ -1839,9 +1857,11 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 					<h2 class='font'><data:post.title/></h2>
                   	<b:if cond='data:post.snippet != ""'><p><data:post.snippet/></p></b:if>
 					<div class='metadata flex'>
+					    <b:if cond='data:top.showTimestamp'>
 						<a class='icon-clock flex align-items-center' expr:href='data:post.url.canonical'>
 							<time class='published date updated' expr:datetime='data:post.timestampISO8601'><data:post.timestamp/></time>
 						</a>
+				        </b:if>
 						<a class='icon-comment flex align-items-center' expr:href='data:post.url + "#comment"'><data:post.numComments/></a>
 					</div>
 				</div>
@@ -1851,20 +1871,24 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 
 			<header class='article-header'>
 				<div class='tagspost'>
+				<b:if cond='data:top.showPostLabels and data:post.labels'>
 					<b:loop values='data:post.labels' var='label'>
 						<a expr:href='data:label.url' rel='tag'><data:label.name/></a>
 					</b:loop>
+				</b:if>
 				</div>
 				<h1 class='font'><data:post.title/></h1>
 				<div class='metadata flex wrap align-items-center'>
-					<a class='g-profile metadata--author' expr:href='data:post.authorProfileUrl' rel='author'><img expr:src='resizeImage(data:post.authorPhoto.url,40,"1:1")' expr:title='data:post.author'/></a><time class='published date updated icon-clock' expr:datetime='data:post.timestampISO8601'><span><data:post.timestamp/></span></time><span class='icon-comment'><data:post.numComments/> Comentario<b:if cond='data:post.numComments &gt; 1 or data:post.numComments == 0'>s</b:if></span>
+					<b:if cond='data:top.showAuthor'><a class='g-profile metadata--author' expr:href='data:post.authorProfileUrl' rel='author'><img expr:src='resizeImage(data:post.authorPhoto.url,40,"1:1")' expr:title='data:post.author'/></a></b:if>
+					<b:if cond='data:top.showTimestamp'><time class='published date updated icon-clock' expr:datetime='data:post.timestampISO8601'><span><data:post.timestamp/></span></time></b:if>
+					<span class='icon-comment'><data:post.numComments/> Comentario<b:if cond='data:post.numComments &gt; 1 or data:post.numComments == 0'>s</b:if></span>
 				</div>
 			</header>
         	<div class='post-body' expr:data-id='data:post.id'>
 				<data:post.body/>
-				<b:include name='shareButtons'/>
+				<b:include cond='data:post.sharePostUrl' name='shareButtons'/>
 			</div>
-			<b:include name='relacionados'/>
+			<b:include cond='data:view.url != data:blog.homepageUrl' name='relacionados'/>
 
         <b:case value='static_page'/>
 
@@ -1882,7 +1906,7 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 		<div class='relacionados'>
             <div class='title--box font'><h4>Entradas similares</h4></div>
 			<b:loop values='data:post.labels' var='label'>
-  				<script expr:src='data:blog.homepageUrl + "/feeds/posts/default/-/" + data:label.name + "?alt=json-in-script&amp;amp;callback=leerpostetiquetas&amp;amp;max-results=12"' type='text/javascript'/>
+  				<script expr:src='data:blog.canonicalHomepageUrl + "feeds/posts/default/-/" + data:label.name + "?alt=json-in-script&amp;amp;callback=leerpostetiquetas&amp;amp;max-results=12"' type='text/javascript'/>
 			</b:loop>
             <ul class='rel clearfix flex align-items-start wrap'>
 				<script type='text/javascript'>mostrarrelacionados();</script>
@@ -1922,6 +1946,14 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 </div><!-- end main-content -->
 
 <aside class='sidebar clearfix side right'>
+<b:if cond='data:view.url == data:blog.homepageUrl and data:view.isSingleItem'>
+<div class='widget'>
+	<h2>No disponible</h2>
+	<div class='widget-content'>
+		<span class='info'>Los widget no son necesarios en la vista previa &#172;_&#172;</span>
+	</div>
+</div>
+<b:else/>
 <b:section id='sidebar'>
   <b:widget id='BlogSearch10' locked='false' title='Buscar este blog' type='BlogSearch' version='1'>
     <b:includable id='main'>
@@ -1982,7 +2014,8 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
     </b:includable>
   </b:widget>
 </b:section>
-</aside>
+</b:if>
+</aside><!-- end sidebar -->
 
 </div><!-- end box clearfix -->
 
@@ -2004,7 +2037,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
     <div class='footer--last'>
         <span class='font'><data:blog.title/> 2017</span>
         <!--Esta obra está licenciada bajo la Licencia Creative Commons Atribución-NoComercial 4.0 Internacional. Para ver una copia de esta licencia, visita http://creativecommons.org/licenses/by-nc/4.0/-->
-        <p>Powered by <a href='https://www.blogger.com' rel='nofollow' target='_blank'>Blogger</a> Created by <a data-rel='cc:attributionName' href='http://www.zkreations.com' property='cc:attributionName' rel='nofollow' target='_blank'>zkreations</a></p>
+        <p>Made with <strong class='love'>&#9829;</strong> <a data-rel='cc:attributionName' href='http://www.zkreations.com' property='cc:attributionName' rel='nofollow' target='_blank'>by zkreations</a> &amp; <a href='https://www.blogger.com' rel='nofollow' target='_blank'>Blogger</a></p>
     </div>
 </div>
 

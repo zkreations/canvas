@@ -1,4 +1,4 @@
-/*! => Single.css v1.0.1 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
+/*! => Single.css v1.0.2 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
 /*Custom reset*/
 /*Custom reset*/
 .post-summary *,
@@ -145,8 +145,11 @@ Entrada destacada*/
     	float: right;
     	width: calc(100% - 250px);
 	}
-	.post-summary .image {
+    .post-summary .image {
     	margin: 0;
+	}
+	aside .post-summary .image {
+    	margin: 0 auto;
 	}
 }
 
@@ -763,4 +766,7 @@ Buscar con Wikipedia */
 .wikipedia-search-main-container>nobr a:hover {
     opacity: .9;
     text-decoration: none;
+}
+.widget.Wikipedia br {
+    display: none;
 }
