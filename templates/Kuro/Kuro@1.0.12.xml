@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' lang='es'>
 
-<!-- Kuro v1.0.11 ?= Canvas.xml v1.1.29 -->
+<!-- Kuro v1.0.12 ?= Canvas.xml v1.1.29 -->
 <head>
 
 <!-- Datos generales -->
@@ -1636,7 +1636,7 @@ a, a:hover,
 	</div>
 	</b:includable>
     <b:includable id='search_box'>
-        <form class='searchbox flex' expr:action='data:blog.searchUrl' id='searchbox' method='get'>
+        <form class='searchbox flex' action='/search' id='searchbox' method='get'>
             <button class='searchbox__search button no-style' type='submit'>
                 <i class='icon-search'/>
             </button>
