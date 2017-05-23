@@ -1167,6 +1167,7 @@ article code, article pre {
 .comentarios {
     position: relative;
     z-index: 200;
+    overflow: hidden;
 }
 .title--box {
     margin-bottom: 1rem;
