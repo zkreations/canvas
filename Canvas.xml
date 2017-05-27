@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' lang='es'>
 
-<!-- Canvas.xml v1.1.29 -->
+<!-- Canvas.xml v1.1.30 -->
 <head>
 
 <!-- Datos generales -->
@@ -138,9 +138,13 @@
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
 
+/*Deleted: unnecessary elements*/
 .singleton-element,
 .item-control.blog-admin,
 .widget-item-control {display: none;}
+
+/*Fix: Blogger lightbox*/
+.CSS_LIGHTBOX {z-index: 90001 !important;}
 
 /*Design: admin blog*/
 body#layout .left {float: left;width: 50%;}
