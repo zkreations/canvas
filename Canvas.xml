@@ -241,7 +241,6 @@ body#layout .right {float: right;width: 50%;}
          })();
          //]]></script>
          <noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
-         <script id="dsq-count-scr" src='https://[Shortname_DISQUS].disqus.com/count.js' async="async"/>
       </b:includable>
       <b:includable id='comment-facebook'>
          <div id="fb-root"></div>
