@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang='es' b:responsive='true' b:css='false'>
 
-<!-- Anime v2.0.20 ?= Canvas.xml v1.1.30 -->
+<!-- Anime v2.0.21 ?= Canvas.xml v1.1.30 -->
 <head>
 
 <!-- Datos generales -->
@@ -1856,8 +1856,8 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 		</div>
 	</b:includable>
     <b:includable id='post' var='post'>
-	<b:switch var='data:blog.pageType'>
-        <b:case value='index'/>
+
+         <b:if cond='data:view.isMultipleItems'>
 
 			<div class='card'>
 				<a expr:href='data:post.url' expr:title='data:post.title'>
@@ -1885,7 +1885,7 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 				</div>
 			</div>
 
-        <b:case value='item'/>
+         <b:elseif cond='data:view.isPost'/>
 
 			<header class='article-header'>
 				<div class='tagspost'>
@@ -1908,7 +1908,7 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 			</div>
 			<b:include cond='data:view.url != data:blog.homepageUrl' name='relacionados'/>
 
-        <b:case value='static_page'/>
+         <b:elseif cond='data:view.isPage'/>
 
 			<header class='article-header'>
 				<h1 class='font'><data:post.title/></h1>
@@ -1917,7 +1917,8 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 				<data:post.body/>
 			</div>
 
-	</b:switch>
+         </b:if>
+
 	</b:includable>
     <b:includable id='postQuickEdit' var='post'><!--none--></b:includable>
     <b:includable id='relacionados'>
