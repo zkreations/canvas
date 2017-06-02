@@ -1,5 +1,4 @@
-/*! => Single.css v1.0.2 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
-/*Custom reset*/
+/*! => Single.css v1.0.3 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
 /*Custom reset*/
 .post-summary *,
 .BlogSearch *,
@@ -21,8 +20,7 @@
     outline: 0;
 	width: auto;
 	height: auto;
-    -webkit-box-shadow: 0 0 transparent;
-            box-shadow: 0 0 transparent;
+    box-shadow: 0 0 transparent;
 }
 .post-summary::after,
 .PageList ul::after,
@@ -42,8 +40,7 @@
 .contact-form-widget input[type=button], 
 .wikipedia-search-form input[type=button] {
     padding: 1rem;
-    -webkit-box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.075), inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.05);
-            box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.075), inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.075), inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.05);
     border-radius: 3px;
     font-size: 1.1rem;
     color: rgba(0, 0, 0, 0.75);
@@ -77,9 +74,7 @@
 .follow-by-email-inner td:last-child::before {
 	top: 50%;
 	left: 50%;
-	-webkit-transform: translate(-50%,-50%);
-	    -ms-transform: translate(-50%,-50%);
-	        transform: translate(-50%,-50%);
+	transform: translate(-50%,-50%);
 	position: absolute;
     z-index: 5;
 }
@@ -116,6 +111,10 @@
   	-moz-osx-font-smoothing: grayscale;
 }
 
+/*all Header*/
+header .widget {margin:0;}
+header .widget h2 {display:none;}
+
 /* Featured Post
 Entrada destacada*/
 .post-summary h3 {
@@ -132,8 +131,7 @@ Entrada destacada*/
 }
 .post-summary .image {
     border: 5px solid #fff;
-    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 2px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
-            box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 2px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .1), 0 2px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
     height: auto;
     margin: 0 auto;
     width: 230px;
@@ -186,8 +184,7 @@ Buscador*/
 /* Profile User or team
 Perfil del usuario o equipo*/
 .Profile .widget-content {
-    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, .1) inset, 0 1px 3px -1px rgba(0, 0, 0, .2);
-            box-shadow: 0 0 0 1px rgba(0, 0, 0, .1) inset, 0 1px 3px -1px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .1) inset, 0 1px 3px -1px rgba(0, 0, 0, .2);
     padding: 0;
     position: relative;
     text-align: center;
@@ -504,8 +501,7 @@ Entradas populares*/
 }
 .popular-posts .item-thumbnail {
     border: 5px solid #fff;
-    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, .03), 0 1px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
-            box-shadow: 0 0 0 1px rgba(0, 0, 0, .03), 0 1px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .03), 0 1px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
     margin-right: 1rem;
     float: left;
 }
@@ -548,18 +544,9 @@ Entradas populares*/
 Contador de visitas*/
 
 .graph-counter-wrapper {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: start;
-    -webkit-justify-content: flex-start;
-        -ms-flex-pack: start;
-            justify-content: flex-start;
-    -webkit-box-align: start;
-    -webkit-align-items: flex-start;
-        -ms-flex-align: start;
-            align-items: flex-start;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 .graph-counter-wrapper > span {
     padding: .8rem .4rem;
@@ -571,8 +558,7 @@ Contador de visitas*/
     border-radius: 3px;
     position: relative;
     border: 1px solid rgba(0, 0, 0, .9);
-    -webkit-box-shadow: 0 60px 60px -30px rgba(255, 255, 255, .05) inset, 0 0 0 2px rgba(0, 0, 0, .15), 0 1px 0 0 rgba(255, 255, 255, .15) inset;
-            box-shadow: 0 60px 60px -30px rgba(255, 255, 255, .05) inset, 0 0 0 2px rgba(0, 0, 0, .15), 0 1px 0 0 rgba(255, 255, 255, .15) inset;
+    box-shadow: 0 60px 60px -30px rgba(255, 255, 255, .05) inset, 0 0 0 2px rgba(0, 0, 0, .15), 0 1px 0 0 rgba(255, 255, 255, .15) inset;
 }
 .graph-counter-wrapper > span .blind-plate {
     position: absolute;
@@ -621,8 +607,7 @@ Mi lista de blogs*/
 .blog-list-container .item-thumbnail {
     margin: 0 15px 15px 0;
     border: 5px solid #fff;
-    -webkit-box-shadow: 0 0 0 1px rgba(0, 0, 0, .03), 0 1px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
-            box-shadow: 0 0 0 1px rgba(0, 0, 0, .03), 0 1px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .03), 0 1px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
     float: left;
 }
 .blog-list-container .item-content {
