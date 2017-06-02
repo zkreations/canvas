@@ -1821,7 +1821,6 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 		//]]>
         </script>
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
-		<script async='async' id='dsq-count-scr' src='https://[Shortname_DISQUS].disqus.com/count.js'/>
 	</b:includable>
     <b:includable id='comment-facebook'>
 		<div id='fb-root'/>
