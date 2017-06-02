@@ -6,7 +6,7 @@ Canvas te proporciona una base para blogger limpia, eliminando el código css/ja
 
 Es mucho mas fácil diseñar para blogger. Tus diseños pueden ser como que tu quieras debido a la exclusión del código de blogger, el limite está en tu imaginación. Con canvas.xml es fácil lograr un blog con una velocidad de carga optima. Para tener un ejemplo claro, los siguientes blogs usan **Canvas** y pasaron por diferentes test de velocidad: 
 
-* [zkreations](http://www.zkreations.com/) | usa Canvas.xml (ultima version) - [PageSpeed](https://goo.gl/ldwghm) [thinkwithgoogle](https://goo.gl/7hAh2S) [pingdom](https://goo.gl/sWuryK)
+* [zkreations](https://www.zkreations.com/) | usa Canvas.xml (ultima version) - [PageSpeed](https://developers.google.com/speed/pagespeed/insights/?url=https://www.zkreations.com/) [thinkwithgoogle](https://testmysite.thinkwithgoogle.com/?url=https://www.zkreations.com/) [pingdom](https://tools.pingdom.com/#!/eJ0lBf/https://www.zkreations.com/)
 
 ## Instalación
 
@@ -14,7 +14,7 @@ Descarga **Canvas**, abre el archivo con cualquier editor de texto y copia todo 
 
 ## Comentarios Disqus
 
-Busca `[Shortname_DISQUS]` en la plantilla (esta dos veces). Reemplazar ambos por el nombre corto que se encuentra en tu panel de Disqus. Luego busca `<b:include data='post' name='comment-blogger'/>` y cambia **blogger** por **disqus**
+Busca `[Shortname_DISQUS]` en la plantilla. Reemplazar por el nombre corto que se encuentra en tu panel de Disqus. Luego busca `<b:include data='post' name='comment-blogger'/>` y cambia **blogger** por **disqus**
 
 ## Comentarios facebook
 
