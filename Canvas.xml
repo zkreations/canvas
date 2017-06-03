@@ -203,7 +203,7 @@ body#layout .right {float: right;width: 50%;}
                      <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
                   </b:if>
                <b:else/>
-                  <span class='info'>Los comentarios no estan disponibles en la vista previa de la entrada, ya deberias saber eso ¬_¬</span>
+                  <span class='info'>Los comentarios no estan disponibles en la vista previa de la entrada</span>
                </b:if>
             </div>
          </b:loop>
