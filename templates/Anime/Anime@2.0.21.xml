@@ -425,6 +425,7 @@ body {
     z-index: 80;
     height: 17px;
     cursor: pointer;
+    display:block;
 }
 .toggle--icon span:after, .toggle--icon span:before {
     content: "";
@@ -1589,7 +1590,7 @@ a, a:hover, .footer--last > p > a:hover, .blog--content a {
 	</div>
 	<nav class='navmenu box--menu'>
 		<button class='toggle no-style' id='toggle'>
-			<div class='toggle--icon'><span/></div>
+			<span class='toggle--icon'><span/></span>
 		</button>
 		<b:include name='menu'/>
 	</nav>
