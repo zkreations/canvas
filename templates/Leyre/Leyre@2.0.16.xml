@@ -1770,8 +1770,12 @@ body {
 				<data:post.body/>
 			</div>
 			<div class='tags'>
+			    <b:if cond='data:top.showPostLabels and data:post.labels'>
 				<b:loop values='data:post.labels' var='label'>
 					<a expr:href='data:label.url' rel='tag'>#<data:label.name/></a><b:if cond='!data:label.isLast'>, </b:if>
+				</b:loop>
+				</b:if>
+				<b:loop values='data:post.labels' var='label'>
 					<script expr:src='data:blog.homepageUrl + "/feeds/posts/default/-/" + data:label.name + "?alt=json-in-script&amp;amp;callback=leerpostetiquetas&amp;amp;max-results=12"' type='text/javascript'/>
 				</b:loop>
 			</div>
