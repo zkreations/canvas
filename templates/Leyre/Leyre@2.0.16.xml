@@ -1830,7 +1830,8 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 </div>
 <b:else/>
 <!--case-->
-<b:section class='left case' id='sidebar-1'>
+<div class="left case">
+<b:section id='sidebar-1'>
   <b:widget id='Profile1' locked='false' title='Acerca de mí' type='Profile' version='1'>
     <b:widget-settings>
       <b:widget-setting name='showaboutme'>true</b:widget-setting>
@@ -1865,9 +1866,11 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 	</b:includable>
   </b:widget>
 </b:section>
+</div>
 
 <!--case-->
-<b:section class='right case' id='sidebar-2'>
+<div class="left case">
+<b:section id='sidebar-2'>
   <b:widget id='Label1' locked='false' title='Etiquetas' type='Label' version='1'>
     <b:widget-settings>
       <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
@@ -1896,6 +1899,8 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
     </b:includable>
   </b:widget>
 </b:section>
+</div>
+
 </b:if>
 </aside>
 
