@@ -2,105 +2,105 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' lang='es'>
 
-<!-- Leyre v2.0.10 ?= Canvas.xml v1.0.22 -->
+<!-- Leyre v2.0.16 ?= Canvas.xml v1.1.30 -->
 <head>
 
+<!-- Datos generales -->
 <meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:if cond='data:blog.url == data:blog.homepageUrl'>
-	<meta content='blog' property='og:type'/>
-<b:elseif cond='data:blog.pageType == "item"'/>
-	<meta content='article' property='og:type'/>
+<b:if cond='data:view.isHomepage'>
+   <meta content='blog' property='og:type'/>
+<b:elseif cond='data:view.isPost'/>
+   <meta content='article' property='og:type'/>
 </b:if>
+
+<!-- Responsive -->
+<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
 <!--/// Cambia estos valores por los tuyos
 ========================================================================== ///-->
 
 <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
-<meta content='agrega, tus palabras, claves, separadas, por comas' name='keywords'/>
 <meta content='@blogger' name='twitter:site'/>
 <meta content='@google' name='twitter:creator'/>
 <meta content='TuNombre' name='DC.Creator'/>
 
-<!-- Añadiendo URL Canónica -->
+<!-- Enlace Canonico -->
 <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
 <meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
 <!-- Link rel=canonical -->
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
-<!-- Scalable device -->
-<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
-
 <!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
-	<meta expr:content='data:blog.metaDescription' property='og:description'/>
-	<meta expr:content='data:blog.metaDescription' name='description'/>
-	<meta expr:content='data:blog.metaDescription' name='twitter:description'/>
-    <meta expr:content='data:blog.metaDescription' name='DC.description'/>
-<b:elseif cond='data:blog.pageType != "index"'/>
-	<meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
+   <meta expr:content='data:blog.metaDescription' property='og:description'/>
+   <meta expr:content='data:blog.metaDescription' name='description'/>
+   <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+   <meta expr:content='data:blog.metaDescription' name='DC.description'/>
+<b:elseif cond='data:view.isSingleItem'/>
+   <meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
-<!-- Añadiendo follow Robots solo a post e index -->
-<b:if cond='data:blog.pageType == "archive"'>
-	<meta content='noindex,nofollow' name='robots'/>
+<!-- Robots solo en Post y MultipleItems -->
+<b:if cond='data:view.isArchive'>
+   <meta content='noindex,nofollow' name='robots'/>
 <b:else/>
-	<b:if cond='data:blog.pageType == "error_page"'>
-		<meta content='noindex,nofollow' name='robots'/>
-	<b:else/>
-		<b:if cond='data:blog.pageType == "index"'>
-			<b:if cond='data:blog.homepageUrl == data:blog.url'>
-				<meta content='index,follow' name='robots'/>
-				<meta content='noodp,noydir' name='robots'/>
-			<b:else/>
-				<meta content='noindex,nofollow' name='robots'/>
-			</b:if>
-		<b:else/>
-			<meta content='index,follow' name='robots'/>
-			<meta content='noodp,noydir' name='robots'/>
-		</b:if>
-	</b:if>
+   <b:if cond='data:view.isError'>
+      <meta content='noindex,nofollow' name='robots'/>
+   <b:else/>
+      <b:if cond='data:view.isMultipleItems'>
+         <b:if cond='data:view.isHomepage'>
+            <meta content='index,follow' name='robots'/>
+            <meta content='noodp,noydir' name='robots'/>
+         <b:else/>
+            <meta content='noindex,nofollow' name='robots'/>
+         </b:if>
+      <b:else/>
+         <meta content='index,follow' name='robots'/>
+         <meta content='noodp,noydir' name='robots'/>
+      </b:if>
+   </b:if>
 </b:if>
 
 <!-- Optimizando los post -->
-<b:if cond='data:blog.pageType == "item"'>
-	<!-- La primera imagen del post -->
-	<b:if cond='data:blog.postImageUrl'>
-		<link expr:href='data:blog.postImageUrl' rel='image_src'/>
-		<meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
-		<meta expr:content='data:blog.postImageUrl' property='og:image'/>
-	</b:if>
+<b:if cond='data:view.isPost'>
+   <!-- La primera imagen del post -->
+   <b:if cond='data:blog.postImageUrl'>
+      <link expr:href='data:blog.postImageUrl' rel='image_src'/>
+      <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+      <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+   </b:if>
 
-	<!-- La navegacion -->
-	<b:if cond='data:blog.newerPageUrl'>
-		<link expr:href='data:blog.newerPageUrl' rel='next'/>
-	<b:elseif cond='data:blog.olderPageUrl'/>
-		<link expr:href='data:blog.olderPageUrl' rel='prev'/>
-	</b:if>
+   <!-- La navegacion -->
+   <b:if cond='data:blog.newerPageUrl'>
+      <link expr:href='data:blog.newerPageUrl' rel='next'/>
+   <b:elseif cond='data:blog.olderPageUrl'/>
+      <link expr:href='data:blog.olderPageUrl' rel='prev'/>
+   </b:if>
 </b:if>
 
 <!-- Optimizando Titulos -->
 <meta expr:content='data:blog.title' name='DC.Publisher'/>
-<b:if cond='data:blog.pageType == "error_page"'>
-	<title>Error 404 en <data:blog.pageTitle/></title>
+<b:if cond='data:view.isError'>
+   <title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
-	<b:if cond='data:blog.url != data:blog.homepageUrl'>
-		<meta expr:content='data:blog.pageName' property='og:title'/>
-		<meta expr:content='data:blog.pageName' name='twitter:title'/>
-        <meta expr:content='data:blog.pageName' name='DC.title'/>
-		<b:if cond='data:blog.pageName'>
-			<title><data:blog.pageName/></title>
-		<b:else/>
-			<title><data:blog.pageTitle/></title>
-		</b:if>
-	<b:else/>
-		<meta expr:content='data:blog.pageTitle' property='og:title'/>
-		<meta expr:content='data:blog.pageTitle' name='twitter:title'/>
-        <meta expr:content='data:blog.pageTitle' name='DC.title'/>
-		<title><data:blog.pageTitle/></title>
-	</b:if>
+   <b:if cond='data:blog.url != data:blog.homepageUrl'>
+      <meta expr:content='data:blog.pageName' property='og:title'/>
+      <meta expr:content='data:blog.pageName' name='twitter:title'/>
+      <meta expr:content='data:blog.pageName' name='DC.title'/>
+      <b:if cond='data:blog.pageName'>
+         <title><data:blog.pageName/></title>
+      <b:else/>
+         <title><data:blog.pageTitle/></title>
+      </b:if>
+   <b:else/>
+      <meta expr:content='data:blog.pageTitle' property='og:title'/>
+      <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
+      <meta expr:content='data:blog.pageTitle' name='DC.title'/>
+      <title><data:blog.pageTitle/></title>
+   </b:if>
 </b:if>
 
 <!-- Fin de etiquetas meta -->
@@ -108,13 +108,13 @@
 <!-- Incluimos los datos de blogger -->
 <!-- favicon -->
 <b:if cond='data:blog.blogspotFaviconUrl'>
-	<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
+   <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 </b:if>
 
 <!-- feeds -->
 <b:if cond='data:blog.feedLinks'>
-<link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
-<link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
+   <link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
+   <link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
 </b:if>
 
 <!-- schema ld+json -->
@@ -124,34 +124,9 @@
 
 <!-- HTML5 para IE9 -->
 <!--[if lt IE 9]>
-	<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
 <!-- Fin de datos-->
-
-&lt;style&gt;/*
-<b:skin><![CDATA[*/
-/*!
-=> Theme Name: Leyre
-=> Theme URI: http://www.zkreations.com
-=> Author: Daniel
-=> Author URI: https://fb.com/daniei.abel
-=> License: Creative Commons Atribución-NoComercial 4.0 Internacional
-=> License URI: http://creativecommons.org/licenses/by-nc/4.0/
-*/
-
-/*!Blogger.core custom style*/
-header .PageList {
-    padding: 0 !important;
-    background: transparent !important;
-}
-
-.item-control.blog-admin,
-.widget-item-control {display: none;}
-
-/*Design: admin blog*/
-body#layout .left {float: left;width: 44%;}
-body#layout .right {float: right;width: 45%;}
-]]></b:skin>
 
 <style type='text/css'>/*<![CDATA[*/
 /* => GLOBAL */
@@ -553,7 +528,12 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.widget .widget-content {
+.widget-content, 
+.user-content,
+.contact-form-widget,
+.wikipedia-search-main-container,
+.post-summary {
+    width: 100%;
 }
 
 /*
@@ -1412,7 +1392,42 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 => CONFIGURACION BASICA
 -->
 
-<style type='text/css'>/*<![CDATA[*/
+<b:skin><![CDATA[
+/*!
+=> Theme Name: Leyre
+=> Theme URI: http://www.zkreations.com
+=> Author: Daniel
+=> Author URI: https://fb.com/daniei.abel
+=> License: Creative Commons Atribución-NoComercial 4.0 Internacional
+=> License URI: http://creativecommons.org/licenses/by-nc/4.0/
+*/
+
+/*Deleted: unnecessary elements*/
+.singleton-element,
+.item-control.blog-admin,
+.widget-item-control {display: none;}
+
+/*Fix: Blogger lightbox*/
+.CSS_LIGHTBOX {z-index: 90001 !important;}
+
+/*Design: admin blog*/
+body#layout .left {float: left;width: 50%;}
+body#layout .right {float: right;width: 50%;}
+
+/* Variable definitions
+   ====================
+
+   <Group description="Colores" selector="color">
+      <Variable name="bgcolor" description="Color de fondo" type="color" default="#ececec" value="#ececec"/>
+   </Group>
+
+   <Group description="Fuentes" selector="body">
+      <Variable name="logofont" description="fuente del logo" type="font" family="Custom" default="Custom" value="Custom"/>
+      <Variable name="mainfont" description="fuente del texto" type="font" family="RobotoDraft" default="RobotoDraft" value="RobotoDraft"/>
+   </Group>
+
+*/
+
 
 /* Fondo y Header
    ========================================================================== */
@@ -1428,14 +1443,13 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 body, .main, .footer::before {
     background-image: url(../imagen.jpg); /* 1 */
 	background-repeat: repeat; /* => 1.1 */
-    background-color: #ececec; /* => 1.2 */
+    background-color: $bgcolor; /* => 1.2 */
 	background-position: top center; /* => 1.3 */
 }
 
 .header, .parallax { /* 2 */
     background-image: url(https://1.bp.blogspot.com/-wWCmExa53ZE/WLXvMzUZsII/AAAAAAAACGo/lvH4tuYmyMsAk_WNtxbB0OXpcYkk4naxwCLcB/s1600/base-01.jpg);
 }
-
 
 /* Fuentes del texto
    ========================================================================== */
@@ -1445,14 +1459,13 @@ body, .main, .footer::before {
  * 2. Fuente solo del logo
  */
 
-body {/* 1 */
-    font-family: RobotoDraft, sans-serif;
+body {
+    font-family: '$(mainfont.family)', sans-serif; /* 1 */
 }
 
-.logo {/* 2 */
-    font-family: "Pacifico", cursive;
+.logo {
+    font-family: '$(logofont.family)', Pacifico, sans-serif; /* 2 */
 }
-
 
 /* Cover y avatar
    ========================================================================== */
@@ -1472,8 +1485,9 @@ body {/* 1 */
     background-image: url(https://3.bp.blogspot.com/-tlRt4Dl1KEY/VvLRnk7Iu1I/AAAAAAAABdQ/9rP4egHb5ksfsUVt7loSkaH4C7I3mqcGw/s1600/anon.gif);
 }
 
-/*]]>*/</style>
-</head>
+]]></b:skin>
+
+&lt;!--</head>--&gt;&lt;/head&gt;
 
 <body>
 
@@ -1626,11 +1640,15 @@ body {/* 1 */
 
 				<!-- insertamos Comentarios -->
 				<div class='comentarios'>
-				<b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
-					<b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
-				<b:else/><!-- Caso contrario -->
-                    <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
-				</b:if>
+				<b:if cond='data:view.url != data:blog.homepageUrl'>
+                  <b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
+                     <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
+                  <b:else/><!-- Caso contrario -->
+                     <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
+                  </b:if>
+               <b:else/>
+                  <span class='info'>Los comentarios no estan disponibles en la vista previa de la entrada</span>
+               </b:if>
           		</div>
           		
 			</b:loop>
@@ -1657,7 +1675,7 @@ body {/* 1 */
   		</div>
 	</b:includable>
     <b:includable id='comment-disqus'>
-		<h4><span class='disqus-comment-count' expr:data-disqus-url='data:post.url'/></h4>
+		<h4>Disqus</h4>
 		<div id='disqus_thread'/>
 		<script type='text/javascript'>
     	var disqus_shortname = "[Shortname_DISQUS]";
@@ -1671,7 +1689,6 @@ body {/* 1 */
 		//]]>
         </script>
 		<noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
-		<script async='async' id='dsq-count-scr' src='https://[Shortname_DISQUS].disqus.com/count.js'/>
 	</b:includable>
     <b:includable id='comment-facebook'>
 		<div id='fb-root'/>
@@ -1706,8 +1723,8 @@ body {/* 1 */
 		</div>
 	</b:includable>
     <b:includable id='post' var='post'>
-	<b:switch var='data:blog.pageType'>
-        <b:case value='index'/>
+
+         <b:if cond='data:view.isMultipleItems'>
 
 		<div class='card'>
             <div class='item'>
@@ -1727,27 +1744,27 @@ body {/* 1 */
 						<h2><a expr:href='data:post.url' expr:title='data:post.title'><data:post.title/></a></h2>
 					</b:if>
 					<b:if cond='data:post.snippet != ""'><p><data:post.snippet/></p></b:if>
-                    <div class='time flex justify-content-between'>
+                    <b:if cond='data:top.showTimestamp'><div class='time flex justify-content-between'>
                         <time class='flex align-items-center icon-clock published date updated' expr:datetime='data:post.timestampISO8601'><data:post.timestamp/></time>
                         <a class='icon-arrow-right flex align-items-center' expr:href='data:post.url' title='seguir leyendo'/>
-                    </div>
+                    </div></b:if>
                 </div>
             </div>
         </div>
 
-        <b:case value='item'/>
+         <b:elseif cond='data:view.isPost'/>
 
 		<aside class='post-header flex align-items-center justify-content-between'>
-			<b:include name='shareButtons'/>
-			<div class='autor'>
+			<b:include cond='data:post.sharePostUrl' name='shareButtons'/>
+			<b:if cond='data:top.showAuthor'><div class='autor'>
                 <a expr:href='data:post.authorProfileUrl' expr:title='data:post.author' target='_blank'>
 					<img expr:alt='data:post.author' expr:src='resizeImage(data:post.authorPhoto.url,50,"1:1")'/>
                 </a>
-			</div>
+			</div></b:if>
         </aside>
 		<div class='post-body'>
 			<header class='title'>
-				<h1><data:post.title/></h1><time class='published date updated' expr:datetime='data:post.timestampISO8601'><data:post.timestamp/></time>
+                <h1><data:post.title/></h1><b:if cond='data:top.showTimestamp'><time class='published date updated' expr:datetime='data:post.timestampISO8601'><data:post.timestamp/></time></b:if>
 			</header>
 			<div class='post-entry'>
 				<data:post.body/>
@@ -1760,7 +1777,7 @@ body {/* 1 */
 			</div>
       	</div> 
 
-        <b:case value='static_page'/>
+         <b:elseif cond='data:view.isPage'/>
 
 		<header class='post-header'>
             <h1><data:post.title/></h1>
@@ -1769,7 +1786,8 @@ body {/* 1 */
 			<data:post.body/>
         </div>
 
-	</b:switch>
+         </b:if>
+         
 	</b:includable>
     <b:includable id='postQuickEdit' var='post'><!--none--></b:includable>
     <b:includable id='shareButtons'>
@@ -1803,7 +1821,14 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 </b:section>
 
 <aside class='sidebar clearfix flex align-items-start wrap'>
-
+<b:if cond='data:view.url == data:blog.homepageUrl and data:view.isSingleItem'>
+<div class='widget'>
+	<h2>No disponible</h2>
+	<div class='widget-content'>
+		<span class='info'>Los widget no son necesarios en la vista previa &#172;_&#172;</span>
+	</div>
+</div>
+<b:else/>
 <!--case-->
 <b:section class='left case' id='sidebar-1'>
   <b:widget id='Profile1' locked='false' title='Acerca de mí' type='Profile' version='1'>
@@ -1871,6 +1896,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
     </b:includable>
   </b:widget>
 </b:section>
+</b:if>
 </aside>
 
 </div>
