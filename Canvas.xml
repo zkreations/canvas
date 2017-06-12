@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:responsive='true' lang='es'>
+<html b:css='false' b:layoutsVersion='2' b:responsive='true' lang='es'>
 
-<!-- Canvas.xml v1.1.30 -->
+<!-- Canvas.xml v1.1.32 -->
 <head>
 
 <!-- Datos generales -->
@@ -52,13 +52,21 @@
    <b:else/>
       <b:if cond='data:view.isMultipleItems'>
          <b:if cond='data:view.isHomepage'>
-            <meta content='index,follow' name='robots'/>
+            <b:if cond='data:blog.isMobile'>
+               <meta content='noindex,noarchive' name='robots'/>
+            <b:else/>
+			   <meta content='index,follow' name='robots'/>
+            </b:if>
             <meta content='noodp,noydir' name='robots'/>
          <b:else/>
             <meta content='noindex,nofollow' name='robots'/>
          </b:if>
       <b:else/>
-         <meta content='index,follow' name='robots'/>
+         <b:if cond='data:blog.isMobile'>
+            <meta content='noindex,noarchive' name='robots'/>
+         <b:else/>
+			<meta content='index,follow' name='robots'/>
+         </b:if>
          <meta content='noodp,noydir' name='robots'/>
       </b:if>
    </b:if>
