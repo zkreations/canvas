@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:layoutsVersion='2' b:responsive='true' lang='es'>
 
-<!-- Canvas.xml v1.1.32 -->
+<!-- Canvas.xml v1.1.33 -->
 <head>
 
 <!-- Datos generales -->
@@ -147,7 +147,7 @@
 */
 
 /*Deleted: unnecessary elements*/
-.singleton-element,
+.singleton-element:not(.cookie-choices-info),
 .item-control.blog-admin,
 .widget-item-control {display: none;}
 

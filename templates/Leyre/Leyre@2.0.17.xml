@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:responsive='true' lang='es'>
+<html b:css='false' b:layoutsVersion='2' b:responsive='true' lang='es'>
 
-<!-- Leyre v2.0.16 ?= Canvas.xml v1.1.30 -->
+<!-- Leyre v2.0.17 ?= Canvas.xml v1.1.33 -->
 <head>
 
 <!-- Datos generales -->
@@ -52,13 +52,21 @@
    <b:else/>
       <b:if cond='data:view.isMultipleItems'>
          <b:if cond='data:view.isHomepage'>
-            <meta content='index,follow' name='robots'/>
+            <b:if cond='data:blog.isMobile'>
+               <meta content='noindex,noarchive' name='robots'/>
+            <b:else/>
+			   <meta content='index,follow' name='robots'/>
+            </b:if>
             <meta content='noodp,noydir' name='robots'/>
          <b:else/>
             <meta content='noindex,nofollow' name='robots'/>
          </b:if>
       <b:else/>
-         <meta content='index,follow' name='robots'/>
+         <b:if cond='data:blog.isMobile'>
+            <meta content='noindex,noarchive' name='robots'/>
+         <b:else/>
+			<meta content='index,follow' name='robots'/>
+         </b:if>
          <meta content='noodp,noydir' name='robots'/>
       </b:if>
    </b:if>
@@ -1403,7 +1411,7 @@ var relacionados={posts:[],max:4,maxLen:100,imgPorDefecto:"https://4.bp.blogspot
 */
 
 /*Deleted: unnecessary elements*/
-.singleton-element,
+.singleton-element:not(.cookie-choices-info),
 .item-control.blog-admin,
 .widget-item-control {display: none;}
 
