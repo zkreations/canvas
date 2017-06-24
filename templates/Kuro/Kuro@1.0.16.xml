@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:layoutsVersion='2' b:responsive='true' lang='es'>
 
-<!-- Kuro v1.0.15 ?= Canvas.xml v1.1.33 -->
+<!-- Kuro v1.0.16 ?= Canvas.xml v1.1.33 -->
 <head>
 
 <!-- Datos generales -->
@@ -1767,7 +1767,7 @@ a, a:hover,
     <b:includable id='main'>
 	<b:loop values='data:items' var='item'>
 	<div class='widget'>
-		<h2>Entradas de <data:item/> <a class='meta--buttons more--items flex align-items-center' expr:href='data:blog.homepageUrl + "search/label/" + data:item'>Ver más</a></h2>
+		<h2>Entradas de <data:item/> <a class='meta--buttons more--items flex align-items-center' expr:href='data:blog.canonicalHomepageUrl + "search/label/" + data:item'>Ver más</a></h2>
 		<div class='widget-content'>
 			<div class='whale-items items flex align-items-start wrap' expr:data-bloglabel='data:item'>
 				<p class='items--loader'></p>
@@ -2028,7 +2028,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
     <b:includable id='main'>
 	<b:loop values='data:items' var='item'>
 	<div class='widget'>
-		<h2>Entradas de <data:item/> <a class='meta--buttons more--items flex align-items-center' expr:href='data:blog.homepageUrl + "search/label/" + data:item'>Ver más</a></h2>
+		<h2>Entradas de <data:item/> <a class='meta--buttons more--items flex align-items-center' expr:href='data:blog.canonicalHomepageUrl + "search/label/" + data:item'>Ver más</a></h2>
 		<div class='widget-content'>
 			<div class='whale-items items flex align-items-start wrap' expr:data-bloglabel='data:item'>
               <p class='items--loader'></p>
