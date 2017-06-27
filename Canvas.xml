@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:layoutsVersion='2' b:responsive='true' lang='es'>
 
-<!-- Canvas.xml v1.1.33 -->
+<!-- Canvas.xml v1.1.34 -->
 <head>
 
 <!-- Datos generales -->
@@ -204,7 +204,7 @@ body#layout .right {float: right;width: 50%;}
             <b:include data='post' name='post'/><!-- insertamos entradas -->
             <!-- insertamos Comentarios -->
             <div class='comentarios'>
-               <b:if cond='data:view.url != data:blog.homepageUrl'>
+               <b:if cond='!data:view.isPreview'>
                   <b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
                      <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
                   <b:else/><!-- Caso contrario -->
