@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:layoutsVersion='2' b:responsive='true' lang='es'>
 
-<!-- ZMegaByte v3.0.5 ?= Canvas.xml v1.1.33 -->
+<!-- ZMegaByte v3.0.7 ?= Canvas.xml v1.1.34 -->
 <head>
 
 <!-- Datos generales -->
@@ -1705,15 +1705,15 @@ a,
 	</div>
 <b:else/>
 <b:section id='Blog'>
-  <b:widget cond='data:view.isMultipleItems' id='Image10' locked='false' title='Banner-824' type='Image' version='1'>
+  <b:widget cond='data:view.isMultipleItems' id='Image10' locked='false' title='Banner-824' type='Image' version='2'>
     <b:widget-settings>
       <b:widget-setting name='displayUrl'>http://i.imgur.com/L24iX0q.png</b:widget-setting>
       <b:widget-setting name='displayHeight'>150</b:widget-setting>
-      <b:widget-setting name='sectionWidth'>150</b:widget-setting>
+      <b:widget-setting name='sectionWidth'>391</b:widget-setting>
       <b:widget-setting name='shrinkToFit'>false</b:widget-setting>
       <b:widget-setting name='displayWidth'>824</b:widget-setting>
-      <b:widget-setting name='link'/>
-      <b:widget-setting name='caption'/>
+      <b:widget-setting name='link'>#url</b:widget-setting>
+      <b:widget-setting name='caption'>imagen</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
 	<div class='blog__section'>
@@ -1772,7 +1772,7 @@ a,
 			</article>
             <!-- insertamos Comentarios -->
             <div class='comentarios'>
-               <b:if cond='data:view.url != data:blog.homepageUrl'>
+               <b:if cond='!data:view.isPreview'>
                   <b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
                      <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
                   <b:else/><!-- Caso contrario -->
@@ -1957,7 +1957,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 </div><!-- .blog -->
 
 <aside class='sidebar left'>
-<b:if cond='data:view.url == data:blog.homepageUrl and data:view.isSingleItem'>
+<b:if cond='data:view.isPreview'>
 <div class='widget'>
 	<h2>No disponible</h2>
 	<div class='widget-content'>
