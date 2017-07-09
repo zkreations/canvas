@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:layoutsVersion='2' b:responsive='true' lang='es'>
+<html b:css='false' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.1.34 -->
+<!-- Canvas.xml v1.1.36 -->
 <head>
 
 <!-- Datos generales -->
@@ -79,13 +79,6 @@
       <link expr:href='data:blog.postImageUrl' rel='image_src'/>
       <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
       <meta expr:content='data:blog.postImageUrl' property='og:image'/>
-   </b:if>
-
-   <!-- La navegacion -->
-   <b:if cond='data:blog.newerPageUrl'>
-      <link expr:href='data:blog.newerPageUrl' rel='next'/>
-   <b:elseif cond='data:blog.olderPageUrl'/>
-      <link expr:href='data:blog.olderPageUrl' rel='prev'/>
    </b:if>
 </b:if>
 
@@ -167,7 +160,7 @@ body#layout .right {float: right;width: 50%;}
 
 <b:if cond='data:view.isMultipleItems'>
 <style type='text/css'>/*<![CDATA[*/
-/* => INDEX */
+/* => SOLO INDEX */
 
 /*]]>*/</style>
 <b:else/>
@@ -286,11 +279,11 @@ body#layout .right {float: right;width: 50%;}
        
          <b:if cond='data:view.isMultipleItems'>
 
-         <!--{{ Entrada en la pagina principal }}-->
+         <!--{{ Pagina principal }}-->
 
          <b:elseif cond='data:view.isPost'/>
 
-         <!--{{ Entrada dentro de las entradas }}-->
+         <!--{{ Entradas }}-->
 
          <b:elseif cond='data:view.isPage'/>
 
