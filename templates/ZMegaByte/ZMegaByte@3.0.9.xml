@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:layoutsVersion='2' b:responsive='true' lang='es'>
+<html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- ZMegaByte v3.0.7 ?= Canvas.xml v1.1.34 -->
+<!-- ZMegaByte v3.0.9 ?= Canvas.xml v1.1.37 -->
 <head>
 
 <!-- Datos generales -->
@@ -30,7 +30,6 @@
 <!-- Enlace Canonico -->
 <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
 <meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
-
 <!-- Link rel=canonical -->
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
@@ -80,13 +79,6 @@
       <link expr:href='data:blog.postImageUrl' rel='image_src'/>
       <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
       <meta expr:content='data:blog.postImageUrl' property='og:image'/>
-   </b:if>
-
-   <!-- La navegacion -->
-   <b:if cond='data:blog.newerPageUrl'>
-      <link expr:href='data:blog.newerPageUrl' rel='next'/>
-   <b:elseif cond='data:blog.olderPageUrl'/>
-      <link expr:href='data:blog.olderPageUrl' rel='prev'/>
    </b:if>
 </b:if>
 
@@ -1580,7 +1572,7 @@ a,
 <body>
 
 <header class='header'>
-<b:section id='Header' showaddelement='no'>
+<b:section id='Header' maxwidgets='1' showaddelement='no'>
   <b:widget id='Header1' locked='true' title='ZMegaByte3 (Cabecera)' type='Header' version='1'>
     <b:widget-settings>
       <b:widget-setting name='displayUrl'/>
@@ -1670,7 +1662,7 @@ a,
 <div class='container'>
 <div class='main clearfix'>
 
-<b:section id='Menu' maxwidgets='2' showaddelement='no'>
+<b:section id='Menu' maxwidgets='1' showaddelement='no'>
   <b:widget id='PageList1' locked='true' title='Páginas' type='PageList' version='1'>
     <b:widget-settings>
       <b:widget-setting name='pageListJson'><![CDATA[{'home': {'href': 'https://demo-zmegabyte3.blogspot.com/', 'title': 'Entradas', 'position': 0}, '4613850796661835343': {'href': 'https://demo-zmegabyte3.blogspot.com/p/elemento-a.html', 'title': 'Elemento A', 'position': 1}, '3959834940641959619': {'href': 'https://demo-zmegabyte3.blogspot.com/p/elemento-b.html', 'title': 'Elemento B', 'position': 2}, '535789191076229107': {'href': 'https://demo-zmegabyte3.blogspot.com/p/elemento-c.html', 'title': 'Elemento C', 'position': 3}}]]></b:widget-setting>
@@ -1705,7 +1697,7 @@ a,
 	</div>
 <b:else/>
 <b:section id='Blog'>
-  <b:widget cond='data:view.isMultipleItems' id='Image10' locked='false' title='Banner-824' type='Image' version='2'>
+  <b:widget cond='data:view.isMultipleItems' id='Image1' locked='false' title='Banner 824' type='Image'>
     <b:widget-settings>
       <b:widget-setting name='displayUrl'>http://i.imgur.com/L24iX0q.png</b:widget-setting>
       <b:widget-setting name='displayHeight'>150</b:widget-setting>
