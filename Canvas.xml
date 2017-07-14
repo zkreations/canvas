@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.1.39 -->
+<!-- Canvas.xml v1.1.40 -->
 <head>
 
 <!-- Datos generales -->
@@ -73,9 +73,9 @@
 <b:if cond='data:view.isPost'>
    <!-- La primera imagen del post -->
    <b:if cond='data:blog.postImageUrl'>
-      <link cond='data:blog.postImageUrl' expr:href='data:blog.postImageUrl' rel='image_src'/>
-      <meta cond='data:blog.postImageUrl' expr:content='data:blog.postImageUrl' name='twitter:image'/>
-      <meta cond='data:blog.postImageUrl' expr:content='data:blog.postImageUrl' property='og:image'/>
+      <link expr:href='data:blog.postImageUrl' rel='image_src'/>
+      <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+      <meta expr:content='data:blog.postImageUrl' property='og:image'/>
    </b:if>
 </b:if>
 
