@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.1.37 -->
+<!-- Canvas.xml v1.1.39 -->
 <head>
 
 <!-- Datos generales -->
@@ -10,11 +10,8 @@
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:if cond='data:view.isHomepage'>
-   <meta content='blog' property='og:type'/>
-<b:elseif cond='data:view.isPost'/>
-   <meta content='article' property='og:type'/>
-</b:if>
+<b:tag cond='data:view.isHomepage' content='blog' property='og:type' name='meta'/>
+<b:tag cond='data:view.isPost' content='article' property='og:type' name='meta'/>
 
 <!-- Responsive -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
@@ -76,9 +73,9 @@
 <b:if cond='data:view.isPost'>
    <!-- La primera imagen del post -->
    <b:if cond='data:blog.postImageUrl'>
-      <link expr:href='data:blog.postImageUrl' rel='image_src'/>
-      <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
-      <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+      <link cond='data:blog.postImageUrl' expr:href='data:blog.postImageUrl' rel='image_src'/>
+      <meta cond='data:blog.postImageUrl' expr:content='data:blog.postImageUrl' name='twitter:image'/>
+      <meta cond='data:blog.postImageUrl' expr:content='data:blog.postImageUrl' property='og:image'/>
    </b:if>
 </b:if>
 
@@ -108,15 +105,11 @@
 
 <!-- Incluimos los datos de blogger -->
 <!-- favicon -->
-<b:if cond='data:blog.blogspotFaviconUrl'>
-   <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
-</b:if>
+<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
 
 <!-- feeds -->
-<b:if cond='data:blog.feedLinks'>
-   <link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
-   <link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
-</b:if>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
 
 <!-- schema ld+json -->
 <script type='application/ld+json'>
