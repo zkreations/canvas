@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.1.40 -->
+<!-- Canvas.xml v1.2.41 -->
 <head>
 
 <!-- Datos generales -->
@@ -13,7 +13,7 @@
 <b:tag cond='data:view.isHomepage' content='blog' property='og:type' name='meta'/>
 <b:tag cond='data:view.isPost' content='article' property='og:type' name='meta'/>
 
-<!-- Responsive -->
+<!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
 <!--/// Cambia estos valores por los tuyos
@@ -37,39 +37,18 @@
    <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
    <meta expr:content='data:blog.metaDescription' name='DC.description'/>
 <b:elseif cond='data:view.isSingleItem'/>
-   <meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
+   <meta expr:content='data:blog.pageName + " : Leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
-<!-- Robots solo en Post y MultipleItems -->
-<b:if cond='data:view.isArchive'>
-   <meta content='noindex,nofollow' name='robots'/>
-<b:else/>
-   <b:if cond='data:view.isError'>
-      <meta content='noindex,nofollow' name='robots'/>
-   <b:else/>
-      <b:if cond='data:view.isMultipleItems'>
-         <b:if cond='data:view.isHomepage'>
-            <b:if cond='data:blog.isMobile'>
-               <meta content='noindex,noarchive' name='robots'/>
-            <b:else/>
-			   <meta content='index,follow' name='robots'/>
-            </b:if>
-            <meta content='noodp,noydir' name='robots'/>
-         <b:else/>
-            <meta content='noindex,nofollow' name='robots'/>
-         </b:if>
-      <b:else/>
-         <b:if cond='data:blog.isMobile'>
-            <meta content='noindex,noarchive' name='robots'/>
-         <b:else/>
-			<meta content='index,follow' name='robots'/>
-         </b:if>
-         <meta content='noodp,noydir' name='robots'/>
-      </b:if>
+<!-- Robots solo en SingleItem y Homepage -->
+<b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='pagefollow'>
+   <meta expr:content='data:blog.isMobile ? "noindex,noarchive" : data:pagefollow' name='robots'/>
+   <b:if cond='data:pagefollow == "index,follow"'>
+      <meta content='noodp,noydir' name='robots'/>
    </b:if>
-</b:if>
+</b:with>
 
-<!-- Optimizando los post -->
+<!-- Optimizando Posts -->
 <b:if cond='data:view.isPost'>
    <!-- La primera imagen del post -->
    <b:if cond='data:blog.postImageUrl'>
@@ -84,26 +63,14 @@
 <b:if cond='data:view.isError'>
    <title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
-   <b:if cond='data:blog.url != data:blog.homepageUrl'>
-      <meta expr:content='data:blog.pageName' property='og:title'/>
-      <meta expr:content='data:blog.pageName' name='twitter:title'/>
-      <meta expr:content='data:blog.pageName' name='DC.title'/>
-      <b:if cond='data:blog.pageName'>
-         <title><data:blog.pageName/></title>
-      <b:else/>
-         <title><data:blog.pageTitle/></title>
-      </b:if>
-   <b:else/>
-      <meta expr:content='data:blog.pageTitle' property='og:title'/>
-      <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
-      <meta expr:content='data:blog.pageTitle' name='DC.title'/>
-      <title><data:blog.pageTitle/></title>
-   </b:if>
+   <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='pageLength'>
+      <meta expr:content='data:pageLength' property='og:title'/>
+      <meta expr:content='data:pageLength' name='twitter:title'/>
+      <meta expr:content='data:pageLength' name='DC.title'/>
+      <title><b:eval expr='data:pageLength'/></title>
+   </b:with>
 </b:if>
 
-<!-- Fin de etiquetas meta -->
-
-<!-- Incluimos los datos de blogger -->
 <!-- favicon -->
 <b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
 
