@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.2.42 -->
+<!-- Canvas.xml v1.2.46 -->
 <head>
 
 <!-- Datos generales -->
@@ -10,15 +10,12 @@
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:tag cond='data:view.isHomepage' content='blog' property='og:type' name='meta'/>
-<b:tag cond='data:view.isPost' content='article' property='og:type' name='meta'/>
+<b:tag expr:content='data:view.isHomepage ? "blog" : "article"' property='og:type' name='meta'/>
 
 <!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
-<!--/// Cambia estos valores por los tuyos
-========================================================================== ///-->
-
+<!-- Cambia estos valores por los tuyos -->
 <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
 <meta content='@blogger' name='twitter:site'/>
 <meta content='@google' name='twitter:creator'/>
@@ -27,7 +24,6 @@
 <!-- Enlace Canonico -->
 <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
 <meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
-<!-- Link rel=canonical -->
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
 <!-- Descripcion -->
@@ -71,8 +67,6 @@
    </b:with>
 </b:if>
 
-<!-- favicon -->
-<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
 
 <!-- feeds -->
 <b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
@@ -83,33 +77,29 @@
 {"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
-<!-- HTML5 para IE9 -->
 <!--[if lt IE 9]>
    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
 <!-- Fin de datos-->
 
 <style type='text/css'>/*<![CDATA[*/
-/* => GLOBAL */
+/* => CSS Global */
 
 /*]]>*/</style>
-
 <b:if cond='data:view.isMultipleItems'>
 <style type='text/css'>/*<![CDATA[*/
-/* => SOLO INDEX */
+/* => Solo Inicio */
 
 /*]]>*/</style>
 <b:else/>
-
 <style type='text/css'>/*<![CDATA[*/
-/* => TODO MENOS INDEX */
+/* => Todo Menos Inicio */
 
 /*]]>*/</style>
 </b:if>
-
 <b:if cond='data:view.isPost'>
 <style type='text/css'>/*<![CDATA[*/
-/* => ENTRADAS */
+/* => Entradas */
 
 /*]]>*/</style>
 </b:if>
@@ -279,5 +269,4 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
 &lt;!--</body>--&gt;&lt;/body&gt;
-
 </html>
