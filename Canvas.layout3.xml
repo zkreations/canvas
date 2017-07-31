@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' lang='es'>
+
+<!-- Canvas.layout3.xml v1.0.0 -->
+<head>
+
+<!-- Datos generales -->
+<meta expr:charset='data:blog.encoding'/>
+<meta content='blogger' name='generator'/>
+<meta content='summary_large_image' name='twitter:card'/>
+<b:tag expr:content='data:view.isHomepage ? "blog" : "article"' property='og:type' name='meta'/>
+
+<!-- Responsive viewport -->
+<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
+
+<!-- favicon -->
+<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
+
+<!-- Enlace Canonico -->
+<meta expr:content='data:blog.canonicalUrl' property='og:url'/>
+<meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
+<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+
+<!-- Descripcion -->
+<b:if cond='data:blog.metaDescription'>
+   <meta expr:content='data:blog.metaDescription' property='og:description'/>
+   <meta expr:content='data:blog.metaDescription' name='description'/>
+   <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
+<b:elseif cond='data:view.isSingleItem'/>
+   <meta expr:content='data:blog.pageName + " : Leer el articulo completo."' name='twitter:description'/>
+</b:if>
+
+<!-- Robots solo en SingleItem y Homepage -->
+<b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='pagefollow'>
+   <meta expr:content='data:blog.isMobile ? "noindex,noarchive" : data:pagefollow' name='robots'/>
+   <b:if cond='data:pagefollow == "index,follow"'>
+      <meta content='noodp,noydir' name='robots'/>
+   </b:if>
+</b:with>
+
+<!-- Optimizando Titulos -->
+<meta expr:content='data:blog.title' name='DC.Publisher'/>
+<b:if cond='data:view.isError'>
+   <title>Error 404 en <data:blog.pageTitle/></title>
+<b:else/>
+   <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='pageLength'>
+      <meta expr:content='data:pageLength' property='og:title'/>
+      <meta expr:content='data:pageLength' name='twitter:title'/>
+      <meta expr:content='data:pageLength' name='DC.title'/>
+      <title><data:pageLength/></title>
+   </b:with>
+</b:if>
+
+<!-- Optimizando Posts -->
+<b:if cond='data:view.isPost'>
+   <!-- La primera imagen del post -->
+   <b:if cond='data:blog.postImageUrl'>
+      <link expr:href='data:blog.postImageUrl' rel='image_src'/>
+      <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+      <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+   </b:if>
+</b:if>
+
+<!--[if lt IE 9]>
+   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+<![endif]-->
+<!-- Fin de datos-->
+
+<style type='text/css'>/*<![CDATA[*/
+/* => CSS Global */
+
+/*]]>*/</style>
+
+<b:skin><![CDATA[
+/*!
+=> Theme Name: {{ NAME }}
+=> Theme URI: {{ URL }}
+=> Author: {{ AUTOR NAME }}
+=> Author URI: {{ AUTOR URL }}
+=> License: Creative Commons Atribucion-NoComercial 4.0 Internacional
+=> License URI: http://creativecommons.org/licenses/by-nc/4.0/
+*/
+
+]]></b:skin>
+
+</head>
+
+<body>
+
+<b:section id='Blog' name='Page Body' showaddelement='false'>
+   <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' version='2' visible='true'>
+      <b:includable id='main'><!-- none --></b:includable>
+      <b:includable id='aboutPostAuthor'><!-- none --></b:includable>
+      <b:includable id='addComments'><!-- none --></b:includable>
+      <b:includable id='commentAuthorAvatar'><!-- none --></b:includable>
+      <b:includable id='commentDeleteIcon' var='comment'><!-- none --></b:includable>
+      <b:includable id='commentForm' var='post'><!-- none --></b:includable>
+      <b:includable id='commentFormIframeSrc' var='post'><!-- none --></b:includable>
+      <b:includable id='commentItem' var='comment'><!-- none --></b:includable>
+      <b:includable id='commentList' var='comments'><!-- none --></b:includable>
+      <b:includable id='commentPicker' var='post'><!-- none --></b:includable>
+      <b:includable id='comments' var='post'><!-- none --></b:includable>
+      <b:includable id='commentsTitle'><!-- none --></b:includable>
+      <b:includable id='feedLinks'><!-- none --></b:includable>
+      <b:includable id='feedLinksBody' var='links'><!-- none --></b:includable>
+      <b:includable id='homePageLink'><!-- none --></b:includable>
+      <b:includable id='iframeComments' var='post'><!-- none --></b:includable>
+      <b:includable id='inlineAd' var='post'><!-- none --></b:includable>
+      <b:includable id='nextPageLink'><!-- none --></b:includable>
+      <b:includable id='post' var='post'><!-- none --></b:includable>
+      <b:includable id='postBody' var='post'><!-- none --></b:includable>
+      <b:includable id='postBodySnippet' var='post'><!-- none --></b:includable>
+      <b:includable id='postCommentsAndAd' var='post'><!-- none --></b:includable>
+      <b:includable id='postCommentsLink'><!-- none --></b:includable>
+      <b:includable id='postFooter' var='post'><!-- none --></b:includable>
+      <b:includable id='postFooterAuthorProfile' var='post'><!-- none --></b:includable>
+      <b:includable id='postHeader' var='post'><!-- none --></b:includable>
+      <b:includable id='postJumpLink' var='post'><!-- none --></b:includable>
+      <b:includable id='postMeta' var='post'><!-- none --></b:includable>
+      <b:includable id='postPagination'><!-- none --></b:includable>
+      <b:includable id='postTitle' var='post'><!-- none --></b:includable>
+      <b:includable id='previousPageLink'><!-- none --></b:includable>
+      <b:includable id='threadedCommentForm' var='post'><!-- none --></b:includable>
+      <b:includable id='threadedCommentJs' var='post'><!-- none --></b:includable>
+      <b:includable id='threadedComments' var='post'><!-- none --></b:includable>
+   </b:widget>
+</b:section>
+
+<!-- Google Analytics -->
+<b:include data='blog' name='google-analytics'/>
+</body>
+</html>
