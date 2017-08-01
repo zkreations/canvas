@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.2.46 -->
+<!-- Canvas.xml v1.2.48 -->
 <head>
 
 <!-- Datos generales -->
@@ -67,7 +67,6 @@
    </b:with>
 </b:if>
 
-
 <!-- feeds -->
 <b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
 <b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
@@ -121,6 +120,9 @@
 
 /*Fix: Blogger lightbox*/
 .CSS_LIGHTBOX {z-index: 90001 !important;}
+
+/*Fix: Comment Editor*/
+#comment-editor {border: 0;width: 100%;}
 
 /*Design: admin blog*/
 body#layout .left {float: left;width: 50%;}
@@ -246,9 +248,9 @@ body#layout .right {float: right;width: 50%;}
       <b:includable id='shareButtons'><!--none--></b:includable>
       <b:includable id='status-message'><!--none--></b:includable>
       <b:includable id='threaded-comment-form' var='post'>
-         <div class='comment-form'><a name='comment-form'/>
+         <div class='comment-form'>
             <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-               <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+               <iframe class='blogger-iframe-colorize blogger-comment-from-post' id='comment-editor' src=''/>
             <data:post.cmtfpIframe/>
             <script type='text/javascript'>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
          </div>
@@ -256,15 +258,11 @@ body#layout .right {float: right;width: 50%;}
       <b:includable id='threaded_comment_js' var='post'>
          <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
             <b:template-script inline='true' name='threaded_comments'/>
-            <script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);</script>
-         <script type='text/javascript'>//<![CDATA[
-var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));
-//]]></script>
+            <script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);/*<![CDATA[*/var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));//]]></script>
       </b:includable>
       <b:includable id='threaded_comments' var='post'><!--none--></b:includable>
    </b:widget>
 </b:section>
-
 
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
