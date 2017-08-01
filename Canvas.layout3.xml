@@ -40,14 +40,12 @@
 </b:with>
 
 <!-- Optimizando Titulos -->
-<meta expr:content='data:blog.title' name='DC.Publisher'/>
 <b:if cond='data:view.isError'>
    <title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
    <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='pageLength'>
       <meta expr:content='data:pageLength' property='og:title'/>
       <meta expr:content='data:pageLength' name='twitter:title'/>
-      <meta expr:content='data:pageLength' name='DC.title'/>
       <title><data:pageLength/></title>
    </b:with>
 </b:if>
