@@ -2,11 +2,10 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.2.48 -->
+<!-- Canvas.xml v1.2.50 -->
 <head>
 
 <!-- Datos generales -->
-<meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
@@ -15,11 +14,13 @@
 <!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
-<!-- Cambia estos valores por los tuyos -->
+<!-- Datos personalizados del usuario -->
 <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
 <meta content='@blogger' name='twitter:site'/>
 <meta content='@google' name='twitter:creator'/>
-<meta content='TuNombre' name='DC.Creator'/>
+
+<!-- favicon -->
+<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
 
 <!-- Enlace Canonico -->
 <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
@@ -29,14 +30,13 @@
 <!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
    <meta expr:content='data:blog.metaDescription' property='og:description'/>
-   <meta expr:content='data:blog.metaDescription' name='description'/>
    <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
-   <meta expr:content='data:blog.metaDescription' name='DC.description'/>
+   <meta expr:content='data:blog.metaDescription' name='description'/>
 <b:elseif cond='data:view.isSingleItem'/>
    <meta expr:content='data:blog.pageName + " : Leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
-<!-- Robots solo en SingleItem y Homepage -->
+<!-- Meta Robots Relativo -->
 <b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='pagefollow'>
    <meta expr:content='data:blog.isMobile ? "noindex,noarchive" : data:pagefollow' name='robots'/>
    <b:if cond='data:pagefollow == "index,follow"'>
@@ -45,31 +45,26 @@
 </b:with>
 
 <!-- Optimizando Posts -->
-<b:if cond='data:view.isPost'>
-   <!-- La primera imagen del post -->
-   <b:if cond='data:blog.postImageUrl'>
-      <link expr:href='data:blog.postImageUrl' rel='image_src'/>
-      <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
-      <meta expr:content='data:blog.postImageUrl' property='og:image'/>
-   </b:if>
+<b:if cond='data:view.isPost and data:blog.postImageUrl'>
+   <link expr:href='data:blog.postImageUrl' rel='image_src'/>
+   <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+   <meta expr:content='data:blog.postImageUrl' property='og:image'/>
 </b:if>
 
 <!-- Optimizando Titulos -->
-<meta expr:content='data:blog.title' name='DC.Publisher'/>
 <b:if cond='data:view.isError'>
    <title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
    <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='pageLength'>
       <meta expr:content='data:pageLength' property='og:title'/>
       <meta expr:content='data:pageLength' name='twitter:title'/>
-      <meta expr:content='data:pageLength' name='DC.title'/>
       <title><data:pageLength/></title>
    </b:with>
 </b:if>
 
 <!-- feeds -->
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.canonicalHomepageUrl path "feeds/posts/default" ' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.canonicalHomepageUrl path "feeds/posts/default" params {alt: "rss"}' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
 
 <!-- schema ld+json -->
 <script type='application/ld+json'>
