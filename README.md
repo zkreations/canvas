@@ -1,12 +1,10 @@
 # Canvas.xml
 
-Canvas te proporciona una base para blogger limpia, eliminando el código css/javascript por defecto, integra facebook Open Graph, twitter card y metadatos necesarios que mejoran el SEO. Una gran opción para empezar a diseñar en blogger desde 0. 
+Canvas te proporciona una base para blogger limpia, eliminando el código css/javascript por defecto, integra **facebook Open Graph**, **twitter card** y metadatos necesarios para el **SEO**.
 
 ### Ventajas de usar Canvas
 
-Es mucho mas fácil diseñar para blogger. Tus diseños pueden ser como que tu quieras debido a la exclusión del código de blogger, el limite está en tu imaginación. Con canvas.xml es fácil lograr un blog con una velocidad de carga optima. Para tener un ejemplo claro, los siguientes blogs usan **Canvas** y pasaron por diferentes test de velocidad: 
-
-* [zkreations](https://www.zkreations.com/) | usa Canvas.xml (ultima version) - [PageSpeed](https://developers.google.com/speed/pagespeed/insights/?url=https://www.zkreations.com/) [thinkwithgoogle](https://testmysite.thinkwithgoogle.com/?url=https://www.zkreations.com/) [pingdom](https://tools.pingdom.com/#!/eJ0lBf/https://www.zkreations.com/)
+Es mucho mas fácil diseñar para blogger. Tus diseños pueden ser como que tu quieras debido a la exclusión del código de blogger. Con Canvas.xml es fácil lograr un blog con una velocidad de carga optima. 
 
 ## Instalación
 
@@ -14,15 +12,30 @@ Descarga **Canvas**, abre el archivo con cualquier editor de texto y copia todo 
 
 ## Comentarios Disqus
 
-Busca `[Shortname_DISQUS]` en la plantilla. Reemplazar por el nombre corto que se encuentra en tu panel de Disqus. Luego busca `<b:include data='post' name='comment-blogger'/>` y cambia **blogger** por **disqus**
+Busca `<b:with value='["blogger","Shortname","10"]' var='commentsType'>` y cambia **blogger** por **disqus** y cambia **Shortname** por el nombre corto que se encuentra en tu panel de administracion de Disqus.
 
 ## Comentarios facebook
 
-Busca `<b:include data='post' name='comment-blogger'/>` y cambia **blogger** por **facebook**
+Busca `<body>` y debajo de eso pega el **sdk de facebook**:
+
+```html
+<div id="fb-root"></div>
+<script>//<![CDATA[
+   (function(d, s, id) {
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) return;
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8";
+   fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+//]]></script>
+```
+
+Ahora Busca `<b:with value='["blogger","Shortname","10"]' var='commentsType'>` y cambia **blogger** por **facebook**. Ahora cambia **10** por el numero de comentarios a mostrar de facebook.
 
 ## Comentarios Blogger
 
-En caso de usar disqus o facebook, puedes volver a los comentarios de blogger dejando el valor por defecto del include: `<b:include data='post' name='comment-blogger'/>`
+En caso de usar disqus o facebook, puedes volver a los comentarios de blogger dejando el valor por defecto: `<b:with value='["blogger","Shortname","10"]' var='commentsType'>`
 
 
 # Single.css
