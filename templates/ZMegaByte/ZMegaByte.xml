@@ -2,128 +2,75 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- ZMegaByte v3.0.9 ?= Canvas.xml v1.1.37 -->
+<!-- ZMegaByte v3.0.16 ?= Canvas.xml v1.3.60 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
-<meta content='es' name='DC.Language'/>
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:if cond='data:view.isHomepage'>
-   <meta content='blog' property='og:type'/>
-<b:elseif cond='data:view.isPost'/>
-   <meta content='article' property='og:type'/>
-</b:if>
+<b:tag expr:content='data:view.isHomepage ? "blog" : "article"' property='og:type' name='meta'/>
 
-<!-- Responsive -->
+<!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
-<!--/// Cambia estos valores por los tuyos
-========================================================================== ///-->
-
+<!-- Datos personalizados del usuario -->
 <link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
 <meta content='@blogger' name='twitter:site'/>
 <meta content='@google' name='twitter:creator'/>
-<meta content='TuNombre' name='DC.Creator'/>
+
+<!-- favicon -->
+<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
 
 <!-- Enlace Canonico -->
 <meta expr:content='data:blog.canonicalUrl' property='og:url'/>
 <meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
-<!-- Link rel=canonical -->
 <link expr:href='data:blog.canonicalUrl' rel='canonical'/>
 
 <!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
    <meta expr:content='data:blog.metaDescription' property='og:description'/>
-   <meta expr:content='data:blog.metaDescription' name='description'/>
    <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
-   <meta expr:content='data:blog.metaDescription' name='DC.description'/>
+   <meta expr:content='data:blog.metaDescription' name='description'/>
 <b:elseif cond='data:view.isSingleItem'/>
-   <meta expr:content='data:blog.pageName + " : Entra para leer el articulo completo."' name='twitter:description'/>
+   <meta expr:content='data:blog.pageName + " : Leer el articulo completo."' name='twitter:description'/>
 </b:if>
 
-<!-- Robots solo en Post y MultipleItems -->
-<b:if cond='data:view.isArchive'>
-   <meta content='noindex,nofollow' name='robots'/>
-<b:else/>
-   <b:if cond='data:view.isError'>
-      <meta content='noindex,nofollow' name='robots'/>
-   <b:else/>
-      <b:if cond='data:view.isMultipleItems'>
-         <b:if cond='data:view.isHomepage'>
-            <b:if cond='data:blog.isMobile'>
-               <meta content='noindex,noarchive' name='robots'/>
-            <b:else/>
-			   <meta content='index,follow' name='robots'/>
-            </b:if>
-            <meta content='noodp,noydir' name='robots'/>
-         <b:else/>
-            <meta content='noindex,nofollow' name='robots'/>
-         </b:if>
-      <b:else/>
-         <b:if cond='data:blog.isMobile'>
-            <meta content='noindex,noarchive' name='robots'/>
-         <b:else/>
-			<meta content='index,follow' name='robots'/>
-         </b:if>
-         <meta content='noodp,noydir' name='robots'/>
-      </b:if>
+<!-- Meta Robots Relativo -->
+<b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='pagefollow'>
+   <meta expr:content='data:blog.isMobile ? "noindex,noarchive" : data:pagefollow' name='robots'/>
+   <b:if cond='data:pagefollow == "index,follow"'>
+      <meta content='noodp,noydir' name='robots'/>
    </b:if>
-</b:if>
+</b:with>
 
-<!-- Optimizando los post -->
-<b:if cond='data:view.isPost'>
-   <!-- La primera imagen del post -->
-   <b:if cond='data:blog.postImageUrl'>
-      <link expr:href='data:blog.postImageUrl' rel='image_src'/>
-      <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
-      <meta expr:content='data:blog.postImageUrl' property='og:image'/>
-   </b:if>
+<!-- Optimizando Posts -->
+<b:if cond='data:view.isPost and data:blog.postImageUrl'>
+   <link expr:href='data:blog.postImageUrl' rel='image_src'/>
+   <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
+   <meta expr:content='data:blog.postImageUrl' property='og:image'/>
 </b:if>
 
 <!-- Optimizando Titulos -->
-<meta expr:content='data:blog.title' name='DC.Publisher'/>
 <b:if cond='data:view.isError'>
    <title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
-   <b:if cond='data:blog.url != data:blog.homepageUrl'>
-      <meta expr:content='data:blog.pageName' property='og:title'/>
-      <meta expr:content='data:blog.pageName' name='twitter:title'/>
-      <meta expr:content='data:blog.pageName' name='DC.title'/>
-      <b:if cond='data:blog.pageName'>
-         <title><data:blog.pageName/></title>
-      <b:else/>
-         <title><data:blog.pageTitle/></title>
-      </b:if>
-   <b:else/>
-      <meta expr:content='data:blog.pageTitle' property='og:title'/>
-      <meta expr:content='data:blog.pageTitle' name='twitter:title'/>
-      <meta expr:content='data:blog.pageTitle' name='DC.title'/>
-      <title><data:blog.pageTitle/></title>
-   </b:if>
-</b:if>
-
-<!-- Fin de etiquetas meta -->
-
-<!-- Incluimos los datos de blogger -->
-<!-- favicon -->
-<b:if cond='data:blog.blogspotFaviconUrl'>
-   <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
+   <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='pageLength'>
+      <meta expr:content='data:pageLength' property='og:title'/>
+      <meta expr:content='data:pageLength' name='twitter:title'/>
+      <title><data:pageLength/></title>
+   </b:with>
 </b:if>
 
 <!-- feeds -->
-<b:if cond='data:blog.feedLinks'>
-   <link expr:href='data:blog.homepageUrl + "feeds/posts/default"' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml'/>
-   <link expr:href='data:blog.homepageUrl + "feeds/posts/default?alt=rss"' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml'/>
-</b:if>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.canonicalHomepageUrl path "feeds/posts/default" ' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.canonicalHomepageUrl path "feeds/posts/default" params {alt: "rss"}' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
 
 <!-- schema ld+json -->
 <script type='application/ld+json'>
 {"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
-<!-- HTML5 para IE9 -->
 <!--[if lt IE 9]>
    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
@@ -503,7 +450,7 @@ Custom Widget tags
     margin: 0;
     padding: 0;
 }
-.tagslist__item {
+.tagslist__item.cloud, .metadata__tagslist > a {
     float: left;
 }
 .tagslist__link {
@@ -520,19 +467,26 @@ Custom Widget tags
 .tagslist span {
     font-weight: 700;
     color: rgba(0, 0, 0, 0.5);
+    float: right;
+    margin-left: .5rem;
 }
-.tagslist__link:hover, 
-.tagslist__link.here {
+.tagslist__link:hover {
     opacity: 0.8;
 }
-
 .tagslist__link:hover,
 .tagslist__link:active,
 .tagslist__link:focus {
     color: #fff;
     text-decoration: none;    
 }
+.tagslist__link.here {
+    background: #263238;
+}
 
+.tagslist__link.here span {
+    color: rgb(255, 255, 255);
+    font-weight: 400;
+}
 /*
 Custom Widget PopularPosts
 */
@@ -965,7 +919,7 @@ Custom Widget Search
         max-height: 100%;
     }
     .header__container {
-        padding: 0;
+        padding: 0 1rem 0 0;
         width: auto;
     }
     .container {
@@ -1443,6 +1397,15 @@ li.comment {
 /*Fix: Blogger lightbox*/
 .CSS_LIGHTBOX {z-index: 90001 !important;}
 
+/*Fix: Comment Editor*/
+#comment-editor{border: 0;width: 100%;min-height: 220px;}
+
+/*Fix: fb responsive hack*/
+.fb-comments,.fb-comments iframe span[style],
+.fb-comments iframe[style],.fb-comments span,
+.fb-like-box,.fb-like-box iframe span[style],
+.fb-like-box iframe[style],.fb-like-box span{width:100%!important}
+
 /*Design: admin blog*/
 body#layout .left {float: left;width: 50%;}
 body#layout .right {float: right;width: 50%;}
@@ -1584,22 +1547,17 @@ a,
       <b:widget-setting name='displayWidth'>0</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
-
     <div class='header__main'>
         <div class='container flex align-items-center'>
            <div class='header__container flex justify-content-between'>
                 <div class='header__mainlogo'>
-					<b:if cond='data:useImage'>
-						<b:include name='logo'/>
-					<b:else/>
-						<b:include name='title'/>
-					</b:if>
+					<b:include expr:name='data:useImage ? "logo" : "title"'/>
                 </div>
-                <button class='htoggle no-style whale-js--class' data-event='toggle' data-focus='dropdown-menu'>
+                <button class='htoggle no-style wjs-class' data-event='toggle' data-focus='dropdown-menu'>
                     <span class='htoggle__icon'><span/></span>
                 </button>
             </div>
-            <nav class='whale-js--menu'>
+            <nav class='wjs-menu'>
 				<b:include name='menu'/>
 			</nav>
         </div>
@@ -1649,11 +1607,9 @@ a,
 		</ul>
 	</b:includable>
     <b:includable id='title'>
-		<b:if cond='data:blog.url == data:blog.homepageUrl'>
-			<h1 class='header__logo'><a expr:href='data:blog.homepageUrl' expr:title='data:title'><data:title/></a></h1>
-		<b:else/>
-			<div class='header__logo'><a expr:href='data:blog.homepageUrl' expr:title='data:title'><data:title/></a></div>
-		</b:if>
+		<b:tag class='header__logo' expr:name='data:view.isHomepage ? "h1" : "div"'>
+			<a expr:href='data:blog.homepageUrl' expr:title='data:title'><data:title/></a>
+		</b:tag>
 	</b:includable>
   </b:widget>
 </b:section>
@@ -1665,12 +1621,11 @@ a,
 <b:section id='Menu' maxwidgets='1' showaddelement='no'>
   <b:widget id='PageList1' locked='true' title='Páginas' type='PageList' version='1'>
     <b:widget-settings>
-      <b:widget-setting name='pageListJson'><![CDATA[{'home': {'href': 'https://demo-zmegabyte3.blogspot.com/', 'title': 'Entradas', 'position': 0}, '4613850796661835343': {'href': 'https://demo-zmegabyte3.blogspot.com/p/elemento-a.html', 'title': 'Elemento A', 'position': 1}, '3959834940641959619': {'href': 'https://demo-zmegabyte3.blogspot.com/p/elemento-b.html', 'title': 'Elemento B', 'position': 2}, '535789191076229107': {'href': 'https://demo-zmegabyte3.blogspot.com/p/elemento-c.html', 'title': 'Elemento C', 'position': 3}}]]></b:widget-setting>
       <b:widget-setting name='homeTitle'>Entradas</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
     <div class='main-menu'>
-        <button class='arrowtoggle no-style whale-js--class' data-focus='main-menu'>
+        <button class='arrowtoggle no-style wjs-class' data-focus='main-menu'>
             <span class='arrowtoggle__icon icon-arrow-down'/>
         </button>
         <nav class='main-menu__content clearfix' id='main-menu'>
@@ -1764,17 +1719,11 @@ a,
 			</article>
             <!-- insertamos Comentarios -->
             <div class='comentarios'>
-               <b:if cond='!data:view.isPreview'>
-                  <b:if cond='data:post.allowComments'><!-- Si los comentarios estan permitidos -->
-                     <b:include data='post' name='comment-blogger'/><!-- elige entre facebook, disqus o blogger -->
-                  <b:else/><!-- Caso contrario -->
-					 <div class='theme-title'>Comentarios <span class='theme-title__sub'>{ Cerrado }</span></div>
-                     <span class='info'>Esta entrada se encuentra cerrada y no permite comentarios</span>
-                  </b:if>
-               <b:else/>
-				  <div class='theme-title'>Comentarios <span class='theme-title__sub'>{ No disponible }</span></div>
-                  <span class='info'>Los comentarios no estan disponibles en la vista previa de la entrada</span>
-               </b:if>
+               <!-- insertamos comentarios -->
+               <b:with value='["blogger","Shortname","10"]' var='commentsType'><!-- Elige entre facebook, disqus o blogger -->
+                     <b:include data='post' expr:name='data:view.isPreview ? "comment_status" : (data:post.allowComments ? "comment-" + data:commentsType[0] : "comment_status")'/>
+                     <noscript><p class='info'>Los comentarios requieren javascript</p></noscript>
+               </b:with>
             </div>
          </b:loop>
       </b:if>
@@ -1789,49 +1738,32 @@ a,
             <div id='comment-holder'><data:post.commentHtml/></div>
             <b:include data='post' name='threaded_comment_js'/>
          </div>
-         <div class='comment-footer'>
-            <b:if cond='data:post.allowNewComments'>
-               <b:include data='post' name='threaded-comment-form'/>
-            <b:else/>
-               <span class='info'>No se permiten nuevos comentarios</span>
-            </b:if>
-         </div>
-         </div>
+         <b:include data='post' expr:name='data:post.allowNewComments ? "threaded-comment-form" : "comment_status"'/>
+      </div>
       </b:includable>
     <b:includable id='comment-disqus'>
       <div class='theme-title'>Comentarios <span class='theme-title__sub'>{ Disqus }</span></div>
-         <div id='disqus_thread'/>
-         <script type='text/javascript'>
-         var disqus_shortname = "[Shortname_DISQUS]";
-         var disqus_url = "<data:blog.canonicalUrl/>"; 
-         //<![CDATA[
-         (function() {
-               var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-               dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-               (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-         })();
-         //]]></script>
-         <noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
+      <div id='disqus_thread'/>
+      <script type='text/javascript'>
+         var disqus_url = "<data:blog.canonicalUrl/>",
+         disqus_shortname = "<b:eval expr='data:commentsType[1]'/>";//<![CDATA[
+         (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+         })();//]]>
+      </script>
       </b:includable>
     <b:includable id='comment-facebook'>
-      <div class='theme-title'>Comentarios <span class='theme-title__sub'>{ facebook }</span></div>
-         <div id='fb-root'/>
-         <script>//<![CDATA[
-            (function(d, s, id) {
-               var js, fjs = d.getElementsByTagName(s)[0];
-               if (d.getElementById(id)) return;
-               js = d.createElement(s); js.id = id;
-               js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8";
-               fjs.parentNode.insertBefore(js, fjs);
-            }(document, 'script', 'facebook-jssdk'));
-         //]]></script>
-         <div class='fb-comments' data-numposts='10' expr:data-href='data:blog.canonicalUrl'/>
-         <noscript><span class='info'>T-T Lo sentimos, los comentarios requieren javascript</span></noscript>
-      </b:includable>
+      <div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:blog.canonicalUrl'/>
+    </b:includable>
     <b:includable id='comment-form' var='post'><!--none--></b:includable>
     <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
     <b:includable id='comment_count_picker' var='post'><!--none--></b:includable>
     <b:includable id='comment_picker' var='post'><!--none--></b:includable>
+    <b:includable id='comment_status'>
+      <b:if cond='!data:post.allowComments or data:view.isPreview'><div class='theme-title'>Comentarios <span class='theme-title__sub'>{ Cerrado }</span></div></b:if>
+      <p class='info'><b:eval expr='data:view.isPreview ? "No disponible" : "No se permiten nuevos comentarios"'/></p>
+    </b:includable>
     <b:includable id='comments' var='post'><!--none--></b:includable>
     <b:includable id='feedLinks'><!--none--></b:includable>
     <b:includable id='feedLinksBody' var='links'><!--none--></b:includable>
@@ -1853,10 +1785,10 @@ a,
 			<!-- card -->
 			<div class='card'>                      
 				<div class='card__content' expr:data-autor='data:post.author' expr:data-ptitle='data:post.title'>
-					<div class='card__share whale-js--window flex align-items-center justify-content-center'>
-						<a class='window__button flex align-items-center justify-content-center card__share--link icon-facebook' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url'/>
-						<a class='window__button flex align-items-center justify-content-center card__share--link icon-twitter' expr:href='"https://twitter.com/intent/tweet?url=" + data:post.url'/>
-						<a class='window__button flex align-items-center justify-content-center card__share--link icon-google' expr:href='"https://plus.google.com/share?url=" + data:post.url'/>
+					<div class='card__share wjs-window flex align-items-center justify-content-center'>
+						<a class='this-window flex align-items-center justify-content-center card__share--link icon-facebook' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url'/>
+						<a class='this-window flex align-items-center justify-content-center card__share--link icon-twitter' expr:href='"https://twitter.com/intent/tweet?url=" + data:post.url'/>
+						<a class='this-window flex align-items-center justify-content-center card__share--link icon-google' expr:href='"https://plus.google.com/share?url=" + data:post.url'/>
 					</div>
 					<a class='card__image' expr:href='data:post.url' expr:title='data:post.title'>
 					<b:if cond='data:post.thumbnailUrl'>
@@ -1916,40 +1848,34 @@ a,
       </b:includable>
     <b:includable id='postQuickEdit' var='post'><!--none--></b:includable>
     <b:includable id='shareButtons'>
-		<div class='share whale-js--window clearfix'>
-            <a class='flex window__button align-items-center icon-facebook' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url'>facebook</a>
-            <a class='flex window__button align-items-center icon-twitter' expr:href='"https://twitter.com/intent/tweet?url=" + data:post.url'>twitter</a>
-            <a class='flex window__button align-items-center icon-google' expr:href='"https://plus.google.com/share?url=" + data:post.url'>google</a>
-            <a class='flex window__button align-items-center icon-tumblr' expr:href='"https://www.tumblr.com/share/photo?url=" + data:post.firstImageUrl + "&amp;caption=" + data:post.url'>tumblr</a>
-            <a class='flex window__button align-items-center icon-pinterest' expr:href='"https://pinterest.com/pin/create/button/?url=" + data:post.url + "&amp;media=" + data:post.firstImageUrl'>pinterest</a>
+		<div class='share wjs-window clearfix'>
+            <a class='flex this-window align-items-center icon-facebook' expr:href='"https://www.facebook.com/sharer/sharer.php?u=" + data:post.url'>facebook</a>
+            <a class='flex this-window align-items-center icon-twitter' expr:href='"https://twitter.com/intent/tweet?url=" + data:post.url'>twitter</a>
+            <a class='flex this-window align-items-center icon-google' expr:href='"https://plus.google.com/share?url=" + data:post.url'>google</a>
+            <a class='flex this-window align-items-center icon-tumblr' expr:href='"https://www.tumblr.com/share/photo?url=" + data:post.firstImageUrl + "&amp;caption=" + data:post.url'>tumblr</a>
+            <a class='flex this-window align-items-center icon-pinterest' expr:href='"https://pinterest.com/pin/create/button/?url=" + data:post.url + "&amp;media=" + data:post.firstImageUrl'>pinterest</a>
 		</div>
 	</b:includable>
     <b:includable id='status-message'><!--none--></b:includable>
     <b:includable id='threaded-comment-form' var='post'>
-         <div class='comment-form'><a name='comment-form'/>
-            <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-               <iframe allowtransparency='true' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
-            <data:post.cmtfpIframe/>
-            <script type='text/javascript'>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
-         </div>
-      </b:includable>
+      <div class='comment-form'><a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+         <iframe class='blogger-iframe-colorize blogger-comment-from-post' id='comment-editor' src=''/>
+         <data:post.cmtfpIframe/><script type='text/javascript'>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
+      </div>
+    </b:includable>
     <b:includable id='threaded_comment_js' var='post'>
-         <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
-            <b:template-script inline='true' name='threaded_comments'/>
-            <script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);</script>
-         <script type='text/javascript'>//<![CDATA[
-var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));
-//]]></script>
-      </b:includable>
+      <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/><b:template-script inline='true' name='threaded_comments'/>
+      <script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);/*<![CDATA[*/var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));//]]></script>
+    </b:includable>
     <b:includable id='threaded_comments' var='post'><!--none--></b:includable>
-  </b:widget>
+   </b:widget>
 </b:section>
 </b:if>
 
 </div><!-- .blog -->
 
 <aside class='sidebar left'>
-<b:if cond='data:view.isPreview'>
+<b:if cond='data:view.isPost and data:view.isPreview'>
 <div class='widget'>
 	<h2>No disponible</h2>
 	<div class='widget-content'>
@@ -1958,7 +1884,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 </div>
 <b:else/>
 <b:section id='sidebar'>
-  <b:widget id='BlogSearch10' locked='false' title='Buscador del blog' type='BlogSearch' version='1'>
+  <b:widget id='BlogSearch1' locked='false' title='Buscador del blog' type='BlogSearch' version='1'>
     <b:includable id='main'>
 	<b:if cond='data:title != ""'>
 		<h2><data:title/></h2>
@@ -2035,10 +1961,10 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
   <b:widget id='Label10' locked='false' title='Etiquetas' type='Label' version='1'>
     <b:widget-settings>
       <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
-      <b:widget-setting name='display'>LIST</b:widget-setting>
+      <b:widget-setting name='display'>CLOUD</b:widget-setting>
       <b:widget-setting name='selectedLabelsList'/>
       <b:widget-setting name='showType'>ALL</b:widget-setting>
-      <b:widget-setting name='showFreqNumbers'>false</b:widget-setting>
+      <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
     <b:if cond='data:title != ""'>
@@ -2048,11 +1974,11 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 		<ul class='tagslist clearfix'>
 		<b:loop values='data:labels' var='label'>
 			<li class='tagslist__item'>
-			<b:if cond='data:blog.url == data:label.url'>
-				<a class='here tagslist__link' expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/> <span dir='ltr'><data:label.count/></span></a>
-			<b:else/>
-				<a class='tagslist__link' expr:dir='data:blog.languageDirection' expr:href='data:label.url'><data:label.name/> <span dir='ltr'><data:label.count/></span></a>
-			</b:if>
+				<b:class expr:name='data:display'/>
+				<a class='tagslist__link' expr:href='data:label.url'>
+					<b:class cond='data:blog.url == data:label.url' name='here'/>
+					<data:label.name/><b:if cond='data:showFreqNumbers'><span dir='ltr'><data:label.count/></span></b:if>
+				</a>
 			</li>
 		</b:loop>
 		</ul>
@@ -2146,8 +2072,7 @@ var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.leng
 
 </div><!-- .container -->
 
-
-<script async='async' src='https://cdn.rawgit.com/zkreations/whale.css/master/dist/version/whale@1.0.2.min.js' type='text/javascript'/>
+<script async='async' src='//cdn.rawgit.com/zkreations/whale/master/dist/version/whale@1.0.10.min.js' type='text/javascript'/>
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
 </body>
