@@ -1892,7 +1892,7 @@ a,
 	<div class='widget-content'>
 		<p class='info'>Escribe los terminos correctamente para lograr un mejor resultado</p>
 		<form action='/search' class='searchbox flex align-items-center justify-content-center' method='get'>
-			<input class='searchbox__input no-style' name='q' onblur='if(this.value==&apos;&apos;) this.value = this.defaultValue' onfocus='if(this.value==this.defaultValue) this.value = &apos;&apos;' type='text' value='Buscar'/>
+			<input class='searchbox__input no-style' name='q' onblur='if(this.value=="") this.value = this.defaultValue' onfocus='if(this.value==this.defaultValue) this.value = ""' type='text' value='Buscar'/>
 			<button class='searchbox__button icon-search no-style' type='submit'/>
 		</form>
 	</div>
@@ -2072,7 +2072,7 @@ a,
 
 </div><!-- .container -->
 
-<script async='async' src='//cdn.rawgit.com/zkreations/whale/master/dist/version/whale@1.0.10.min.js' type='text/javascript'/>
+<script async='async' src='//cdn.rawgit.com/zkreations/whale/master/dist/version/whale@1.0.10.min.js'/>
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
 </body>
