@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Kuro v1.0.20 ?= Canvas.xml v1.3.60 | github.com/zkreations/canvas.xml -->
+<!-- Kuro v1.0.22 ?= Canvas.xml v1.3.63 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:tag expr:content='data:view.isHomepage ? "blog" : "article"' property='og:type' name='meta'/>
+<b:tag expr:content='data:view.isMultipleItems ? "blog" : "article"' property='og:type' name='meta'/>
 
 <!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
@@ -20,12 +20,12 @@
 <meta content='@google' name='twitter:creator'/>
 
 <!-- favicon -->
-<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
+<b:tag expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
 
 <!-- Enlace Canonico -->
-<meta expr:content='data:blog.canonicalUrl' property='og:url'/>
-<meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
-<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+<meta expr:content='data:blog.url.canonical' property='og:url'/>
+<meta expr:content='data:blog.url.canonical' name='twitter:url'/>
+<link expr:href='data:blog.url.canonical' rel='canonical'/>
 
 <!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
@@ -63,12 +63,12 @@
 </b:if>
 
 <!-- feeds -->
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.canonicalHomepageUrl path "feeds/posts/default" ' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.canonicalHomepageUrl path "feeds/posts/default" params {alt: "rss"}' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" ' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" params {alt: "rss"}' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
 
 <!-- schema ld+json -->
 <script type='application/ld+json'>
-{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
+{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl.canonical/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl.canonical/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
 <!--[if lt IE 9]>
@@ -1466,11 +1466,12 @@ li.comment {
 /*Fix: Comment Editor*/
 #comment-editor{border: 0;width: 100%;min-height: 220px;}
 
-/*Fix: fb responsive hack*/
+/*Fix: fb responsive hack ?= google plus hack */
 .fb-comments,.fb-comments iframe span[style],
 .fb-comments iframe[style],.fb-comments span,
 .fb-like-box,.fb-like-box iframe span[style],
-.fb-like-box iframe[style],.fb-like-box span{width:100%!important}
+.fb-like-box iframe[style],.fb-like-box span,
+.cmt_iframe_holder, .cmt_iframe_holder > iframe {width:100%!important}
 
 /*Design: is Layout Mode*/
 body#layout .left{float: left;width: 50%;}
@@ -1719,7 +1720,7 @@ a, a:hover,
     <b:includable id='main'>
 	<b:loop values='data:items' var='item'>
 	<div class='widget'>
-		<h2 class='section__title'><data:item/> <a class='meta--buttons more--items flex align-items-center' expr:href='data:blog.canonicalHomepageUrl + "search/label/" + data:item'>Ver más</a></h2>
+		<h2 class='section__title'><data:item/> <a class='meta--buttons more--items flex align-items-center' expr:href='data:blog.homepageUrl.canonical + "search/label/" + data:item'>Ver más</a></h2>
 		<div class='widget-content'>
 			<div class='whale-items items flex align-items-start wrap' expr:data-bloglabel='data:item'>
 				<p class='items--loader'></p>
@@ -1806,6 +1807,9 @@ a, a:hover,
     <b:includable id='backlinkDeleteIcon' var='backlink'><!--none--></b:includable>
     <b:includable id='backlinks' var='post'><!--none--></b:includable>
     <b:includable id='comment-blogger' var='post'>
+      <b:if cond='data:post.commentSource == 1'>
+         <b:include data='post' name='iframe_comments'/>
+      <b:else/>
       <div class='comments' id='comments'>
          <div class='comments-content'>
             <div id='comment-holder'><data:post.commentHtml/></div>
@@ -1813,20 +1817,10 @@ a, a:hover,
          </div>
          <b:include data='post' expr:name='data:post.allowNewComments ? "threaded-comment-form" : "comment_status"'/>
       </div>
-      </b:includable>
-    <b:includable id='comment-disqus'>
-      <div id='disqus_thread'/>
-      <script type='text/javascript'>
-         var disqus_url = "<data:blog.canonicalUrl/>",
-         disqus_shortname = "<b:eval expr='data:commentsType[1]'/>";//<![CDATA[
-         (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-         })();//]]>
-      </script>
-      </b:includable>
+      </b:if>
+    </b:includable>
     <b:includable id='comment-facebook'>
-		<div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:blog.canonicalUrl'/>
+		<div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:blog.url.canonical'/>
 	</b:includable>
     <b:includable id='comment-form' var='post'><!--none--></b:includable>
     <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
@@ -1838,7 +1832,10 @@ a, a:hover,
     <b:includable id='comments' var='post'><!--none--></b:includable>
     <b:includable id='feedLinks'><!--none--></b:includable>
     <b:includable id='feedLinksBody' var='links'><!--none--></b:includable>
-    <b:includable id='iframe_comments' var='post'><!--none--></b:includable>
+    <b:includable id='iframe_comments' var='post'>
+      <script expr:src='data:post.iframeCommentSrc' type='text/javascript'/>
+      <div class='cmt_iframe_holder' expr:data-href='data:post.url.canonical' expr:data-viewtype='data:post.viewType'/>
+    </b:includable>
     <b:includable id='mobile-index-post' var='post'><!--none--></b:includable>
     <b:includable id='mobile-main' var='top'><!--none--></b:includable>
     <b:includable id='mobile-nextprev'><!--none--></b:includable>
@@ -1944,7 +1941,7 @@ a, a:hover,
     <b:includable id='main'>
 	<b:loop values='data:items' var='item'>
 	<div class='widget'>
-		<h2 class='section__title'><data:item/> <a class='meta--buttons more--items flex align-items-center' expr:href='data:blog.canonicalHomepageUrl + "search/label/" + data:item'>Ver más</a></h2>
+		<h2 class='section__title'><data:item/> <a class='meta--buttons more--items flex align-items-center' expr:href='data:blog.homepageUrl.canonical + "search/label/" + data:item'>Ver más</a></h2>
 		<div class='widget-content'>
 			<div class='whale-items items flex align-items-start wrap' expr:data-bloglabel='data:item'>
 				<p class='items--loader'></p>
@@ -2099,7 +2096,7 @@ a, a:hover,
 <b:if cond='data:view.isHomepage'>
 <script>//<![CDATA[
 //! Mini templating para bling.js | @copyright José Gregorio Materán (fb.com/JGMateran) | Uso exclusivo de bling.js y zkreations.com
-!function(){"use strict";function t(){}function e(t,e){for(var i=0;i<t.length&&!1!==e.call(t[i],i,t[i]);i++);}function i(t){return"[object Array]"===l.call(t)}function n(t,r){var a="";return i(r)?e(r,function(e,i){a+=n(t,i)}):a=t.replace(/{([\s\S]+?)}/g,function(t,e){return r[e.trim()]}),a}var r=1,a={},l=a.toString,c=document.URL,o=/\/label\//.test(c)?"/-/"+c.match(/\/label\/[^?^]*/)[0].substring(7):"";t.f={},/*]]>*/t.h="<data:blog.canonicalHomepageUrl/>",/*<![CDATA[*/t.b=['<div class="card"><a class="card__cover" href="{url}"><img class="card__img" src="{image}"/></a><div class="card__data"><h2 class="card__title">{title}</h2><time class="card__time flex align-items-center icon-clock published date updated" datetime="{timeISO}">{time}</time></div></div>'].join(""),t.c={img:"",results:6,word:"whale-items",attr:"data-bloglabel"},e(document.querySelectorAll("."+t.c.word),function(i,a){var l,i="c"+r++,c=document.createElement("script"),u=t.h+"feeds/posts/default/-/"+a.getAttribute(t.c.attr);u+=o+"?alt=json-in-script&callback=zkreations.f."+i,(l=t.c.results)&&(u+="&max-results="+l),c.src=u,t.f[i]=function(i){var r=[];e(i.feed.entry,function(e,i){r.push({image:(i.media$thumbnail.url||t.c.img).replace(/s\B\d{2,4}-c/,"w300-h200-p-k-no-nu"),title:i.title.$t,time:new Date(i.published.$t).toLocaleDateString("es-ES",{month:"long",day:"2-digit"}),timeISO:i.published.$t,url:function(){for(var t,e=0;t=i.link[e++];)if("alternate"===t.rel)return t.href}()})}),a.innerHTML=n(t.b,r)},document.body.appendChild(c)}),window.zkreations=t}();
+!function(){"use strict";function t(){}function e(t,e){for(var i=0;i<t.length&&!1!==e.call(t[i],i,t[i]);i++);}function i(t){return"[object Array]"===l.call(t)}function n(t,r){var a="";return i(r)?e(r,function(e,i){a+=n(t,i)}):a=t.replace(/{([\s\S]+?)}/g,function(t,e){return r[e.trim()]}),a}var r=1,a={},l=a.toString,c=document.URL,o=/\/label\//.test(c)?"/-/"+c.match(/\/label\/[^?^]*/)[0].substring(7):"";t.f={},/*]]>*/t.h="<data:blog.homepageUrl.canonical/>",/*<![CDATA[*/t.b=['<div class="card"><a class="card__cover" href="{url}"><img class="card__img" src="{image}"/></a><div class="card__data"><h2 class="card__title">{title}</h2><time class="card__time flex align-items-center icon-clock published date updated" datetime="{timeISO}">{time}</time></div></div>'].join(""),t.c={img:"",results:6,word:"whale-items",attr:"data-bloglabel"},e(document.querySelectorAll("."+t.c.word),function(i,a){var l,i="c"+r++,c=document.createElement("script"),u=t.h+"feeds/posts/default/-/"+a.getAttribute(t.c.attr);u+=o+"?alt=json-in-script&callback=zkreations.f."+i,(l=t.c.results)&&(u+="&max-results="+l),c.src=u,t.f[i]=function(i){var r=[];e(i.feed.entry,function(e,i){r.push({image:(i.media$thumbnail.url||t.c.img).replace(/s\B\d{2,4}-c/,"w300-h200-p-k-no-nu"),title:i.title.$t,time:new Date(i.published.$t).toLocaleDateString("es-ES",{month:"long",day:"2-digit"}),timeISO:i.published.$t,url:function(){for(var t,e=0;t=i.link[e++];)if("alternate"===t.rel)return t.href}()})}),a.innerHTML=n(t.b,r)},document.body.appendChild(c)}),window.zkreations=t}();
 //]]></script>
 <script src='//cdn.jsdelivr.net/lory-js/2.1.0/lory.min.js'/>
 <script>//<![CDATA[
