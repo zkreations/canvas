@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- ZMegaByte v3.0.16 ?= Canvas.xml v1.3.60 | github.com/zkreations/canvas.xml -->
+<!-- ZMegaByte v3.0.18 ?= Canvas.xml v1.3.63 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:tag expr:content='data:view.isHomepage ? "blog" : "article"' property='og:type' name='meta'/>
+<b:tag expr:content='data:view.isMultipleItems ? "blog" : "article"' property='og:type' name='meta'/>
 
 <!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
@@ -20,12 +20,12 @@
 <meta content='@google' name='twitter:creator'/>
 
 <!-- favicon -->
-<b:tag cond='data:blog.blogspotFaviconUrl' expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
+<b:tag expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
 
 <!-- Enlace Canonico -->
-<meta expr:content='data:blog.canonicalUrl' property='og:url'/>
-<meta expr:content='data:blog.canonicalUrl' name='twitter:url'/>
-<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+<meta expr:content='data:blog.url.canonical' property='og:url'/>
+<meta expr:content='data:blog.url.canonical' name='twitter:url'/>
+<link expr:href='data:blog.url.canonical' rel='canonical'/>
 
 <!-- Descripcion -->
 <b:if cond='data:blog.metaDescription'>
@@ -63,12 +63,12 @@
 </b:if>
 
 <!-- feeds -->
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.canonicalHomepageUrl path "feeds/posts/default" ' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.canonicalHomepageUrl path "feeds/posts/default" params {alt: "rss"}' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" ' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
+<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" params {alt: "rss"}' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
 
 <!-- schema ld+json -->
 <script type='application/ld+json'>
-{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
+{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl.canonical/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl.canonical/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
 </script>
 
 <!--[if lt IE 9]>
@@ -1400,11 +1400,12 @@ li.comment {
 /*Fix: Comment Editor*/
 #comment-editor{border: 0;width: 100%;min-height: 220px;}
 
-/*Fix: fb responsive hack*/
+/*Fix: fb responsive hack ?= google plus hack */
 .fb-comments,.fb-comments iframe span[style],
 .fb-comments iframe[style],.fb-comments span,
 .fb-like-box,.fb-like-box iframe span[style],
-.fb-like-box iframe[style],.fb-like-box span{width:100%!important}
+.fb-like-box iframe[style],.fb-like-box span,
+.cmt_iframe_holder, .cmt_iframe_holder > iframe {width:100%!important}
 
 /*Design: admin blog*/
 body#layout .left {float: left;width: 50%;}
@@ -1571,7 +1572,7 @@ a,
 	</b:includable>
     <b:includable id='menu'>
 		<ul class='dropdown-menu' id='dropdown-menu'>
-			<li><a expr:href='data:blog.canonicalHomepageUrl'>Inicio</a></li>
+			<li><a expr:href='data:blog.homepageUrl.canonical'>Inicio</a></li>
 			<li><a href='#'>Elemento A</a>
 				<ul>
 					<li><a href='#'>Elemento A1</a></li>
@@ -1733,6 +1734,9 @@ a,
     <b:includable id='backlinks' var='post'><!--none--></b:includable>
     <b:includable id='comment-blogger' var='post'>
       <div class='theme-title'>Comentarios <span class='theme-title__sub'>{ <data:post.numComments/> }</span></div>
+      <b:if cond='data:post.commentSource == 1'>
+         <b:include data='post' name='iframe_comments'/>
+      <b:else/>
       <div class='comments' id='comments'>
          <div class='comments-content'>
             <div id='comment-holder'><data:post.commentHtml/></div>
@@ -1740,12 +1744,13 @@ a,
          </div>
          <b:include data='post' expr:name='data:post.allowNewComments ? "threaded-comment-form" : "comment_status"'/>
       </div>
+      </b:if>
       </b:includable>
     <b:includable id='comment-disqus'>
       <div class='theme-title'>Comentarios <span class='theme-title__sub'>{ Disqus }</span></div>
       <div id='disqus_thread'/>
       <script type='text/javascript'>
-         var disqus_url = "<data:blog.canonicalUrl/>",
+         var disqus_url = "<data:blog.url.canonical/>",
          disqus_shortname = "<b:eval expr='data:commentsType[1]'/>";//<![CDATA[
          (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -1754,7 +1759,7 @@ a,
       </script>
       </b:includable>
     <b:includable id='comment-facebook'>
-      <div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:blog.canonicalUrl'/>
+      <div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:blog.url.canonical'/>
     </b:includable>
     <b:includable id='comment-form' var='post'><!--none--></b:includable>
     <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
@@ -1767,7 +1772,10 @@ a,
     <b:includable id='comments' var='post'><!--none--></b:includable>
     <b:includable id='feedLinks'><!--none--></b:includable>
     <b:includable id='feedLinksBody' var='links'><!--none--></b:includable>
-    <b:includable id='iframe_comments' var='post'><!--none--></b:includable>
+    <b:includable id='iframe_comments' var='post'>
+      <script expr:src='data:post.iframeCommentSrc' type='text/javascript'/>
+      <div class='cmt_iframe_holder' expr:data-href='data:post.url.canonical' expr:data-viewtype='data:post.viewType'/>
+    </b:includable>
     <b:includable id='mobile-index-post' var='post'><!--none--></b:includable>
     <b:includable id='mobile-main' var='top'><!--none--></b:includable>
     <b:includable id='mobile-nextprev'><!--none--></b:includable>
