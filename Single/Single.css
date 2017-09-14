@@ -1,4 +1,4 @@
-/*! => Single.css v1.0.3 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
+/*! => Single.css v1.0.6 | GNU GENERAL PUBLIC LICENSE | github.com/zkreations/Canvas.xml | Daniel */
 /*Custom reset*/
 .post-summary *,
 .BlogSearch *,
@@ -22,6 +22,7 @@
 	height: auto;
     box-shadow: 0 0 transparent;
 }
+.widget {font-size: 14px;}
 .post-summary::after,
 .PageList ul::after,
 [class*=label-widget-content]::after {
@@ -39,10 +40,10 @@
 .widget-content input[type=button], 
 .contact-form-widget input[type=button], 
 .wikipedia-search-form input[type=button] {
-    padding: 1rem;
+    padding: 1em;
     box-shadow: inset 0 2px 5px 0 rgba(0, 0, 0, 0.075), inset 0 0 0 1px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(0, 0, 0, 0.05);
     border-radius: 3px;
-    font-size: 1.1rem;
+    font-size: 1.1em;
     color: rgba(0, 0, 0, 0.75);
     background: #f5f5f5;
     width: 100%;
@@ -98,7 +99,7 @@
 .Feed ul>li .item-title::before {
     font-family: "single" !important;
 	display: inline-block;
-    font-size: 1.2rem;
+    font-size: 1.2em;
     color: rgba(0, 0, 0, 0.5);
 	pointer-events: none;
 	font-style: normal !important;
@@ -118,13 +119,13 @@ header .widget h2 {display:none;}
 /* Featured Post
 Entrada destacada*/
 .post-summary h3 {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+    font-size: 1.2em;
+    margin-bottom: 1em;
 	text-align: center;
 }
 .post-summary p {
-    padding: 1.5rem;
-    margin-bottom: 1rem;
+    padding: 1.5em;
+    margin-bottom: 1em;
     background: rgba(0, 0, 0, .05);
     color: rgba(0, 0, 0, 0.5);
     font-weight: 600;
@@ -159,7 +160,7 @@ aside .post-summary p {
 }
 aside .post-summary .image {
     max-width: 300px;
-	width: auto;
+	width: 100%;
 }
 
 /* Search
@@ -167,7 +168,7 @@ Buscador*/
 .BlogSearch .gsc-input {
     height: 100%;
     width: 100%;
-    padding-right: .75rem;
+    padding-right: .75em;
 }
 .BlogSearch td.gsc-search-button {
     position: relative;
@@ -212,15 +213,15 @@ Perfil del usuario o equipo*/
     font-size: 1em;
     color: rgba(0, 0, 0, .6);
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
 }
 .Profile .widget-content .profile-datablock {
-    padding: 1rem 0;
-    font-size: 1.1rem;
+    padding: 1em 0;
+    font-size: 1.1em;
     margin: 0;
 }
 .Profile .widget-content .profile-textblock {
-    padding: 1rem 1.5rem;
+    padding: 1em 1.5em;
     margin: 0;
 }
 .Profile .widget-content .profile-link {display: none;}
@@ -232,7 +233,7 @@ Perfil del usuario o equipo*/
     display: block;
 }
 .Profile .widget-content>ul>li>a {
-    padding: .5rem .8rem;
+    padding: .5em .8em;
     background: rgba(0, 0, 0, .05);
     width: 100%;
     margin: 0;
@@ -245,16 +246,16 @@ Perfil del usuario o equipo*/
     content: "\62";
     position: relative;
     top: 3px;
-    margin-right: .5rem;
+    margin-right: .5em;
 }
 /*List archive blog
 Archivo del blog*/
 /*option --> dropdown/desplegable*/
 #ArchiveList select {
-    padding: 1.2rem;
+    padding: 1.2em;
     width: 100%;
     background: rgba(0, 0, 0, .05);
-    font-size: .9rem;
+    font-size: .9em;
     color: rgba(0, 0, 0, .55);
     cursor: pointer;
     position: relative;
@@ -317,7 +318,7 @@ ul.posts {
     vertical-align: middle;
     z-index: 5;
     font-weight: 700;
-    font-size: .9rem;
+    font-size: .9em;
 }
 .hierarchy>li>a:hover {
     text-decoration: none;
@@ -379,10 +380,10 @@ Imagen*/
     width: 100%;
 }
 .widget.Image .caption {
-    padding: 1rem;
+    padding: 1em;
     background: rgba(0, 0, 0, .05);
     display: block;
-    margin-top: 1rem;
+    margin-top: 1em;
 }
 
 /*option --> header/cabecera*/
@@ -392,8 +393,8 @@ header .widget.Image .widget-content {
 }
 header .widget.Image .caption {
     position: absolute;
-    bottom: 1rem;
-    right: 1rem;
+    bottom: 1em;
+    right: 1em;
     color: #fff;
     background: rgba(0, 0, 0, .5);
 }
@@ -403,11 +404,11 @@ Lista de paginas*/
     float: left;
 }
 .PageList li>a {
-    padding: 1rem;
+    padding: 1em;
     display: block;
     background: rgba(0, 0, 0, .05);
     color: rgba(0, 0, 0, .5);
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 600;
     border-top: 3px solid rgba(0, 0, 0, .2);
 }
@@ -434,7 +435,7 @@ aside .PageList li>a {
 Lista de etiquetas o nube*/
 [class*=label-widget-content] .label-size,
 [class*=label-widget-content] li {
-    padding: 1rem;
+    padding: 1em;
     background: rgba(0, 0, 0, .05);
     border-radius: 3px;
     display: block;
@@ -443,12 +444,12 @@ Lista de etiquetas o nube*/
 [class*=label-widget-content] li::before {
     content: "\63";
     float: left;
-    margin-right: .5rem;
+    margin-right: .5em;
     color: rgba(0, 0, 0, 0.5);
 }
 [class*=label-widget-content] a {
     color: rgba(0, 0, 0, .5);
-    font-size: 1rem;
+    font-size: 1em;
     font-weight: 700;
 }
 [class*=label-widget-content] a:hover {
@@ -469,14 +470,14 @@ Lista de vinculos*/
 .LinkList .widget-content li>a::before {
     content: "\65";
     float: left;
-    margin-right: .5rem;
+    margin-right: .5em;
     color: rgba(0, 0, 0, 0.5);
 }
 .LinkList .widget-content li {
     display: inline-block;
 }
 .LinkList .widget-content li>a {
-    padding: .8rem;
+    padding: .8em;
     display: inline-block;
     background: rgba(0, 0, 0, .05);
     margin-bottom: 5px;
@@ -495,32 +496,32 @@ Lista de vinculos*/
 /*Popular posts
 Entradas populares*/
 .popular-posts>ul>li {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
+    margin-bottom: 1em;
+    padding-bottom: 1em;
     border-bottom: 1px solid rgba(0, 0, 0, .08);
 }
 .popular-posts .item-thumbnail {
     border: 5px solid #fff;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, .03), 0 1px 2px 0 rgba(0, 0, 0, .2), 0 0 0 transparent;
-    margin-right: 1rem;
+    margin-right: 1em;
     float: left;
 }
 .popular-posts .item-title>a,
 .popular-posts>ul>li>a {
-    padding: 1rem;
+    padding: 1em;
     display: block;
-    margin-bottom: .6rem;
+    margin-bottom: .6em;
     background: rgba(0, 0, 0, .1);
     color: rgba(0, 0, 0, .5);
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 1em;
     overflow: hidden;
 }
 .popular-posts .item-title>a::before,
 .popular-posts>ul>li>a::before {
 	content: "\66";
 	float: left;
-	margin-right: .5rem;
+	margin-right: .5em;
 }
 .popular-posts .item-title>a:hover,
 .popular-posts>ul>li>a:hover {
@@ -534,11 +535,11 @@ Entradas populares*/
     margin: 0;
 }
 .popular-posts .item-snippet {
-    padding: 1.5rem;
+    padding: 1.5em;
     background: rgba(0, 0, 0, .05);
     color: rgba(0, 0, 0, 0.5);
     font-weight: 600;
-    font-size: .9rem;
+    font-size: .9em;
 }
 /*Stats Counter
 Contador de visitas*/
@@ -549,11 +550,11 @@ Contador de visitas*/
     align-items: flex-start;
 }
 .graph-counter-wrapper > span {
-    padding: .8rem .4rem;
+    padding: .5em .4em;
     display: block;
     color: #fff;
     background-color: rgba(0, 0, 0, .85);
-    font-size: 1.4rem;
+    font-size: 1.4em;
     margin: 3px;
     border-radius: 3px;
     position: relative;
@@ -574,8 +575,8 @@ Contador de visitas*/
 Mi lista de blogs*/
 .blog-list-container .blog-icon {
     position: absolute;
-    right: 1rem;
-    top: .9rem;
+    right: 1em;
+    top: .9em;
     display: block;
 }
 .blog-list-container .blog-icon > img {
@@ -590,12 +591,12 @@ Mi lista de blogs*/
     border-bottom: 1px solid rgba(0, 0, 0, .08);
 }
 .blog-list-container .blog-title>a {
-    padding: .8rem 1rem;
+    padding: 1em;
     background: rgba(0, 0, 0, .15);
     display: block;
     margin-bottom: 10px;
     color: rgba(0, 0, 0, .7);
-    font-size: .9em;
+    font-size: 1em;
     font-weight: 700;
     border-radius: 3px;
 }
@@ -645,7 +646,7 @@ Seguir por correo electrónico*/
 }
 
 .follow-by-email-inner td:first-child {
-    padding-right: .75rem;
+    padding-right: .75em;
 }
 .follow-by-email-inner td {
     position: relative;
@@ -663,7 +664,7 @@ Seguir por correo electrónico*/
 Canal RSS */
 .widget.Feed .widget-content ul>li {
     display: block;
-    padding: 1rem;
+    padding: 1em;
     background: rgba(0, 0, 0, .05);
     margin-bottom: 5px;
 }
@@ -678,7 +679,7 @@ Canal RSS */
 .widget.Feed .widget-content ul>li .item-title::before {
 	content: "\68";
 	float: left;
-	margin-right: .5rem;
+	margin-right: .5em;
 }
 /* Text list
 Lista de texto */
@@ -690,7 +691,7 @@ Lista de texto */
 Formulario de contacto*/
 .contact-form-widget input[class^=contact-form], 
 .contact-form-widget textarea {
-    margin: .5rem 0 1rem;
+    margin: .5em 0 1em;
     width: 100%;
 }
 .contact-form-widget input.contact-form-button {
@@ -698,7 +699,7 @@ Formulario de contacto*/
     width: 100%;
     background-color: #00BCD4;
     font-weight: 700;
-    font-size: .9rem;
+    font-size: .9em;
     color: #fff;
 }
 /*Search by Wikipedia
@@ -707,18 +708,18 @@ Buscar con Wikipedia */
     margin: 0;
 }
 .wikipedia-search-main-container {
-    padding: 1rem 0 0;
+    padding: 1em 0 0;
 }
 .wikipedia-search-wiki-link>img {
     display: block;
-    margin: 0 auto 1rem;
+    margin: 0 auto 1em;
 }
 .wikipedia-search-main-container input.wikipedia-search-button {
     width: 100%;
-    margin-top: 1rem;
+    margin-top: 1em;
     background-color: #9caeb7;
     font-weight: 700;
-    font-size: .9rem;
+    font-size: .9em;
     color: #fff;
 }
 .wikipedia-search-results-header {
@@ -727,8 +728,8 @@ Buscar con Wikipedia */
 }
 .wikipedia-search-results>div>a {
     display: block;
-    padding: .5rem;
-    margin-top: .5rem;
+    padding: .5em;
+    margin-top: .5em;
     background: rgba(0, 0, 0, .05);
     color: rgba(0, 0, 0, .5);
 }
@@ -738,14 +739,14 @@ Buscar con Wikipedia */
     text-decoration: none;
 }
 .wikipedia-search-results {
-    padding-top: 1rem;
+    padding-top: 1em;
 }
 .wikipedia-search-main-container>nobr a {
-    padding: .5rem 1rem;
+    padding: .5em 1em;
     display: block;
     background: #9caeb7;
     color: #fff;
-    margin-top: 1rem;
+    margin-top: 1em;
     text-align: center;
 }
 .wikipedia-search-main-container>nobr a:hover {
