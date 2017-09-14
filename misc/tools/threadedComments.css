@@ -1,4 +1,4 @@
-/*Defaul CSS Comment*/
+/*Defaul CSS Comment v1.0.1*/
 .comment {
     position: relative;
 }
@@ -14,6 +14,11 @@
 }
 .comment-thread ol {
     padding: 0;
+}
+.comment-thread li::after {
+    content: "";
+    clear: both;
+    display: block;
 }
 .comment-block {
     background: rgba(0, 0, 0, 0.03);
