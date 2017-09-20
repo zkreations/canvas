@@ -1,4 +1,4 @@
-/*Defaul CSS Comment v1.0.1*/
+/*Defaul CSS Comment v1.0.2*/
 .comment {
     position: relative;
 }
@@ -52,6 +52,9 @@
     float: left;
     height: 80px;
     width: 80px;
+}
+.avatar-image-container img {
+    width: 100%;
 }
 .comment-replies .avatar-image-container {
     width: 50px;
