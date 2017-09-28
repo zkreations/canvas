@@ -17,6 +17,7 @@
     font-weight: 700;
     display: block;
     padding-bottom: .5em;
+	color: rgba(0, 0, 0, 0.75);
 }
 .daniel-form .form-sub-label-container {
     margin-bottom: .5em;
