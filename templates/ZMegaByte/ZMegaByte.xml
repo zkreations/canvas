@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
 
-<!-- ZMegaByte v3.0.18 ?= Canvas.xml v1.3.63 | github.com/zkreations/canvas.xml -->
+<!-- ZMegaByte v3.0.18 ?= Canvas.xml v1.3.64 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
@@ -1396,6 +1396,9 @@ li.comment {
 
 /*Fix: Blogger lightbox*/
 .CSS_LIGHTBOX {z-index: 90001 !important;}
+
+/*Fix: Blogger image responsive*/
+a[imageanchor],a[imageanchor] img{margin:0!important;height:auto!important}
 
 /*Fix: Comment Editor*/
 #comment-editor{border: 0;width: 100%;min-height: 220px;}
