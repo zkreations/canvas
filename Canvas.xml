@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='1' b:layoutsVersion='2' b:responsive='true' b:version='2' lang='es'>
+<html b:css='false' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.3.64 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.4.70 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:tag expr:content='data:view.isMultipleItems ? "blog" : "article"' property='og:type' name='meta'/>
+<b:tag expr:content='data:view.isMultipleItems ? "website" : "article"' property='og:type' name='meta'/>
+<!-- Solo para adultos -->
+<b:if cond='data:blog.adultContent'>
+   <meta content='adult' name='rating'/>
+</b:if>
 
 <!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
@@ -37,28 +41,28 @@
 </b:if>
 
 <!-- Meta Robots Relativo -->
-<b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='pagefollow'>
-   <meta expr:content='data:blog.isMobile ? "noindex,noarchive" : data:pagefollow' name='robots'/>
-   <b:if cond='data:pagefollow == "index,follow"'>
+<b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='robots'>
+   <meta expr:content='data:blog.isMobile ? "noindex,noarchive" : data:robots' name='robots'/>
+   <b:if cond='data:robots == "index,follow"'>
       <meta content='noodp,noydir' name='robots'/>
    </b:if>
 </b:with>
 
 <!-- Optimizando Posts -->
-<b:if cond='data:view.isPost and data:blog.postImageUrl'>
-   <link expr:href='data:blog.postImageUrl' rel='image_src'/>
-   <meta expr:content='data:blog.postImageUrl' name='twitter:image'/>
-   <meta expr:content='data:blog.postImageUrl' property='og:image'/>
+<b:if cond='data:view.isPost and data:view.featuredImage'>
+   <link expr:href='data:view.featuredImage' rel='image_src'/>
+   <meta expr:content='data:view.featuredImage' name='twitter:image'/>
+   <meta expr:content='data:view.featuredImage' property='og:image'/>
 </b:if>
 
 <!-- Optimizando Titulos -->
 <b:if cond='data:view.isError'>
    <title>Error 404 en <data:blog.pageTitle/></title>
 <b:else/>
-   <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='pageLength'>
-      <meta expr:content='data:pageLength' property='og:title'/>
-      <meta expr:content='data:pageLength' name='twitter:title'/>
-      <title><data:pageLength/></title>
+   <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='titles'>
+      <meta expr:content='data:titles' property='og:title'/>
+      <meta expr:content='data:titles' name='twitter:title'/>
+      <title><b:eval expr='data:view.search.label ? "Entradas de " + data:titles : data:titles'/></title>
    </b:with>
 </b:if>
 
@@ -72,7 +76,7 @@
 </script>
 
 <!--[if lt IE 9]>
-   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+   <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
 <!-- Fin de datos-->
 
@@ -99,8 +103,8 @@
 /*Fix: Blogger lightbox*/
 .CSS_LIGHTBOX{z-index: 90001 !important;}
 
-/*Fix: Blogger image responsive*/
-a[imageanchor],a[imageanchor] img{margin:0!important;height:auto!important}
+/*Fix: Post image responsive*/
+a[imageanchor],a[imageanchor] > img{margin:0!important;height:auto!important}
 
 /*Fix: Comment Editor*/
 #comment-editor{border: 0;width: 100%;min-height: 220px;}
@@ -128,10 +132,10 @@ body#layout .right{float: right;width: 50%;}
    <b:includable id='main' var='top'>
 
    <b:if cond='data:view.isMultipleItems'>
-      <b:loop values='data:posts' var='post'>
+      <b:loop values='data:posts' var='post'><!-- bucle posts -->
          <b:include data='post' name='post'/><!-- insertamos entradas -->
       </b:loop>
-      <b:include name='nextprev'/>
+      <b:include name='nextprev'/><!-- paginacion estandar -->
    <b:else/>
       <b:loop values='data:posts' var='post'>
          <b:include data='post' name='post'/><!-- insertamos entradas -->
@@ -140,6 +144,7 @@ body#layout .right{float: right;width: 50%;}
             <b:include data='post' expr:name='data:view.isPreview ? "comment_status" : (data:post.allowComments ? "comment-" + data:commentsType[0] : "comment_status")'/>
             <noscript><p class='info'>Los comentarios requieren javascript</p></noscript>
          </b:with>
+         <!-- fin comentarios -->
       </b:loop>
    </b:if>
 
@@ -179,7 +184,7 @@ body#layout .right{float: right;width: 50%;}
    <b:includable id='comment_count_picker' var='post'><!--none--></b:includable>
    <b:includable id='comment_picker' var='post'><!--none--></b:includable>
    <b:includable id='comment_status'>
-      <p class='info'><b:eval expr='data:view.isPreview ? "No disponible" : "No se permiten nuevos comentarios"'/></p>
+      <p class='info'><b:eval expr='data:view.isPreview ? data:messages.widgetNotAvailableInPreview : "No se permiten nuevos comentarios"'/></p>
    </b:includable>
    <b:includable id='comments' var='post'><!--none--></b:includable>
    <b:includable id='feedLinks'><!--none--></b:includable>
