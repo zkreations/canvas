@@ -1,0 +1,121 @@
+/*!formatter | article.default 1.0.0*/
+article .post-body {
+    font-size: 1.1rem;
+    line-height: 1.75rem;
+    color: rgba(0, 0, 0, .6);
+}
+
+/*Encabezados*/
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+    color: rgba(0, 0, 0, 0.7);
+    margin: 0 0 1rem;
+}
+
+/*Citacion*/
+article blockquote {
+    border-left: 4px solid rgba(0, 0, 0, .05);
+    margin: 0 15px;
+    padding: 1rem 2rem;
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/*Listas*/
+article ul li,
+article ol li {
+    margin: .5rem 0 .5rem 2rem;
+}
+article ul li {
+    list-style-type: circle;
+}
+article ol li {
+    list-style-type: decimal;
+}
+
+/* Imagenes responsive */
+article img {
+    max-width: 100%;
+}
+
+/* Enlaces */
+article a {
+    font-weight: 500;
+}
+
+/* Parrafo */
+article p {
+    margin: 0;
+}
+
+/* Tablas */
+article table {
+    text-align: left;
+}
+article table tbody td,
+article table thead th {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .08);
+}
+article table thead {
+    border-bottom: 2px solid rgba(0, 0, 0, .08);
+}
+article table thead th {
+    white-space: nowrap;
+    font-weight: normal;
+}
+
+/* Codigo */
+article pre {
+    padding: 1rem;
+    overflow: auto;
+    margin: 0;
+    border-radius: 3px;
+    display: block;
+    color: rgba(0, 0, 0, .7);
+    overflow-x: auto;
+    font-size: 1rem;
+    line-height: 1.45;
+}
+article code {
+    padding: .3rem .4rem;
+    white-space: nowrap;
+}
+article code,
+article pre {
+    background-color: rgba(0, 0, 0, .05);
+}
+
+/*Spoiler*/
+.article__spoiler .wjs-container {
+    display: none;	
+    padding: 1.5rem;
+    margin-top: 1rem;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.article__spoiler .wjs-container.is-active {
+    display: block;
+}
+
+.article__spoiler .wjs-button {
+    border: 0 none;
+    outline: 0 none;
+    padding: .8em 1em;
+	cursor: pointer;
+	color: rgba(0,0,0, .75);
+	transition: opacity .2s;
+}
+.article__spoiler .wjs-button::before {
+    font-size: 1.3rem;
+    float: left;
+    margin-right: .5rem;
+
+}
+.article__spoiler .wjs-button:hover {
+	opacity: .8;
+}
