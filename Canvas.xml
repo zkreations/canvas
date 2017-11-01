@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.4.70 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.4.72 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
@@ -98,27 +98,27 @@
 /*Deleted: unnecessary elements*/
 .singleton-element:not(.cookie-choices-info),
 .item-control.blog-admin,
-.widget-item-control{display: none;}
+.widget-item-control{display: none}
 
 /*Fix: Blogger lightbox*/
-.CSS_LIGHTBOX{z-index: 90001 !important;}
+.CSS_LIGHTBOX{z-index: 90001 !important}
 
 /*Fix: Post image responsive*/
 a[imageanchor],a[imageanchor] > img{margin:0!important;height:auto!important}
 
 /*Fix: Comment Editor*/
-#comment-editor{border: 0;width: 100%;min-height: 220px;}
+#comment-editor{border: 0;width: 100%;min-height: 220px}
 
 /*Fix: fb responsive hack ?= google plus hack */
 .fb-comments,.fb-comments iframe span[style],
 .fb-comments iframe[style],.fb-comments span,
 .fb-like-box,.fb-like-box iframe span[style],
 .fb-like-box iframe[style],.fb-like-box span,
-.cmt_iframe_holder, .cmt_iframe_holder > iframe {width:100%!important}
+.cmt_iframe_holder, .cmt_iframe_holder > iframe {width:100%!important;display: block !important}
 
 /*Design: is Layout Mode*/
-body#layout .left{float: left;width: 50%;}
-body#layout .right{float: right;width: 50%;}
+body#layout .left{float: left;width: 50%}
+body#layout .right{float: right;width: 50%}
 
 ]]></b:skin>
 
