@@ -1,6 +1,12 @@
-/*Defaul CSS Comment v1.0.2*/
+/*!Defaul CSS Comment v1.0.4*/
 .comment {
     position: relative;
+    margin: 0;
+    padding: 0;
+}
+.comment-content {
+    padding: 1rem 0;
+    color: rgba(0, 0, 0, 0.75);
 }
 .comment-replies .comment, 
 .comment-replybox-single,
@@ -23,12 +29,11 @@
 .comment-block {
     background: rgba(0, 0, 0, 0.03);
     margin-bottom: 1rem;
-    margin-left: 7rem;
     padding: 1rem;
     font-size: 1.1rem;
 }
 .comment-block {
-    margin-left: 6rem;
+    margin-left: 6.2rem;
 }
 .comment-header .user {
     margin-right: .2rem;
