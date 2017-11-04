@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.4.72 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.4.74 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
@@ -119,6 +119,11 @@ a[imageanchor],a[imageanchor] > img{margin:0!important;height:auto!important}
 /*Design: is Layout Mode*/
 body#layout .left{float: left;width: 50%}
 body#layout .right{float: right;width: 50%}
+body#layout .blayout::after {
+    display: block;
+    content: "";
+    clear: both;
+}
 
 ]]></b:skin>
 
