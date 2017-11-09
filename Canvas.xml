@@ -135,7 +135,9 @@ body#layout .blayout::after {
 <b:section id='Blog'>
    <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog'>
    <b:includable id='main' var='top'>
-
+        
+   <b:with value='["blogger","Shortname","10"]' var='commentsType'><!-- Elige entre facebook, disqus o blogger -->
+         
    <b:if cond='data:view.isMultipleItems'>
       <b:loop values='data:posts' var='post'><!-- bucle posts -->
          <b:include data='post' name='post'/><!-- insertamos entradas -->
@@ -145,14 +147,14 @@ body#layout .blayout::after {
       <b:loop values='data:posts' var='post'>
          <b:include data='post' name='post'/><!-- insertamos entradas -->
          <!-- insertamos comentarios -->
-         <b:with value='["blogger","Shortname","10"]' var='commentsType'><!-- Elige entre facebook, disqus o blogger -->
             <b:include data='post' expr:name='data:view.isPreview ? "comment_status" : (data:post.allowComments ? "comment-" + data:commentsType[0] : "comment_status")'/>
             <noscript><p class='info'>Los comentarios requieren javascript</p></noscript>
-         </b:with>
          <!-- fin comentarios -->
       </b:loop>
    </b:if>
-
+   
+   </b:with><!-- b:with == commentsType -->
+   
    </b:includable>
    <b:includable id='backlinkDeleteIcon' var='backlink'><!--none--></b:includable>
    <b:includable id='backlinks' var='post'><!--none--></b:includable>
