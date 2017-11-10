@@ -2,18 +2,15 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.4.74 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.4.78 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
 <meta expr:charset='data:blog.encoding'/>
 <meta content='blogger' name='generator'/>
 <meta content='summary_large_image' name='twitter:card'/>
-<b:tag expr:content='data:view.isMultipleItems ? "website" : "article"' property='og:type' name='meta'/>
-<!-- Solo para adultos -->
-<b:if cond='data:blog.adultContent'>
-   <meta content='adult' name='rating'/>
-</b:if>
+<meta expr:content='data:blog.adultContent ? "mature" : "general"' name='rating'/>
+<meta expr:content='data:view.isMultipleItems ? "website" : "article"' property='og:type'/>
 
 <!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
@@ -24,25 +21,21 @@
 <meta content='@google' name='twitter:creator'/>
 
 <!-- favicon -->
-<b:tag expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon' name='link'/>
+<link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 
 <!-- Enlace Canonico -->
-<meta expr:content='data:blog.url.canonical' property='og:url'/>
-<meta expr:content='data:blog.url.canonical' name='twitter:url'/>
-<link expr:href='data:blog.url.canonical' rel='canonical'/>
+<meta expr:content='data:view.url.canonical' property='og:url'/>
+<meta expr:content='data:view.url.canonical' name='twitter:url'/>
+<link expr:href='data:view.url.canonical' rel='canonical'/>
 
 <!-- Descripcion -->
-<b:if cond='data:blog.metaDescription'>
-   <meta expr:content='data:blog.metaDescription' property='og:description'/>
-   <meta expr:content='data:blog.metaDescription' name='twitter:description'/>
-   <meta expr:content='data:blog.metaDescription' name='description'/>
-<b:elseif cond='data:view.isSingleItem'/>
-   <meta expr:content='data:blog.pageName + " : Leer el articulo completo."' name='twitter:description'/>
-</b:if>
+<meta expr:content='data:view.description' property='og:description'/>
+<meta expr:content='data:view.description' name='twitter:description'/>
+<meta expr:content='data:view.description' name='description'/>
 
 <!-- Meta Robots Relativo -->
 <b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='robots'>
-   <meta expr:content='data:blog.isMobile ? "noindex,noarchive" : data:robots' name='robots'/>
+   <meta expr:content='data:robots' name='robots'/>
    <b:if cond='data:robots == "index,follow"'>
       <meta content='noodp,noydir' name='robots'/>
    </b:if>
@@ -76,7 +69,7 @@
 </script>
 
 <!--[if lt IE 9]>
-   <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
 <!-- Fin de datos-->
 
@@ -89,8 +82,8 @@
 /*!
 => Theme Name: {{ NAME }}
 => Theme URI: {{ URL }}
-=> Author: {{ AUTOR NAME }}
-=> Author URI: {{ AUTOR URL }}
+=> Author: {{ AUTHOR NAME }}
+=> Author URI: {{ AUTHOR URL }}
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -175,7 +168,7 @@ body#layout .blayout::after {
    <b:includable id='comment-disqus'>
       <div id='disqus_thread'/>
       <script type='text/javascript'>
-         var disqus_url = "<data:blog.url.canonical/>",
+         var disqus_url = "<data:view.url.canonical/>",
          disqus_shortname = "<b:eval expr='data:commentsType[1]'/>";//<![CDATA[
          (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -184,7 +177,7 @@ body#layout .blayout::after {
       </script>
    </b:includable>
    <b:includable id='comment-facebook'>
-      <div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:blog.url.canonical'/>
+      <div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:view.url.canonical'/>
    </b:includable>
    <b:includable id='comment-form' var='post'><!--none--></b:includable>
    <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
