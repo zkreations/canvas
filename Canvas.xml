@@ -168,7 +168,7 @@ body#layout .blayout::after {
    <b:includable id='comment-disqus'>
       <div id='disqus_thread'/>
       <script type='text/javascript'>
-         var disqus_url = "<data:view.url.canonical/>",
+         var disqus_url = "<data:post.url.canonical/>",
          disqus_shortname = "<b:eval expr='data:commentsType[1]'/>";//<![CDATA[
          (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
             dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
@@ -177,7 +177,7 @@ body#layout .blayout::after {
       </script>
    </b:includable>
    <b:includable id='comment-facebook'>
-      <div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:view.url.canonical'/>
+      <div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:post.url.canonical'/>
    </b:includable>
    <b:includable id='comment-form' var='post'><!--none--></b:includable>
    <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
