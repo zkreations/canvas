@@ -1,4 +1,4 @@
-/*!Anime CSS Comment v1.0.4*/
+/*!Anime CSS Comment v1.0.5*/
 .comment {
     position: relative;
     margin: 0;
@@ -95,3 +95,9 @@
 .continue,
 .loadmore,
 .thread-chrome.thread-collapsed {display: none;}
+.deleted-comment {
+    padding: 1rem;
+    display: block;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
