@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Anime v2.4.21 ?= Canvas.xml v1.4.78 | github.com/zkreations/canvas.xml -->
+<!-- Anime v2.4.23 ?= Canvas.xml v1.4.78 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
@@ -951,6 +951,7 @@ body#layout .blayout::after {
    </Group>
    
    <Group description="Layout (Refrescar)" selector=".container__main">
+      <Variable name="layout.postnum" description="Numero de entradas" type="string" default="10" value="10"/>
       <Variable name="layout.single" description="Activar Single.css (Widgets)" type="length" min="0" max="1px" default="0px" value="0px"/>
       <Variable name="layout.invert" description="Invertir blog y sidebar (Cuerpo)" type="length" min="0" max="1px" default="0px" value="0px"/>
       <Variable name="layout.full" description="Mostrar Sidebar" type="length" min="0" max="1px" default="1px" value="1px"/>
@@ -1390,7 +1391,7 @@ article table thead th {border-color: $(borde.article.body);} /* <= Color de bor
    <b:includable id='nextprev-num'>
    <script>/*! Paginacion numerica emiliocobos.net/paginacion-para-blogger-mas-ligera/ | modificacion zkreations.com */
    function paginacion(c) {
-    var k = <b:eval expr='data:posts.size'/>,//<![CDATA[
+    var k = <b:eval expr='data:skin.vars.layout_postnum'/>,//<![CDATA[
         h = location.href,f = k,e = 6,z = 'is-here',x = '<i class="dan-arrow-left"></i> Anterior',A = 'Siguiente <i class="dan-arrow-right"></i>',B = true,C = '<a class="flex align-items-center" href="{{link}}" {{rel}}>{{num}}</a>',y = '<a class="flex align-items-center" href="#is-here">{{num}}</a>',D = '';a = '';var m=function(b,a,c){a=a!==l?"/search"+l+"?updated-max="+a+"&max-results="+k:"/"!==a?"/search"+l:a;return C.replace(/{{num}}/g,b).replace(/{{link}}/g,a).replace(/{{rel}}/g,c?'rel="'+c+'"':"")},p=function(a,b){return void 0===b?y.replace(/{{num}}/g,a).replace(/class=("|')([^"']*)/,"class=$1$2 "+z):y.replace(/{{num}}/g,a)},q=function(a,b){b||(b=a,a=0);d=d.slice(a,b)},n=h.match(/\/label\/[^?]*/),l=null===n?"/":n[0];n=c.feed.entry;c=[];var d=[],r=
 f-1;f=0;for(var b,g=0,t=[],u=[],v,w;g=n[r];r+=k)g=g.published.$t,g=encodeURIComponent(g.substring(0,19)+g.substring(23,29)),-1!==h.indexOf(g)&&(b=c.length),n[r+1]&&c.push(g);g=c.length+1;void 0!==b?(t.push(c[b-1]?m(x,c[b-1]):0===b?m(x,l,"prev"):""),d.push(m(1,l))):(d.push(p(1)),b=-1);for(;f<c.length;f++)h=c[f],f===b?d.push(p(f+2)):d.push(m(f+2,h)),f===c.length-1&&f!==b&&u.push(c[b+1]?m(A,c[b+1],"next"):"");e&&d.length>=e&&(b++,d[b-Math.floor(e/2)]&&d[b+Math.ceil(e/2)]?(v=0!==b-Math.floor(e/2),w=b+
 Math.ceil(e/2)!==d.length,q(b-Math.floor(e/2),b+Math.ceil(e/2))):b<=e/2?(q(e),w=!0):b>=d.length-e/2&&(q(d.length-e,d.length),v=!0));B&&(v&&t.push(p("...",!0)),w&&u.unshift(p("...",!0)));d=t.concat(d,u);document.getElementById("blog-pager").innerHTML=D.replace(/{{total}}/g,g)+d.join("")+a.replace(/{{total}}/g,g)}
