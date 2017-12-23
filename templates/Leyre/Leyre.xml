@@ -1234,7 +1234,7 @@ article blockquote {background: $(fondo.article.quote);} /* <= fondo citacion*/
    <b:with value='["blogger","Shortname","10"]' var='commentsType'><!-- Elige entre facebook, disqus o blogger -->
          
    <b:if cond='data:view.isMultipleItems'>
-      <b:if cond='data:view.isSearch'>
+      <b:if cond='data:view.search.query or data:view.search.label'>
          <h2><b:eval expr='data:view.search.query ? "Resultados de: " + data:view.search.query : "Mostrando entradas de: " + data:view.search.label'/></h2>
       </b:if>
       <b:if cond='data:posts.size == 0'>
