@@ -1592,7 +1592,7 @@ Math.ceil(e/2)!==d.length,q(b-Math.floor(e/2),b+Math.ceil(e/2))):b<=e/2?(q(e),w=
   </b:widget>
 </b:section>
 <!--Esta obra está licenciada bajo la Licencia Creative Commons Atribución-NoComercial 4.0 Internacional. Para ver una copia de esta licencia, visita http://creativecommons.org/licenses/by-nc/4.0/-->
-<p class="footer__copy" data-rel="cc:attribution">Made with <strong class="love">♥</strong> <a href="//zkreations.com" property="cc:attributionName" rel="cc:attributionURL,nofollow" target="_blank" class="copy__link">by zkreations</a> &amp; <a class="copy__link" href="https://www.blogger.com" rel="nofollow" target="_blank">Blogger</a> | <span>© Leyre 2017</span></p>
+<p class="footer__copy" data-rel="cc:attribution">Made with <strong class="love">♥</strong> <a href="//zkreations.com" property="cc:attributionName" rel="cc:attributionURL,nofollow" target="_blank" class="copy__link">by zkreations</a> &amp; <a class="copy__link" href="https://www.blogger.com" rel="nofollow" target="_blank">Blogger</a> | <span>© <data:blog.title/> 2017</span></p>
 </footer>
 </div><!-- .container -->
 
