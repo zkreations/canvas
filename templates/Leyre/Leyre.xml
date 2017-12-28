@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Leyre v2.3.88 ?= Canvas.xml v1.4.78 | github.com/zkreations/canvas.xml -->
+<!-- Leyre v2.3.88 ?= Canvas.xml v1.4.80 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
@@ -1465,7 +1465,7 @@ Math.ceil(e/2)!==d.length,q(b-Math.floor(e/2),b+Math.ceil(e/2))):b<=e/2?(q(e),w=
    </b:includable>
    <b:includable id='threaded_comment_js' var='post'>
       <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/><b:template-script inline='true' name='threaded_comments'/>
-      <script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);/*<![CDATA[*/var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));//]]></script>
+      <b:if cond='data:post.showThreadedComments'><script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);/*<![CDATA[*/var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));//]]></script></b:if>
    </b:includable>
    <b:includable id='threaded_comments' var='post'><!--none--></b:includable>
    </b:widget>
