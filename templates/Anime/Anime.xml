@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Anime v2.4.23 ?= Canvas.xml v1.4.80 | github.com/zkreations/canvas.xml -->
+<!-- Anime v2.4.24 ?= Canvas.xml v1.4.80 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
@@ -1293,7 +1293,7 @@ article table thead th {border-color: $(borde.article.body);} /* <= Color de bor
 	<b:with value='["blogger","Shortname","10"]' var='commentsType'><!-- Elige entre facebook, disqus o blogger -->
 
 	<b:if cond='data:view.isMultipleItems'>
-	<h2><b:eval expr='data:view.search.query ? "Resultados de: " + data:view.search.query : (data:view.isLabelSearch ? data:view.search.label :  data:messages.recentPosts)'/></h2>
+	<h2><b:eval expr='data:view.search.query ? "Resultados de: " + data:view.search.query.escaped : (data:view.isLabelSearch ? data:view.search.label :  data:messages.recentPosts)'/></h2>
 	<div class='widget-content'>
 		<b:if cond='data:posts.size == 0'>
 			<p class='info'><b:include name='status-message'/></p>
