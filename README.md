@@ -1,10 +1,9 @@
 # Canvas.xml
 
-Canvas te proporciona una base para blogger limpia, eliminando el código css/javascript por defecto, integra **facebook Open Graph**, **twitter card** y metadatos necesarios para el **SEO**.
+> Canvas, base para blogger limpia sin css ni javascript, optimizado para SEO
 
-### Ventajas de usar Canvas
-
-Es mucho mas fácil diseñar para blogger. Tus diseños pueden ser como que tu quieras debido a la exclusión del código de blogger. Con Canvas.xml es fácil lograr un blog con una velocidad de carga optima. 
+[![license][license-img]][license-url]
+[![changelog][changelog-img]][changelog-url]
 
 ## Instalación
 
@@ -40,9 +39,13 @@ En caso de usar disqus o facebook, puedes volver a los comentarios de blogger de
 
 # Single.css
 
-Single es un archivo css que rediseña los widgets de blogger, les añade aspectos responsive y ademas los vuelve modulares, de tal forma que dependiendo del maquetado, el widget interactue cambiando su diseño en caso de encontrarse en el sidebar, el main o el header.
+Single es un archivo css que rediseña los widgets de blogger, les añade aspectos responsive y ademas los vuelve modulares, lo que permite que el widget interactue cambiando de diseño en caso de encontrarse en el sidebar, el main o el header.
 
 ## Licencia
 
-**Canvas.xml** is licensed under the GNU GENERAL PUBLIC LICENSE.
-**Single.css** is licensed under the GNU GENERAL PUBLIC LICENSE.
+**Canvas.xml** and **Single.css** is licensed under the GNU GENERAL PUBLIC LICENSE.
+
+[changelog-img]: https://img.shields.io/badge/changelog-md-blue.svg?style=flat-square
+[changelog-url]: changelog.md
+[license-img]: https://img.shields.io/github/license/mashape/apistatus.svg
+[license-url]: LICENSE
