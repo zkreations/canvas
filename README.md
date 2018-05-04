@@ -47,5 +47,5 @@ Single es un archivo css que rediseña los widgets de blogger, les añade aspect
 
 [changelog-img]: https://img.shields.io/badge/changelog-md-blue.svg?style=flat-square
 [changelog-url]: changelog.md
-[license-img]: https://img.shields.io/github/license/mashape/apistatus.svg
+[license-img]: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square
 [license-url]: LICENSE
