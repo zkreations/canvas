@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:responsive='true' b:version='2' lang='es'>
+<html b:css='false' b:js='false' b:responsive='true' b:version='2' lang='es'>
 
-<!-- Canvas.xml v1.4.80 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.5.0 | github.com/zkreations/canvas.xml -->
 <head>
 
 <!-- Datos generales -->
@@ -15,15 +15,10 @@
 <!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
-<!-- Datos personalizados del usuario -->
-<link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
-<meta content='@blogger' name='twitter:site'/>
-<meta content='@google' name='twitter:creator'/>
-
 <!-- favicon -->
 <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 
-<!-- Enlace Canonico -->
+<!-- Url canonical -->
 <meta expr:content='data:view.url.canonical' property='og:url'/>
 <meta expr:content='data:view.url.canonical' name='twitter:url'/>
 <link expr:href='data:view.url.canonical' rel='canonical'/>
@@ -33,33 +28,26 @@
 <meta expr:content='data:view.description' name='twitter:description'/>
 <meta expr:content='data:view.description' name='description'/>
 
-<!-- Meta Robots Relativo -->
+<!-- Meta Robots -->
 <b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='robots'>
    <meta expr:content='data:robots' name='robots'/>
-   <b:if cond='data:robots == "index,follow"'>
-      <meta content='noodp,noydir' name='robots'/>
-   </b:if>
 </b:with>
 
-<!-- Optimizando Posts -->
+<!-- Posts -->
 <b:if cond='data:view.isPost and data:view.featuredImage'>
    <link expr:href='data:view.featuredImage' rel='image_src'/>
    <meta expr:content='data:view.featuredImage' name='twitter:image'/>
    <meta expr:content='data:view.featuredImage' property='og:image'/>
 </b:if>
 
-<!-- Optimizando Titulos -->
-<b:if cond='data:view.isError'>
-   <title>Error 404 en <data:blog.pageTitle/></title>
-<b:else/>
-   <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='titles'>
-      <meta expr:content='data:titles' property='og:title'/>
-      <meta expr:content='data:titles' name='twitter:title'/>
-      <title><b:eval expr='data:view.search.label ? "Entradas de " + data:titles : data:titles'/></title>
-   </b:with>
-</b:if>
+<!-- Titles -->
+<b:with value='data:view.isError ? "404 no encontrado" : (data:view.isLabelSearch ? "Etiqueta " + data:view.search.label : data:view.title)' var='title'>
+   <meta expr:content='data:title' property='og:title'/>
+   <meta expr:content='data:title' name='twitter:title'/>
+   <title><data:title/></title>
+</b:with>
 
-<!-- feeds -->
+<!-- Feeds -->
 <b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" ' expr:title='data:blog.title + " - Atom"' rel='alternate' type='application/atom+xml' name='link'/>
 <b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" params {alt: "rss"}' expr:title='data:blog.title + " - RSS"' rel='alternate' type='application/rss+xml' name='link'/>
 
@@ -69,7 +57,7 @@
 </script>
 
 <!--[if lt IE 9]>
-   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
 <![endif]-->
 <!-- Fin de datos-->
 
@@ -239,5 +227,5 @@ body#layout .blayout::after {
 
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
-&lt;!--</body>--&gt;&lt;/body&gt;
+</body>
 </html>
