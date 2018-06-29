@@ -25,6 +25,27 @@ Canvas.xml es una base para Blogger que le permite crear plantillas desde cero. 
 
 Copia todo el contenido de <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml" target="_blank">Canvas.xml</a>. Ahora ve a blogger, crea un nuevo blog y selecciona la plantilla **Sencillo**, luego ve a Temas > Editar HTML, elimina todo el código dentro del editor y pega el código copiado con anterioridad. No olvides guardar los cambios.
 
+## Meta
+#### twitter:card
+
+Las `twitter:card` estan configuradas con sus valores mínimos y el estilo por defecto `summary_large_image`. Puedes cambiarlo en la **linea 11**:
+
+```html
+<meta content='summary_large_image' name='twitter:card'/>
+```
+
+También puedes agregar etiquetas meta opcionales para `twitter:card`, ejemplo:
+
+```html
+<meta content='@userProfile' name='twitter:site'/>
+<meta content='@pageProfile' name='twitter:creator'/>
+```
+
+Para saber más, visita la documentación en [twitter developers](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started.html)
+
+#### Open Graph
+
+Esta configurado con sus valores mínimos aceptables. Para saber más, visita la documentación en [The Open Graph protocol](http://ogp.me/)
 
 ## Opciones
 
@@ -37,15 +58,17 @@ A partir de la versión 1.6.x las opciones son manejadas por variables dentro de
 | `config.fb.commentNums` | number | `10` | Establece el valor de **data-numposts** - [Ver más](https://developers.facebook.com/docs/plugins/comments/#settings) |
 | `config.fb.commentSkin` | string | `light` | Tema para los comentarios de facebook: `light` o `dark` |
 
-### Modo de uso
+#### Modo de uso
 
-Solo se cambia el valor del campo `value`, por otro valor  que sea aceptable, por ejemplo:
+Solo se cambia el valor del campo `value`, por otro valor  que sea aceptable, ejemplo:
 
 ```html
-<Variable name="config.comments" description="Comment system" type="string" default="blogger" value="facebook"/>
+<Variable {{..}} default="blogger" value="facebook"/>
 ```
 
-## Includables
+**Nota:** El valor dentro del atributo `default`, lo volverá a tomar Canvas.xml si restauras la configuración desde el **Diseñador de Plantilla**.
+
+## Includes
 
 | Includables                                  |  Description | 
 | -------------------------------------------- | ----------------------------------- |
@@ -56,19 +79,30 @@ Solo se cambia el valor del campo `value`, por otro valor  que sea aceptable, po
 | `comments-disqus`       | Inserta el sistema de comentarios de disqus |
 | `comments-facebook`       | Inserta el sistema de comentarios de facebook |
 
-### Modo de uso
+#### Modo de uso
 
-Se emplea una etiqueta `b:include` mas el nombre del includable a solicitar, por ejemplo:
+Se emplea una etiqueta `b:include` mas el nombre del includable a solicitar, ejemplo:
 
 ```html
 <b:include data='post' name='post'/>
 ```
 
-En este otro ejemplo se llama a los comentarios de disqus:
+Otro ejemplo llamando a los comentarios de disqus:
 
 ```html
 <b:include data='post' name='disqus'/>
 ```
+
+**Nota:** Todos los includables (excepto `netxprev`) requieren de un ciclo `b:loop` para la tabla `data:posts` y con la variable `post`, ejemplo: 
+
+```html
+<b:loop values='data:posts' var='post'>
+   <b:include data='post' name='post'/><!-- Include posts -->
+</b:loop>
+```
+
+Además, solo funcionan en el widget **Blog1**. Dentro del `b:includable` con la id "**main**" se encuentra un ejemplo.
+
 
 ## License
 
