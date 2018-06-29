@@ -1,51 +1,75 @@
-# Canvas.xml
+<p align="center">
+	<a href="#url" target="_blank">
+		<img src="./static/logo.svg" style='opacity: .8' width="400" alt="Canvas.xml Logo">
+	</a>
+</p>
 
-> Canvas, base para blogger limpia sin css ni javascript, optimizado para SEO
+<p align="center">
+   <a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.6.0">
+		<img src="https://img.shields.io/badge/release-v1.6.0-yellowgreen.svg" alt="version">
+	</a>
+   <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml">
+		<img src="https://img.shields.io/badge/layout%20version-2-lightgrey.svg" alt="layout version">
+	</a>
+	<a href="https://github.com/zkreations/Canvas.xml/blob/master/changelog.md">
+		<img src="https://img.shields.io/badge/changelog-md-blue.svg" alt="changelog">
+	</a>
+	<a href="https://github.com/zkreations/Canvas.xml/blob/master/LICENSE">
+		<img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="LICENSE">
+	</a>
+</p>
 
-[![license][license-img]][license-url]
-[![changelog][changelog-img]][changelog-url]
+Canvas.xml es una base para Blogger que le permite crear plantillas desde cero. Está optimizada para seo, no contiene javascript, html ni css intrusivo e integra de forma inteligente comentarios de Disqus y facebook.
 
 ## Instalación
 
-Descarga **Canvas**, abre el archivo con cualquier editor de texto y copia todo el contenido. Ahora ve a blogger, crea un nuevo blog, luego ve a edición html y elimina todo el código dentro del editor, pega el código copiado con anterioridad y guarda los cambios.
+Copia todo el contenido de <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml" target="_blank">Canvas.xml</a>. Ahora ve a blogger, crea un nuevo blog y selecciona la plantilla **Sencillo**, luego ve a Temas > Editar HTML, elimina todo el código dentro del editor y pega el código copiado con anterioridad. No olvides guardar los cambios.
 
-## Comentarios Disqus
 
-Busca `<b:with value='["blogger","Shortname","10"]' var='commentsType'>` y cambia **blogger** por **disqus** y cambia **Shortname** por el nombre corto que se encuentra en tu panel de administracion de Disqus.
+## Opciones
 
-## Comentarios facebook
+A partir de la versión 1.6.x las opciones son manejadas por variables dentro de `b:skin`. La siguiente tabla contiene los datos disponibles hasta el momento
 
-Busca `<body>` y debajo de eso pega el **sdk de facebook**:
+| Variable                | Type   |  Default  | Description | 
+| ----------------------- | ------ | ----------| ----------------------------- |
+| `config.comments`       | string | `blogger` | Establece los comentarios por defecto: `blogger`, `facebook` o `disqus` |
+| `config.dq.shortname`   | string | `shortname` | Nombre corto del sitio en Disqus - [Ver más](https://help.disqus.com/installation/whats-a-shortname) |
+| `config.fb.commentNums` | number | `10` | Establece el valor de **data-numposts** - [Ver más](https://developers.facebook.com/docs/plugins/comments/#settings) |
+| `config.fb.commentSkin` | string | `light` | Tema para los comentarios de facebook: `light` o `dark` |
+
+### Modo de uso
+
+Solo se cambia el valor del campo `value`, por otro valor  que sea aceptable, por ejemplo:
 
 ```html
-<div id="fb-root"></div>
-<script>//<![CDATA[
-   (function(d, s, id) {
-   var js, fjs = d.getElementsByTagName(s)[0];
-   if (d.getElementById(id)) return;
-   js = d.createElement(s); js.id = id;
-   js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.8";
-   fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-//]]></script>
+<Variable name="config.comments" description="Comment system" type="string" default="blogger" value="facebook"/>
 ```
 
-Ahora Busca `<b:with value='["blogger","Shortname","10"]' var='commentsType'>` y cambia **blogger** por **facebook**. Ahora cambia **10** por el numero de comentarios a mostrar de facebook.
+## Includables
 
-## Comentarios Blogger
+| Includables                                  |  Description | 
+| -------------------------------------------- | ----------------------------------- |
+| `post`       | Inserta entradas en la pagina principal, post y pagina estática |
+| `nextprev`       | Inserta la paginación |
+| `comments`       | Inserta el sistema de comentarios, de acuerdo a la configuración de la variable `config.comments` |
+| `comments-blogger`       | Inserta el sistema de comentarios de Blogger |
+| `comments-disqus`       | Inserta el sistema de comentarios de disqus |
+| `comments-facebook`       | Inserta el sistema de comentarios de facebook |
 
-En caso de usar disqus o facebook, puedes volver a los comentarios de blogger dejando el valor por defecto: `<b:with value='["blogger","Shortname","10"]' var='commentsType'>`
+### Modo de uso
 
+Se emplea una etiqueta `b:include` mas el nombre del includable a solicitar, por ejemplo:
 
-# Single.css
+```html
+<b:include data='post' name='post'/>
+```
 
-Single es un archivo css que rediseña los widgets de blogger, les añade aspectos responsive y ademas los vuelve modulares, lo que permite que el widget interactue cambiando de diseño en caso de encontrarse en el sidebar, el main o el header.
+En este otro ejemplo se llama a los comentarios de disqus:
 
-## Licencia
+```html
+<b:include data='post' name='disqus'/>
+```
+
+## License
 
 **Canvas.xml** and **Single.css** is licensed under the GNU GENERAL PUBLIC LICENSE.
-
-[changelog-img]: https://img.shields.io/badge/changelog-md-blue.svg?style=flat-square
-[changelog-url]: changelog.md
-[license-img]: https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square
-[license-url]: LICENSE

@@ -121,6 +121,7 @@ img[data-original-width] {height: auto;}
    <!-- Options for Comments -->
    <Variable name="config.dq.shortname" description="Short name of Disqus" type="string" default="shortname" value="shortname"/>
    <Variable name="config.fb.commentNums" description="Initial number of comments" type="string" default="10" value="10"/>
+   <Variable name="config.fb.commentSkin" description="Theme color" type="string" default="light" value="light"/>
 */
 
 ]]></b:skin>
@@ -176,7 +177,7 @@ img[data-original-width] {height: auto;}
        </script>
    </b:includable>
    <b:includable id='comments-facebook' var='post'>
-      <div class='fb-comments' expr:data-numposts='data:skin.vars.config_fb_commentNums' expr:data-href='data:view.url.canonical'/>
+      <div class='fb-comments' expr:data-colorscheme='data:skin.vars.config_fb_commentSkin' expr:data-href='data:view.url.canonical' expr:data-numposts='data:skin.vars.config_fb_commentNums'/>
    </b:includable>
    <b:includable id='comment-form' var='post'><!--disabled--></b:includable>
    <b:includable id='commentDeleteIcon' var='comment'><!--disabled--></b:includable>
