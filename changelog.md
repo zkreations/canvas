@@ -1,5 +1,17 @@
 # changelog
 
+## v1.6.0
+
+- Incluye todos los cambios de la versión **pre-release**, con algunas modificaciones (1.5.20)
+- Mejor legibilidad (+ux)
+- Se toman en cuenta las páginas estáticas para `og:` y `twitter:card` (fix)
+- Se comprueba la existencia de `data:view.featuredImage` en donde haga falta (fix)
+- Se elimina el soporte de IE9 para HTML5 (+limpieza)
+- Se eliminan etiquetas HTML sin relevancia (+limpieza)
+- Los textos se traducen automáticamente al idioma configurado en Blogger (+ux)
+- Los comentarios "guía" se tradujeron al inglés para facilitar la comprensión (+ux)
+- Corrección para imágenes responsive sin interferir con los estilos del editor (fix)
+
 ## v1.5.20
 
 - Se agrega `og:site_name` y el protocolo de marcado para Open Graph (+seo)
