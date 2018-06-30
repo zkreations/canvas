@@ -69,7 +69,7 @@
 </script>
 
 <!-- Single.css -->
-<b:tag cond='data:skin.vars.layout_single != "0px"' href="//cdn.rawgit.com/zkreations/Canvas.xml/master/Single/Single.min.css" name='link' rel='stylesheet'/>
+<b:tag cond='data:skin.vars.layout_single != "0px"' href="//cdn.rawgit.com/zkreations/Canvas.xml/master/single/single.min.css" name='link' rel='stylesheet'/>
 
 <!--[if lt IE 9]>
    <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
