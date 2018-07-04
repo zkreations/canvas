@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:js='false' b:responsive='true' b:version='2' lang='es' prefix="og: http://ogp.me/ns#">
+<html b:css='false' b:js='false' b:responsive='true' b:version='2' expr:lang='data:blog.locale.language' prefix="og: http://ogp.me/ns#">
 
-<!-- Canvas.xml v1.6.0 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.6.1 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
