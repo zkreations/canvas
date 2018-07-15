@@ -1,5 +1,14 @@
 # changelog
 
+
+## v1.6.2
+
+- Se agrega `b:template-skin` para estilos de "Diseño" del panel de administración
+
+## v1.6.1
+
+- Se establece el idioma del blog configurado en Blogger (+ux)
+
 ## v1.6.0
 
 - Incluye todos los cambios de la versión **pre-release**, con algunas modificaciones (1.5.20)
@@ -8,7 +17,6 @@
 - Se comprueba la existencia de `data:view.featuredImage` en donde haga falta (fix)
 - Se elimina el soporte de IE9 para HTML5 (+limpieza)
 - Se eliminan etiquetas HTML sin relevancia (+limpieza)
-- Se establece el idioma del blog configurado en Blogger (+ux)
 - Los textos se traducen automáticamente al idioma configurado en Blogger (+ux)
 - Los comentarios "guía" se tradujeron al inglés para facilitar la comprensión (+ux)
 - Corrección para imágenes responsive sin interferir con los estilos del editor (fix)

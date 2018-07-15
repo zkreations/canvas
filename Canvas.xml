@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:js='false' b:responsive='true' b:version='2' expr:lang='data:blog.locale.language' prefix="og: http://ogp.me/ns#">
 
-<!-- Canvas.xml v1.6.1 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.6.2 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -123,8 +123,11 @@ img[data-original-width] {height: auto;}
    <Variable name="config.fb.commentNums" description="Initial number of comments" type="string" default="10" value="10"/>
    <Variable name="config.fb.commentSkin" description="Theme color" type="string" default="light" value="light"/>
 */
-
 ]]></b:skin>
+
+<b:template-skin><![CDATA[ 
+/*Your Layout Styles*/
+]]></b:template-skin>
 
 &lt;!--</head>--&gt;&lt;/head&gt;
 
