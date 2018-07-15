@@ -5,8 +5,8 @@
 </p>
 
 <p align="center">
-   <a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.6.1">
-		<img src="https://img.shields.io/badge/release-v1.6.1-yellowgreen.svg" alt="version">
+   <a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.6.2">
+		<img src="https://img.shields.io/badge/release-v1.6.2-yellowgreen.svg" alt="version">
 	</a>
    <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml">
 		<img src="https://img.shields.io/badge/layout%20version-2-lightgrey.svg" alt="layout version">
