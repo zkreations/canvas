@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:js='false' b:responsive='true' b:version='2' expr:lang='data:blog.locale.language' prefix="og: http://ogp.me/ns#">
+<html b:css='false' b:js='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Canvas.xml v1.6.2 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.6.4 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
 <meta expr:charset='data:blog.encoding'/>
-<meta content='blogger' name='generator'/>
-<meta content='summary_large_image' name='twitter:card'/>
 <meta expr:content='data:blog.adultContent ? "mature" : "general"' name='rating'/>
 <meta expr:content='data:view.isMultipleItems ? "website" : "article"' property='og:type'/>
+
+<!-- App name -->
+<meta expr:content='data:blog.title' name='application-name'/>
 <meta expr:content='data:blog.title' property='og:site_name'/>
+
+<!-- Meta Referrer Tag -->
+<meta content='unsafe-url' name='referrer'/>
+
+<!-- Type of twitter card -->
+<meta content='summary_large_image' name='twitter:card'/>
 
 <!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
@@ -126,16 +133,16 @@ img[data-original-width] {height: auto;}
 ]]></b:skin>
 
 <b:template-skin><![CDATA[ 
-/*Your Layout Styles*/
+/* => Your Layout Styles */
 ]]></b:template-skin>
 
 &lt;!--</head>--&gt;&lt;/head&gt;
 
 <body>
 
-<!-- Entradas -->
+<!-- Posts -->
 <b:section id='Blog'>
-   <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog'>
+   <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
    <b:includable id='main' var='top'>
 
    <!-- Basic structure of example. You can delete from here {{ -->
@@ -217,7 +224,7 @@ img[data-original-width] {height: auto;}
     
       <b:if cond='data:view.isMultipleItems'>
 
-      <!--{{ Homepage }}-->
+      <!--{{ Home Page }}-->
 
       <b:elseif cond='data:view.isPost'/>
 

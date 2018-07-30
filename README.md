@@ -5,8 +5,8 @@
 </p>
 
 <p align="center">
-   <a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.6.2">
-		<img src="https://img.shields.io/badge/release-v1.6.2-yellowgreen.svg" alt="version">
+   <a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.6.4">
+		<img src="https://img.shields.io/badge/release-v1.6.4-yellowgreen.svg" alt="version">
 	</a>
    <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml">
 		<img src="https://img.shields.io/badge/layout%20version-2-lightgrey.svg" alt="layout version">
@@ -23,12 +23,17 @@ Canvas.xml es una base para Blogger que le permite crear plantillas desde cero. 
 
 ## Instalación
 
-Copia todo el contenido de <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml" target="_blank">Canvas.xml</a>. Ahora ve a blogger, crea un nuevo blog y selecciona la plantilla **Sencillo**, luego ve a Temas > Editar HTML, elimina todo el código dentro del editor y pega el código copiado con anterioridad. No olvides guardar los cambios.
+Copia todo el contenido de <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml" target="_blank">Canvas.xml</a>. Ahora ve a Blogger, crea un nuevo blog y selecciona la plantilla **Sencillo**, luego ve a Temas > Editar HTML, elimina todo el código dentro del editor y pega el código copiado con anterioridad. Guarda los cambios.
 
 ## Meta
+
+### Referrer
+
+En la **línea 17** se encuentra la etiqueta meta referrer para especificar qué datos de referente, de entre los que se envían con la cabecera deben incluirse con las solicitudes realizadas. Por defecto esta establecido en `unsafe-url`, lo que permite cualquier dominio o ruta de acceso, sin embargo, puede que este valor no sea el adecuado para su blog, por lo cual recomiendo leer [Referrer-Policy](https://developer.mozilla.org/es/docs/Web/HTTP/Headers/Referrer-Policy) redactado por **moz://a**
+
 #### twitter:card
 
-Las `twitter:card` estan configuradas con sus valores mínimos y el estilo por defecto `summary_large_image`. Puedes cambiarlo en la **linea 11**:
+Las `twitter:card` estan configuradas con sus valores mínimos y el estilo por defecto `summary_large_image`. Puedes cambiarlo en la **linea 20**:
 
 ```html
 <meta content='summary_large_image' name='twitter:card'/>

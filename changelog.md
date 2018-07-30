@@ -1,5 +1,11 @@
 # changelog
 
+## v1.6.4
+
+- Se retira `meta=generator` puesto que no influye en SEO
+- Se agrega `meta=referrer` para especificar los datos de referente.
+- Se agrega `meta=application-name` que especifica el nombre del ícono de la aplicación en dispositivos móviles cuando el usuario selecciona la función "Agregar a pantalla de inicio" en su navegador web.
+- Se agrega `data:blog.locale.languageDirection` la cual especifica la dirección de lectura según el idioma establecido en la configuración de Blogger.
 
 ## v1.6.2
 
