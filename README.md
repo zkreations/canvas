@@ -67,7 +67,7 @@ A partir de la versión 1.6.x las opciones son manejadas por variables dentro de
 
 Solo se cambia el valor del campo `value`, por otro valor  que sea aceptable, ejemplo:
 
-```html
+```xml
 <Variable {{..}} default="blogger" value="facebook"/>
 ```
 
@@ -88,19 +88,19 @@ Solo se cambia el valor del campo `value`, por otro valor  que sea aceptable, ej
 
 Se emplea una etiqueta `b:include` mas el nombre del includable a solicitar, ejemplo:
 
-```html
+```xml
 <b:include data='post' name='post'/>
 ```
 
 Otro ejemplo llamando a los comentarios de disqus:
 
-```html
+```xml
 <b:include data='post' name='disqus'/>
 ```
 
 **Nota:** Todos los includables (excepto `netxprev`) requieren de un ciclo `b:loop` para la tabla `data:posts` y con la variable `post`, ejemplo: 
 
-```html
+```xml
 <b:loop values='data:posts' var='post'>
    <b:include data='post' name='post'/><!-- Include posts -->
 </b:loop>
