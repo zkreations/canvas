@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:js='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Canvas.xml v1.6.5 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.6.7 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -204,7 +204,9 @@ img[data-original-width] {height: auto;}
       </div>
    </b:includable>
    <b:includable id='comments' var='post'>
-      <b:include data='post' expr:name='data:view.isPreview ? "status-message" : (data:post.allowComments ? "comments-" + data:skin.vars.config_comments : "status-message")'/>
+      <b:if cond='data:post.allowComments'>
+         <b:include data='post' expr:name='data:view.isPreview ? "status-message" : "comments-" + data:skin.vars.config_comments'/>
+      </b:if>
    </b:includable>
    <b:includable id='feedLinks'><!--disabled--></b:includable>
    <b:includable id='feedLinksBody' var='links'><!--disabled--></b:includable>

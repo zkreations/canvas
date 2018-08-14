@@ -1,8 +1,9 @@
 # changelog
 
-## v1.6.5
+## v1.6.7
 
 - Se elimina la opción "responder" si no se permiten nuevos comentarios (+ux)
+- Los comentarios no renderizan si no están permitidos (+ux)
 
 ## v1.6.4
 
