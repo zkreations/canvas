@@ -1,5 +1,9 @@
 # changelog
 
+## v1.6.5
+
+- Se elimina la opción "responder" si no se permiten nuevos comentarios (+ux)
+
 ## v1.6.4
 
 - Se retira `meta=generator` puesto que no influye en SEO
