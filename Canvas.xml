@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:js='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Canvas.xml v1.6.7 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.6.8 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -81,6 +81,7 @@
 => Theme URI: {{ URL }}
 => Author: {{ AUTHOR NAME }}
 => Author URI: {{ AUTHOR URL }}
+=> Version: {{ THE VERSION }}
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */

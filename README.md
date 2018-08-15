@@ -5,8 +5,8 @@
 </p>
 
 <p align="center">
-   <a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.6.7">
-		<img src="https://img.shields.io/badge/release-v1.6.7-yellowgreen.svg" alt="version">
+   <a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.6.8">
+		<img src="https://img.shields.io/badge/release-v1.6.8-yellowgreen.svg" alt="version">
 	</a>
    <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml">
 		<img src="https://img.shields.io/badge/layout%20version-2-lightgrey.svg" alt="layout version">
@@ -29,7 +29,7 @@ Copia todo el contenido de <a href="https://raw.githubusercontent.com/zkreations
 
 ### Referrer
 
-En la **línea 17** se encuentra la etiqueta meta referrer para especificar qué datos de referente, de entre los que se envían con la cabecera deben incluirse con las solicitudes realizadas. Por defecto esta establecido en `unsafe-url`, lo que permite cualquier dominio o ruta de acceso, sin embargo, puede que este valor no sea el adecuado para su blog, por lo cual recomiendo leer [Referrer-Policy](https://developer.mozilla.org/es/docs/Web/HTTP/Headers/Referrer-Policy) redactado por **moz://a**
+En la **línea 17** se encuentra la etiqueta meta referrer para especificar qué datos de referente, de entre los que se envían con la cabecera deben incluirse con las solicitudes realizadas. Por defecto esta establecido en `unsafe-url`, lo que permite cualquier dominio o ruta de acceso de referencia. Leer [Referrer-Policy](https://developer.mozilla.org/es/docs/Web/HTTP/Headers/Referrer-Policy) redactado por **moz://a** para más información.
 
 #### twitter:card
 
@@ -98,7 +98,7 @@ Otro ejemplo llamando a los comentarios de disqus:
 <b:include data='post' name='disqus'/>
 ```
 
-**Nota:** Todos los includables (excepto `netxprev`) requieren de un ciclo `b:loop` para la tabla `data:posts` y con la variable `post`, ejemplo: 
+**Nota:** Todos los includables (excepto `netxprev`) requieren de un ciclo `b:loop` para la tabla `data:posts` con la variable `post`, ejemplo: 
 
 ```xml
 <b:loop values='data:posts' var='post'>
