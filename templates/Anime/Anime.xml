@@ -1,205 +1,544 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:responsive='true' b:version='2' lang='es'>
+<html b:css='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Anime v2.4.24 ?= Canvas.xml v1.4.80 | github.com/zkreations/canvas.xml -->
+<!-- Anime.xml v3.0.4-free | Canvas.xml v1.6.8 | github.com/zkreations/canvas.xml -->
+
 <head>
-
-<!-- Datos generales -->
+<!-- Basic data -->
 <meta expr:charset='data:blog.encoding'/>
-<meta content='blogger' name='generator'/>
-<meta content='summary_large_image' name='twitter:card'/>
 <meta expr:content='data:blog.adultContent ? "mature" : "general"' name='rating'/>
 <meta expr:content='data:view.isMultipleItems ? "website" : "article"' property='og:type'/>
+
+<!-- App name -->
+<meta expr:content='data:blog.title' name='application-name'/>
+<meta expr:content='data:blog.title' property='og:site_name'/>
+
+<!-- Meta Referrer Tag -->
+<meta content='unsafe-url' name='referrer'/>
+
+<!-- Type of twitter card -->
+<meta content='summary_large_image' name='twitter:card'/>
 
 <!-- Responsive viewport -->
 <meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
 
-<!-- Datos personalizados del usuario -->
-<link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
-<meta content='@blogger' name='twitter:site'/>
-<meta content='@google' name='twitter:creator'/>
-
 <!-- favicon -->
 <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 
-<!-- Enlace Canonico -->
+<!-- Url canonical -->
 <meta expr:content='data:view.url.canonical' property='og:url'/>
 <meta expr:content='data:view.url.canonical' name='twitter:url'/>
 <link expr:href='data:view.url.canonical' rel='canonical'/>
 
 <!-- Descripcion -->
-<meta expr:content='data:view.description' property='og:description'/>
-<meta expr:content='data:view.description' name='twitter:description'/>
-<meta expr:content='data:view.description' name='description'/>
+<meta expr:content='data:view.description.escaped' property='og:description'/>
+<meta expr:content='data:view.description.escaped' name='twitter:description'/>
+<meta expr:content='data:view.description.escaped' name='description'/>
 
-<!-- Meta Robots Relativo -->
+<!-- Meta Robots -->
 <b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='robots'>
    <meta expr:content='data:robots' name='robots'/>
-   <b:if cond='data:robots == "index,follow"'>
-      <meta content='noodp,noydir' name='robots'/>
-   </b:if>
 </b:with>
 
-<!-- Optimizando Posts -->
-<b:if cond='data:view.isPost and data:view.featuredImage'>
+<!-- Featured Image -->
+<b:if cond='data:view.featuredImage'>
    <link expr:href='data:view.featuredImage' rel='image_src'/>
    <meta expr:content='data:view.featuredImage' name='twitter:image'/>
    <meta expr:content='data:view.featuredImage' property='og:image'/>
 </b:if>
 
-<!-- Optimizando Titulos -->
-<b:if cond='data:view.isError'>
-   <title>Error 404 en <data:blog.pageTitle/></title>
-<b:else/>
-   <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='titles'>
-      <meta expr:content='data:titles' property='og:title'/>
-      <meta expr:content='data:titles' name='twitter:title'/>
-      <title><b:eval expr='data:view.search.label ? "Entradas de " + data:titles : data:titles'/></title>
-   </b:with>
+<!-- Titles -->
+<b:with value='data:view.isError ? data:messages.theresNothingHere : (data:view.isLabelSearch ? data:view.search.label : data:view.title.escaped)' var='title'>
+   <meta expr:content='data:title' property='og:title'/>
+   <meta expr:content='data:title' name='twitter:title'/>
+   <title><data:title/></title>
+</b:with>
+
+<!-- Feeds -->
+<b:if cond='data:blog.feedLinks'>
+   <link expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default"' title='Atom 1.0' rel='alternate' type='application/atom+xml'/>
+   <link expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" params {alt: "rss"}' title='RSS 2.0' rel='alternate' type='application/rss+xml'/>
 </b:if>
 
-<!-- feeds -->
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" ' expr:title='data:blog.title + " - Atom"' name='link' rel='alternate' type='application/atom+xml'/>
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" params {alt: "rss"}' expr:title='data:blog.title + " - RSS"' name='link' rel='alternate' type='application/rss+xml'/>
-
-<!-- schema ld+json -->
+<!-- Sitelinks Searchbox -->
 <script type='application/ld+json'>
-{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl.canonical/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl.canonical/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "<data:blog.homepageUrl.canonical/>",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "<data:blog.searchUrl/>?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+}
 </script>
 
-<!-- Single.css -->
-<b:tag cond='data:skin.vars.layout_single != "0px"' href="//cdn.rawgit.com/zkreations/Canvas.xml/master/single/single.min.css" name='link' rel='stylesheet'/>
-
-<!--[if lt IE 9]>
-   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-<![endif]-->
-<!-- Fin de datos-->
-
+<b:comment>Global Styles</b:comment>
 <style>/*<![CDATA[*/
-/* => CSS Global */
-/*! => whale.css beta v1.3.12 | Copyright 2017 zkreations | Licensed under MIT | github.com/zkreations/whale.css/blob/master/LICENSE | normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */button,hr,input{overflow:visible}img,legend{max-width:100%}audio,canvas,img,progress,video{display:inline-block}[type=checkbox],[type=radio],legend{padding:0;box-sizing:border-box}*,::after,::before,legend{box-sizing:border-box}a,table{background-color:transparent}.column,.column-reverse{-webkit-box-orient:vertical}.embed,sub,sup{position:relative}html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section{display:block}h1{font-size:2em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}a{-webkit-text-decoration-skip:objects;color:#2196f3;text-decoration:none}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}img{border-style:none;vertical-align:middle}.reset,progress{vertical-align:baseline}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{padding:.35em .75em .625em}legend{color:inherit;display:table;white-space:normal}textarea{overflow:auto}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}body{margin:0;font-family:"Helvetica Neue",arial,sans-serif;font-size:1rem;font-weight:400;overflow-x:hidden}a:hover{color:#1565c0}a:active,a:focus,a:hover{text-decoration:none;outline-width:0}ol,ul{padding-left:2rem}ol,ol li,ul,ul li{margin:0;list-style:none}h1,h2,h3,h4,h5,h6{font-weight:500;margin:0}h2{font-size:1.5rem}h3{font-size:1.4rem}h4{font-size:1.3rem}h5{font-size:1.2rem}h6{font-size:1.1rem}table{border-spacing:0;border-collapse:collapse}[role=button],a,button,input,label,select,textarea{-ms-touch-action:manipulation;touch-action:manipulation}p{margin:0}.reset{background:none;padding:0;margin:0;border:0;outline:0;box-shadow:0 0 transparent;font:inherit}.none{display:none!important}.center{display:block;margin-left:auto;margin-right:auto}.center-text{text-align:center}.clearfix::after{display:block;content:"";clear:both}.dropdown-menu,.flex{display:-webkit-box;display:-ms-flexbox}.flex{display:flex}.wrap{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column{-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse{-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row,.row-reverse{-webkit-box-orient:horizontal}.row{-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse{-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center{-ms-flex-line-pack:center;align-content:center}.align-content-end{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end{-ms-flex-item-align:end;align-self:flex-end}.align-self-start{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.button{display:inline-block;font-weight:400;line-height:1.25;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:.6em 1em;text-decoration:none!important;cursor:pointer;vertical-align:middle}embed,iframe,object{margin:0;padding:0;border:0;outline:0}.embed{padding-bottom:56.25%;height:0}.embed embed,.embed iframe,.embed object,.embed video{width:100%;height:100%;position:absolute;top:0;bottom:0;left:0}.table{display:block;width:100%;overflow-x:auto}.container{margin-right:auto;margin-left:auto;padding-left:1rem;padding-right:1rem}.dropdown-menu{display:flex}.dropdown-menu,.dropdown-menu li,.dropdown-menu ul{padding:0;margin:0}.dropdown-menu li{position:relative}.dropdown-menu a{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;font-size:1rem}.dropdown-menu ul{visibility:hidden;max-height:0}.dropdown-menu .is-parent>a::after{content:"";display:inline-block;width:0;height:0;vertical-align:middle;border-right:4px solid transparent;border-left:4px solid transparent;border-top:4px dashed;margin-left:.5rem}@media (max-width:991px){.dropdown-menu ul.is-active{visibility:visible;max-height:1280px}.dropdown-menu ul{overflow:hidden}.dropdown-menu{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}}@media (min-width:992px){.dropdown-menu>li{float:left}.dropdown-menu ul{text-align:left;top:0;left:100%;position:absolute;min-width:160px}.dropdown-menu>li>ul{top:100%;left:0}.dropdown-menu li:hover>ul{visibility:visible;max-height:1280px}.dropdown-menu ul .is-parent>a::after{border-left:4px dashed;border-right:0 transparent;border-top:4px solid transparent;border-bottom:4px solid transparent}}.wjs-panel:not(.is-active){display:none}@media (max-width:575px){.none-xsmall{display:none!important}.center-xsmall{display:block;margin-left:auto;margin-right:auto}.center-text-xsmall{text-align:center}.flex-xsmall{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-xsmall{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-xsmall{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-xsmall{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-xsmall{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-xsmall{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-xsmall{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-xsmall{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-xsmall{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-xsmall{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-xsmall{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-xsmall{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-xsmall{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-xsmall{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-xsmall{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-xsmall{-ms-flex-line-pack:center;align-content:center}.align-content-end-xsmall{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-xsmall{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-xsmall{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-xsmall{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-xsmall{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-xsmall{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-xsmall{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-xsmall{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-xsmall{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-xsmall{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-xsmall{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-xsmall{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-xsmall{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-xsmall{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-xsmall{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-xsmall{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media (min-width:576px){.none-small{display:none!important}.center-small{display:block;margin-left:auto;margin-right:auto}.center-text-small{text-align:center}.flex-small{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-small{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-small{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-small{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-small{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-reverse-small,.row-small{-webkit-box-orient:horizontal}.row-small{-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-small{-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-small{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-small{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-small{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-small{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-small{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-small{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-small{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-small{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-small{-ms-flex-line-pack:center;align-content:center}.align-content-end-small{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-small{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-small{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-small{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-small{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-small{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-small{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-small{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-small{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-small{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-small{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-small{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-small{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-small{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-small{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-small{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media (min-width:768px){.none-medium{display:none!important}.center-medium{display:block;margin-left:auto;margin-right:auto}.center-text-medium{text-align:center}.flex-medium{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-medium{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-medium{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-medium{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-medium{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-medium{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-medium{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-medium{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-medium{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-medium{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-medium{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-medium{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-medium{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-medium{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-medium{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-medium{-ms-flex-line-pack:center;align-content:center}.align-content-end-medium{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-medium{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-medium{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-medium{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-medium{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-medium{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-medium{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-medium{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-medium{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-medium{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-medium{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-medium{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-medium{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-medium{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-medium{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-medium{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media (min-width:992px){.none-large{display:none!important}.center-large{display:block;margin-left:auto;margin-right:auto}.center-text-large{text-align:center}.flex-large{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-large{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-large{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-large{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-large{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-large,.row-reverse-large{-webkit-box-orient:horizontal}.row-large{-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-large{-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-large{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-large{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-large{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-large{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-large{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-large{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-large{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-large{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-large{-ms-flex-line-pack:center;align-content:center}.align-content-end-large{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-large{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-large{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-large{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-large{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-large{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-large{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-large{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-large{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-large{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-large{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-large{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-large{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-large{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-large{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-large{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media (min-width:1200px){.none-xlarge{display:none!important}.center-xlarge{display:block;margin-left:auto;margin-right:auto}.center-text-xlarge{text-align:center}.flex-xlarge{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-xlarge{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-xlarge{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-xlarge{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-xlarge{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-xlarge{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-xlarge{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-xlarge{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-xlarge{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-xlarge{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-xlarge{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-xlarge{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-xlarge{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-xlarge{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-xlarge{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-xlarge{-ms-flex-line-pack:center;align-content:center}.align-content-end-xlarge{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-xlarge{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-xlarge{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-xlarge{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-xlarge{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-xlarge{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-xlarge{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-xlarge{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-xlarge{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-xlarge{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-xlarge{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-xlarge{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-xlarge{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-xlarge{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-xlarge{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-xlarge{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media print{.none-print{display:none!important}}
+@font-face{font-family:Oswald;font-style:normal;font-weight:400;src:local('Oswald Regular'),local('Oswald-Regular'),url(https://fonts.gstatic.com/s/oswald/v16/TK3iWkUHHAIjg752GT8A.woff) format('woff')}@font-face{font-family:Oswald;font-style:normal;font-weight:500;src:local('Oswald Medium'),local('Oswald-Medium'),url(https://fonts.gstatic.com/s/oswald/v16/TK3hWkUHHAIjg75-6hwTus9E.woff) format('woff')}@font-face{font-family:Oswald;font-style:normal;font-weight:700;src:local('Oswald Bold'),local('Oswald-Bold'),url(https://fonts.gstatic.com/s/oswald/v16/TK3hWkUHHAIjg75-ohoTus9E.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:300;src:local('Roboto Light'),local('Roboto-Light'),url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fBBc-.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:400;src:local('Roboto'),local('Roboto-Regular'),url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxM.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:500;src:local('Roboto Medium'),local('Roboto-Medium'),url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc-.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:700;src:local('Roboto Bold'),local('Roboto-Bold'),url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBBc-.woff) format('woff')}
 
-/*Fontastic*/
-[class*=" dan-"]:before,[class^=dan-]:before,[data-icon]:before{font-family:anime!important;font-style:normal!important;font-weight:400!important;font-variant:normal!important;text-transform:none!important;speak:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}@font-face{font-family:anime;src:url(data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAA1wAAsAAAAAEWgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAABCAAACjgAAAycGllMTUZGVE0AAAtAAAAAGgAAABx4XdhaR0RFRgAAC1wAAAAdAAAAIABCAARPUy8yAAALfAAAAEUAAABgUB1e2mNtYXAAAAvEAAAAUgAAAUozHj6DaGVhZAAADBgAAAAoAAAANg0+dodoaGVhAAAMQAAAABgAAAAkBC8CA2htdHgAAAxYAAAAIwAAAC4FoAF6bWF4cAAADHwAAAAGAAAABgAVUABuYW1lAAAMhAAAANwAAAFxbp5LJnBvc3QAAA1gAAAAEAAAACAAAwABeJxlVn1sFMcV3wX2bkIcYyIvhYrciUAhEZAPNU1REH+ASJrUSUSAUJUSkfP5bAy2zz6ffT64L/tu93b37e7t7p3vw8Y+g7EdEj4MGFUpbaOKD6lySVNC2iLalFaiSoJSogZpr1qU9u2RtEo6c7c7+2bex8z7zXuPpubNo2iadng6Wtt9FD2HoqmNlcfnVJ6YW1k8T66hoWYu1MxzzaeWbHvw3wD/HdQ4ASqDlRyzlH5owVKKqltKP7dwKbV4aU3qQWqRLYZQtVQ9tYRyU9+hHqeeoTZRL1AvUdup16hmqoMKUL1UjOIpmdKpfDDUGgz6Ai1+f0ubL9jT3tgW8Lb5vfu6fZ6Ad4/X0+H1tXkCAX9obZuvOXhvFGht2RNs9nh9jX7/vrC/J9jT6Gtr7djn9be3+zqCna0dKNHXHWzt6A56WgKe9iZ/qKPN72nyd/psUiDoa/PZ9NAeT7Db09np6+v0dDRVz+HeYVAUnaYFWqQlGmiZVmiVztAardMGnaVz9CCdpwt0kS7RQxRrb3gOxVEf0K/P+eGcL+ZG5l6c98C8H897n+lifuHY7bjovEH6yRf3dcz/wf11tZVc5ftstCfcF4qQqNN6eJm1znrVtQW2jbx2NCvlIAs/h7cPnnzjNbnpzehZQ9LBgEHIyTmF/GSw5afwDpGdpeQwfxD8o33HYBrK+mhu+JcvXPP8jRezUhZycOln5y4CeRMmY6O949rhXLmQDOzv7Y2NKfZaUlvZZZ5iz3u3vdJ48ZUzF8/POKy3d7DmE478hr3Wfda3gTy56erNm1ev3nSfhVMH3uhq3SuLsdj+UnjQD+TVxt07dszs/pX7HTh0uHSWfNdRW1lgLmb7+ZgQgQFIypyaUtMZQRM0EbuEHXRiPnLr/TXmA886JQCQsFVfA2JSxL8wkE7wCW7A7gMDiSRJJOOpKE9ePmc94YSEklATalxLZONGItefH8gPFFMH+WF+RCjLB+GgelAnw3pezxik1nzb/BcLiqSIdpcFIGGHAKIkiaIoiSCSlQ1O+xu/kAYCCTtBkEXZXi6pQP7uUEGRFWyyAiox50+y4E91xbqj3X19+Ih1pfzghy6ju9hd6huNjsfGUxMwRWDKmCiOl8ZHR/FRnDCmYAomUjgbHe0r4VqjC/xkdhGcGZgOHQsd75poLe8tN+e84IXmgb2h1lBXFz72DjSDl4A314yzrRNdx3Ht9MAZOAPTuWPl4+WJCXwcy03DGdzpbRNt2xNvD2Brj7XAHmgvBo4EjsSOwgk4WTx6BNvRwgkgJ+FoHOmBQju0EHOV1c/CYDqbMsijnzLjxwun4CxMcRP944kj0UPhkfBIT6k7Hxjs0vzQCV18oJ8EEr3RMLZoTyLQ383hVqBT7xoM5AOlXlwfHoseSZAjiQl+EkWdKhwfJ58+yhipXHrQRm7GwJbJwSACb665md18/cqfGF1XDURqVshyOqelVMQNJAWOJz/Y8Pw1htOSahKxlEIKx4k4BQNKSufIlWc2r2eQkrKBpiR1TucNwb4zWVXXyLvXfruB0XkUiqINpKAWnIKcYHC6jY3KMjaVavI+u5HjUQSKVVAAMYn1AKNxhmivNRRdLxagFBsiq/9x6zZTHMJxgdNTXxqU5lCQHwXxOle1Gm3k4nGIFiLkk1VrHmHiERzH0TIxVxWnIfaJiQo0VbcNFQxeI5ZNqTUnFpk7X7h2+YLz8szJS64pGBcNicBzXonZy0V63Dv/6Ozf8DyAtdP8FjBDxeKQu7LLORQrRlx3dzkisVjEfXeXM1KMDblqzd3mK6zpet9yXWXMC0dY0DyN7ianh/eAC4DfEzkQ6u2Bfmkzb1FgN2uJ3JhJKF1SaCwyzJ8AIMCfPes+7ZzRztos2smhofLYIRiUr2imzUIAwz6OrvCD0iEo9w5FtBak1lagUscW4hCOx4m1wFrAxONhSBRIb9msM+vWfWjVWXWhMhMvwEihQJC2gMkXRqAQJyusX7PlEPNN3ngBx7jqKw57XLjHUQ7Z0j5cx4x9zsbz35zOJyCcQEF1/zOi1rxQybGm86PHLKflfAyf7gawVqwGs14BZst002/gA4LTH5lO1y3rDnt9dvb69YbZ9e7VjvUNDevd8OKZH50PEdh6/Rz6K2fLWmaiJGsZ9urbHYBAJmgMDuXL2qhaGLoEkNs/EZkC8ufzv7/9h4Yrj1q1Lz+1yQ27DzadiOiipiiGnFHzsqYYkpLWEkVuCA6T2XMXr7037dm2cd9LO12dEDpkTBrHhk7gzFhiJOjv6fB15w7YfvFb9/O9fB/0wP4nT794E+6AbRH2ZbYvgmjhSCkadt/d7gxHo2HX3e2OcLQ04q5sd46USiMu8ykrx4LYcPmyOIu4mN2yhW8Al5mztrNm8Dmn2q8kIEE2b926efPWC1dckFfy6iB5zgo6KvXmDHtr9WpnLY7qWeDFtJDGn8gDdkXAmC9mQANNyWQyqqopGhANkIYzShp4cnXR13mQijxSlUfO2EyZ/+OZnmXxyui8hmFCSQKxFkOTj0kkYnwEIhDTEnniO2UtASYJnMhxPC9wkCSYNJJqSuN1XsdYQCrrHFnQMR7gHTQgSx4zDRZDQgblbTLrHaCJmXRVIw9kowMNEwW0UrT1W/WbnCg6LaSEpJyyg0W9Vc/gchGNhgxuFSlmPaNrsiFk0QErTWDtSJYURAkTjb1NOZ0hjTPWWmsNY4v98rgypOMNJq1W5dhHhslmjbm2cYbhdAnDlpq1YxcxH3J8/QzReYeToweGDwz3ZYN4HpOOIPQlD2BL9kEQv50QzPbh9IHR5GHkn3QchtHsMLbsKIKptjJgXmfB4LR+mVgrxhrMRUw6m85wwEE6nU6SBmuRtaKX6Zc4HlJgO4gjn6/stpYzdvoEyd4O5kpBRV9n7ANQ8ADeNeufZ9DKKg1zp4rpE4cEtG5z+T8/s2Mf7gKVyxWdFRRBTkMaBEzC5G6nNclwgu01OanyhkhMZpd5yRyxwDoPqxhUh+tRnZCRMKuDAjqelqqR9/5iLtrB2CS12hVFV9WMrJOrlQYGfYFZBfXtN4usWbfytrXQWrhylVXngtcLTeVW4rVqzIWnmbf2n0qcxkNa+NlnZp3b6sUQeufG08uXP/30w24ftBTaR8nG4PjvmOCbsdMwQz6/ceOOy3RYHKuIkOBj6Vgw3i/1S5DaemjboZYLQkZUQ1gNwGSpqGkE0w+eAsljSYEOTiBWO+3NyIKIAJOEarOhhj+VIxk+Hx6OjPWNIGY1IQMqXod8QdUzWkayy6jJqC4SnMBaBaOaZjazoNplDtn3FnOv1BGrdQ1ZY4MoXUWzDWX7wkn3oOwEHrFodyzJ0G02tOTqtaveQUSZDdSPP2Gq1Q86ttsGsyZVWdIy3g6r3r4eUvUKp6s4RkVkpnHtGuZefWUXU4pI3trH3CuolGo1RT75eKaRQfFf3Ro1g4rB9lCuHlVcNf/6Xm7K4ZpPf8/jr7lvuGb+fwBCTv7ceJxjYGBgZACCM7aLzoPoawJSR2E0AET5BgYAAHicY2BkYGDgA2IJBhBgYmAEQhEgZgHzGAAFJgBHAAAAeJxjYGZiYJzAwMrAwejDmMbAwOAOpb8ySDK0MDAwMbByMsAAIwMSCEhzTWFwYEhkKGF88P8Bgx4TkhowWwEIGQHR4QmeAAAAeJxjYGBgZoBgGQZGBhBwAfIYwXwWBg0gzQakGRmYgKyS///BKhJB9P8FUPVAwMjGgODQCjAyMbOwsrFzcHJx8/Dy8QsICgmL0NpOEgAAZZoIDAAAeJxjYGRgYABixdig3nh+m68M3EwMIHBNQOooMs3EABbngFAA1o0GpHicY2BkYGBiAAI9MAliMzKgAiYABdAAOXicY2JgYGBiAINGBlUGIYYOhpVAiAyEwOIMDFIMqgBONAMfAAAAUAAAFQAAeJxtjjFOAzEQRd8mu0EBREFBbaVE2pXtBik1ygEo0m9hrVZKdiMnOQkSLRXH4AAcgPvwvbFEAZbs/2bmz4yBW94oSKegUnThGVesMs9Fh8ylPO+ZK274zLxQ9C1nUS6VuZ66Es+44z7znGceM5fyvGaueOAj80L5L1oGevYEaId+L3kRd5zZqRYVhu68awUbRnlPk0Y5AgZPg5WudX8nXWKvSo2b3sSOJw0Zh9NmjF0wvrFmbaadUm9rZ2tvnTx/v7QVR47Kpi8YjUpr2YZ47MfBuMb+0/UD9fYyVnicY2BmQAaMDGgAAACOAAU=) format("woff");font-weight:400;font-style:normal}[data-icon]:before{content:attr(data-icon)}.dan-twitter:before{content:"\61"}.dan-google:before{content:"\62"}.dan-tumblr:before{content:"\63"}.dan-clock:before{content:"\64"}.dan-search:before{content:"\65"}.dan-cancel:before{content:"\66"}.dan-arrow-left:before{content:"\67"}.dan-arrow-right:before{content:"\68"}.dan-facebook:before{content:"\69"}.dan-youtube:before{content:"\6a"}.dan-link:before{content:"\6b"}.dan-comment:before{content:"\6c"}.dan-pinterest:before{content:"\6d"}.dan-instagram:before{content:"\6e"}.dan-download:before{content:"\6f"}.dan-open:before{content:"\70"}.dan-star:before{content:"\71"}.dan-telegram:before{content:"\72"}.dan-whatsapp:before{content:"\73"}.dan-expand:before{content:"\74"}
+/*!
+ * Whale v1.5.2
+ * Copyright 2017-2018 zkreations
+ * Developed by Daniel Abel M. (instagram.com/danie.abel)
+ * Licensed under MIT (github.com/zkreations/whale/blob/master/LICENSE)
+ * normalize.css v8.0.0 Licensed under MIT (github.com/necolas/normalize.css)
+ */html{line-height:1.15;-webkit-text-size-adjust:100%}body{margin:0}hr{box-sizing:content-box;height:0;overflow:visible}pre{font-family:monospace,monospace;font-size:1em}a{background-color:transparent}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}b,strong{font-weight:bolder}code,kbd,samp{font-family:monospace,monospace;font-size:1em}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:inherit;font-size:inherit;line-height:inherit;margin:0}button,input{overflow:visible}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:1px dotted ButtonText}fieldset{padding:.35em .75em .625em}legend{box-sizing:border-box;color:inherit;display:table;max-width:100%;padding:0;white-space:normal}progress{vertical-align:baseline}textarea{overflow:auto}[type=checkbox],[type=radio]{box-sizing:border-box;padding:0}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}details{display:block}summary{display:list-item}template{display:none}[hidden]{display:none}*,::after,::before{box-sizing:border-box}html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;-ms-overflow-style:scrollbar;-webkit-tap-highlight-color:transparent}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:1rem;font-weight:400;line-height:1.5;text-align:left}[tabindex="-1"]:focus{outline:0!important}a{color:#2196f3;text-decoration:none;background-color:transparent;-webkit-text-decoration-skip:objects}a:hover{color:#1565c0}a:active,a:focus,a:hover{text-decoration:none;outline-width:0}a:not([href]):not([tabindex]){color:inherit;text-decoration:none}a:not([href]):not([tabindex]):focus,a:not([href]):not([tabindex]):hover{color:inherit;text-decoration:none}a:not([href]):not([tabindex]):focus{outline:0}dl,ol,ul{margin-top:0;padding-left:0;margin-bottom:0;list-style:none}ol ol,ol ul,ul ol,ul ul{margin-bottom:0}.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-family:inherit;font-weight:500;line-height:1.2;color:inherit;display:block}.h1,h1{font-size:2.5rem}.h2,h2{font-size:2rem}.h3,h3{font-size:1.75rem}.h4,h4{font-size:1.5rem}.h5,h5{font-size:1.25rem}.h6,h6{font-size:1rem}.small,small{font-size:80%;font-weight:400}.mark,mark{padding:.2em;background-color:#fff9c4}.abbr,abbr{font-size:90%;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted;border-bottom:0;cursor:help;text-transform:uppercase}table{border-spacing:0;border-collapse:collapse;background-color:transparent}[role=button],a,button,input,label,select,textarea{-ms-touch-action:manipulation;touch-action:manipulation}figure{margin:0 0 1rem}img{display:inline-block;max-width:100%;vertical-align:middle}embed,iframe,object{margin:0;padding:0;border:0;outline:0}video{max-width:100%;display:block;height:auto}p{margin-top:0;margin-bottom:0}.container{margin-right:auto;margin-left:auto}.fixed-top{position:fixed;top:0;left:0;right:0;z-index:1100}.fixed-bottom{position:fixed;top:0;left:0;right:0;z-index:1100}button,input,textarea{background:none transparent;padding:0;margin:0;border:0;outline:0;box-shadow:none;font:inherit;vertical-align:baseline}.form-input{display:block;width:100%;padding:.5rem .8rem;line-height:1.5;background-color:#fff;background-clip:padding-box;border:1px solid #cfd8dc}.btn{display:inline-block;font-weight:400;text-align:center;white-space:nowrap;vertical-align:middle;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:.5rem .8rem;line-height:1.5;cursor:pointer}.embed-fluid{position:relative;display:block;width:100%;padding:0;overflow:hidden}.embed-fluid embed,.embed-fluid iframe,.embed-fluid object,.embed-fluid video,.embed-item{position:absolute;top:0;left:0;width:100%;height:100%}.embed-fluid::before{display:block;content:""}.embed-fluid-21by9::before{padding-top:42.857143%}.embed-fluid-16by9::before{padding-top:56.25%}.embed-fluid-4by3::before{padding-top:75%}.embed-fluid-1by1::before{padding-top:100%}.table-fluid{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.dropdown-menu{display:-ms-flexbox;display:flex}.dropdown-menu li{position:relative;display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column}.dropdown-menu a{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;font-size:1rem;-ms-flex:1 0 auto;flex:1 0 auto}.dropdown-menu ul{visibility:hidden;max-height:0}.dropdown-menu .is-arrow{margin-left:auto}.dropdown-menu .is-parent>a .is-arrow::after{content:"";display:inline-block;width:0;height:0;vertical-align:middle;border-right:4px solid transparent;border-left:4px solid transparent;border-top:4px dashed;margin-left:.5rem}@media (max-width:991px){.dropdown-menu ul.is-active{visibility:visible;max-height:inherit}.dropdown-menu ul{overflow:hidden}.dropdown-menu{-ms-flex-direction:column;flex-direction:column}}@media (min-width:992px){.dropdown-menu ul{text-align:left;top:0;left:100%;position:absolute;min-width:100%}.dropdown-menu a{white-space:nowrap}.dropdown-menu>li>ul{top:100%;left:0}.dropdown-menu li>ul{pointer-events:none}.dropdown-menu li:hover>ul{visibility:visible;max-height:inherit;pointer-events:all}.dropdown-menu ul .is-parent>a .is-arrow::after{border-left:4px dashed;border-right:0 transparent;border-top:4px solid transparent;border-bottom:4px solid transparent}}.wjs-panel:not(.is-active){display:none}.clearfix::after{display:block;content:"";clear:both}.float-left{float:left}.float-right{float:right}.float-none{float:none}.display-none{display:none!important}.display-inline{display:inline}.display-inline-block{display:inline-block}.display-block{display:block}.display-table{display:table}.display-table-row{display:table-row}.display-table-cell{display:table-cell}.display-flex{display:-ms-flexbox;display:flex}.display-inline-flex{display:-ms-inline-flexbox;display:inline-flex}.flex-none{-ms-flex:none;flex:none}.flex-auto{-ms-flex:auto;flex:auto}.flex-fill{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0{-ms-flex-positive:0;flex-grow:0}.flex-grow-1{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1{-ms-flex-negative:1;flex-shrink:1}.flex-wrap{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center{-ms-flex-pack:center;justify-content:center}.justify-content-end{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between{-ms-flex-pack:justify;justify-content:space-between}.align-content-center{-ms-flex-line-pack:center;align-content:center}.align-content-end{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline{-ms-flex-align:baseline;align-items:baseline}.align-items-center{-ms-flex-align:center;align-items:center}.align-items-end{-ms-flex-align:end;align-items:flex-end}.align-items-start{-ms-flex-align:start;align-items:flex-start}.align-items-stretch{-ms-flex-align:stretch;align-items:stretch}.align-self-auto{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end{-ms-flex-item-align:end;align-self:flex-end}.align-self-start{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.row{display:-ms-flexbox;display:flex;-ms-flex-align:start;align-items:flex-start;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-.5rem;margin-left:-.5rem}[class*=col-]{padding-right:.5rem;padding-left:.5rem;-ms-flex-preferred-size:auto;flex-basis:auto;-ms-flex-positive:1;flex-grow:1;-ms-flex-negative:1;flex-shrink:1;width:100%}.no-gutters{margin-right:0;margin-left:0}.no-gutters>[class*=col-]{padding-right:0;padding-left:0}.col-auto{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first{-ms-flex-order:-1;order:-1}.order-last{-ms-flex-order:13;order:13}.order-0{-ms-flex-order:0;order:0}.order-1{-ms-flex-order:1;order:1}.order-2{-ms-flex-order:2;order:2}.order-3{-ms-flex-order:3;order:3}.order-4{-ms-flex-order:4;order:4}.order-5{-ms-flex-order:5;order:5}.order-6{-ms-flex-order:6;order:6}.order-7{-ms-flex-order:7;order:7}.order-8{-ms-flex-order:8;order:8}.order-9{-ms-flex-order:9;order:9}.order-10{-ms-flex-order:10;order:10}.order-11{-ms-flex-order:11;order:11}.order-12{-ms-flex-order:12;order:12}.offset-1{margin-left:8.333333%}.offset-2{margin-left:16.666667%}.offset-3{margin-left:25%}.offset-4{margin-left:33.333333%}.offset-5{margin-left:41.666667%}.offset-6{margin-left:50%}.offset-7{margin-left:58.333333%}.offset-8{margin-left:66.666667%}.offset-9{margin-left:75%}.offset-10{margin-left:83.333333%}.offset-11{margin-left:91.666667%}@media (min-width:576px){.float-left-sm{float:left}.float-right-sm{float:right}.float-none-sm{float:none}.display-none-sm{display:none!important}.display-inline-sm{display:inline}.display-inline-block-sm{display:inline-block}.display-block-sm{display:block}.display-table-sm{display:table}.display-table-row-sm{display:table-row}.display-table-cell-sm{display:table-cell}.display-flex-sm{display:-ms-flexbox;display:flex}.display-inline-flex-sm{display:-ms-inline-flexbox;display:inline-flex}.flex-none-sm{-ms-flex:none;flex:none}.flex-auto-sm{-ms-flex:auto;flex:auto}.flex-fill-sm{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0-sm{-ms-flex-positive:0;flex-grow:0}.flex-grow-1-sm{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0-sm{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1-sm{-ms-flex-negative:1;flex-shrink:1}.flex-wrap-sm{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse-sm{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column-sm{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse-sm{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row-sm{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse-sm{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center-sm{-ms-flex-pack:center;justify-content:center}.justify-content-end-sm{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-sm{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-sm{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-sm{-ms-flex-pack:justify;justify-content:space-between}.align-content-center-sm{-ms-flex-line-pack:center;align-content:center}.align-content-end-sm{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-sm{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-sm{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-sm{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-sm{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-sm{-ms-flex-align:baseline;align-items:baseline}.align-items-center-sm{-ms-flex-align:center;align-items:center}.align-items-end-sm{-ms-flex-align:end;align-items:flex-end}.align-items-start-sm{-ms-flex-align:start;align-items:flex-start}.align-items-stretch-sm{-ms-flex-align:stretch;align-items:stretch}.align-self-auto-sm{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-sm{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-sm{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-sm{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-sm{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-sm{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.col-auto-sm{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1-sm{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2-sm{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3-sm{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4-sm{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5-sm{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6-sm{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7-sm{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8-sm{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9-sm{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10-sm{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11-sm{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12-sm{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first-sm{-ms-flex-order:-1;order:-1}.order-last-sm{-ms-flex-order:13;order:13}.order-0-sm{-ms-flex-order:0;order:0}.order-1-sm{-ms-flex-order:1;order:1}.order-2-sm{-ms-flex-order:2;order:2}.order-3-sm{-ms-flex-order:3;order:3}.order-4-sm{-ms-flex-order:4;order:4}.order-5-sm{-ms-flex-order:5;order:5}.order-6-sm{-ms-flex-order:6;order:6}.order-7-sm{-ms-flex-order:7;order:7}.order-8-sm{-ms-flex-order:8;order:8}.order-9-sm{-ms-flex-order:9;order:9}.order-10-sm{-ms-flex-order:10;order:10}.order-11-sm{-ms-flex-order:11;order:11}.order-12-sm{-ms-flex-order:12;order:12}.offset-1-sm{margin-left:8.333333%}.offset-2-sm{margin-left:16.666667%}.offset-3-sm{margin-left:25%}.offset-4-sm{margin-left:33.333333%}.offset-5-sm{margin-left:41.666667%}.offset-6-sm{margin-left:50%}.offset-7-sm{margin-left:58.333333%}.offset-8-sm{margin-left:66.666667%}.offset-9-sm{margin-left:75%}.offset-10-sm{margin-left:83.333333%}.offset-11-sm{margin-left:91.666667%}}@media (min-width:768px){.float-left-md{float:left}.float-right-md{float:right}.float-none-md{float:none}.display-none-md{display:none!important}.display-inline-md{display:inline}.display-inline-block-md{display:inline-block}.display-block-md{display:block}.display-table-md{display:table}.display-table-row-md{display:table-row}.display-table-cell-md{display:table-cell}.display-flex-md{display:-ms-flexbox;display:flex}.display-inline-flex-md{display:-ms-inline-flexbox;display:inline-flex}.flex-none-md{-ms-flex:none;flex:none}.flex-auto-md{-ms-flex:auto;flex:auto}.flex-fill-md{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0-md{-ms-flex-positive:0;flex-grow:0}.flex-grow-1-md{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0-md{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1-md{-ms-flex-negative:1;flex-shrink:1}.flex-wrap-md{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse-md{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column-md{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse-md{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row-md{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse-md{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center-md{-ms-flex-pack:center;justify-content:center}.justify-content-end-md{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-md{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-md{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-md{-ms-flex-pack:justify;justify-content:space-between}.align-content-center-md{-ms-flex-line-pack:center;align-content:center}.align-content-end-md{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-md{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-md{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-md{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-md{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-md{-ms-flex-align:baseline;align-items:baseline}.align-items-center-md{-ms-flex-align:center;align-items:center}.align-items-end-md{-ms-flex-align:end;align-items:flex-end}.align-items-start-md{-ms-flex-align:start;align-items:flex-start}.align-items-stretch-md{-ms-flex-align:stretch;align-items:stretch}.align-self-auto-md{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-md{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-md{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-md{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-md{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-md{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.col-auto-md{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1-md{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2-md{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3-md{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4-md{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5-md{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6-md{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7-md{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8-md{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9-md{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10-md{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11-md{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12-md{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first-md{-ms-flex-order:-1;order:-1}.order-last-md{-ms-flex-order:13;order:13}.order-0-md{-ms-flex-order:0;order:0}.order-1-md{-ms-flex-order:1;order:1}.order-2-md{-ms-flex-order:2;order:2}.order-3-md{-ms-flex-order:3;order:3}.order-4-md{-ms-flex-order:4;order:4}.order-5-md{-ms-flex-order:5;order:5}.order-6-md{-ms-flex-order:6;order:6}.order-7-md{-ms-flex-order:7;order:7}.order-8-md{-ms-flex-order:8;order:8}.order-9-md{-ms-flex-order:9;order:9}.order-10-md{-ms-flex-order:10;order:10}.order-11-md{-ms-flex-order:11;order:11}.order-12-md{-ms-flex-order:12;order:12}.offset-1-md{margin-left:8.333333%}.offset-2-md{margin-left:16.666667%}.offset-3-md{margin-left:25%}.offset-4-md{margin-left:33.333333%}.offset-5-md{margin-left:41.666667%}.offset-6-md{margin-left:50%}.offset-7-md{margin-left:58.333333%}.offset-8-md{margin-left:66.666667%}.offset-9-md{margin-left:75%}.offset-10-md{margin-left:83.333333%}.offset-11-md{margin-left:91.666667%}}@media (min-width:992px){.float-left-lg{float:left}.float-right-lg{float:right}.float-none-lg{float:none}.display-none-lg{display:none!important}.display-inline-lg{display:inline}.display-inline-block-lg{display:inline-block}.display-block-lg{display:block}.display-table-lg{display:table}.display-table-row-lg{display:table-row}.display-table-cell-lg{display:table-cell}.display-flex-lg{display:-ms-flexbox;display:flex}.display-inline-flex-lg{display:-ms-inline-flexbox;display:inline-flex}.flex-none-lg{-ms-flex:none;flex:none}.flex-auto-lg{-ms-flex:auto;flex:auto}.flex-fill-lg{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0-lg{-ms-flex-positive:0;flex-grow:0}.flex-grow-1-lg{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0-lg{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1-lg{-ms-flex-negative:1;flex-shrink:1}.flex-wrap-lg{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse-lg{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column-lg{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse-lg{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row-lg{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse-lg{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center-lg{-ms-flex-pack:center;justify-content:center}.justify-content-end-lg{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-lg{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-lg{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-lg{-ms-flex-pack:justify;justify-content:space-between}.align-content-center-lg{-ms-flex-line-pack:center;align-content:center}.align-content-end-lg{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-lg{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-lg{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-lg{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-lg{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-lg{-ms-flex-align:baseline;align-items:baseline}.align-items-center-lg{-ms-flex-align:center;align-items:center}.align-items-end-lg{-ms-flex-align:end;align-items:flex-end}.align-items-start-lg{-ms-flex-align:start;align-items:flex-start}.align-items-stretch-lg{-ms-flex-align:stretch;align-items:stretch}.align-self-auto-lg{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-lg{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-lg{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-lg{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-lg{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-lg{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.col-auto-lg{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1-lg{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2-lg{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3-lg{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4-lg{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5-lg{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6-lg{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7-lg{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8-lg{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9-lg{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10-lg{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11-lg{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12-lg{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first-lg{-ms-flex-order:-1;order:-1}.order-last-lg{-ms-flex-order:13;order:13}.order-0-lg{-ms-flex-order:0;order:0}.order-1-lg{-ms-flex-order:1;order:1}.order-2-lg{-ms-flex-order:2;order:2}.order-3-lg{-ms-flex-order:3;order:3}.order-4-lg{-ms-flex-order:4;order:4}.order-5-lg{-ms-flex-order:5;order:5}.order-6-lg{-ms-flex-order:6;order:6}.order-7-lg{-ms-flex-order:7;order:7}.order-8-lg{-ms-flex-order:8;order:8}.order-9-lg{-ms-flex-order:9;order:9}.order-10-lg{-ms-flex-order:10;order:10}.order-11-lg{-ms-flex-order:11;order:11}.order-12-lg{-ms-flex-order:12;order:12}.offset-1-lg{margin-left:8.333333%}.offset-2-lg{margin-left:16.666667%}.offset-3-lg{margin-left:25%}.offset-4-lg{margin-left:33.333333%}.offset-5-lg{margin-left:41.666667%}.offset-6-lg{margin-left:50%}.offset-7-lg{margin-left:58.333333%}.offset-8-lg{margin-left:66.666667%}.offset-9-lg{margin-left:75%}.offset-10-lg{margin-left:83.333333%}.offset-11-lg{margin-left:91.666667%}}@media (min-width:1200px){.float-left-lx{float:left}.float-right-lx{float:right}.float-none-lx{float:none}.display-none-xl{display:none!important}.display-inline-xl{display:inline}.display-inline-block-xl{display:inline-block}.display-block-xl{display:block}.display-table-xl{display:table}.display-table-row-xl{display:table-row}.display-table-cell-xl{display:table-cell}.display-flex-xl{display:-ms-flexbox;display:flex}.display-inline-flex-xl{display:-ms-inline-flexbox;display:inline-flex}.flex-none-xl{-ms-flex:none;flex:none}.flex-auto-xl{-ms-flex:auto;flex:auto}.flex-fill-xl{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0-xl{-ms-flex-positive:0;flex-grow:0}.flex-grow-1-xl{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0-xl{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1-xl{-ms-flex-negative:1;flex-shrink:1}.flex-wrap-xl{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse-xl{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column-xl{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse-xl{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row-xl{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse-xl{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center-xl{-ms-flex-pack:center;justify-content:center}.justify-content-end-xl{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-xl{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-xl{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-xl{-ms-flex-pack:justify;justify-content:space-between}.align-content-center-xl{-ms-flex-line-pack:center;align-content:center}.align-content-end-xl{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-xl{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-xl{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-xl{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-xl{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-xl{-ms-flex-align:baseline;align-items:baseline}.align-items-center-xl{-ms-flex-align:center;align-items:center}.align-items-end-xl{-ms-flex-align:end;align-items:flex-end}.align-items-start-xl{-ms-flex-align:start;align-items:flex-start}.align-items-stretch-xl{-ms-flex-align:stretch;align-items:stretch}.align-self-auto-xl{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-xl{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-xl{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-xl{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-xl{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-xl{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.col-auto-xl{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1-xl{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2-xl{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3-xl{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4-xl{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5-xl{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6-xl{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7-xl{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8-xl{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9-xl{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10-xl{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11-xl{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12-xl{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first-xl{-ms-flex-order:-1;order:-1}.order-last-xl{-ms-flex-order:13;order:13}.order-0-xl{-ms-flex-order:0;order:0}.order-1-xl{-ms-flex-order:1;order:1}.order-2-xl{-ms-flex-order:2;order:2}.order-3-xl{-ms-flex-order:3;order:3}.order-4-xl{-ms-flex-order:4;order:4}.order-5-xl{-ms-flex-order:5;order:5}.order-6-xl{-ms-flex-order:6;order:6}.order-7-xl{-ms-flex-order:7;order:7}.order-8-xl{-ms-flex-order:8;order:8}.order-9-xl{-ms-flex-order:9;order:9}.order-10-xl{-ms-flex-order:10;order:10}.order-11-xl{-ms-flex-order:11;order:11}.order-12-xl{-ms-flex-order:12;order:12}.offset-1-xl{margin-left:8.333333%}.offset-2-xl{margin-left:16.666667%}.offset-3-xl{margin-left:25%}.offset-4-xl{margin-left:33.333333%}.offset-5-xl{margin-left:41.666667%}.offset-6-xl{margin-left:50%}.offset-7-xl{margin-left:58.333333%}.offset-8-xl{margin-left:66.666667%}.offset-9-xl{margin-left:75%}.offset-10-xl{margin-left:83.333333%}.offset-11-xl{margin-left:91.666667%}}@media print{@page{size:a3;margin:2cm}*,::after,::before{text-shadow:none!important;box-shadow:none!important;background:0 0!important}.display-none-print{display:none!important}.display-inline-print{display:inline!important}.display-inline-block-print{display:inline-block!important}.display-block-print{display:block!important}.display-table-print{display:table!important}.display-table-row-print{display:table-row!important}.display-table-cell-print{display:table-cell!important}.display-flex-print{display:-ms-flexbox!important;display:flex!important}.display-inline-flex-print{display:-ms-inline-flexbox!important;display:inline-flex!important}.wjs-menu,.wjs-spoiler,.wjs-tab{display:none!important}article,body{width:100%!important;color:#000!important;padding:0;margin:0}aside,footer,nav{display:none!important}article a{font-weight:700;text-decoration:none}article a[href^=http]:after{content:" (" attr(href) ")"}embed,iframe,object,video{display:none!important}abbr[title]::after{content:" (" attr(title) ")"}pre{white-space:pre-wrap!important}blockquote,pre{page-break-inside:avoid}thead{display:table-header-group}img,tr{page-break-inside:avoid}h2,h3,p{orphans:3;widows:3}h2,h3{page-break-after:avoid}}
+ 
+ /*! Tiny-slider.css */
+ .tns-outer{padding:0!important}.tns-outer [hidden]{display:none!important}.tns-outer [aria-controls],.tns-outer [data-action]{cursor:pointer}.ms-touch{overflow-x:scroll;overflow-y:hidden;-ms-overflow-style:none;-ms-scroll-chaining:none;-ms-scroll-snap-type:mandatory;-ms-scroll-snap-points-x:snapInterval(0,100%)}.tns-slider{transition:-webkit-transform 0s;transition:transform 0s;transition:transform 0s,-webkit-transform 0s}.tns-slider>div,.tns-slider>li{box-sizing:border-box}.tns-horizontal.tns-subpixel{white-space:nowrap}.tns-horizontal.tns-subpixel>div,.tns-horizontal.tns-subpixel>li{display:inline-block;vertical-align:top;white-space:normal}.tns-horizontal.tns-no-subpixel:after{content:'';display:table;clear:both}.tns-horizontal.tns-no-subpixel>div,.tns-horizontal.tns-no-subpixel>li{float:left;margin-right:-100%}.tns-no-calc{position:relative;left:0}.tns-gallery{position:relative;left:0;min-height:1px}.tns-gallery>div,.tns-gallery>li{position:absolute;transition:opacity 0s,-webkit-transform 0s;transition:transform 0s,opacity 0s;transition:transform 0s,opacity 0s,-webkit-transform 0s}.tns-gallery>.tns-moving{transition:all .25s}.tns-lazy-img{transition:opacity .6s;opacity:.6}.tns-lazy-img.loaded{opacity:1}.tns-ah{transition:height 0s}.tns-ovh{overflow:hidden}.tns-hdx{overflow-x:hidden}.tns-hdy{overflow-y:hidden}.tns-visually-hidden{position:absolute;left:-10000em}.tns-transparent{opacity:0;visibility:hidden}.tns-fadeIn{opacity:1;z-index:0}.tns-fadeOut,.tns-normal{opacity:0;z-index:-1}.tns-t-subp2{margin:0 auto;width:310px;position:relative;height:10px;overflow:hidden}.tns-t-ct{width:2333.3333333%;width:calc(100% * 70 / 3);position:absolute;right:0}.tns-t-ct:after{content:'';display:table;clear:both}.tns-t-ct>div{width:1.4285714%;width:calc(100% / 70);height:10px;float:left}
 
-/*Oswald*/
-@font-face{font-family:Oswald;font-style:normal;font-weight:400;src:local('Oswald Regular'),local('Oswald-Regular'),url(https://fonts.gstatic.com/s/oswald/v13/-g5pDUSRgvxvOl5u-a_WHw.woff) format('woff')}@font-face{font-family:Oswald;font-style:normal;font-weight:700;src:local('Oswald Bold'),local('Oswald-Bold'),url(https://fonts.gstatic.com/s/oswald/v13/bH7276GfdCjMjApa_dkG6T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff')}@font-face{font-family:RobotoDraft;font-style:normal;font-weight:400;src:local('RobotoDraft'),local('RobotoDraft-Regular'),url(https://fonts.gstatic.com/s/robotodraft/v1/0xES5Sl_v6oyT7dAKuoni7rIa-7acMAeDBVuclsi6Gc.woff) format('woff')}@font-face{font-family:RobotoDraft;font-style:normal;font-weight:500;src:local('RobotoDraft Medium'),local('RobotoDraft-Medium'),url(https://fonts.gstatic.com/s/robotodraft/v1/u0_CMoUf3y3-4Ss4ci-VwaTA90I55Xt7owhZwpPnMsc.woff) format('woff')}@font-face{font-family:RobotoDraft;font-style:normal;font-weight:700;src:local('RobotoDraft Bold'),local('RobotoDraft-Bold'),url(https://fonts.gstatic.com/s/robotodraft/v1/u0_CMoUf3y3-4Ss4ci-VwRbnBKKEOwRKgsHDreGcocg.woff) format('woff')}
-
-/*Hack: Animations (Chrome)*/
-.dropdown-menu a,
-.dropdown-menu li,
-.dropdown-menu ul,
-.is-parent a::after,
-.card__image::after,
-.is-parent {
-	-webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
+/*! Style */
+html {font-size: 13px;}
+body {
+    overflow-wrap:break-word;
+    word-break:break-word;
+    word-wrap:break-word
 }
-
-/*Material Colors (500)*/
-.red {background-color:#F44336;}
-.pink {background-color:#E91E63;}
-.purple {background-color:#9C27B0;}
-.deep-purple {background-color:#673AB7;}
-.indigo {background-color:#3F51B5;}
-.blue {background-color:#2196F3;}
-.light-blue {background-color:#03A9F4;}
-.cyan {background-color:#00BCD4;}
-.teal {background-color:#009688;}
-.green {background-color:#4CAF50;}
-.light-green {background-color:#8BC34A;}
-.lime {background-color:#CDDC39;}
-.yellow {background-color:#FFEB3B;}
-.amber {background-color:#FFC107;}
-.orange {background-color:#FF9800;}
-.deep-orange {background-color:#FF5722;}
-.brown {background-color:#795548;}
-.grey {background-color:#9E9E9E;}
-.blue-grey {background-color:#607D8B;}
-
-/*info*/
-.info {
-    display: block;
-    padding: 1.5rem;
-	font-size: 1.05rem;
-    text-align: center;
+/* default
+--------------------------------------*/
+a {font-weight: 400;}
+/* Fixing Rendering
+--------------------------------------*/
+.nav__menu *,
+.gallery * {
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
 }
-.info--margin {margin-bottom: 1rem;}
-.info--1rem {padding: 1rem;}
-html {font-size: 12px;}
-.container {padding: 0;}
-.container__main {box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.2);}
-.container__box {padding: 1rem;}
-
-/*header*/
-.header__head {position: relative;}
-
-/*logo*/
-.head__logo,
-.head__logo a {
+/* Fontawesome
+--------------------------------------*/
+.fab, .fal, .far, .fas {
+    margin-right: 4px;
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+.fa-ml {
+    margin-left: 4px;
+}
+.fa-mn {
+    margin-right: 0;
+}
+/* Anime ui
+--------------------------------------*/
+/* Input */
+.form-input {
+    padding: .8em 1em;
+    border: 3px solid rgba(0, 0, 0, .06);
+    transition: border .2s;
+    box-shadow: 0 0 transparent;
+    background: #fff;
+    line-height: 1;
+}
+.form-input::-webkit-input-placeholder{
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, .5);
+}
+.form-input::-moz-placeholder{
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, .5);
+}
+.form-input:-ms-input-placeholder{
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, .5);
+}
+.form-input::-ms-input-placeholder{
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, .5);
+}
+.form-input,
+.form-input::placeholder {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: rgba(0, 0, 0, .5);
+}
+/* Button */
+.btn {
+    color: #444444;
+    padding: 1em;
+    opacity: 1;
+    transition: opacity .3s;
+    background-color: #f2f2f2;
+}
+.btn:hover {
+    opacity: .75;
+    color: #444444;
+}
+.btn[class*='bg-'],
+.btn[class*='skin-bg'] {
+    color: #fff;
+}
+.btn[class*='bg-']:hover,
+.btn[class*='skin-bg']:hover {
+    color: #fff;
+}
+.btn-border {
+    padding: 1em;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    color: #757575;
+    transition: color .3s, border .3s;
+    font-weight: 500;
     line-height: 1;
     display: inline-block;
 }
-.head__logo {font-size: 2rem;}
-.head__logo a {
-    font-weight: 700;
-    -webkit-transition: color .3s;
-    transition: color .3s;
+.btn-border:hover {
+    border-color: rgba(0, 0, 0, 0.15);
+    color: #262626;
 }
-.head__descripcion {
-    margin: 0;
+/* Alerts */
+.alert {
+    background-color: #f3f3f3;
+    padding: 1.5rem;
+    color: rgba(0, 0, 0, 0.75);
+    margin-bottom: 5px;
+}
+/* Alerts modifiers */
+.alert__postInfo {
+    margin-bottom: 1rem;
+}
+/* Card */
+.card {
+    padding-bottom: 1rem;
+}
+.card__image {
+    position: relative;
+    overflow: hidden;
+}
+.card__image,
+.card__image::before,
+.card__image img {
+    width: 100%;
+    display: block;
+}
+.card__more,
+.gallery__title::after,
+.card__image::before {
+    position: absolute;
+    opacity: 0;
+}
+.card__image::before {
+    z-index: 10;
+    content: "";
+    height: 100%;
+    left: 0;
+    top: 0;
+    transition: opacity .3s;
+}
+.card__image:hover::before {
+    opacity: .75;
+}
+.card-featured .card__image::before {
+    display: none;
+}
+.card__more {
+    font-size: 2rem;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate3d(-50%,-50%, 0) scale(0);
+            transform: translate3d(-50%,-50%, 0) scale(0);
+    z-index: 15;
+    color: #fff;
+    margin-right: 0;
+    transition: transform .3s, opacity .3s;
+}
+.card__image:hover .card__more {
+    -webkit-transform: translate3d(-50%,-50%, 0) scale(1);
+            transform: translate3d(-50%,-50%, 0) scale(1);
+    opacity: 1;
+}
+.card__title {
+    font-size: 1.6rem;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+.card__space:not(:last-child) {
+    padding-bottom: 1rem;
+}
+.card__descripcion {
     font-size: 1.1rem;
-    padding-top: .2rem;
+    line-height: 1.5;
+}
+.card__icon {
+    position: absolute;
+    bottom: 0;
+    font-size: 1.2rem;
+    right: 0;
+    padding: 1.2rem;
+}
+/* card modifiers */
+.card__title--search:not(:last-child) {
+    padding-bottom: .5rem;
+}
+
+/* Meta */
+.author__avatar {
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: .5rem;
+}
+.author__name {
     font-weight: 500;
-    padding-bottom: .3rem;
+}
+.post__meta {
+    line-height: 30px;
+    font-size: 1rem;
+}
+.meta__item {
+    font-weight: 500;
+    opacity: .75;
+    text-transform: capitalize;
+}
+.meta__space:not(:last-child) {
+    margin-right: 1rem;
+}
+.meta__item::before {
+    position: relative;
+    top: 3px;
+    margin-right: .5rem;
+    font-size: 1.2rem;
+}
+/*share*/
+.card__share > a {
+    margin: 2px;
+}
+.post__share > a {
+    margin: 0 4px 4px 0;
+}
+/* Gallery */
+.gallery__href {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-align: center;
+}
+.gallery__image {
+    width: 100%;
+    position: relative;
+    z-index: 5;
+}
+.gallery__title {
+    position: absolute;
+    letter-spacing: 1px;
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 1rem;
+    z-index: 10;
+    color: #fff;
+    padding: 15px;
+    background-image: linear-gradient(transparent, #000000);
+    -webkit-backface-visibility: hidden;
+}
+.gallery__title::after {
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    transition: opacity .3s;
+}
+.gallery__href:hover .gallery__title::after {
+    opacity: 1;
+}
+/* Spoiler */
+.wjs-spoiler {
+    margin-bottom: 5px;
+}
+.wjs-button {
+    padding: .8rem 1rem;
+    cursor: pointer;
+    display: block;
+    font-weight: 500;
+    color: #262626;
+    background: #f3f3f3;
+    border-radius: 2px;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+.wjs-button:hover {
+	opacity: .9;
+}
+.wjs-container {
+    height: 0;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    overflow: hidden;
+    -webkit-transform: translateY(-1rem);
+            transform: translateY(-1rem);
+}
+.wjs-container.is-active {
+    height: auto;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    transition: -webkit-transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+}
+/* Video */
+video {
+    background-color: #161616;
+}
+/* Audio */
+audio {
+    display: block;
+    width: 100%;
+}
+/* Pallete colors (500)
+--------------------------------------*/
+/* Color */
+.color-fern {
+    color: #67B36A;
+}
+.color-ocean-green {
+    color: #409C75;
+}
+.color-eastern-blue {
+    color: #23A6B3;
+}
+.color-san-marino {
+    color: #42689C;
+}
+.color-blue-violet {
+    color: #655FB3;
+}
+/* Background */
+.bg-fern {
+    background-color: #67B36A;
+}
+.bg-ocean-green {
+    background-color: #409C75;
+}
+.bg-eastern-blue {
+    background-color: #23A6B3;
+}
+.bg-san-marino {
+    background-color: #42689C;
+}
+.bg-blue-violet {
+    background-color: #655FB3;
+}
+/* Container
+-----------------------------------*/
+/*main shadow*/
+.container__main {
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, .25);
+}
+/*selection*/
+::-moz-selection {
+    color: #fff;
+}
+::selection {
+    color: #fff;
+}
+/*filling*/
+.skin-box {
+    padding: 15px;
+}
+.main__general .widget:last-child {
+    margin-bottom: 15px;
+}
+.bottom-space {
+    padding-bottom: 15px;
+}
+/* Header
+-----------------------------------*/
+.header {
+    position: relative;
+    z-index: 100;
+}
+.header__logo {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+/*logo*/
+.logo__title {
+    line-height: 1;
+    margin-bottom: 0;
+    font-size: 2.5rem;
+}
+.logo__title .logo__link {
+    display: inline-block;
+}
+.logo__image {
+    display: block;
+}
+.logo__image:not(:last-child) {
+    margin-bottom: 1rem;
 }
 /*menu*/
-.header__nav {
+.header__nav,
+#HTML100 {
     position: relative;
     z-index: 200;
+    line-height: 1.15;
 }
 .nav__menu a {
-    text-decoration: none;
+    padding: 1.5rem 15px;
     font-size: 1rem;
     letter-spacing: 1px;
     text-transform: uppercase;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
 }
-
-.nav__menu .is-parent>a::after,
-.nav__menu ul .is-parent>a::after {
+.nav__menu .is-parent > a .is-arrow::after,
+.nav__menu ul .is-parent > a .is-arrow::after {
     border: 2px solid;
     width: 8px;
     height: 8px;
     -webkit-transform: rotate(45deg) translateZ(0);
             transform: rotate(45deg) translateZ(0);
     margin-left: .75rem;
-	-webkit-transition: -webkit-transform .3s;
-	transition: -webkit-transform .3s;
-	transition: transform .3s;
-	transition: transform .3s, -webkit-transform .3s;
+    transition: -webkit-transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+    display: block;
 }
-.nav__menu ul {
-    -webkit-transition: -webkit-transform .2s;
-    transition: -webkit-transform .2s;
-    transition: transform .2s;
-    transition: transform .2s, -webkit-transform .2s;
-    -webkit-transform: scaleY(0) translateZ(0);
-            transform: scaleY(0) translateZ(0);
-    -webkit-transform-origin: top left;
-            transform-origin: top left;
+.nav__menu > li ul li:hover > a {
+    background: rgba(255, 255, 255, 0.12);
 }
-.nav__menu > li ul li:hover > a {background: rgba(255, 255, 255, 0.12);}
-.nav__toggle,
-.nav__menu a {padding: 1.5rem 1rem;}
-
-/*toggle*/
-.nav__toggle {display: block;}
+.nav__menu .is-parent .is-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.15);
+}
+.nav__menu li>ul {
+    transform: scaleY(.5) translateZ(0);
+    backface-visibility: hidden;
+    transition: transform .3s,opacity .3s;
+    opacity: 0;
+}
+.nav__menu li:hover>ul {
+    opacity: 1;
+    transform: scaleY(1) translateZ(0);
+    transform-origin: top;
+}
+/*Toggle
+--------------------------------------*/
+.nav__toggle {
+    display: block;
+}
 .nav__toggle--icon {
-    width: 26px;
+    width: 20px;
     position: relative;
     z-index: 80;
-    height: 17px;
+    height: 12px;
     cursor: pointer;
     display:block;
 }
@@ -211,21 +550,20 @@ html {font-size: 12px;}
     display: block;
     height: 2px;
     width: 100%;
-    background-color: #fff;
-    -webkit-transition: top .3s,-webkit-transform .3s;
+    background-color: white;
     transition: top .3s,-webkit-transform .3s;
     transition: transform .3s,top .3s;
     transition: transform .3s,top .3s,-webkit-transform .3s;
 }
-.nav__toggle--icon span::before {top: -7px;}
-.nav__toggle--icon span::after {bottom: -7px;}
+.nav__toggle--icon span::before {top: -6px;}
+.nav__toggle--icon span::after {bottom: -6px;}
 .nav__toggle--icon span {
     top: 50%;
     margin-top: -1px;
 }
 .nav__toggle.is-active .nav__toggle--icon span {
-    -webkit-transform: rotate(225deg) translateZ(0);
-            transform: rotate(225deg) translateZ(0);
+    -webkit-transform: rotate(45deg) translateZ(0);
+            transform: rotate(45deg) translateZ(0);
 }
 .nav__toggle.is-active .nav__toggle--icon span::before {
     opacity: 0;
@@ -236,1458 +574,1211 @@ html {font-size: 12px;}
     -webkit-transform: rotate(-90deg) translateZ(0);
             transform: rotate(-90deg) translateZ(0);
 }
-/*widgets*/
-.widget:not(:last-child) {margin-bottom: .5rem;}
-#Destacados .widget:last-child {margin-bottom: 1.5rem;}
-.widget > h2 {
+/*Slider*/
+.slider {
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+}
+.slider:hover .controls__prev,
+.slider:hover .controls__next {
+    opacity: 1;
+}
+.slider__container:not(.tns-slider) .slider__item {
+    width: 20%;
+    display: inline-block;
+}
+.controls__prev,
+.controls__next {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    z-index: 10;
+    padding: 1rem;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.5);
+    bottom: 0;
+    transition: background .3s, opacity .3s;
+}
+.controls__prev {left: 0;}
+.controls__next {right: 0;}
+.controls__prev:hover,
+.controls__next:hover {
+    background: rgba(255, 255, 255, 0.7);
+}
+/*Widgets*/
+.footer .widget,
+.post-heading {
+    margin-bottom: 0;
+}
+.main .widget {padding: 0;}
+.main .widget > h2::after,
+.main .widget-title::after {
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.main .widget:not(:last-child) {
+    margin-bottom: 1.5rem;
+}
+.header .widget > h2,
+.header .widget-title {
+    display: none;
+}
+.widget {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+.main .widget,
+.footer .widget {
+    line-height: 1.5;
+}
+.widget > h2,
+.widget-title,
+.post-heading > span {
     font-size: 1rem;
     text-transform: uppercase;
     padding: 1rem;
-    color: #fff;
     display: inline-block;
     margin: 0;
     letter-spacing: 1px;
+    font-weight: 500;
 }
-/* Para que Single.css funcione correctamente
- * Se debe formatear todas los class de los widgets que carecen
- * de "widget-content" como se muestra acontinuacion.
- */
-.widget-content, 
+.widget > h2::after,
+.widget-title::after {
+    content: "";
+    height: 41px;
+    position: absolute;
+    z-index: -1;
+}
+/* bundle.css required */
+.widget-content,
 .user-content,
 .contact-form-widget,
 .wikipedia-search-main-container,
 .post-summary {
     width: 100%;
-    padding: 1rem 0;
 }
-/*if => header*/
-.header .widget,
-.footer .widget {
-    margin-bottom: 0;
-    background: transparent;
+.widget-content:not(:first-child),
+.user-content:not(:first-child),
+.contact-form-widget:not(:first-child),
+.wikipedia-search-main-container:not(:first-child),
+.post-summary:not(:first-child) {
+    margin-top: 1rem;
 }
-.header .widget > h2 {display: none;}
-.header .widget-content, 
+.header .widget-content,
 .header .user-content,
 .header .contact-form-widget,
 .header .wikipedia-search-main-container,
-.header .post-summary {padding: 0;}
-
+.header .post-summary {
+    margin-top: 0;
+}
 /*
 => Custom Widget Search
 */
-.search-main {
-    position: relative;
-    background: #f9f9f9;
+.search__input {
+    border-right: 0 none;
 }
-div.widget .search-main__input { /* <= fix Single.css*/
-    padding: 1rem;
-    font-size: 1.1rem;
-    vertical-align: middle;
-    width: 100%;
-    border: 4px solid rgba(0, 0, 0, .06);
-    font-weight: 500;
-    padding-right: 4rem;
-    -webkit-transition: border .2s;
-    transition: border .2s;
-    color: rgba(0, 0, 0, .5);
-    box-shadow: 0 0 transparent; /* <= fix Single.css*/
-    border-radius: 0; /* <= fix Single.css*/
-    background: transparent; /* <= fix Single.css*/
+.search__input:focus {
+    border-color: rgba(0, 0, 0, .1);
 }
-div.widget .search-main__input:focus {border-color: rgba(0, 0, 0, .1);}
-.search-main__button {
-    padding: 0 1.2rem;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    z-index: 1;
-    cursor: pointer;
-    right: 0;
-    -webkit-transition: opacity .3s;
-    transition: opacity .3s;
-}
-.search-main__button::before {font-size: 1.2rem;}
-.search-main__button:hover {opacity: 0.8;}
-
-/*
-=> Custom Widget FeaturedPost
-*/
-.card-featured__image {position: relative;}
-.card-featured__image::before {
-    position: absolute;
-    bottom: 0;
-    font-size: 1.5rem;
+.search__button i {
+    font-size: 1.2rem;
     display: block;
-    right: 0;
-    padding: 1rem;
 }
-
 /*
 => Custom Widget Tags
 */
-.tags-list__link {
-    padding: 1rem;
-    font-size: 1rem;
+.tagsList__link {
     margin: 0 4px 4px 0;
-    font-weight: 700;
-    background: #f2f2f2;
-    color: rgba(0, 0, 0, .5);
 }
-.tags-list__num {
-    font-weight: 700;
+.tagsList__num {
     margin-left: .5rem;
 }
-.tags-list__link:hover {
-    background: #e5e5e5;
-    color: rgba(0, 0, 0, .8);
-}
-.tags-list__link:hover .tags-list__num,
-.tags-list__link.here .tags-list__num{
+.tagsList__link:hover .tagsList__num,
+.tagsList__link.here .tagsList__num{
     color: rgba(0, 0, 0, .75);
 }
-.tags-list__num, 
-.tags-list__link {
-    -webkit-transition: background .2s, color .2s;
-    transition: background .2s, color .2s;	
-}
 /* if => config: list */
-.tags-list--list .tags-list__link {width: 100%;}
-.tags-list--list .tags-list__num {float: right;}
-
-/*blog*/
-.sidebar, .blog {width: 100%;}
-
-/*top entry with lory*/
-.slides,
-.js_slide {display: inline-block}
-.js_slide img {width: 100%;}
-.frame {
-    font-size: 0;
-    position: relative;    
-    line-height: 0;
-    overflow: hidden;
-    white-space: nowrap
-}
-.next, .prev {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    font-size: 2rem;
-    background: rgba(255, 255, 255, .5);
-    -webkit-transition: background .2s;
-    padding: .4rem 2rem;
-    font-weight: 700;
-}
-.next::before, .prev::before {display: block;}
-.next:hover, .prev:hover {background: rgba(255, 255, 255, .8);}
-.next {right: 0;}
-.prev {left: 0;}
-.frame {width: 100%;}
-.js_slide {width: 286px;}
-.js_slide:not(:last-child) {margin-right: 4px;}
-
-/*entrys*/
-.entrys {
-    padding: 0;
-    margin: 0;
-}
-.top-entry {position: relative;}
-.entrys li > a {
-    display: block;
-    position: relative;
-    height: 196px;
-    overflow: hidden;
-}
-.entrys li > a > span,
-.wjs-rel__title {
-    display: block;
-    line-height: 1.5;
-    font-size: 1rem;
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    padding: .8rem 1rem;
-    text-align: center;
+.tagsList--list .tagsList__link {
     width: 100%;
-    white-space: normal;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    -webkit-transition: background .2s;
-    transition: background .2s;
+    margin-right: 0;
+    text-align: left;
 }
-/*cards*/
-.card {
-    width: 100%;
-    padding-left: .5rem;
-    padding-right: .5rem;
-    padding-bottom: 1rem;
-}
-.items {
-    margin-left: -.5rem;
-    margin-right: -.5rem;
-}
-.card__content,
-.card-featured {line-height: 1.4rem;}
-.card__data {padding: 1.5rem;}
-.card__image {
-    position: relative;
-    overflow: hidden;
-}
-.card__image img {
-	-webkit-transition: -webkit-transform .2s;
-	transition: -webkit-transform .2s;
-	transition: transform .2s;
-	transition: transform .2s, -webkit-transform .2s;
-    -webkit-transform: scale(1.0, 1.0) translateZ(0);
-            transform: scale(1.0, 1.0) translateZ(0);
-}
-.card__image, 
-.card__image img,
-.card-featured__image,
-.card-featured__image img {
-    width: 100%;
-    display: block;
-}
-.card__image:hover img {
-    -webkit-transform: scale(1.1, 1.1) translateZ(0);
-            transform: scale(1.1, 1.1) translateZ(0);
-}
-.card__title {font-size: 1.5rem;}
-.card__title:not(:last-child) {padding-bottom: 1rem;}
-.card__title a {
-    font-weight: 400;
-    text-transform: uppercase;
-    -webkit-transition: color.3s;
-    transition: color.3s;
-}
-.card__descripcion {
-    font-size: 1.1rem;
-    font-weight: 400;
-    padding-bottom: .5rem;
-}
-.card__descripcion:not(:last-child) {
-    padding-bottom: .8rem;
-}
-.card__meta i::before {
-    font-size: 1.2rem;
-    display: block;
-}
-.card__meta a {
-    padding: 1rem;
-    font-size: 1rem;
-    border: 2px solid;
-    margin-right: .5rem;
-    font-weight: 700;
-    line-height: 1;
-    -webkit-transition: opacity .3s;
-    transition: opacity .3s;
-    margin-top: .5rem;
-	opacity: .7;
-}
-.card__meta a:hover {opacity: 1;}
-.card__meta .date {
-    text-transform: capitalize;
-    display: inline-block;
-}
-.card__meta a::before {
-    margin-right: .5rem;
-    font-size: 1.2rem;
-}
-.card__image::after,
-.card__image::before{
-    opacity: 0;
-    position: absolute;
-    -webkit-transition: opacity .3s, -webkit-transform .3s;
-    transition: opacity .3s, -webkit-transform .3s;
-    transition: transform .3s, opacity .3s;
-    transition: transform .3s, opacity .3s, -webkit-transform .3s;
-}
-.card__image::after {
-    z-index: 10;
-    content: "";
-    width: 100%;height: 100%;
-    left: 0;top: 0;
-}
-.card__image::before {
-    font-size: 2rem;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate3d(-50%,-50%, 0) scale(2);
-            transform: translate3d(-50%,-50%, 0) scale(2);
-    z-index: 15;
-}
-.card__image:hover::before {
-    -webkit-transform: translate3d(-50%,-50%, 0) scale(1);
-            transform: translate3d(-50%,-50%, 0) scale(1);
-    opacity: 1;
-}
-.card__image:hover::after {opacity: .8;}
-/*if => search page */
-.items--search {margin: 0;}
-.card--search {width: 100%;}
-.card__content--search {
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-}
-.card__data--search,
-.card__descripcion--search {padding: 0;}
-.card__content--search {padding: 1.5rem;}
-.card__image--search {
-    width: 70px;
-    margin-right: 1.5rem;
-    -webkit-box-flex: 1;
-        -ms-flex: 0 0 auto;
-            flex: 0 0 auto;
+.tagsList--list .tagsList__num {
+    float: right;
 }
 /*
-=> Footer
+=> Custom: Top post
 */
-/*footer copy*/
-.end__copy p {
-    font-size: .9rem;
-    font-weight: 700;
-    text-transform: uppercase;
+.hotPosts__image {
+    width: 75px;
+    margin-right: 1rem;
 }
-.end__copy p a {
-    -webkit-transition: color .3s;
-    transition: color .3s;	
+.hotPosts__content:not(:last-child) {
+    margin-bottom: 1rem;
 }
-.end__copy span {
-    font-size: 1.5rem;
-    line-height: 1;
-    font-weight: 700;
-    display: block;
+.hotPosts__title {
+    font-size: 1.2rem;
+    margin-bottom: .5rem;
+}
+.hotPosts__title a {
+    color: #262626;
+}
+.hotPosts__snippet {
+    font-weight: 400;
+    color: #767676;
+}
+.hotPosts__data {
+    width: calc(100% - 1rem - 75px);
+}
+/*
+=> Custom: Newsletter
+*/
+.newsletter {
+    padding: 2rem;
+}
+.newsletter {
+    background-color: #f2f2f2;
+}
+.newsletter__input {
+    margin-bottom: 1rem;
+}
+/* Search
+--------------------------------------*/
+.card-search {
     padding-bottom: .5rem;
 }
-.end__copy {
-    cursor: default;
-    text-align: center;
-    padding-top: 1rem;
-}
-/*footer social*/
-.end__social-list a {
-    font-size: 1.5rem;
-    padding: 0 .5rem;
-    -webkit-transition: color .3s;
-    transition: color .3s;
-}
-.end__social-list a::before {
-    display: block;
-}
-/*footer links*/
-.footer__links {position: relative;}
-.footer__end {border-bottom: 2px solid;}
-.footer__links a::before {
-    position: relative;
-    top: 2px;
-    margin-right: .5rem;
-}
-.footer__links a {
-    font-size: 1rem;
+.card-search__image {
+    width: 60px;
     margin-right: 1rem;
-    font-weight: 500;
-    -webkit-transition: opacity .3s;
-    transition: opacity .3s;
-	opacity: .7;
 }
-.footer__links a:hover {opacity: 1;} /* <= footer links:hover*/
-/*error*/
-.error {margin-bottom: 1rem;}
-.error__title {font-size: 2rem;}
-.error__mott {font-size: 4rem;}
-.error__title,
-.error__mott,
-.error__info {
-    padding-bottom: 1.5rem;
-    display: block;
+/* Footer
+--------------------------------------*/
+.footer__social-list a {
+    font-size: 1.5rem;
+}
+.footer__social-list a:not(:last-child) {
+    margin-right: .75rem;
+}
+.copy__date {
+    display: inline-block;
+    font-size: 1.6rem;
+    font-weight: 500;
+    line-height: 1;
+}
+.footer__copy {
     text-align: center;
 }
-.error__info {
+.copy__date:not(:last-child) {
+    margin-bottom: .5rem;
+}
+.copy__attribution {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 500;
+}
+.copy__attribution a {
+    font-weight: 500;
+}
+.footer__primary {
+    border-bottom-style: solid;
+    line-height: 1.15;
+    border-bottom-width: 2px;
+}
+/*
+=> Error 404
+*/
+.error-page {
+    text-align: center;
+}
+.error-page__title {
+    font-size: 4rem;
+}
+.error-page__text {
     font-size: 1.2rem;
     font-weight: 500;
 }
-
+/*
+=> Paginations
+*/
+.blog-pager {
+    padding-top: .5rem;
+}
+.blog-pager__item,
+.tags__link {
+    margin-right: .5rem;
+    margin-bottom: .5rem;
+}
+/* Layout
+-----------------------------------*/
+.blog.noSidebar {
+    width: 100%;
+}
+.col-5ta {
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+}
 /*
 =>MediaQuerys
 */
+@media (max-width: 991px) {
+    .blog {
+        padding-bottom: 1.5rem;
+    }
+    .nav__menu {
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        min-width: 200px;
+    }
+    .nav__menu.is-active {
+        max-height: inherit;
+        visibility: visible;
+    }
+    .nav__menu li>ul {
+        opacity: 1!important;
+        transform: none!important;
+    }
+}
+@media (max-width: 767px) {
+    .footer__social {
+        margin-bottom: 1rem;
+    }
+    .footer__social-list a {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+    .footer__case:not(:last-child) {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 575px) {
+    .nav__menu {
+        min-width: auto;
+        right: 0;
+    }
+    .footer__links-list a:not(:last-child) {
+        margin-bottom: .5rem;
+    }
+}
 /* Small devices */
 @media (min-width: 576px) {
-	.container__box,
-   	.nav__menu a, .nav__toggle {padding: 1.5rem;	}
-	.card {width: 50%;}
+    .col-5ta-sm {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+    .footer__links-list a:not(:last-child) {
+        margin-right: 1rem;
+    }
+    html {
+        font-size: 14px;
+    }
+    .widget > h2::after,
+    .widget-title::after {
+        height: 44px;
+    }
 }
 /* Medium devices */
 @media (min-width: 768px) {
-	.nav__toggle {
-    	padding: 1.5rem 2rem;
-    	display: block;    
-	}
-	.container {padding: 0 1rem;}
-	.container__box {padding: 1.8rem 2rem;}
-	.nav__menu a {padding: 1.5rem 2rem;}	
-	.end__social-list a {
-    	padding-left: 0;
-    	padding-right: 1rem;
-	}
-	.nav__menu .is-parent>a::after,	.nav__menu ul .is-parent>a::after {
-    	width: 10px;
-    	height: 10px;
-	}
-	.end__copy {
-    	text-align: right;
-    	padding-top: 0;
-	}
+    .col-5ta-md {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+    .container {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+    .footer__copy {
+        text-align: right;
+    }
+    .footer__case {
+        margin-bottom: 0;
+    }
 }
 /* Large devices */
-@media (max-width: 991px) {
-	.nav__menu ul.is-active,.nav__menu.is-active {
-    	-webkit-transform: scaleY(1) translateZ(0);
-    	        transform: scaleY(1) translateZ(0);
-	}
-	.nav__menu ul ul {
-    	background: rgba(0, 0, 0, .2);
-	}
-	.nav__menu {
-    	visibility: hidden;
-    	max-height: 0;
-    	position: absolute;
-    	top: 100%;
-    	left: 0;right: 0;
-    	background: #232323;
-    	-webkit-transition: -webkit-transform .2s;
-    	transition: -webkit-transform .2s;
-    	transition: transform .2s;
-    	transition: transform .2s, -webkit-transform .2s;
-    	-webkit-transform: scaleY(0) translateZ(0);
-    	        transform: scaleY(0) translateZ(0);
-    	-webkit-transform-origin: top left;
-    	        transform-origin: top left;
-		overflow: hidden;
-	}
-	.nav__menu.is-active {
-    	visibility: visible;
-    	max-height: inherit;
-	}
-}
 @media (min-width: 992px) {
-	.nav__menu li a.is-active {background: transparent !important;	}
-	.container__box--menu {
-		padding-top: 0;
-		padding-bottom: 0;
-		padding-left: calc(2rem - 1.2rem);
-		padding-right: calc(2rem - 1.2rem);
-	}
-	.head__logo {font-size: 2.4rem;}
-	.nav__menu > li > a,
-	.nav__menu li ul a {
-    	padding-left: 1.2rem;
-    	padding-right: 1.2rem;
-	}
-	.nav__toggle {display: none;}
-	.nav__menu ul {
-    	min-width: 200px;
-		box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.2);
-	}
-	.nav__menu li:hover > ul {
-    	-webkit-transform: scaleY(1) translateZ(0);
-    	        transform: scaleY(1) translateZ(0);
-	}
-	.nav__menu ul .is-parent:hover>a::after {
-    	-webkit-transform: rotate(135deg) translateZ(0);
-    	        transform: rotate(135deg) translateZ(0);
-	}
-	.nav__menu > li:hover > a::after {
-    	-webkit-transform: rotate(-45deg) translateZ(0);
-    	        transform: rotate(-45deg) translateZ(0);
-	}
+    .col-5ta-lg {
+        -ms-flex: 0 0 20%;
+        flex: 0 0 20%;
+        max-width: 20%;
+    }
+    .skin-left {float: left;}
+    .skin-right {float: right;}
+    .nav__toggle {
+        display: none;
+    }
+    .nav__menu ul {
+        box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.25);
+    }
+    .nav__menu a {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+    }
+    .nav__menu li:hover > a > .is-arrow::after {
+        -webkit-transform: rotate(135deg) translateZ(0);
+                transform: rotate(135deg) translateZ(0);
+    }
+    .nav__menu > li:hover > a > .is-arrow::after {
+        -webkit-transform: rotate(-45deg) translateZ(0);
+                transform: rotate(-45deg) translateZ(0);
+    }
 }
-/* Extra large devices */
-@media (min-width: 1367px) {
-	html {font-size: 14px;}
+@media (min-width: 1200px) {
+   .col-5ta-xl {
+      -ms-flex: 0 0 20%;
+      flex: 0 0 20%;
+      max-width: 20%;
+   }
 }
 /*]]>*/</style>
 
+<b:comment>Post/Static Page Styles</b:comment>
 <b:if cond='data:view.isSingleItem'>
 <style>/*<![CDATA[*/
-/* => CSS SingleItem */
-/*article*/
-article .post-body {padding-bottom: 2rem;}
-.article__header {padding-bottom: 1.5rem;}
-.article__title {
-    font-size: 1.8rem;
-    margin: 0;
-    padding-bottom: 1rem;
-}
-.post-body .button {
-    color: #fff;
-    padding: 1em;
-    border-radius: 2px;
-    transition: opacity .2s;
-    font-weight: 400;
-}
-.post-body .button::before, 
-.post-body .button > i {
-    font-size: 1.4rem;
-    float: left;
-    margin-right: .5rem;
-    color: rgba(0, 0, 0, 0.5);
-}
-.post-body .button:hover {opacity: .8;}
-.comentarios .widget {margin-bottom: 1rem;}
+.post__header{padding-bottom:1.5rem}.tags{padding-bottom:.5rem}.post__title{font-size:2rem;margin-bottom:1.5rem;font-weight:400}.post__title--page{padding-bottom:2rem;border-bottom:2px solid #f2f2f2;margin-bottom:2rem}.post-body .h1,.post-body .h2,.post-body .h3,.post-body .h4,.post-body .h5,.post-body .h6,.post-body h1,.post-body h2,.post-body h3,.post-body h4,.post-body h5,.post-body h6,.wjs-related .gallery{margin:0 0 1rem}.wjs-related{padding-top:1.5rem;padding-bottom:1rem}.reactions-iframe{width:100%;height:22px}.post-comments{padding-top:1rem}/*!include: article.css*/.post-body{font-size:16px}.lead{font-size:1.4rem;font-weight:300}blockquote{border-left:3px solid;padding:1rem 1.5rem;font-weight:400;margin-bottom:0;margin-top:0;margin-left:1rem;font-size:1.2rem}.post-body ol,.post-body ul{margin-left:1.75em}.post-body ul{list-style-type:disc}.post-body ul ul{list-style-type:circle}.post-body ol{list-style-type:decimal;counter-reset:counter}.post-body .fa-ul{list-style-type:none}.post-body .list-unstyled{padding-left:0;margin-left:0;list-style:none}.post-body table{text-align:left;width:100%}.post-body table tbody td,.post-body table thead th{padding:1rem;border-bottom:1px solid #e3e3e3;color:#757575}.post-body table thead th{white-space:nowrap;color:#454545;border-width:2px}.post-body .btn{border-radius:2px;margin-right:2px;margin-bottom:6px}
 /*]]>*/</style>
+<b:comment>Bundle (Comments)</b:comment>
+<b:with value='{dir: "//cdn.jsdelivr.net/gh/zkreations/bundle@1/dist/ctms/", theme: "anime"}' var='cmts'>
+  <link expr:href='+(data:cmts.dir,"cmts_bundle.min.css")' rel='stylesheet'/>
+  <link expr:href='+(data:cmts.dir,"theme_",data:cmts.theme,".min.css")' rel='stylesheet'/>
+</b:with>
 </b:if>
 
-<b:if cond='data:view.isPost'>
-<style>/*<![CDATA[*/
-/* => CSS Post */
-.tags-post {padding-bottom: .5rem;}
-.post-meta__item,
-.tags-post__link,
-.post-share__button {
-	opacity: .6;
-    -webkit-transition: opacity .3s;
-    transition: opacity .3s;
-}
-.tags-post__link,
-.post-share__button {
-    margin-right: .5rem;
-    margin-bottom: .5rem;
-    font-weight: 500;
-}
-.tags-post__link {
-    display: inline-block;
-    padding: .7rem 1rem;	
-}
-.post-meta__item:hover,
-.tags-post__link:hover,
-.post-share__button:hover {opacity: 1;}
-/*article meta*/
-.post-meta__item {
-    font-weight: 500;
-    text-transform: uppercase;
-}
-.post-meta__item:not(:first-child) {margin-left: 1rem;}
-.post-meta__autor {
-    overflow: hidden;
-    border-radius: 50%;
-}
-.post-meta__item::before {
-    position: relative;
-    top: 3px;
-    margin-right: .5rem;
-    font-size: 1.2rem;
-}
-/*reactions*/
-.reactions-iframe {
-    width: 100%;
-    height: 22px;
-}
-/*share buttons*/
-.article__post-share {
-    clear: both;
-    padding-bottom: 1rem;
-    line-height: 1.75rem;
-}
-.post-share__button {
-    padding: .5rem .8rem;
-    font-size: 13px;
-}
-.post-share__button::before {
-    font-size: 1.2rem;
-	margin-right: .5rem;
-}
-/*Post Relacionados*/
-.post-related {
-    margin-left: -2px;
-    margin-right: -2px;
-    padding-bottom: 1rem;
-}
-.wjs-rel {
-	padding: 2px;
-	width: 50%;
-}
-.wjs-rel__title {margin: 0;}
-.wjs-rel__image img {width: 100%;}
-.wjs-rel__image {
-    position: relative;
-	display: block;
-}
-@media (min-width: 576px) {
-	.wjs-rel {width: 33.333333%;}
-}
-/*]]>*/</style>
-<b:elseif cond='data:view.isPage'/>
-<style>/*<![CDATA[*/
-/* => CSS Page */
-.article__title {
-	padding-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-/*]]>*/</style>
+<b:comment>Bundle (Widgets)</b:comment>
+<b:if cond='data:skin.vars.config_bundle'>
+<b:with value='{dir: "//cdn.jsdelivr.net/gh/zkreations/bundle@1/dist/wgts/", theme: "default"}' var='wgts'>
+  <link expr:href='+(data:wgts.dir,"wgts_bundle.min.css")' rel='stylesheet'/>
+  <link expr:href='+(data:wgts.dir,"theme_",data:wgts.theme,".min.css")' rel='stylesheet'/>
+</b:with>
 </b:if>
 
-<!--
-=> ESTILOS BASICOS
--->
-<b:if cond='data:view.isSingleItem'>
-<link href='//cdn.rawgit.com/zkreations/Canvas.xml/master/misc/skins/articleSkin/dist/article.default.min.css' rel='stylesheet'/>
-<link href='//cdn.rawgit.com/zkreations/Canvas.xml/master/misc/skins/commentSkin/dist/threadedComments.anime.min.css' rel='stylesheet'/>
-</b:if>
-
-<!--
-=> CONFIGURACION BASICA
--->
+<b:comment>Options (Warning, it can cause crashing!)</b:comment>
 <b:skin><![CDATA[
 /*!
-=> Theme Name: Anime.xml
-=> Theme URI: https://zkreations.com
-=> Author: Daniel Abel {Zero}
-=> Author URI: https://fb.com/daniei.abel
+=> Theme Name: Anime.xml Pro
+=> Theme URI: https://zkreations.com/anime-xml
+=> Author: Daniel Abel M. (Copyright 2018 zkreations)
+=> Author URI: https://instagram.com/danie.abel
+=> Version: 3.0.4
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
 
-/*Deleted: unnecessary elements*/
-.singleton-element:not(.cookie-choices-info),
+/*Fix: Unnecessary elements removed*/
+.widget-item-control,
 .item-control.blog-admin,
-.widget-item-control{display: none}
+.continue,.loadmore,
+.thread-chrome.thread-collapsed,
+.singleton-element:not(.cookie-choices-info),
+.noAllowNewComments .comment-actions {display:none}
 
-/*Fix: Blogger lightbox*/
-.CSS_LIGHTBOX{z-index: 90001 !important}
+/*Fix: Show lightbox*/
+.CSS_LIGHTBOX{z-index:90001!important}
 
-/*Fix: Post image responsive*/
-a[imageanchor],a[imageanchor] > img{margin:0!important;height:auto!important}
+/*Fix: Image responsive*/
+a[imageanchor]:not([style*=float]) {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+img[data-original-height],
+img[data-original-width] {height: auto;}
 
 /*Fix: Comment Editor*/
-#comment-editor{border: 0;width: 100%;min-height: 220px}
-
-/*Fix: fb responsive hack ?= google plus hack */
-.fb-comments,.fb-comments iframe span[style],
-.fb-comments iframe[style],.fb-comments span,
-.fb-like-box,.fb-like-box iframe span[style],
-.fb-like-box iframe[style],.fb-like-box span,
-.cmt_iframe_holder, .cmt_iframe_holder > iframe {width:100%!important;display: block !important}
-
-/*Design: is Layout Mode*/
-body#layout .container {margin: 0 auto;}
-body#layout .left {float: left;width: 50%}
-body#layout .right {float: right;width: 50%}
-body#layout .blayout::after {
-    display: block;
-    content: "";
-    clear: both;
+#comment-editor{
+    border:0;
+    width:100%;
+    min-height:220px
 }
 
-/* Variable definitions
+/*Fix: Responsive Comments*/
+.fb-comments,
+.fb-comments span,
+.fb-comments iframe,
+.cmt_iframe_holder,
+.cmt_iframe_holder iframe {
+    width:100%!important;
+    display:block!important
+}
+
+/* Configurations
    ====================
+   <!-- General Options -->
+   <Variable name="config.comments" description="Comment system" type="string" default="blogger" value="blogger"/>
 
+   <!-- Options for Comments -->
+   <Variable name="config.dq.shortname" description="Short name of Disqus" type="string" default="shortname" value="shortname"/>
+   <Variable name="config.fb.commentNums" description="Initial number of comments" type="string" default="10" value="10"/>
+   <Variable name="config.fb.commentSkin" description="Theme color" type="string" default="light" value="light"/>
+
+   <!-- Bundle.css -->
+   <Variable name="config.bundle" description="Bundle.css" type="string" default="false" value="false"/>
+
+   <!-- Cards (Home posts) -->
+   <Variable name="config.post.column" description="Number of columns" type="string" default="2" value="2"/>
+   <Variable name="config.post.showSnippet" description="Show Snippet" type="string" default="true" value="true"/>
+   <Variable name="config.post.showMeta" description="Show Meta" type="string" default="true" value="true"/>
+   <Variable name="config.post.ratio" description="Aspect ratio" type="string" default="true" value="true"/>
+
+   <!-- Show -->
+   <Variable name="config.show.sidebar" description="Show sidebar" type="string" default="true" value="true"/>
+   <Variable name="config.show.oppositeBlog" description="Exchange between sidebar and blog" type="string" default="false" value="false"/>
+
+   <!-- image default -->
+   <Variable name="config.default.image" description="Default image" type="string" default="https://2.bp.blogspot.com/-1J-byOnRoAI/W3Cot79qVUI/AAAAAAAADmE/IwXCcRdJl70_yR7FivfpmM62MVqD4CwbQCLcBGAs/s1600/no-img-blogger.png" value="https://2.bp.blogspot.com/-1J-byOnRoAI/W3Cot79qVUI/AAAAAAAADmE/IwXCcRdJl70_yR7FivfpmM62MVqD4CwbQCLcBGAs/s1600/no-img-blogger.png"/>
+
+   Variable definitions
+   ====================
+   
    <Variable name="keycolor" description="Main Color" type="color" default="#2196f3" value="#2196f3"/>
-
-   <Group description="Basico" selector="body">
-      <Variable name="body.background.color" description="Color de fondo" type="color" default="#e1e1e1" value="#e1e1e1"/>
-      <Variable name="main.color" description="Color principal" type="color" default="#23a6b3" value="#23a6b3"/>
-      <Variable name="link.color" description="Color de enlaces" type="color" default="#00BCD4" value="#00BCD4"/>
-      <Variable name="logo.font" description="Fuente del logo" type="font" family="Custom" default="Custom" value="Custom"/>
-      <Variable name="main.font" description="Fuente del texto" type="font" family="RobotoDraft" default="RobotoDraft" value="RobotoDraft"/>
-   </Group>
-
-   <Group description="Cuerpo" selector=".container__main">
-      <Variable name="main.width" description="Cuerpo" type="length" min="1000px" max="1600px" default="1240px" value="1240px"/>
-      <Variable name="fondo.main" description="Fondo del cuerpo" type="color" default="#ffffff" value="#ffffff"/>
-   </Group>
-
-   <Group description="Cabecera" selector=".header__head">
-      <Variable name="fondo.header" description="Fondo del header" type="color" default="#f2f2f2" value="#f2f2f2"/>
-      <Variable name="color.logo" description="Color del logo de Texto" type="color" default="rgba(0, 0, 0, 0.75)" value="rgba(0, 0, 0, 0.75)"/>
-      <Variable name="color.logo.hover" description="Color del logo de Texto (Hover)" type="color" default="rgba(0, 0, 0, 0.95)" value="rgba(0, 0, 0, 0.95)"/>
-      <Variable name="color.descripcion" description="Color de la descripcion" type="color" default="rgba(0, 0, 0, .5)" value="rgba(0, 0, 0, .5)"/>
-   </Group>
-
-   <Group description="Menu principal" selector=".nav__menu, .nav__menu a::after">
-      <Variable name="fondo.menu" description="Fondo del menu principal" type="color" default="#232323" value="#232323"/>
-      <Variable name="color.menu" description="Color de los items" type="color" default="#ffffff" value="#ffffff"/>
-      <Variable name="color.menu.indicador" description="Color del indicador" type="color" default="#ffffff" value="#ffffff"/>
-   </Group>
-
-   <Group description="Slider Populares" selector=".top-entry">
-      <Variable name="fondo.popular" description="Fondo del titulo" type="color" default="#41555f" value="#41555f"/>
-      <Variable name="color.popular" description="Color del titulo" type="color" default="#ffffff" value="#ffffff"/>
-      <Variable name="fondo.popular.arrow" description="Color de las flechas" type="color" default="rgba(255, 255, 255, .5)" value="rgba(255, 255, 255, .5)"/>
-      <Variable name="color.popular.arrow" description="Fondo de las flechas" type="color" default="rgba(0, 0, 0, .75)" value="rgba(0, 0, 0, .75)"/>
+   
+   <Group description="Accents" selector="body">
+      <Variable name="main.bg" description="Main Background" type="color" default="#e0e0e0" value="#e0e0e0"/>
+      <Variable name="main.color" description="Color" type="color" default="#23a6b3" value="#23a6b3"/>
+      <Variable name="main.linkColor" description="Link color" type="color" default="#23a6b3" value="#23a6b3"/>
    </Group>
    
-   <Group description="Widgets" selector=".main-content .widget">
-      <Variable name="fondo.wtitles" description="Fondo titulo del widget" type="color" default="#f1f1f1" value="#f1f1f1"/>
-      <Variable name="color.wicons" description="Iconos del widget" type="color" default="rgba(0, 0, 0, .5)" value="rgba(0, 0, 0, .5)"/>
-   </Group>
-
-   <Group description="Tarjetas" selector=".card__content, .info, .card-featured">
-      <Variable name="fondo.card" description="Tarjeta" type="color" default="#f2f2f2" value="#f2f2f2"/>
-      <Variable name="color.card.lupa" description="Lupa" type="color" default="#ffffff" value="#ffffff"/>
-      <Variable name="color.card.title" description="Titulo" type="color" default="rgba(0, 0, 0, .75)" value="rgba(0, 0, 0, .75)"/>
-      <Variable name="color.card.body" description="Cuerpo de la entrada" type="color" default="rgba(0, 0, 0, .5)" value="rgba(0, 0, 0, .5)"/>
-      <Variable name="color.card.meta" description="Color de datos" type="color" default="rgba(0, 0, 0, .75)" value="rgba(0, 0, 0, .75)"/>
-      <Variable name="borde.card.meta" description="Borde de datos" type="color" default="rgba(0, 0, 0, .2)" value="rgba(0, 0, 0, .2)"/>
-   </Group>
-  
-   <Group description="Articulos" selector=".card__content">
-      <Variable name="fondo.article" description="Fondo de tarjetas" type="color" default="rgba(0,0,0,.05)" value="rgba(0,0,0,.05)"/>
-      <Variable name="color.article.title" description="Color de titulos" type="color" default="rgba(0, 0, 0, .75)" value="rgba(0, 0, 0, .75)"/>
-      <Variable name="color.article.body" description="Color de textos" type="color" default="rgba(0, 0, 0, .6)" value="rgba(0, 0, 0, .6)"/>
-      <Variable name="borde.article.body" description="Color de bordes" type="color" default="rgba(0, 0, 0, .06)" value="rgba(0, 0, 0, .06)"/>
-      <Variable name="color.article.meta" description="Meta Color" type="color" default="rgba(0, 0, 0, .75)" value="rgba(0, 0, 0, .75)"/>
-      <Variable name="borde.article.meta" description="Meta borde" type="color" default="rgba(0, 0, 0, .4)" value="rgba(0, 0, 0, .4)"/>
-   </Group>
-
-   <Group description="Footer" selector=".footer__end, .footer__links">
-      <Variable name="fondo.footer1" description="Fondo footer 1" type="color" default="#f2f2f2" value="#f2f2f2"/>
-      <Variable name="color.footer.social" description="iconos sociales" type="color" default="rgba(0, 0, 0, .3)" value="rgba(0, 0, 0, .3)"/>
-      <Variable name="color.footer.texto" description="Color texto footer 1" type="color" default="rgba(0, 0, 0, .3)" value="rgba(0, 0, 0, .3)"/>
-      <Variable name="color.footer.texto.links" description="Color enlaces footer 1" type="color" default="rgba(0, 0, 0, .5)" value="rgba(0, 0, 0, .5)"/>
-      <Variable name="fondo.footer2" description="Fondo footer 2" type="color" default="#232323" value="#232323"/>
-      <Variable name="color.footer.links" description="Color enlaces footer 2" type="color" default="#ffffff" value="#ffffff"/>
-      <Variable name="color.footer.links.icons" description="Iconos de enlaces" type="color" default="#ffffff" value="#ffffff"/>
+   <Group description="Widths" selector=".container__main">
+      <Variable name="width.content" description="Content width" type="length" min="800px" max="1600px" default="1240px" value="1240px"/>
+      <Variable name="width.sidebar" description="Sidebar width" type="length" min="200px" max="600px" default="350px" value="350px"/>
    </Group>
    
-   <Group description="Layout (Refrescar)" selector=".container__main">
-      <Variable name="layout.postnum" description="Numero de entradas" type="string" default="10" value="10"/>
-      <Variable name="layout.single" description="Activar Single.css (Widgets)" type="length" min="0" max="1px" default="0px" value="0px"/>
-      <Variable name="layout.invert" description="Invertir blog y sidebar (Cuerpo)" type="length" min="0" max="1px" default="0px" value="0px"/>
-      <Variable name="layout.full" description="Mostrar Sidebar" type="length" min="0" max="1px" default="1px" value="1px"/>
-      <Variable name="layout.pagination" description="Activar Paginacion numerica" type="length" min="0" max="1px" default="0px" value="0px"/>
-      <Variable name="layout.cover" description="Mostrar Personaje (Header)" type="length" min="0" max="1px" default="1px" value="1px"/>
-      <Variable name="layout.cards" description="Numero de columnas (Entradas)" type="length" min="1px" max="4px" default="2px" value="2px"/>
-      <Variable name="layout.cards.image" description="Cortar imagenes en 16:9 (Entradas)" type="length" min="0" max="1px" default="1px" value="1px"/>
-      <Variable name="layout.cards.snippet" description="Mostrar resumen (Entradas)" type="length" min="0" max="1px" default="1px" value="1px"/>
-      <Variable name="layout.cards.meta" description="Mostrar meta datos (Entradas)" type="length" min="0" max="1px" default="1px" value="1px"/>
-      <Variable name="layout.contrast" description="Articulos en tarjetas (Articulos)" type="length" min="0" max="1px" default="0px" value="0px"/>
+   <Group description="Content font" selector=".container__main">
+      <Variable name="font.logo" description="Title Font" type="font" size="34px" family="Custom" default="$(size) $(family)" value="$(size) $(family)"/>
+      <Variable name="font.text" description="Content font" type="font" family="Custom" default="$(family)" value="$(family)"/>
+      <Variable name="font.desc" description="Blog Description Font" type="font" size="14px" family="Custom" default="$(size) $(family)" value="$(size) $(family)"/>
    </Group>
    
-   <Variable name="body.background" description="Main Background" type="background" color="$(body.background.color)" default="$(color) none repeat scroll top center" value="$(color) none repeat scroll top center"/>
-*/
+   <Group description="Content color" selector=".container__main">
+      <Variable name="body.bg" description="Page Background Color" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="body.colorTitle" description="Title Color" type="color" default="#262626" value="#262626"/>
+      <Variable name="body.colorText" description="Text Color" type="color" default="#757575" value="#757575"/>
+   </Group>
 
-/*
-=> Personalizacion estandar
-*/
-/*Fuente global*/
-body {
-    font-family: '$(main.font.family)', sans-serif;
-	background: $(body.background);
-}
-/*Fuente de titulos y logo*/
-.font,.widget > h2 {
-    font-family: '$(logo.font.family)', 'Oswald', sans-serif;
-}
-.header__head--cover {
-    background-image: url(https://4.bp.blogspot.com/-SwRCMGzb4js/WM4Hkm_ug-I/AAAAAAAACOE/7Kb1fDwbgUgoFyFFjA5jPwfZ6pSMO2FDgCLcB/s1600/hg-03.png);
-    position: relative;
-    background-position: top right;
-    background-repeat: no-repeat;
-}
-.avatar-image-container {
-    background-image: url(https://2.bp.blogspot.com/-FEtfrzjnhUI/WGa0Ype8HsI/AAAAAAAACC4/ajnTMZIbWuI9P-PP06LyaFGWNNw81I4_ACLcB/s1600/anon.png);
-}
-/*Color principal*/
-.color,.widget > h2,.nav__menu ul,
-.card__image::after,.search-main__button,
-.nav__menu > li:hover,.nav__menu li a.is-active,
-.entrys li > a:hover > span,
-.wjs-rel__image:hover .wjs-rel__title,
-.card-featured__image::before,
-.widget input[type=submit], 
-.widget input[type=button] {background-color: $(main.color);}
-.footer__end, .card__meta a.is-here {border-color: $(main.color);}
-/*color enlaces*/
-a, a:hover, 
-.end__copy p a:hover,
-.card__title a:hover,
-.tags-list__num,
-.end__social-list a:hover {color: $(link.color);} /* <= Color de enlaces*/
+   <Group description="Header" selector=".header__wrapper">
+      <Variable name="header.bg" description="Header Background" type="color" default="#f2f2f2" value="#f2f2f2"/>
+      <Variable name="header.colorLogo" description="Blog Title Color" type="color" default="#3c3c3c" value="#3c3c3c"/>
+      <Variable name="header.colorDesc" description="Blog Description Color" type="color" default="#797979" value="#797979"/>
+   </Group>
+   
+   <Group description="Header Bar" selector=".header__nav">
+      <Variable name="menu.bg" description="Background Color" type="color" default="#232323" value="#232323"/>
+      <Variable name="menu.color" description="Color" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="menu.icon" description="Icon color" type="color" default="#ffffff" value="#ffffff"/>
+   </Group>
+   
+   <Group description="Gadgets" selector=".main .widget">
+      <Variable name="gadget.title" description="Background Color" type="color" default="#f2f2f2" value="#f2f2f2"/>
+      <Variable name="gadget.color" description="Gadget Title Color" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="gadget.icon" description="Icon color" type="color" default="rgba(0,0,0,0.5)" value="rgba(0,0,0,0.5)"/>
+   </Group>
+   
+   <Group description="Posts" selector=".card__content">
+      <Variable name="post.bg" description="Post background color" type="color" default="#f2f2f2" value="#f2f2f2"/>
+      <Variable name="post.titleColor" description="Post Title Color" type="color" default="#262626" value="#262626"/>
+      <Variable name="post.snippetColor" description="Post text color" type="color" default="#757575" value="#757575"/>
+      <Variable name="post.footerColor" description="Post Footer Color" type="color" default="#757575" value="#757575"/>
+   </Group>
+   
+   <Group description="Footer" selector=".footer__primary">
+      <Variable name="footer.primaryBg" description="Background Color" type="color" default="#f2f2f2" value="#f2f2f2"/>
+      <Variable name="footer.shareColor" description="Sharing icons color" type="color" default="#adadad" value="#adadad"/>
+      <Variable name="footer.copyColor" description="Text Color" type="color" default="#adadad" value="#adadad"/>
+      <Variable name="footer.linkColor" description="Link Color" type="color" default="#757575" value="#757575"/>
+   </Group>
+   
+   <Group description="Footer Links" selector=".footer__links">
+      <Variable name="footer.linksBg" description="Footer Background" type="color" default="#131313" value="#131313"/>
+      <Variable name="footer.IconColor" description="Icon color" type="color" default="#414141" value="#414141"/>
+      <Variable name="footer.links" description="Link Color" type="color" default="#ffffff" value="#ffffff"/>
+   </Group>
 
-/*
-=> Diseño (Layout)
-*/
-/*Tamaño del container*/
-.container {max-width: $(main.width);} /* <= Ancho del cuerpo*/
-/*Ancho del blog | sidebar*/
-@media (min-width: 992px) {
-	.left {float: left;}
-	.right {float: right;}
-	.sidebar {width: 30%;}
-	.blog {width: calc(70% - 2rem);}
-}
+   <Variable name="body.background" description="Main Background" type="background" color="$(main.bg)" default="$(color) none repeat scroll top center" value="$(color) none repeat scroll top center"/>
 
-/*
-=> Cuerpo
 */
-.container__main,.top-entry,
-.widget-content,.no-index .widget.Blog,
-.user-content,.contact-form-widget, 
-.wikipedia-search-main-container, 
-.post-summary{
-    background: $(fondo.main); /* <= fondo main*/
-}
-
-/*
-=> Header (Colores avansados)
-*/
-.header__head{background-color: $(fondo.header);} /* <= fondo header*/
-.head__logo a {color: $(color.logo);} /* <= Color logo*/
-.head__logo a:hover {color: $(color.logo.hover);} /* <= Color logo:hover*/
-.head__descripcion {color: $(color.descripcion);} /* <= Descripcion*/
-
-/*
-=> Menu principal
-*/
-.header__nav {background: $(fondo.menu);} /* <= fondo menu*/
-.nav__menu > li > a {color: $(color.menu);} /* <= Color menu*/
-.nav__menu a,.nav__menu > li:hover > a {color: #fff;} /* <= Color menu hover*/
-.nav__menu .is-parent a::after,.nav__menu ul .is-parent a::after {border-color: $(color.menu.indicador);} /* <= Color indicador*/
-
-/*
-=> Slider post populares (Colores avansados)
-*/
-.entrys li > a > span,.wjs-rel__title {
-    background-color: $(fondo.popular); /* <= fondo populares*/
-    color: $(color.popular); /* <= color populares*/
-}
-.next, .prev {
-    background: $(fondo.popular.arrow); /* <= fondo flechas populares*/
-    color: $(color.popular.arrow); /* <=  color flechas populares*/
-}
-
-/*
-=> Widgets
-*/
-.widget {background: $(fondo.wtitles);} /* <= fondo titulo del widget*/
-.card-featured__image::before,
-.search-main__button::before {color: $(color.wicons);} /* <= Color de los iconos*/
-
-/*
-=> Cards (Colores avansados)
-*/
-.info,.card__content,.card-featured {background: $(fondo.card);} /* <= fondo de la tarjeta*/
-.card__title a,.error__title {color: $(color.card.title);} /* <= Card title*/
-.info,.card__descripcion,.error__mott,.error__info {color: $(color.card.body);} /* <= Card body*/
-.card__meta a {
-	border-color: $(borde.card.meta);/* <= Meta borde*/
-	color: $(color.card.meta); /* <= Meta color*/
-}
-.card__image::before {color: $(color.card.lupa);} /* <= Color de la Lupa*/
-
-/*
-=> Articulos (Colores avansados)
-*/
-.article__spoiler .wjs-container,article code, article pre {background-color: $(fondo.article);} /* <= Fondo de tarjetas*/
-article h1,article h2,article h3,article h4,article h5,article h6 {color: $(color.article.title);} /* <= Color de titulos*/
-article .post-body {color: $(color.article.body);} /* <= Color de titulos*/
-article blockquote,article table tbody td,article table thead,
-article table thead th {border-color: $(borde.article.body);} /* <= Color de bordes*/
-.tags-post__link,.post-share__button,.post-meta__item,.post-meta__item:hover,
-.tags-post__link:hover,.post-share__button:hover {color: $(color.article.meta);} /* <= Meta Color*/
-.tags-post__link,.post-share__button {border: 2px solid $(borde.article.meta);} /* <= Meta border*/
-
-/*
-=> Footer
-*/
-.footer__end {background: $(fondo.footer1);} /* <= fondo footer 1*/
-.footer__links {background: $(fondo.footer2);} /* <= fondo footer 2*/
-.footer__links a {color: $(color.footer.links);} /* <= footer links*/
-.footer__links a::before {color: $(color.footer.links.icons);} /* <= footer iconos*/
-.end__social-list a {color: $(color.footer.social);} /* <= footer iconos sociales*/
-.end__copy {color: $(color.footer.texto);} /* <= footer texto*/
-.end__copy p a {color: $(color.footer.texto.links);} /* <= footer texto link*/
-
-/*
-=> Opciones avansadas
-*/
-/* 1 Card */
-@media (min-width: 576px){
-	.card--1px .card {width: 100%;}
-	.card--1px .card__content {
-    	display: -webkit-box;
-    	display: -ms-flexbox;
-    	display: flex;
-    	-webkit-box-align: start;
-    	-ms-flex-align: start;
-    	align-items: flex-start;
-	}
-	.card--1px .card__image {
-    	width: 30%;
-    	margin: 1.5rem;
-    	margin-right: 0;
-    	-webkit-box-flex: 0;
-    	-ms-flex: 0 0 auto;
-    	flex: 0 0 auto;
-	}
-}
-/* 3 Cards */
-@media (min-width: 768px) {
-	.card--3px .card {width: 33.333333%;}
-}
-/* 4 Cards */
-@media (min-width: 768px) {
-	.card--4px .card {width: 33.333333%;}
-}
-@media (min-width: 992px) {
-	.card--4px .card {width: 25%;}
-}
-/*Articulos en tarjeta*/
-.blog--contrast .error,
-.blog--contrast .blog.no-index {
-    padding: 1.5rem;
-    background-color: $(fondo.card);
-}
-.blog--contrast .widget.Blog {background: transparent;}
-/*No sidebar*/
-.blog--full {
-    width: 100%;
-	padding: 0;
-}
+body{background:$(body.background);font-family:'$(font.text.family)',Roboto,sans-serif}.container{max-width:$(width.content)}.card__image::before,.gallery__title::after,.nav__menu ul,.nav__menu>li:hover,.skin-bg,.skin-bg-hover:hover,.widget-title,.widget>h2,.wjs-item.is-active{background-color:$(main.color)}::-moz-selection{background-color:$(main.color)}::selection{background-color:$(main.color)}@media (max-width:991px){.nav__menu li .is-active{background-color:$(main.color)}}.drop-caps:first-letter,.skin-color,.skin-color-hover:hover,.tagsList__num,a,a:hover{color:$(main.linkColor)}.card__data a.meta__item:hover{color:$(main.linkColor)}.footer__primary,.post-body blockquote{border-color:$(main.color)}.wjs-tab:not(.tab-vertical) .tab-header{border-bottom:2px solid $(main.color)}.tab-vertical .tab-header{border-right:2px solid $(main.color)}.h1,.h2,.h3,.h4,.h5,.h6,.skin-color-title,h1,h2,h3,h4,h5,h6{color:$(body.colorTitle)}.skin-color-text{color:$(body.colorText)}.skin-main-bg{background-color:$(body.bg)}.skin-font,.widget-title,.widget>h2{font-family:'$(font.logo.family)',Oswald,sans-serif}@media (min-width:992px){.skin-box{padding:28px}.skin-box--menu{padding-left:28px;padding-right:28px}.main__general .widget:last-child{margin-bottom:28px}.bottom-space{padding-bottom:28px}.header__logo{padding-left:28px;padding-right:28px}}.header__wrapper{background-color:$(header.bg)}.logo__title .logo__link{color:$(header.colorLogo);font-family:'$(font.logo.family)',Oswald,sans-serif;font-size:$(font.logo.size);font-weight:700;line-height:1}.logo__descripcion{color:$(header.colorDesc);font-family:'$(font.desc.family)',Roboto,sans-serif;font-size:$(font.desc.size);font-weight:500}@media (max-width:767px){.logo__link{font-size:20px!important}.logo__descripcion{font-size:14px!important}}#HTML100,.header__nav,.nav__menu{background:$(menu.bg)}.header__logo{padding-top:28px;padding-bottom:28px}.nav__menu a{color:$(menu.color)}.nav__menu .is-parent a .is-arrow::after,.nav__menu ul .is-parent a .is-arrow::after{border-color:$(menu.icon)}.nav__menu a i{color:$(menu.icon)}@media (min-width:992px){.sidebar{width:$(width.sidebar)}.blog{width:calc(100% - $(width.sidebar) - 28px)}}.gallery__title{font-family:'$(font.logo.family)',Oswald,sans-serif}.post-heading>span,.widget-title,.widget>h2{color:$(gadget.color)}.main .widget-title::after,.main .widget>h2::after,.post-heading{background:$(gadget.title)}.skin-i{color:$(gadget.icon)}.footer__primary{background:$(footer.primaryBg)}.footer__social-list a{color:$(footer.shareColor)}.footer__copy{color:$(footer.copyColor)}.copy__attribution a{color:$(footer.linkColor)}.footer__links{background:$(footer.linksBg)}.footer__links-list i{color:$(footer.IconColor)}.footer__links-list a{color:$(footer.links)}.card__title a{color:$(post.titleColor)}.card__data{padding:28px}.card__content{background:$(post.bg)}.card__data .meta__item{color:$(post.footerColor)}.card__descripcion{color:$(post.snippetColor)}
 ]]></b:skin>
+
+<b:if cond='data:view.isLayoutMode'>
+<b:template-skin><![CDATA[
+body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:100%}body#layout .skin-left{float:left}body#layout .skin-right{float:right}body#layout div#LinkList100{float:left;margin-right:2%;width:58%}body#layout div#Text100{float:right;width:40%}
+]]></b:template-skin>
+</b:if>
 &lt;!--</head>--&gt;&lt;/head&gt;
 
 <body>
 
+<b:with value='data:skin.vars.config_default_image' var='imgDefault'>
+<b:with value='{mode: data:view.isLayoutMode, sidebar: data:skin.vars.config_show_sidebar, oppositeBlog: data:skin.vars.config_show_oppositeBlog, showMeta: data:skin.vars.config_post_showMeta, showSnippet: data:skin.vars.config_post_showSnippet}' var='layout'>
+
 <div class='container'>
-<div class='container__main'>
+<div class='container__main skin-main-bg'>
 
 <header class='header'>
-<b:section id='Header'>
+<b:section id='Header' maxwidgets='4'>
   <b:widget id='Header1' locked='false' title='Anime (Cabecera)' type='Header' version='1'>
     <b:includable id='main'>
-		<div class='header__head container__box'>
-		<b:class cond='data:skin.vars.layout_cover != "0px"' name='header__head--cover'/>
-			<div class='head__main-info'>
-				<b:include expr:name='data:useImage ? "logo" : "title"'/>
-				<b:include cond='data:useImage ? (data:imagePlacement == "BEFORE_DESCRIPTION") : data:description' name='description'/>
-			</div>
-		</div><!-- .header__head -->
-	</b:includable>
+      <div class='header__wrapper'>
+        <div class='header__logo'>
+          <b:include expr:name='data:useImage ? "logo" : "title"'/>
+          <b:include cond='data:useImage ? (data:imagePlacement == "BEFORE_DESCRIPTION") : data:description' name='description'/>
+        </div>
+      </div>
+    </b:includable>
     <b:includable id='description'>
-      	<p class='head__descripcion'><data:description/></p>
-	</b:includable>
+      <span class='logo__descripcion'><data:description/></span>
+    </b:includable>
     <b:includable id='logo'>
-		<a class='head__logo head__logo--image' expr:href='data:blog.homepageUrl' expr:title='data:title'>
-			<img expr:alt='data:title' expr:src='data:sourceUrl'/>
-		</a>
-	</b:includable>
+      <a class='logo__image' expr:href='data:blog.homepageUrl'>
+        <img expr:alt='data:title' expr:src='data:sourceUrl'/>
+      </a>
+    </b:includable>
     <b:includable id='title'>
-		<b:tag class='head__logo font' expr:name='data:view.isHomepage ? "h1" : "div"'>
-			<a expr:href='data:blog.homepageUrl' expr:title='data:title'><data:title/></a>
-		</b:tag>
-	</b:includable>
+      <b:tag class='logo__title' expr:name='data:view.isHomepage ? "h1" : "div"'>
+        <a expr:href='data:blog.homepageUrl' class='logo__link'><data:title/></a>
+      </b:tag>
+    </b:includable>
   </b:widget>
-  <b:widget id='HTML10' locked='false' title='Menu principal' type='HTML' version='1'>
+  <b:widget id='HTML100' locked='false' title='Main menu' type='HTML' version='1'>
     <b:widget-settings>
-      <b:widget-setting name='content'><![CDATA[<ul class="nav__menu container__box--menu font wjs-menu dropdown-menu">
-   <li><a href="#">Inicio</a></li>
-   <li><a href="#">Elemento A</a>
+      <b:widget-setting name='content'><![CDATA[<ul class="dropdown-menu nav__menu">
+   <li><a href="/">Home</a></li>
+   <li><a href="#">Buy theme</a>
       <ul>
-         <li><a href="#">Elemento A1</a></li>
-         <li><a href="#">Elemento A2</a>
+         <li><a href="#">Store</a>
             <ul>
-               <li><a href="#">Elemento A2.1</a></li>
-               <li><a href="#">Elemento A2.2</a>
-                  <ul>
-                     <li><a href="#">Elemento A2.2.1</a></li>
-                     <li><a href="#">Elemento A2.2.2</a></li>
-                     <li><a href="#">Elemento A2.2.3</a></li>
-                  </ul>
-               </li>
-               <li><a href="#">Elemento A2.3</a></li>
+               <li><a href="#">Gumroad</a></li>
+               <li><a href="#">Official site</a></li>
             </ul>
          </li>
-         <li><a href="#">Elemento A3</a></li>
       </ul>
    </li>
-   <li><a href="#">Elemento B</a></li>
-   <li><a href="#">Elemento C</a>
-      <ul>
-         <li><a href="#">Elemento C1</a>
-            <ul>
-               <li><a href="#">Elemento C1.1</a></li>
-               <li><a href="#">Elemento C1.2</a></li>
-               <li><a href="#">Elemento C1.3</a></li>
-            </ul>
-         </li>
-         <li><a href="#">Elemento C2</a></li>
-      </ul>
-   </li>
+   <li><a href="/404">Error 404</a></li>
+   <li><a href="/p/shortcodes.html">Shortcodes</a></li>
 </ul>]]></b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
-		<!-- Menu -->
-		<nav class='header__nav'>
-			<button class='nav__toggle toggleClass reset' data-target='nav__menu'>
-				<span class='nav__toggle--icon'><span/></span>
-			</button>
-     		<data:content/>
-		</nav><!-- .header__nav -->
-   	</b:includable>
+      <nav class='header__nav skin-box--menu skin-font wjs-menu'>
+        <button class='nav__toggle skin-box toggleClass reset' data-target='nav__menu'>
+          <span class='nav__toggle--icon'><span></span></span>
+        </button>
+        <data:content/>
+      </nav>
+    </b:includable>
   </b:widget>
-</b:section><!-- #Header -->
-</header><!-- .header -->
+</b:section>
+</header><!-- End .header -->
 
-<b:with value='"https://2.bp.blogspot.com/-gNrMxaCd4Bs/WioRvw4CPtI/AAAAAAAADHo/4m7U9KMjZUgl2w1898hqQliLk3mo4iWBwCLcBGAs/s1600/noimg-blogger.png"' var='imgDefault'><!-- imagen por defecto -->
+<div class='main skin-box'>
 
-<div class='container__box'>
-<!-- General -->
-<b:section cond='data:view.isMultipleItems and not data:view.isSearch' id='Destacados'>
-  <b:widget cond='data:view.isHomepage' id='PopularPosts10' locked='false' title='Destacados' type='PopularPosts' version='1'>
+<b:section cond='data:view.isHomepage' id='general' class='main__general'>
+  <b:widget id='PopularPosts100' locked='true' title='Popular Posts' type='PopularPosts'>
     <b:widget-settings>
       <b:widget-setting name='numItemsToShow'>10</b:widget-setting>
       <b:widget-setting name='showThumbnails'>true</b:widget-setting>
       <b:widget-setting name='showSnippets'>true</b:widget-setting>
-      <b:widget-setting name='timeRange'>LAST_WEEK</b:widget-setting>
+      <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
-	<b:if cond='data:posts.length lt 4'>
-      <p class='info'><strong>Slider carousel:</strong> No hay suficientes entradas populares, <strong>se necesitan 4 o mas</strong>, actualmente hay <strong><b:eval expr='data:posts.length'/></strong></p>
-	<b:else/>
-		<div class='top-entry slider js_multislides multislides'>
-		<div class='frame js_frame'>
-			<ul class='entrys slides js_slides'>
- 			<b:loop values='data:posts' var='post'>
-				<li class='js_slide'>
-					<a expr:href='data:post.href' expr:title='data:post.title'>
-						<b:include name='images'/>
-						<b:include name='titles'/>
-					</a>
-				</li>
-			</b:loop>
-			</ul>
-		</div>
-		<b:include name='buttons'/>
-		</div>
-	</b:if>
-    </b:includable>
-    <b:includable id='buttons'>
-		<span class='js_prev prev dan-arrow-left'/>
-		<span class='js_next next dan-arrow-right'/>
-	</b:includable>
-    <b:includable id='images'>
-		<img expr:alt='data:post.title' expr:src='resizeImage((data:post.featuredImage ? data:post.featuredImage : data:imgDefault),400,"16:9")'/>
-	</b:includable>
-    <b:includable id='titles'><span class='font'><data:post.title/></span></b:includable>
-  </b:widget>
-</b:section><!-- #Destacados -->
-
-<!-- Main -->
-<div class='main-content clearfix'>
-<b:class cond='data:skin.vars.layout_contrast != "0px" and data:view.isSingleItem' name='blog--contrast'/>
-
-<div expr:class='"blog " + (data:skin.vars.layout_full != "0px" ? (data:skin.vars.layout_invert != "0px" ? "right" : "left") :  "blog--full")'>
-<b:class cond='data:view.isSingleItem' name='no-index'/>
-<b:if cond='!data:view.isError'>
-<b:section id='Blog'>
-  <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog' version='1'>
-    <b:widget-settings>
-      <b:widget-setting name='showDateHeader'>false</b:widget-setting>
-      <b:widget-setting name='showShareButtons'>true</b:widget-setting>
-      <b:widget-setting name='showAuthor'>true</b:widget-setting>
-    </b:widget-settings>
-    <b:includable id='main' var='top'>
-
-	<b:with value='["blogger","Shortname","10"]' var='commentsType'><!-- Elige entre facebook, disqus o blogger -->
-
-	<b:if cond='data:view.isMultipleItems'>
-	<h2><b:eval expr='data:view.search.query ? "Resultados de: " + data:view.search.query.escaped : (data:view.isLabelSearch ? data:view.search.label :  data:messages.recentPosts)'/></h2>
-	<div class='widget-content'>
-		<b:if cond='data:posts.size == 0'>
-			<p class='info'><b:include name='status-message'/></p>
-		<b:else/>
-			<b:with value='data:view.search.query' var='isSearch'>
-			<div class='items flex wrap align-items-start'>
-				<b:class expr:name='"card--" + data:skin.vars.layout_cards'/>
-				<b:class cond='data:isSearch' name='items--search'/>
-	      		<b:loop values='data:posts' var='post'>
-    	     		<b:include data='post' name='post'/><!-- insertamos entradas -->
-      			</b:loop>
-			</div>
-        	</b:with><!-- data:isSearch -->
-      		<b:include name='nextprev'/><!-- paginacion estandar -->
-      	</b:if>
-	</div>
-	<b:else/>
-	<article class='article'>
-      <b:loop values='data:posts' var='post'>
-         	<b:include data='post' name='post'/><!-- insertamos entradas -->
-			<div class='comentarios' id='comentarios'>
-            	<b:include data='post' expr:name='data:view.isPreview ? "comment_status" : (data:post.allowComments ? "comment-" + data:commentsType[0] : "comment_status")'/>
-            	<noscript><p class='info'>Los comentarios requieren javascript</p></noscript>
-			</div><!-- .comentarios -->
-      </b:loop>
-	</article>
-	</b:if>
-	<b:tag async='async' cond='data:commentsType[0] == "disqus"' expr:src='+("//",data:commentsType[1],".disqus.com/count.js")' id='dsq-count-scr' name='script'/>
-
-	</b:with><!-- b:with == commentsType -->
-
-	</b:includable>
-    <b:includable id='backlinkDeleteIcon' var='backlink'><!--none--></b:includable>
-    <b:includable id='backlinks' var='post'><!--none--></b:includable>
-    <b:includable id='comment-blogger' var='post'>
-      <b:if cond='data:post.commentSource == 1'>
-         <div class='widget font'><h2>Comentar con Google+</h2></div>
-         <b:include data='post' name='iframe_comments'/>
+      <b:if cond='data:posts.empty'>
+        <div class='alert'>
+          <strong><data:widget.type/></strong>: <data:messages.theresNothingHere/>
+        </div>
       <b:else/>
-      <div class='widget font'><h2><data:post.numComments/> Comentario<b:if cond='data:post.numComments neq 1'>s</b:if></h2></div>
+        <div class='slider'>
+          <b:include name='slider-controls'/>
+          <div class="slider__container">
+            <b:loop values='data:posts' var='i'>
+              <div class="slider__item">
+                <a expr:href='data:i.href' class="gallery__href">
+                  <b:include name='slider-image'/>
+                  <b:include name='slider-title'/>
+                </a>
+              </div>
+            </b:loop>
+          </div>
+        </div>
+      </b:if>
+    </b:includable>
+    <b:includable id='slider-title'>
+      <span class='gallery__title'><data:i.title/></span>
+    </b:includable>
+    <b:includable id='slider-image'>
+      <img class='gallery__image' expr:alt='data:i.title' expr:src='resizeImage((data:i.featuredImage ? data:i.featuredImage : data:imgdefault),300,"6:5")'/>
+    </b:includable>
+    <b:includable id='slider-controls'>
+      <button class='controls__prev'><i class='fas fa-chevron-left'/></button>
+      <button class='controls__next'><i class='fas fa-chevron-right'/></button>
+    </b:includable>
+  </b:widget>
+</b:section>
+
+<div class='main__blog clearfix'>
+
+<!-- Posts -->
+<div expr:class='"blog " + (data:layout.oppositeBlog ? "skin-right" : "skin-left") + (!data:layout.sidebar ? " noSidebar" : "")'>
+<b:section id='Blog'>
+  <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+    <b:includable id='main' var='top'>
+      <b:if cond='data:view.isError'>
+        <div class="error-page skin-color-text">
+          <h1 class="error-page__title skin-color-title"><i class="far fa-meh"></i> 404</h1>
+          <div class='error-page__text'><data:navMessage/></div>
+        </div>
+      <b:elseif cond='data:view.isMultipleItems'/>
+        <h3 class='widget-title'>
+          <b:eval expr='data:view.search.query ? data:view.search.query.escaped : (data:view.isLabelSearch ? data:view.search.label : (data:view.isArchive ? data:blog.pageName : data:messages.recentPosts))'/>
+        </h3>
+        <div class='widget-content'>
+          <b:if cond='data:view.search.query or data:view.search.label'>
+            <div class='alert alert__postInfo'><data:navMessage/></div>
+          <b:elseif cond='data:view.isArchive'/>
+            <div class='alert alert__postInfo'><data:view.archive.rangeMessage/></div>
+          <b:elseif cond='data:posts.empty'/>
+            <div class='alert'>
+              <strong><data:widget.type/></strong>: <data:messages.theresNothingHere/>
+            </div>
+          </b:if>
+            <b:with value='data:skin.vars.config_post_column' var='isColumn'>
+              <b:with value='{isSearch: data:view.search.query}' var='this'>
+                <div class="items row">
+                  <b:loop values='data:posts' var='post'>
+                    <b:include data='post' name='post'/><!-- Include posts -->
+                  </b:loop>
+                </div>
+              </b:with>
+            </b:with>
+          <b:include name='nextprev'/><!-- Include pagination -->
+        </div>
+      <b:else/>
+        <b:loop values='data:posts' var='post'>
+          <article class='article'>
+            <b:include data='post' name='post'/><!-- Include posts -->
+            <b:include data='post' name='comments'/><!-- Include comments -->
+          </article>
+        </b:loop>
+      </b:if>
+      <b:tag async='async' cond='data:skin.vars.config_comments == "disqus" and !data:view.isError' expr:src='+("//",data:skin.vars.config_dq_shortname,".disqus.com/count.js")' id='dsq-count-scr' name='script'/>
+    </b:includable>
+    <b:includable id='backlinkDeleteIcon' var='backlink'><!--disabled--></b:includable>
+    <b:includable id='backlinks' var='post'><!--disabled--></b:includable>
+    <b:includable id='comments-blogger' var='post'>
+      <b:if cond='data:post.commentSource == 1'>
+        <b:include data='post' name='iframe_comments'/>
+      <b:else/>
+        <b:include data='post' name='comment_picker'/>
+      </b:if>
+    </b:includable>
+    <b:includable id='comments-disqus' var='post'>
+      <div id='disqus_thread'/>
+      <script>
+      var disqus_shortname = "<data:skin.vars.config_dq_shortname/>",
+          disqus_config = function(){
+             this.page.url = "<data:view.url.canonical/>";
+             this.page.title = "<data:view.title.escaped/>";
+          };//<![CDATA[
+       (function() {
+           var d = document, s = d.createElement('script');
+           s.async = true;
+           s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+           s.setAttribute('data-timestamp', +new Date());
+           (d.head || d.body).appendChild(s);
+       })();//]]>
+       </script>
+    </b:includable>
+    <b:includable id='comments-facebook' var='post'>
+      <div class='fb-comments' expr:data-colorscheme='data:skin.vars.config_fb_commentSkin' expr:data-href='data:view.url.canonical' expr:data-numposts='data:skin.vars.config_fb_commentNums'/>
+    </b:includable>
+    <b:includable id='comment-form' var='post'><!--disabled--></b:includable>
+    <b:includable id='commentDeleteIcon' var='comment'><!--disabled--></b:includable>
+    <b:includable id='comment_count_picker' var='post'><!--disabled--></b:includable>
+    <b:includable id='comment_picker' var='post'>
       <div class='comments' id='comments'>
+         <b:class cond='!data:post.allowNewComments' name='noAllowNewComments'/>
          <div class='comments-content'>
             <div id='comment-holder'><data:post.commentHtml/></div>
             <b:include data='post' name='threaded_comment_js'/>
          </div>
-         <b:include data='post' expr:name='data:post.allowNewComments ? "threaded-comment-form" : "comment_status"'/>
+         <b:include data='post' expr:name='data:post.allowNewComments ? "threaded-comment-form" : "status-message"'/>
       </div>
-      </b:if>
-   </b:includable>
-    <b:includable id='comment-disqus'>
-      <div class='widget font'><h2>Comentar con Disqus</h2></div>
-      <div id='disqus_thread'/>
-      <script type='text/javascript'>
-         var disqus_url = "<data:post.url.canonical/>",
-         disqus_shortname = "<b:eval expr='data:commentsType[1]'/>";//<![CDATA[
-         (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-         })();//]]>
-      </script>
-   </b:includable>
-    <b:includable id='comment-facebook'>
-      <div class='widget font'><h2>Comentar con facebook</h2></div>
-      <div class='fb-comments' expr:data-href='data:post.url.canonical' expr:data-numposts='data:commentsType[2]'/>
-   </b:includable>
-    <b:includable id='comment-form' var='post'><!--none--></b:includable>
-    <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
-    <b:includable id='comment_count_picker' var='post'><!--none--></b:includable>
-    <b:includable id='comment_picker' var='post'><!--none--></b:includable>
-    <b:includable id='comment_status'>
-      <b:if cond='data:view.isPost'>
-        <p class='info'><b:eval expr='data:view.isPreview ? data:messages.widgetNotAvailableInPreview : "No se permiten nuevos comentarios"'/></p>
+    </b:includable>
+    <b:includable id='comments' var='post'>
+      <b:if cond='data:post.allowComments'>
+         <h3 class="post-heading">
+           <span class='skin-font skin-bg'>
+             <b:if cond='data:skin.vars.config_comments != "blogger"'>
+               <data:skin.vars.config_comments/>
+             <b:else/>
+               <data:post.commentLabelFull/>
+             </b:if>
+           </span>
+         </h3>
+         <div id='infoComments' class='post-comments'>
+            <b:include data='post' expr:name='data:view.isPreview ? "status-message" : "comments-" + data:skin.vars.config_comments'/>
+         </div>
       </b:if>
     </b:includable>
-    <b:includable id='comments' var='post'><!--none--></b:includable>
-    <b:includable id='feedLinks'><!--none--></b:includable>
-    <b:includable id='feedLinksBody' var='links'><!--none--></b:includable>
+    <b:includable id='feedLinks'><!--disabled--></b:includable>
+    <b:includable id='feedLinksBody' var='links'><!--disabled--></b:includable>
     <b:includable id='iframe_comments' var='post'>
-      <script expr:src='data:post.iframeCommentSrc' type='text/javascript'/>
+      <script expr:src='data:post.iframeCommentSrc'/>
       <div class='cmt_iframe_holder' expr:data-href='data:post.url.canonical' expr:data-viewtype='data:post.viewType'/>
-   </b:includable>
-    <b:includable id='mobile-index-post' var='post'><!--none--></b:includable>
-    <b:includable id='mobile-main' var='top'><!--none--></b:includable>
-    <b:includable id='mobile-nextprev'><!--none--></b:includable>
-    <b:includable id='mobile-post' var='post'><!--none--></b:includable>
+    </b:includable>
+    <b:includable id='mobile-index-post' var='post'><!--disabled--></b:includable>
+    <b:includable id='mobile-main' var='top'><!--disabled--></b:includable>
+    <b:includable id='mobile-nextprev'><!--disabled--></b:includable>
+    <b:includable id='mobile-post' var='post'><!--disabled--></b:includable>
     <b:includable id='nextprev'>
-	<b:if cond='data:newerPageUrl or data:olderPageUrl'>
-      <div class='blog-pager card__meta flex' id='blog-pager'>
-         <b:if cond='data:newerPageUrl'><a class='newer-link flex align-items-center' expr:href='data:newerPageUrl' expr:title='data:newerPageTitle'><i class='dan-arrow-left'/> Anterior</a></b:if>
-         <b:if cond='data:olderPageUrl'><a class='older-link flex align-items-center' expr:href='data:olderPageUrl' expr:title='data:olderPageTitle'>Siguiente <i class='dan-arrow-right'/></a></b:if>
-      </div>
-      <b:include cond='data:skin.vars.layout_pagination != "0px"' name='nextprev-num'/>
-	</b:if>
-   </b:includable>
-   <b:includable id='nextprev-num'>
-   <script>/*! Paginacion numerica emiliocobos.net/paginacion-para-blogger-mas-ligera/ | modificacion zkreations.com */
-   function paginacion(c) {
-    var k = <b:eval expr='data:skin.vars.layout_postnum'/>,//<![CDATA[
-        h = location.href,f = k,e = 6,z = 'is-here',x = '<i class="dan-arrow-left"></i> Anterior',A = 'Siguiente <i class="dan-arrow-right"></i>',B = true,C = '<a class="flex align-items-center" href="{{link}}" {{rel}}>{{num}}</a>',y = '<a class="flex align-items-center" href="#is-here">{{num}}</a>',D = '';a = '';var m=function(b,a,c){a=a!==l?"/search"+l+"?updated-max="+a+"&max-results="+k:"/"!==a?"/search"+l:a;return C.replace(/{{num}}/g,b).replace(/{{link}}/g,a).replace(/{{rel}}/g,c?'rel="'+c+'"':"")},p=function(a,b){return void 0===b?y.replace(/{{num}}/g,a).replace(/class=("|')([^"']*)/,"class=$1$2 "+z):y.replace(/{{num}}/g,a)},q=function(a,b){b||(b=a,a=0);d=d.slice(a,b)},n=h.match(/\/label\/[^?]*/),l=null===n?"/":n[0];n=c.feed.entry;c=[];var d=[],r=
-f-1;f=0;for(var b,g=0,t=[],u=[],v,w;g=n[r];r+=k)g=g.published.$t,g=encodeURIComponent(g.substring(0,19)+g.substring(23,29)),-1!==h.indexOf(g)&&(b=c.length),n[r+1]&&c.push(g);g=c.length+1;void 0!==b?(t.push(c[b-1]?m(x,c[b-1]):0===b?m(x,l,"prev"):""),d.push(m(1,l))):(d.push(p(1)),b=-1);for(;f<c.length;f++)h=c[f],f===b?d.push(p(f+2)):d.push(m(f+2,h)),f===c.length-1&&f!==b&&u.push(c[b+1]?m(A,c[b+1],"next"):"");e&&d.length>=e&&(b++,d[b-Math.floor(e/2)]&&d[b+Math.ceil(e/2)]?(v=0!==b-Math.floor(e/2),w=b+
-Math.ceil(e/2)!==d.length,q(b-Math.floor(e/2),b+Math.ceil(e/2))):b<=e/2?(q(e),w=!0):b>=d.length-e/2&&(q(d.length-e,d.length),v=!0));B&&(v&&t.push(p("...",!0)),w&&u.unshift(p("...",!0)));d=t.concat(d,u);document.getElementById("blog-pager").innerHTML=D.replace(/{{total}}/g,g)+d.join("")+a.replace(/{{total}}/g,g)}
-(function(c,a){var k="/feeds/posts/summary",h=c.URL,f=c.createElement(a),e=c.getElementsByTagName(a)[0];k+=/\/label\//.test(h)?"/-/"+h.match(/\/label\/[^?^]*/)[0].substring(7):"";f.src=k+"?alt=json-in-script&max-results=150&callback=paginacion";e.parentNode.insertBefore(f,e)})(document,"script");
-        //]]></script>
-   </b:includable>
+      <b:tag cond='data:newerPageUrl or data:olderPageUrl' class='blog-pager' id='blog-pager' name='div'>
+        <b:if cond='data:newerPageUrl'>
+          <a expr:href='data:newerPageUrl' class='blog-pager__item btn-border' expr:title='data:newerPageTitle'>
+            <i class='fas fa-ml fa-long-arrow-alt-left'/> <data:messages.newer/>
+          </a>
+        </b:if>
+        <b:if cond='data:olderPageUrl'>
+          <a expr:href='data:olderPageUrl' class='blog-pager__item btn-border' expr:title='data:olderPageTitle'>
+            <data:messages.older/> <i class='fas fa-ml fa-long-arrow-alt-right'/>
+          </a>
+        </b:if>
+      </b:tag>
+    </b:includable>
     <b:includable id='post' var='post'>
-
-      <b:if cond='data:isSearch'>
-      
-		<!-- Entradas de busqueda -->
-		<div class='card--search'>
-			<div class='card__content card__content--search flex align-items-start'>
-				<b:include name='post-firstImageUrl'/><!-- Imagen del post -->
-				<div class='card__data--search'>
-					<b:include name='post-title'/><!-- Titulo -->
-					<b:include name='post-snippet'/><!-- Resumen -->
-				</div><!-- .card__data -->
-			</div><!-- .card__content -->
-		</div><!-- .card -->
-     
+      <b:if cond='data:this.isSearch'>
+        <!--{{ Search Page }}-->
+        <b:include name='post-card-search'/>
       <b:elseif cond='data:view.isMultipleItems'/>
-
-		<!-- Entradas en la pagina principal -->
-		<div class='card'>
-			<div class='card__content'>
-				<b:include name='post-firstImageUrl'/><!-- Imagen del post -->
-				<div class='card__data'>
-					<b:include name='post-title'/><!-- Titulo -->
-					<b:include cond='data:skin.vars.layout_cards_snippet != "0px"' name='post-snippet'/><!-- Resumen -->
-					<b:if cond='data:skin.vars.layout_cards_meta != "0px"'>
-						<div class='card__meta flex align-items-center wrap'>
-							<b:include cond='data:top.showTimestamp' name='post-timestamp'/><!-- Fecha -->
-							<b:include cond='data:post.allowComments' name='post-infoComments'/><!-- N# Comentarios -->
-						</div><!-- .card__meta -->
-					</b:if><!-- b:if = !data:skin.vars -->
-					
-				</div><!-- .card__data -->
-			</div><!-- .card__content -->
-		</div><!-- .card -->
-
+        <!--{{ Home Page }}-->
+        <b:include name='post-card'/>
       <b:elseif cond='data:view.isPost'/>
-
-		<!-- Entradas individual (Articulo) -->
-		<header class='article__header'>
-			<b:include cond='data:top.showPostLabels and data:post.labels' name='post-tags'/><!-- Etiquetas -->
-			<b:include name='post-title'/><!-- Titulo -->
-			<div class='article__post-meta flex wrap align-items-center'>
-				<b:include cond='data:top.showAuthor' name='post-author'/><!-- Author -->
-				<b:include cond='data:top.showTimestamp' name='post-timestamp'/><!-- Fecha -->
-				<b:include cond='data:post.allowComments' name='post-infoComments'/><!-- N# Comentarios -->
-			</div>
+        <!--{{ Posts }}-->
+        <header class='post__header'>
+          <b:include name='post-tags'/>
+          <b:include name='post-title'/>
+          <b:include name='post-meta'/>
         </header>
-		<b:include name='post-body'/><!-- Contenido de la entrada -->
-		<b:include cond='data:post.sharePostUrl' name='shareButtons'/><!-- Compartir -->
-		<b:include name='post-reactions'/><!-- Reacciones -->
-		<b:include cond='!data:view.isPreview' name='post-related'/><!-- Post relacionados -->
-     
+        <b:include name='post-body'/>
+        <b:include name='shareButtons'/>
+        <b:include name='post-related'/>
       <b:elseif cond='data:view.isPage'/>
-
-		<!-- Pagina estatica -->
-		<header class='article__header'>
-			<b:include name='post-title'/><!-- Titulo -->
+        <!--{{ Static page }}-->
+        <header class='page__header'>
+          <b:include name='post-title'/>
         </header>
-		<b:include name='post-body'/><!-- Contenido de la entrada -->
-     
+        <b:include name='post-body'/>
       </b:if>
-
     </b:includable>
     <b:includable id='post-author'>
-		<a class='post-meta__autor g-profile' expr:href='data:post.authorProfileUrl' rel='author' target='_blank'>
-			<img expr:alt='data:post.author' expr:src='resizeImage(data:post.authorPhoto.url,30,"1:1")'/>
-		</a>
-	</b:includable>
+      <b:tag name='a' class='meta__author' expr:href='data:post.authorProfileUrl' rel='author' target='_blank'>
+        <b:class name='skin-color-title meta__space g-profile'/>
+        <img class='author__avatar' expr:alt='data:post.author' expr:src='resizeImage(data:post.authorPhoto.thumbUrl,30,"1:1")'/>
+        <span class='author__name'><data:post.author/></span>
+      </b:tag>
+    </b:includable>
     <b:includable id='post-body'>
-		<div class='post-body clearfix' expr:data-postidd='data:post.id'>
-			<data:post.body/>
-		</div>
-	</b:includable>
-    <b:includable id='post-firstImageUrl'>
-		<a expr:class='data:isSearch ? "card__image--search" : "card__image dan-search"' expr:href='data:post.url' expr:title='data:post.title'>
-			<img expr:alt='data:post.title' expr:src='data:post.firstImageUrl ? (data:isSearch ? resizeImage(data:post.firstImageUrl,80,"1:1") : (data:skin.vars.layout_cards_image != "0px" ? resizeImage(data:post.firstImageUrl,400,"16:9") : resizeImage(data:post.firstImageUrl,400))) : (data:isSearch ? resizeImage(data:imgDefault,80,"1:1") : resizeImage(data:imgDefault,400,"16:9"))'/>
-		</a><!-- .card__image -->
+      <div class='post-body bottom-space clearfix skin-color-text' expr:data-post-id='data:post.id'>
+        <data:post.body/>
+      </div>
+    </b:includable>
+    <b:includable id='post-card'>
+      <div class='card'>
+        <b:class expr:name='data:isColumn == 2 ? "col-6-sm" : (data:isColumn == 3 ? "col-4-md col-6-sm" : (data:isColumn == 4 ? "col-3-lg col-4-md col-6-sm" : (data:isColumn == 5 ? "col-5ta-xl col-3-lg col-4-md col-6-sm" : (data:isColumn == 6 ? "col-2-xl col-3-lg col-4-md col-6-sm" : "col-12"))))'/>
+        <div class="card__content">
+          <b:include name='post-card-cover'/>
+          <div class='card__data'>
+            <b:include name='post-title'/>
+            <b:include cond='data:layout.showSnippet' name='post-snippet'/>
+            <b:include cond='data:layout.showMeta' name='post-meta'/>
+          </div>
+        </div>
+      </div>
+    </b:includable>
+    <b:includable id='post-card-cover'>
+      <a expr:href='data:post.url'>
+        <b:class expr:name='data:this.isSearch ? "card-search__image flex-none" : "card__image flex-none"'/>
+        <b:tag name='i' class='card__more fas fa-search'/>
+        <b:include name='post-image'/>
+      </a>
+    </b:includable>
+    <b:includable id='post-card-search'>
+      <div class="card-search col-12">
+        <div class="card__content card__data display-flex align-items-start">
+          <b:include name='post-card-cover'/>
+          <div class="card-search__data">
+            <b:include name='post-title'/>
+            <b:include name='post-snippet'/>
+          </div>
+        </div>
+      </div>
+    </b:includable>
+    <b:includable id='post-image'>
+      <b:with value='data:post.firstImageUrl ? data:post.firstImageUrl : data:imgdefault' var='img'>
+        <img expr:alt='data:post.title' expr:src='data:this.isSearch ? resizeImage(data:img,60,"1:1") : (data:skin.vars.config_post_ratio ? resizeImage(data:img,300,"16:9") : resizeImage(data:img,300))'/>
+      </b:with>
     </b:includable>
     <b:includable id='post-infoComments'>
-		<a class='dan-comment' expr:href='data:post.url fragment "comentarios"'>
-			<b:class expr:name='data:view.isMultipleItems ? "flex align-items-center" : "post-meta__item"'/>
-			<b:if cond='data:commentsType[0] == "disqus"'>
-				<span class='disqus-comment-count' expr:data-disqus-url='data:post.url.canonical'/>
-			<b:elseif cond='data:commentsType[0] == "facebook"'/>
-				<span class='fb-comments-count' expr:data-href='data:post.url.canonical'>0</span> <b:eval expr='data:view.isMultipleItems ? "" : "Comentarios"'/>
-			<b:else/>
-				<b:eval expr='data:view.isMultipleItems ? data:post.numComments : data:post.numComments + " Comentario" + (data:post.numComments neq 1 ? "s" : "")'/>
-			</b:if>
-		</a>
+      <a class='meta__item meta__space skin-color-text' expr:href='data:post.url fragment "infoComments"'>
+       <i class='far fa-comment'/>
+        <b:if cond='data:skin.vars.config_comments == "disqus"'>
+          <span class='disqus-comment-count' expr:data-disqus-url='data:post.url.canonical'/>
+        <b:elseif cond='data:skin.vars.config_comments == "facebook"'/>
+          <span class='fb-comments-count' expr:data-href='data:post.url.canonical'/>
+        <b:else/>
+          <data:post.numComments/>
+        </b:if>
+      </a>
     </b:includable>
-    
-    <b:includable id='post-reactions'>
-		<b:if cond='data:top.showReactions'>
-			<div class='info info--1rem info--margin'>
-				<iframe allowtransparency='true' class='reactions-iframe' expr:src='data:post.reactionsUrl' frameborder='0' name='reactions' scrolling='no'/>
-			</div>
-		</b:if>
+    <b:includable id='post-meta'>
+      <div class='post__meta display-flex flex-wrap align-items-center'>
+        <b:class cond='data:view.isMultipleItems' name='card__space'/>
+        <b:include cond='data:top.showAuthor' name='post-author'/>
+        <b:include cond='data:top.showTimestamp' name='post-timestamp'/>
+        <b:include cond='data:post.allowComments' name='post-infoComments'/>
+      </div>
     </b:includable>
-    <b:includable id='post-related'>
-      <b:if cond='data:post.labels and !data:blog.isPrivateBlog'>
-	    <div class="widget font"><h2>Entradas similares</h2></div>
-	    <div class='post-related flex wrap align-items-start'/>
-	    <script>//<![CDATA[
-	    /*!	wjs-related v1.0.0 | José Gregorio fb.com/JGMateran (zkreations team) | Licensed under MIT | github.com/zkreations/wjs-related/blob/master/LICENSE*/
-	    'use strict';
-	    var defaults = {
-			'container':document.querySelector('.post-related'),
-			'results':6,
-			'size':'w300-h200-c',
-			'snippetLength':100,//]]>
-			'image':'<b:eval expr='resizeImage(data:imgDefault,300,"12:8")'/>',
-			'postId':'<data:post.id/>',
-			'homepageUrl':'<data:blog.homepageUrl/>',
-			'labels':[<b:loop values='data:post.labels' var='label'>'<data:label.name />',</b:loop>]
-	    };//<![CDATA[
-	    function forEach(e,t){for(var r=0,l=e.length;l>r&&!t.call(e[r],r,e[r]);r++);}function createScript(e,t){var r,l,a,s=document.createElement("script"),n=e+"?alt=json-in-script";for(r in t)l=t[r],a=methods[r],n+="&"+(a?a(l):r+"="+l);return s.src=n,document.body.appendChild(s).parentNode.removeChild(s),n}function render(e){return['<div class="wjs-rel"><a href="'+e.url+'" class="wjs-rel__image"><img src="'+e.image+'" alt="'+e.title+'" /><h3 class="font wjs-rel__title">'+e.title+'</h3></a></div>'].join("")}function related(e){forEach(e.feed.entry,function(e,t){var r=t.id.$t.split(".post-")[1],l=t.content.$t.replace(/<[^>]*>?/g,""),a=t.media$thumbnail;r!==defaults.postId&&(defaults.container.innerHTML+=render({id:r,snippet:l.substring(0,defaults.snippetLength)+"...",title:t.title.$t,image:(a?a.url:defaults.image).replace('s72-c',defaults.size),published:new Date(t.published.$t).toLocaleDateString("es-ES",{year:"numeric",month:"long",day:"numeric"}),description:l,category:t.category,url:function(){for(var e,r=0,l=t.link,a=l.length;a>r;r++)if(e=l[r],"alternate"===e.rel)return e.href}()}))})}var methods={labels:function(e){for(var t=0,r=e.length,l="q=";r>t;t++)l+='label:"'+e[t]+(t+1!==r?'"%7C':"");return l}};createScript(defaults.homepageUrl+"feeds/posts/default",{"max-results":defaults.results+1,callback:"related",labels:defaults.labels});//]]></script>
-      <b:else/>
-	    <p class='info info--margin'><strong>Posts relacionados:</strong> No está disponible si <strong><b:eval expr='!data:post.labels ? "la entrada carece de etiquetas" : "el blog es privado"'/></strong></p>
+    <b:includable data='post' id='post-related'>
+      <b:if cond='!data:blog.isPrivateBlog and data:post.labels'>
+      <div class='post-related'>
+        <h3 class="post-heading"><span class='skin-font skin-bg'><data:messages.youMayLikeThesePosts/></span></h3>
+        <div id='wjs-related' class='row wjs-related'/>
+      </div>
+      <script>
+      /*!
+       * wjs-related v2.0.2
+       * Copyright 2018 zkreations
+       * Developed by José Gregorio (fb.com/JGMateran)
+       * Licensed under MIT (github.com/zkreations/wjs-related/blob/master/LICENSE)
+       */
+       var related = (function(){
+       'use strict';
+       var defaults = {
+         id: '<data:post.id/>',
+         homepage: window.location.protocol + '//' + window.location.hostname,
+         image: '<b:eval expr='resizeImage(data:imgdefault,400,"4:3")'/>',
+         length: 3,
+         snippet: 100,
+         imgSize: 'w400-h300-c',
+         container: document.getElementById('wjs-related'),
+         tags: [<b:loop values='data:post.labels' var='label'>'<data:label.name/>',</b:loop>]
+       };
+       //<![CDATA[
+       var tags$length = defaults.tags.length;
+       var script = document.createElement( 'script' );
+       var src = defaults.homepage + '/feeds/posts/default' +
+          '?alt=json-in-script' +
+          '&callback=related' +
+          '&max-results=' + ( defaults.length + 1 ) +
+          '&q=';
+       for ( var n = 0; n < tags$length; n++ ){
+          src += 'label:"' + defaults.tags[ n ] + '"' + ( n === tags$length - 1 ? '' : '|' );
+       }
+       
+       script.src = src;
+       
+       document.body.appendChild( script );
+       
+       function render( data ){
+          var title = data.title.$t;
+          var content = data.content.$t;
+          var snippet = content.replace(/<[^>]*>?/g,'').substring( 0, defaults.snippet ) + '...';
+          var img = data.media$thumbnail;
+          var tempHtml = document.createElement('div');
+          tempHtml.innerHTML = content;
+          var imgHtml = tempHtml.querySelector('img');
+          var image = ( img ? img.url : (imgHtml ? imgHtml.src : defaults.image)).replace( /s\B\d{2,4}-c/, defaults.imgSize); 
+          var url = (function(){
+             for ( var i = 0; i < data.link.length; i++ ){
+                var link = data.link[i];
+                if ( link.rel === 'alternate' ){
+                   return link.href;
+                }
+             }
+          })();
+          var published = new Date( data.published.$t ).toLocaleDateString(
+             'es-ES',
+             {
+                year:'numeric',
+                month:'long',
+                day: 'numeric'
+             }
+          );
+          return (
+             '<div class="gallery col-4-sm col-6">'+
+                '<a href="' + url + '" class="gallery__href">'+
+                   '<img class="gallery__image" src="' + image + '" alt="' + title + '" />'+
+                   '<span class="gallery__title">' + title + '</span>'+
+                '</a>'+
+             '</div>'
+          );
+       }
+       function related( json ){
+          var i = 0;
+          var post;
+          var length = defaults.length;
+          for ( ; i < length && ( post = json.feed.entry[ i ] ); i++ ){
+             if ( defaults.id !== post.id.$t.split( '.post-' )[ 1 ] ){
+                defaults.container.innerHTML += render( post );
+             } else {
+                length++;
+             }
+          }
+       }
+       return related;
+       //]]>
+       })();</script>
       </b:if>
     </b:includable>
     <b:includable id='post-snippet'>
-      <b:if cond='data:post.snippet.length != 0'><p class='card__descripcion'><data:post.snippet/></p></b:if>
+      <b:if cond='data:post.snippet.length != 0'>
+        <p class="card__descripcion card__space">
+          <b:eval expr='data:length == "lg" ? data:post.longSnippet snippet {length: 400} : (data:length == "md" ? data:post.longSnippet snippet {length: 250} : data:post.snippet)'/>
+        </p>
+      </b:if>
     </b:includable>
     <b:includable id='post-tags'>
-		<div class='tags-post flex align-items-start wrap'>
-			<b:loop values='data:post.labels' var='label'>
-				<a class='tags-post__link' expr:href='data:label.url' rel='tag'><data:label.name/></a>
-			</b:loop>
-		</div>
+      <b:if cond='data:top.showPostLabels and data:post.labels'>
+        <div class='tags display-flex align-items-start flex-wrap'>
+          <b:loop values='data:post.labels' var='i'>
+            <a class='tags__link btn-border' expr:href='data:i.url' rel='tag'><data:i.name/></a>
+          </b:loop>
+        </div>
+      </b:if>
     </b:includable>
     <b:includable id='post-timestamp'>
-		<b:tag class='dan-clock flex align-items-center' cond='data:view.isMultipleItems' expr:href='data:post.url.canonical' name='a'>
-			<time class='published' expr:datetime='data:post.timestampISO8601'>
-				<b:class cond='data:view.isSingleItem' name='post-meta__item dan-clock'/>
-				<data:post.timestamp/>
-			</time>
-		</b:tag>
+      <time class='meta__item meta__space published skin-color-text' expr:datetime='data:post.timestampISO8601'>
+        <i class='far fa-clock'/><data:post.timestamp/>
+      </time>
     </b:includable>
     <b:includable id='post-title'>
       <b:if cond='data:post.title.length != 0'>
-        <b:tag expr:class='(data:view.isMultipleItems ? "card" : "article") + "__title font"' expr:name='data:view.isMultipleItems ? "h2" : "h1"'>
-          <b:tag cond='data:view.isMultipleItems' expr:href='data:post.url' name='a'><data:post.title/></b:tag>
+        <b:tag class='skin-font' expr:name='data:view.isMultipleItems ? "h2" : "h1"'>
+          <b:class expr:name='data:view.isMultipleItems ? "card__title card__space" : "post__title"'/>
+          <b:class cond='data:view.isPage' name='post__title--page'/>
+          <b:tag class='skin-color-hover' cond='data:view.isMultipleItems' expr:href='data:post.url' name='a'>
+            <data:post.title/>
+          </b:tag>
         </b:tag>
       </b:if>
-	</b:includable>
-    <b:includable id='postQuickEdit' var='post'><!--none--></b:includable>
-    <b:includable id='shareButtons'>
-		<div class='article__post-share flex align-items-start wrap'>
-		<b:with value='"wjs-window post-share__button flex align-items-center "' var='socialCss'><!-- imagen por defecto -->
-			<a expr:class='data:socialCss + "dan-facebook"' expr:href='params("//facebook.com/sharer/sharer.php",{u: data:post.url.canonical})'>Compartir en facebook</a>
-			<a expr:class='data:socialCss + "dan-twitter"' expr:href='params("//twitter.com/intent/tweet",{url: data:post.url.canonical})'>twitter</a>
-			<a expr:class='data:socialCss + "dan-google"' expr:href='params("//plus.google.com/share",{url: data:post.url.canonical})'>Google</a>
-			<a expr:class='data:socialCss + "dan-tumblr"' expr:href='params("//tumblr.com/share/photo",{url: data:post.firstImageUrl, caption: data:post.url.canonical})'>tumblr</a>
-			<a expr:class='data:socialCss + "dan-pinterest"' expr:href='params("//pinterest.com/pin/create/button/",{url: data:post.url.canonical, media: data:post.firstImageUrl})'>pinterest</a>
-		</b:with>
-		</div>
-	</b:includable>
-    <b:includable id='status-message'>
-      <b:eval expr='data:view.search.query ? data:messages.noResultsFound : data:messages.theresNothingHere'/>
     </b:includable>
-    <b:includable id='threaded-comment-form' var='post'>
-      <div class='comment-form'><a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
-         <iframe class='blogger-iframe-colorize blogger-comment-from-post' id='comment-editor' src=''/>
-         <data:post.cmtfpIframe/><script type='text/javascript'>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
+    <b:includable id='postQuickEdit' var='post'><!--disabled--></b:includable>
+    <b:includable id='shareButtons'>
+      <b:if cond='data:post.sharePostUrl'>
+        <div class="display-flex flex-wrap align-items-center">
+          <b:class expr:name='data:view.isMultipleItems ? "card__space card__share" : "post__share bottom-space"'/>
+          <a class='btn-border wjs-window' expr:href='params(data:post.sharePostUrl,{target: "facebook"})'><i class='fab fa-facebook-f fa-mn fa-fw'/></a>
+          <a class='btn-border wjs-window' expr:href='params(data:post.sharePostUrl,{target: "twitter"})'><i class='fab fa-twitter fa-mn fa-fw'/></a>
+          <a class='btn-border wjs-window' expr:href='params(data:post.sharePostUrl,{target: "googlePlus"})'><i class='fab fa-google-plus-g fa-mn fa-fw'/></a>
+          <a class='btn-border wjs-window' expr:href='params(data:post.sharePostUrl,{target: "pinterest"})'><i class='fab fa-pinterest-p fa-mn fa-fw'/></a>
+          <b:if cond='data:view.isSingleItem'>
+            <a class='btn-border wjs-window' expr:href='params("//www.tumblr.com/widgets/share/tool/preview",{canonicalUrl: data:post.url.canonical, caption: data:post.snippet, posttype: "link", title: data:post.title})'><i class='fab fa-tumblr fa-mn fa-fw'/></a>
+            <b:if cond='data:top.showEmailButton'>
+              <a class='btn-border wjs-window' expr:href='params(data:post.sharePostUrl,{target: "email"})'><i class='fas fa-at fa-mn fa-fw'/></a>
+            </b:if>
+          </b:if>
+        </div>
+      </b:if>
+    </b:includable>
+    <b:includable id='status-message'>
+      <div class='alert'>
+        <b:eval expr='data:view.isPreview ? data:messages.widgetNotAvailableInPreview : data:post.noNewCommentsText'/>
       </div>
     </b:includable>
-   <b:includable id='threaded_comment_js' var='post'>
-      <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/><b:template-script inline='true' name='threaded_comments'/>
-      <b:if cond='data:post.showThreadedComments'><script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);/*<![CDATA[*/var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));//]]></script></b:if>
-   </b:includable>
-    <b:includable id='threaded_comments' var='post'><!--none--></b:includable>
+    <b:includable id='threaded-comment-form' var='post'>
+      <div class='comment-form'>
+        <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+        <iframe class='blogger-iframe-colorize blogger-comment-from-post' id='comment-editor' src=''/>
+        <data:post.cmtfpIframe/>
+        <script>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
+      </div>
+    </b:includable>
+    <b:includable id='threaded_comment_js' var='post'>
+      <script async='async' expr:src='data:post.commentSrc'/>
+      <b:template-script inline='true' name='threaded_comments'/>
+      <b:if cond='data:post.showThreadedComments'>
+        <script>blogger.widgets.blog.initThreadedComments(
+          <data:post.commentJso/>,
+          <data:post.commentMsgs/>,
+          <data:post.commentConfig/>);//<![CDATA[
+          var a = document.getElementsByClassName("avatar-image-container");
+          for (i = 0; i < a.length; i++) a[i].childNodes[0].setAttribute("src", a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/, "s80"));
+          //]]>
+        </script>
+      </b:if>
+    </b:includable>
+    <b:includable id='threaded_comments' var='post'><!--disabled--></b:includable>
   </b:widget>
-</b:section><!-- #Blog -->
-<b:else/>
-<div class='error'>
-	<h1 class='error__title'>La pagina que buscas no existe.</h1>
-	<span class='error__mott'>(இ﹏இ`｡)</span>
-	<p class='error__info'>Pero no te desanimes, tenemos <a expr:href='data:blog.homepageUrl.canonical'>nuevo contenido</a> que te puede interesar.</p>
-</div><!-- .error -->
-</b:if>
-</div><!-- .blog -->
-
+</b:section>
+</div>
 <!-- Sidebar -->
-<b:if cond='data:skin.vars.layout_full != "0px"'>
-<aside expr:class='"sidebar " + (data:skin.vars.layout_invert != "0px" ? "left" : "right")'>
-<b:if cond='data:view.isSingleItem and data:view.isPreview'>
-<div class='widget'><p class='info'><data:messages.widgetNotAvailableInPreview/></p></div>
-<b:else/>
-<b:section id='Sidebar'>
-  <b:widget id='BlogSearch10' locked='false' title='Buscador' type='BlogSearch' version='1'>
+<b:if cond='data:layout.sidebar'>
+<div expr:class='"sidebar " + (data:layout.oppositeBlog ? "skin-left" : "skin-right")'>
+<b:section id='sidebar'>
+  <b:widget id='BlogSearch100' locked='false' title='Search' type='BlogSearch' version='1'>
     <b:includable id='main'>
-	<b:if cond='data:title.length != 0'><h2><data:title/></h2></b:if>
-	<div class='widget-content'>
-		<form action='/search' class='search-main' method='get'>
-			<input class='search-main__input reset' name='q' onblur='if(this.value=="") this.value = this.defaultValue' onfocus='if(this.value==this.defaultValue) this.value = ""' type='text' value='Buscar'/>
-			<button class='search-main__button dan-search reset' type='submit'/>
-		</form>
-	</div>
+      <b:if cond='data:title.length != 0'>
+        <h3 class='widget-title'><data:title/></h3>
+      </b:if>
+      <div class='widget-content'>
+        <form expr:action='data:blog.searchUrl' class="search display-flex" method="get">
+          <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
+          <input autocomplete='off' class='search__input flex-fill form-input' name='q' expr:placeholder='data:messages.searchBlog' spellcheck='false' type='text' expr:value='data:view.isSearch ? data:view.search.query.escaped : ""' required='required'/>
+          <button class='search__button btn skin-bg' type='submit'><i class='fas fa-search fa-fw fa-mn skin-i'/></button>
+        </form>
+      </div>
     </b:includable>
   </b:widget>
-  <b:widget id='FeaturedPost10' locked='false' title='Recomendado' type='FeaturedPost' version='1'>
+  <b:widget id='FeaturedPost100' locked='false' title='Featured post' type='FeaturedPost' version='1'>
     <b:widget-settings>
       <b:widget-setting name='useMostRecentPost'>true</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
-	<b:if cond='data:title.length != 0'><h2><data:title/></h2></b:if>
-	<div class='widget-content'><b:include name='content'/></div>
-	</b:includable>
+      <b:if cond='data:title.length != 0'>
+        <h3 class='widget-title'><data:title/></h3>
+      </b:if>
+      <div class='widget-content'>
+        <b:include name='content'/>
+      </div>
+    </b:includable>
     <b:includable id='content'>
-	<div class='card-featured'>
-		<a class='card-featured__image dan-star' expr:href='data:postUrl'>
-			<img expr:alt='data:postTitle' expr:src='resizeImage((data:postFirstImage ? data:postFirstImage : data:imgDefault),400,"16:9")'/>
-		</a>
-		<div class='card__data'>
-			<b:if cond='data:showPostTitle and data:postTitle.length != 0'><h3 class='card__title font'><a expr:href='data:postUrl'><data:postTitle/></a></h3></b:if>
-			<b:if cond='data:showSnippet and data:postSummary.length != 0'><p class='card__descripcion'><data:postSummary/></p></b:if>
-		</div>
-	</div>
-	</b:includable>
+      <div class='card-featured'>
+        <div class='card__content'>
+          <a class='card__image' expr:href='data:postUrl'>
+            <i class='card__icon skin-bg fas fa-star fa-mn skin-i'/>
+            <b:include name='featured-image'/>
+          </a>
+          <div class='card__data'>
+            <b:include name='featured-title'/>
+            <b:include name='featured-summary'/>
+          </div>
+        </div>
+      </div>
+    </b:includable>
+    <b:includable id='featured-image'>
+      <img expr:alt='data:postTitle' expr:src='resizeImage((data:postFirstImage ? data:postFirstImage : data:imgdefault),300,"16:9")'/>
+    </b:includable>
+    <b:includable id='featured-title'>
+      <b:if cond='data:showPostTitle and data:postTitle.length != 0'>
+        <h2 class='card__title card__space skin-font'>
+          <a class='skin-color-hover' expr:href='data:postUrl'><data:postTitle/></a>
+        </h2>
+      </b:if>
+    </b:includable>
+    <b:includable id='featured-summary'>
+      <b:if cond='data:showSnippet and data:postSummary.length != 0'>
+        <p class='card__descripcion card__space'><data:postSummary/></p>
+      </b:if>
+    </b:includable>
   </b:widget>
-  <b:widget id='Label10' locked='false' title='Etiquetas' type='Label' version='1'>
+  <b:widget id='Label100' locked='false' title='Labels' type='Label' version='1'>
     <b:widget-settings>
       <b:widget-setting name='display'>CLOUD</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
-    <b:if cond='data:title.length != 0'><h2><data:title/></h2></b:if>
-	<div class='widget-content'>
-		<div class='tags-list flex align-items-start wrap'>
-		<b:class cond='data:display == "list"' name='tags-list--list'/>
-		<b:loop values='data:labels' var='label'>
-			<a class='tags-list__link' expr:href='data:label.url'><b:class cond='data:view.url == data:label.url' name='here'/><data:label.name/><b:if cond='data:showFreqNumbers'><span class='tags-list__num'><data:label.count/></span></b:if></a>
-		</b:loop>
-		</div>
-    </div>
+      <b:if cond='data:title.length != 0'>
+        <h3 class='widget-title'><data:title/></h3>
+      </b:if>
+      <div class='widget-content'>
+        <div class="tagsList display-flex align-items-start flex-wrap">
+          <b:class cond='data:display == "list"' name='tagsList--list'/>
+          <b:loop values='data:labels' var='i'>
+            <a class='tagsList__link btn' expr:href='data:i.url'>
+              <b:class cond='data:view.url == data:i.url' name='here'/>
+              <data:i.name/>
+              <b:if cond='data:showFreqNumbers'>
+                <span class='tags-list__num'><data:i.count/></span>
+              </b:if>
+            </a>
+          </b:loop>
+        </div>
+      </div>
     </b:includable>
   </b:widget>
 </b:section>
-</b:if><!-- b:if = data:view.isPost and data:view.isPreview -->
-</aside><!-- .sidebar -->
+</div>
 </b:if>
+</div><!-- End .main__blog .clearfix -->
 
-</div><!-- .main-content -->
-</div><!-- .container__box -->
+</div><!-- End .main .skin-box -->
 
-</b:with><!-- b:with == imgDefault -->
-
+    
 <footer class='footer'>
-<div class='footer__end container__box flex align-items-center justify-content-between row-medium column'>
-
-<!-- Social icons -->
-<b:section class='end__social' id='footer-social' maxwidgets='1' name='Footer Social' showaddelement='no'>
-  <b:widget id='LinkList10' locked='true' title='Redes sociales' type='LinkList' version='1'>
+<div class='footer__primary'>
+<b:section id='footer-copyright' maxwidgets='2' class='clearfix skin-box display-flex align-items-center justify-content-between flex-row-md flex-column'>
+  <b:widget id='LinkList100' locked='true' title='Social Networks' type='LinkList' version='1'>
     <b:includable id='main'>
-		<nav class='end__social-list flex align-items-center'>
-		<b:loop values='data:links' var='link'>
-			<a expr:class='"dan-" + data:link.name + " flex align-items-center"' expr:href='data:link.target' rel='nofollow' target='_blank'/>
-		</b:loop>
-		</nav><!-- .end__social-list -->
+      <div class="footer__social">
+        <nav class='footer__social-list display-flex align-items-center justify-content-start-md justify-content-center flex-wrap'>
+          <b:loop values='data:links' var='i'>
+            <a class='display-flex align-items-center skin-color-hover' expr:href='data:i.target' rel='nofollow' target='_blank'>
+              <i expr:class='data:i.name + " fa-mn"'/>
+            </a>
+          </b:loop>
+        </nav>
+      </div>
+      <!-- .end__social-list -->
     </b:includable>
   </b:widget>
-</b:section><!-- .end__social #footer-social -->
-<div class='end__copy'>
-	<span class='font'><data:blog.title/> 2018</span>
-	<!--Esta obra está licenciada bajo la Licencia Creative Commons Atribución-NoComercial 4.0 Internacional. Para ver una copia de esta licencia, visita http://creativecommons.org/licenses/by-nc/4.0/-->
-	<p data-id='cc:attribution'>Made with <strong class='love'>♥</strong> <a href='https://zkreations.com' property='cc:attributionName' rel='cc:attributionURL,nofollow' target='_blank'>by zkreations</a> &amp; <a expr:href='data:blog.bloggerUrl' rel='nofollow' target='_blank'>Blogger</a></p>	
-</div><!-- .end__copy -->
-</div><!-- .footer__end -->
-
-<!-- Footer links -->
-<b:section class='footer__links container__box' id='footer-links' maxwidgets='1' name='Footer Links' showaddelement='no'>
-  <b:widget id='LinkList20' locked='true' title='Enlaces del footer' type='LinkList' version='1'>
+  <b:widget id='Text100' locked='true' title='Copyright' type='Text'>
     <b:includable id='main'>
-		<nav class='footer__links-list flex align-items-center'>
-		<b:loop values='data:links' var='link'>
-			<a class='dan-link' expr:href='data:link.target'><data:link.name/></a>
-		</b:loop>
-		</nav><!-- .end__social-list -->
+      <div class='footer__copy'>
+        <span class='copy__date skin-font'><data:blog.title/> 2018</span>
+        <b:comment>This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License: http://creativecommons.org/licenses/by-nc/4.0/</b:comment>
+        <div class='copy__attribution'>
+          Created by <a class='skin-color-hover' href='//zkreations.com' property='cc:attributionName' rel='cc:attributionURL,nofollow' target='_blank'>zkreations</a> &amp; <a class='skin-color-hover' expr:href='data:blog.bloggerUrl' rel='nofollow' target='_blank'>Blogger</a> <data:content/>
+        </div>
+      </div>
     </b:includable>
   </b:widget>
-</b:section><!-- .footer__links #footer-social -->
-</footer><!-- .footer -->
+</b:section>
+</div>
+<b:section id='footer-links' class='footer__links' maxwidgets='1'>
+  <b:widget id='LinkList101' locked='true' title='Footer Links' type='LinkList' version='1'>
+    <b:includable id='main'>
+      <nav class='footer__links-list skin-box display-flex flex-row-sm flex-column'>
+        <b:loop values='data:links' var='i'>
+          <a class='skin-color-hover' expr:href='data:i.target'>
+            <i class='fas fa-link'/> <data:i.name/>
+          </a>
+        </b:loop>
+      </nav>
+    </b:includable>
+  </b:widget>
+</b:section>
+</footer>
+</div><!-- End .container__main .skin-main-bg -->
+</div><!-- End .container -->
 
-</div><!-- .container__main -->
-</div><!-- .container -->
+<!-- END TEMPLATE -->
+<!-- All VANILLA JS (No framework Dependency) -->
+<script src='https://cdn.jsdelivr.net/gh/zkreations/whale@1.5.2/dist/js/whale.min.js'/>
 
-<!-- => END TEMPLATE -->
-<!-- => All VANILLA JS (No framework Dependency) -->
-<script async='async' src='https://cdn.rawgit.com/zkreations/whale/master/dist/version/whale@1.3.12.min.js'/>
-<b:tag cond='data:view.isHomepage' name='script' src='https://cdn.jsdelivr.net/lory-js/2.1.0/lory.min.js'/>
-<b:tag cond='data:view.isHomepage' name='script' src='https://cdn.rawgit.com/zkreations/Canvas.xml/master/templates/Anime/source/scripts.min.js'/>
+<!-- Font Awesome 5.3.1 -->
+<link rel='stylesheet'
+      href='https://use.fontawesome.com/releases/v5.3.1/css/all.css'
+      integrity='sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU'
+      crossorigin='anonymous'/>
+      
+<!-- Tiny Slider 2.8.6 -->
+<b:if cond='data:view.isHomepage'>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.8.6/min/tiny-slider.js'/>
+<!-- Options -->
+<script>//<![CDATA[
+var slider=tns({container:".slider__container",autoplayButtonOutput:!1,arrowKeys:!1,nextButton:".controls__next",prevButton:".controls__prev",items:2,responsive:{576:{items:3},768:{items:4},992:{items:5}},lazyload:!0,nav:!1,slideBy:"1",autoplay:!0,autoplayHoverPause:!0,autoplayTimeout:5E3,speed:600,mouseDrag:!0,rewind:!0,loop:!1,gutter:3,useLocalStorage:!1});
+//]]></script>
+</b:if>
+</b:with><b:comment> End data:layout </b:comment>
+</b:with><b:comment> End data:imgDefault </b:comment>
+
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
 </body>
