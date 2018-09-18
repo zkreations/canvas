@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Anime.xml v3.0.4-free | Canvas.xml v1.6.8 | github.com/zkreations/canvas.xml -->
+<!-- Anime.xml v3.0.5-free | Canvas.xml v1.6.8 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -971,7 +971,7 @@ audio {
 => Theme URI: https://zkreations.com/anime-xml
 => Author: Daniel Abel M. (Copyright 2018 zkreations)
 => Author URI: https://instagram.com/danie.abel
-=> Version: 3.0.4
+=> Version: 3.0.5
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -1215,7 +1215,7 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
       <span class='gallery__title'><data:i.title/></span>
     </b:includable>
     <b:includable id='slider-image'>
-      <img class='gallery__image' expr:alt='data:i.title' expr:src='resizeImage((data:i.featuredImage ? data:i.featuredImage : data:imgdefault),300,"6:5")'/>
+      <img class='gallery__image' expr:alt='data:i.title' expr:src='resizeImage((data:i.featuredImage ? data:i.featuredImage : data:imgDefault),300,"6:5")'/>
     </b:includable>
     <b:includable id='slider-controls'>
       <button class='controls__prev'><i class='fas fa-chevron-left'/></button>
@@ -1422,7 +1422,7 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
       </div>
     </b:includable>
     <b:includable id='post-image'>
-      <b:with value='data:post.firstImageUrl ? data:post.firstImageUrl : data:imgdefault' var='img'>
+      <b:with value='data:post.firstImageUrl ? data:post.firstImageUrl : data:imgDefault' var='img'>
         <img expr:alt='data:post.title' expr:src='data:this.isSearch ? resizeImage(data:img,60,"1:1") : (data:skin.vars.config_post_ratio ? resizeImage(data:img,300,"16:9") : resizeImage(data:img,300))'/>
       </b:with>
     </b:includable>
@@ -1464,7 +1464,7 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
        var defaults = {
          id: '<data:post.id/>',
          homepage: window.location.protocol + '//' + window.location.hostname,
-         image: '<b:eval expr='resizeImage(data:imgdefault,400,"4:3")'/>',
+         image: '<b:eval expr='resizeImage(data:imgDefault,400,"4:3")'/>',
          length: 3,
          snippet: 100,
          imgSize: 'w400-h300-c',
@@ -1664,7 +1664,7 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
       </div>
     </b:includable>
     <b:includable id='featured-image'>
-      <img expr:alt='data:postTitle' expr:src='resizeImage((data:postFirstImage ? data:postFirstImage : data:imgdefault),300,"16:9")'/>
+      <img expr:alt='data:postTitle' expr:src='resizeImage((data:postFirstImage ? data:postFirstImage : data:imgDefault),300,"16:9")'/>
     </b:includable>
     <b:includable id='featured-title'>
       <b:if cond='data:showPostTitle and data:postTitle.length != 0'>
