@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Anime.xml v3.0.5-free | Canvas.xml v1.6.8 | github.com/zkreations/canvas.xml -->
+<!-- Anime.xml v3.0.6-free | Canvas.xml v1.6.8 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -1489,8 +1489,9 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
        
        function render( data ){
           var title = data.title.$t;
-          var content = data.content.$t;
-          var snippet = content.replace(/<[^>]*>?/g,'').substring( 0, defaults.snippet ) + '...';
+          var content = data.content;
+          var summary = data.summary;
+          var snippet = ( content ? content.$t : summary.$t).replace(/<[^>]*>?/g,'').substring( 0, defaults.snippet ) + '...';
           var img = data.media$thumbnail;
           var tempHtml = document.createElement('div');
           tempHtml.innerHTML = content;
