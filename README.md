@@ -15,7 +15,7 @@
 		<img src="https://img.shields.io/badge/changelog-md-blue.svg" alt="changelog">
 	</a>
 	<a href="https://github.com/zkreations/Canvas.xml/blob/master/LICENSE">
-		<img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="LICENSE">
+		<img src="https://img.shields.io/badge/license-GPL%203.0-orange.svg" alt="LICENSE">
 	</a>
 </p>
 
