@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Anime.xml v3.1.2-free | Canvas.xml v1.6.8 | github.com/zkreations/canvas.xml -->
+<!-- Anime.xml v3.1.4-free | Canvas.xml v1.6.8 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -971,7 +971,7 @@ audio {
 => Theme URI: https://zkreations.com/anime-xml
 => Author: Daniel Abel M. (Copyright 2018 zkreations)
 => Author URI: https://instagram.com/danie.abel
-=> Version: 3.1.2
+=> Version: 3.1.4
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -1460,7 +1460,7 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
       </div>
       <script>
       /*!
-       * wjs-related v2.0.4
+       * wjs-related v2.0.6
        * Copyright 2018 zkreations
        * Developed by José Gregorio (fb.com/JGMateran)
        * Licensed under MIT (github.com/zkreations/wjs-related/blob/master/LICENSE)
@@ -1497,10 +1497,11 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
           var title = data.title.$t;
           var content = data.content;
           var summary = data.summary;
-          var snippet = ( content ? content.$t : summary.$t).replace(/<[^>]*>?/g,'').substring( 0, defaults.snippet ) + '...';
+          var body = content ? content.$t : summary.$t;
+          var snippet = (body).replace(/<[^>]*>?/g,'').substring( 0, defaults.snippet ) + '...';
           var img = data.media$thumbnail;
           var tempHtml = document.createElement('div');
-          tempHtml.innerHTML = content.$t;
+          tempHtml.innerHTML = body;
           var imgHtml = tempHtml.querySelector('img');
           var image = ( img ? img.url : (imgHtml ? imgHtml.src : defaults.image)).replace( /s\B\d{2,4}-c/, defaults.imgSize); 
           var url = (function(){
