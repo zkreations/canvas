@@ -1,5 +1,16 @@
 # changelog
 
+## v1.7.0
+
+- Se retira `meta=rating` puesto que no influye en SEO
+- Se retira `image_src` puesto que no se le da uso
+- Ahora `meta=robots` solo bloquea páginas sin impedir el rastreo
+- Se agrega `og:image:width` y `og:image:height` requerido por facebook
+- Se retiran variables de configuración innecesarias
+- Se retiran comentarios de google plus
+- Solución para comentarios de facebook responsive
+- Etiquetas mejor organizadas y correcciones varias
+
 ## v1.6.8
 
 - Se elimina la opción "responder" si no se permiten nuevos comentarios (+ux)

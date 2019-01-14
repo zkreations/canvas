@@ -2,13 +2,15 @@
 <!DOCTYPE html>
 <html b:css='false' b:js='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Canvas.xml v1.6.8 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.7.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
 <meta expr:charset='data:blog.encoding'/>
-<meta expr:content='data:blog.adultContent ? "mature" : "general"' name='rating'/>
-<meta expr:content='data:view.isMultipleItems ? "website" : "article"' property='og:type'/>
+<meta expr:content='data:view.isHomepage ? "website" : "article"' property='og:type'/>
+
+<!-- Responsive viewport -->
+<meta content='width=device-width,initial-scale=1' name='viewport'/>
 
 <!-- App name -->
 <meta expr:content='data:blog.title' name='application-name'/>
@@ -20,9 +22,6 @@
 <!-- Type of twitter card -->
 <meta content='summary_large_image' name='twitter:card'/>
 
-<!-- Responsive viewport -->
-<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
-
 <!-- favicon -->
 <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 
@@ -32,24 +31,26 @@
 <link expr:href='data:view.url.canonical' rel='canonical'/>
 
 <!-- Descripcion -->
-<meta expr:content='data:view.description.escaped' property='og:description'/>
-<meta expr:content='data:view.description.escaped' name='twitter:description'/>
-<meta expr:content='data:view.description.escaped' name='description'/>
-
-<!-- Meta Robots -->
-<b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='robots'>
-   <meta expr:content='data:robots' name='robots'/>
-</b:with>
+<b:if cond='data:view.description'>
+   <meta expr:content='data:view.description.escaped' property='og:description'/>
+   <meta expr:content='data:view.description.escaped' name='twitter:description'/>
+   <meta expr:content='data:view.description.escaped' name='description'/>
+</b:if>
+	
+<b:if cond='data:view.isError or data:view.isArchive or data:view.isSearch'>
+   <meta content='noindex,follow' name='robots'/>
+</b:if>
 
 <!-- Featured Image -->
 <b:if cond='data:view.featuredImage'>
-   <link expr:href='data:view.featuredImage' rel='image_src'/>
    <meta expr:content='data:view.featuredImage' name='twitter:image'/>
-   <meta expr:content='data:view.featuredImage' property='og:image'/>
+   <meta expr:content='resizeImage(data:view.featuredImage,1200,"1200:630")' property='og:image'/>
+   <meta property='og:image:width' content="1200"/>
+   <meta property='og:image:height' content="630"/>
 </b:if>
 
-<!-- Titles -->
-<b:with value='data:view.isError ? data:messages.theresNothingHere : (data:view.isLabelSearch ? data:view.search.label : data:view.title.escaped)' var='title'>
+<!-- Title -->
+<b:with value='data:view.isError ? data:messages.theresNothingHere : data:view.title.escaped' var='title'>
    <meta expr:content='data:title' property='og:title'/>
    <meta expr:content='data:title' name='twitter:title'/>
    <title><data:title/></title>
@@ -57,8 +58,10 @@
 
 <!-- Feeds -->
 <b:if cond='data:blog.feedLinks'>
-   <link expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default"' title='Atom 1.0' rel='alternate' type='application/atom+xml'/>
-   <link expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" params {alt: "rss"}' title='RSS 2.0' rel='alternate' type='application/rss+xml'/>
+<b:with value='path(data:blog.homepageUrl.canonical,"feeds/posts/default")' var='feeds'>
+   <link expr:href='data:feeds' title='Atom 1.0' rel='alternate' type='application/atom+xml'/>
+   <link expr:href='data:feeds params {alt: "rss"}' title='RSS 2.0' rel='alternate' type='application/rss+xml'/>
+</b:with>
 </b:if>
 
 <!-- Sitelinks Searchbox -->
@@ -86,11 +89,9 @@
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
 
-/*Fix: Unnecessary elements removed*/
-.widget-item-control,
-.item-control.blog-admin,
-.continue,.loadmore,
-.thread-chrome.thread-collapsed,
+/*Fix: Unnecessary elements removed*/ 
+.widget-item-control,.item-control.blog-admin,
+.continue,.loadmore,.thread-chrome.thread-collapsed,
 .singleton-element:not(.cookie-choices-info),
 .noAllowNewComments .comment-actions {display:none}
 
@@ -102,6 +103,8 @@ a[imageanchor]:not([style*=float]) {
     margin-right: 0 !important;
     margin-left: 0 !important;
 }
+
+.widget-content img,
 img[data-original-height],
 img[data-original-width] {height: auto;}
 
@@ -112,25 +115,11 @@ img[data-original-width] {height: auto;}
     min-height:220px
 }
 
-/*Fix: Responsive Comments*/
-.fb-comments,
-.fb-comments span,
-.fb-comments iframe,
-.cmt_iframe_holder,
-.cmt_iframe_holder iframe {
-    width:100%!important;
-    display:block!important
-}
-
 /* Configurations
    ====================
    <!-- General Options -->
    <Variable name="config.comments" description="Comment system" type="string" default="blogger" value="blogger"/>
-   
-   <!-- Options for Comments -->
-   <Variable name="config.dq.shortname" description="Short name of Disqus" type="string" default="shortname" value="shortname"/>
-   <Variable name="config.fb.commentNums" description="Initial number of comments" type="string" default="10" value="10"/>
-   <Variable name="config.fb.commentSkin" description="Theme color" type="string" default="light" value="light"/>
+   <Variable name="config.shortname" description="Shortname of Disqus" type="string" default="shortname" value="shortname"/>
 */
 ]]></b:skin>
 
@@ -139,10 +128,8 @@ img[data-original-width] {height: auto;}
 ]]></b:template-skin>
 
 &lt;!--</head>--&gt;&lt;/head&gt;
-
 <body>
 
-<!-- Posts -->
 <b:section id='Blog'>
    <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
    <b:includable id='main' var='top'>
@@ -165,38 +152,31 @@ img[data-original-width] {height: auto;}
    <b:includable id='backlinkDeleteIcon' var='backlink'><!--disabled--></b:includable>
    <b:includable id='backlinks' var='post'><!--disabled--></b:includable>
    <b:includable id='comments-blogger' var='post'>
-      <b:if cond='data:post.commentSource == 1'>
-         <b:include data='post' name='iframe_comments'/>
-      <b:else/>
-         <b:include data='post' name='comment_picker'/>
-      </b:if>
+      <b:include data='post' name='comment_picker'/>
    </b:includable>
    <b:includable id='comments-disqus' var='post'>
       <div id='disqus_thread'/>
       <script>
-      var disqus_shortname = "<data:skin.vars.config_dq_shortname/>",
+      var disqus_shortname = "<data:skin.vars.config_shortname/>",
           disqus_config = function(){
              this.page.url = "<data:view.url.canonical/>";
              this.page.title = "<data:view.title.escaped/>";
           };//<![CDATA[
        (function() {
            var d = document, s = d.createElement('script');
-           s.async = true;
-           s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-           s.setAttribute('data-timestamp', +new Date());
-           (d.head || d.body).appendChild(s);
+           s.async = true;s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+           s.setAttribute('data-timestamp', +new Date());(d.head || d.body).appendChild(s);
        })();//]]>
        </script>
    </b:includable>
    <b:includable id='comments-facebook' var='post'>
-      <div class='fb-comments' expr:data-colorscheme='data:skin.vars.config_fb_commentSkin' expr:data-href='data:view.url.canonical' expr:data-numposts='data:skin.vars.config_fb_commentNums'/>
+      <div class='fb-comments' data-colorscheme='light' data-numposts='10' data-width='100%' expr:data-href='data:view.url.canonical'/>
    </b:includable>
    <b:includable id='comment-form' var='post'><!--disabled--></b:includable>
    <b:includable id='commentDeleteIcon' var='comment'><!--disabled--></b:includable>
    <b:includable id='comment_count_picker' var='post'><!--disabled--></b:includable>
    <b:includable id='comment_picker' var='post'>
       <div class='comments' id='comments'>
-         <b:class cond='!data:post.allowNewComments' name='noAllowNewComments'/>
          <div class='comments-content'>
             <div id='comment-holder'><data:post.commentHtml/></div>
             <b:include data='post' name='threaded_comment_js'/>
@@ -211,10 +191,7 @@ img[data-original-width] {height: auto;}
    </b:includable>
    <b:includable id='feedLinks'><!--disabled--></b:includable>
    <b:includable id='feedLinksBody' var='links'><!--disabled--></b:includable>
-   <b:includable id='iframe_comments' var='post'>
-      <script expr:src='data:post.iframeCommentSrc'/>
-      <div class='cmt_iframe_holder' expr:data-href='data:post.url.canonical' expr:data-viewtype='data:post.viewType'/>
-   </b:includable>
+   <b:includable id='iframe_comments' var='post'><!--disabled--></b:includable>
    <b:includable id='mobile-index-post' var='post'><!--disabled--></b:includable>
    <b:includable id='mobile-main' var='top'><!--disabled--></b:includable>
    <b:includable id='mobile-nextprev'><!--disabled--></b:includable>
@@ -265,8 +242,7 @@ img[data-original-width] {height: auto;}
             <data:post.commentConfig/>);//<![CDATA[
             var a = document.getElementsByClassName("avatar-image-container");
             for (i = 0; i < a.length; i++) a[i].childNodes[0].setAttribute("src", a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/, "s80"));
-            //]]>
-         </script>
+         //]]></script>
       </b:if>
    </b:includable>
    <b:includable id='threaded_comments' var='post'><!--disabled--></b:includable>

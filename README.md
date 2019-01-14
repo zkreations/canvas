@@ -5,10 +5,10 @@
 </p>
 
 <p align="center">
-   <a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.6.8">
-		<img src="https://img.shields.io/badge/release-v1.6.8-yellowgreen.svg" alt="version">
+	<a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.7.0">
+		<img src="https://img.shields.io/badge/release-v1.7.0-yellowgreen.svg" alt="version">
 	</a>
-   <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml">
+	<a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml">
 		<img src="https://img.shields.io/badge/layout%20version-2-lightgrey.svg" alt="layout version">
 	</a>
 	<a href="https://github.com/zkreations/Canvas.xml/blob/master/changelog.md">
@@ -54,14 +54,13 @@ Esta configurado con sus valores mínimos aceptables. Para saber más, visita la
 
 ## Opciones
 
-A partir de la versión 1.6.x las opciones son manejadas por variables dentro de `b:skin`. La siguiente tabla contiene los datos disponibles hasta el momento
+A partir de la versión 1.6 las opciones son manejadas por variables dentro de `b:skin`. La siguiente tabla contiene los datos disponibles hasta el momento
 
 | Variable                | Type   |  Default  | Description | 
 | ----------------------- | ------ | ----------| ----------------------------- |
 | `config.comments`       | string | `blogger` | Establece los comentarios por defecto: `blogger`, `facebook` o `disqus` |
-| `config.dq.shortname`   | string | `shortname` | Nombre corto del sitio en Disqus - [Ver más](https://help.disqus.com/installation/whats-a-shortname) |
-| `config.fb.commentNums` | number | `10` | Establece el valor de **data-numposts** - [Ver más](https://developers.facebook.com/docs/plugins/comments/#settings) |
-| `config.fb.commentSkin` | string | `light` | Tema para los comentarios de facebook: `light` o `dark` |
+| `config.shortname`   | string | `shortname` | Nombre corto del sitio en Disqus - [Ver más](https://help.disqus.com/installation/whats-a-shortname) |
+
 
 #### Modo de uso
 
