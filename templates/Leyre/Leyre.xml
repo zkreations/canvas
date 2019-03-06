@@ -140,6 +140,7 @@ a {
 .fa-mn {
    margin-right: 0;
 }
+
  /* keyframes
 --------------------------------------*/
 @-webkit-keyframes fadeOut {
@@ -967,7 +968,6 @@ img[data-original-width] {height: auto;}
    <!-- Show -->
    <Variable name="config.show.sidebar" description="Show sidebar" type="string" default="false" value="false"/>
    <Variable name="config.show.postSidebar" description="Show Post sidebar" type="string" default="true" value="true"/>
-   <Variable name="config.show.footerWidgets" description="Show footer widgets section" type="string" default="true" value="true"/>
    <Variable name="config.show.oppositeBlog" description="Exchange between sidebar and blog" type="string" default="false" value="false"/>
 
    <!-- image default -->
