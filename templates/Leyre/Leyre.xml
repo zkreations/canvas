@@ -1,227 +1,627 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:responsive='true' b:version='2' lang='es'>
+<html b:css='false' b:js='true' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Leyre v2.3.88 ?= Canvas.xml v1.4.80 | github.com/zkreations/canvas.xml -->
+<!-- Leyre.xml v3.0.0-free | Canvas.xml v1.7.0 | github.com/zkreations/canvas.xml -->
+
 <head>
-
-<!-- Datos generales -->
+<!-- Basic data -->
 <meta expr:charset='data:blog.encoding'/>
-<meta content='blogger' name='generator'/>
-<meta content='summary_large_image' name='twitter:card'/>
-<meta expr:content='data:blog.adultContent ? "mature" : "general"' name='rating'/>
-<meta expr:content='data:view.isMultipleItems ? "website" : "article"' property='og:type'/>
+<meta expr:content='data:view.isHomepage ? "website" : "article"' property='og:type'/>
 
 <!-- Responsive viewport -->
-<meta content='width=device-width,minimum-scale=1,initial-scale=1' name='viewport'/>
+<meta content='width=device-width,initial-scale=1' name='viewport'/>
 
-<!-- Datos personalizados del usuario -->
-<link href='https://plus.google.com/IDpaginaGoogle' rel='Publisher'/>
-<meta content='@blogger' name='twitter:site'/>
-<meta content='@google' name='twitter:creator'/>
+<!-- App name -->
+<meta expr:content='data:blog.title' name='application-name'/>
+<meta expr:content='data:blog.title' property='og:site_name'/>
+
+<!-- Meta Referrer Tag -->
+<meta content='unsafe-url' name='referrer'/>
+
+<!-- Type of twitter card -->
+<meta content='summary_large_image' name='twitter:card'/>
 
 <!-- favicon -->
 <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
 
-<!-- Enlace Canonico -->
+<!-- Url canonical -->
 <meta expr:content='data:view.url.canonical' property='og:url'/>
 <meta expr:content='data:view.url.canonical' name='twitter:url'/>
 <link expr:href='data:view.url.canonical' rel='canonical'/>
 
 <!-- Descripcion -->
-<meta expr:content='data:view.description' property='og:description'/>
-<meta expr:content='data:view.description' name='twitter:description'/>
-<meta expr:content='data:view.description' name='description'/>
+<b:if cond='data:view.description'>
+   <meta expr:content='data:view.description.escaped' property='og:description'/>
+   <meta expr:content='data:view.description.escaped' name='twitter:description'/>
+   <meta expr:content='data:view.description.escaped' name='description'/>
+</b:if>
+	
+<b:if cond='data:view.isError or data:view.isArchive or data:view.isSearch'>
+   <meta content='noindex,follow' name='robots'/>
+</b:if>
 
-<!-- Meta Robots Relativo -->
-<b:with value='data:view.isHomepage or data:view.isSingleItem ? "index,follow" : "noindex,nofollow"' var='robots'>
-   <meta expr:content='data:robots' name='robots'/>
-   <b:if cond='data:robots == "index,follow"'>
-      <meta content='noodp,noydir' name='robots'/>
-   </b:if>
+<!-- Featured Image -->
+<b:if cond='data:view.featuredImage'>
+   <meta expr:content='data:view.featuredImage' name='twitter:image'/>
+   <meta expr:content='resizeImage(data:view.featuredImage,1200,"1200:630")' property='og:image'/>
+   <meta property='og:image:width' content="1200"/>
+   <meta property='og:image:height' content="630"/>
+</b:if>
+
+<!-- Title -->
+<b:with value='data:view.isError ? data:messages.theresNothingHere : data:view.title.escaped' var='title'>
+   <meta expr:content='data:title' property='og:title'/>
+   <meta expr:content='data:title' name='twitter:title'/>
+   <title><data:title/></title>
 </b:with>
 
-<!-- Optimizando Posts -->
-<b:if cond='data:view.isPost and data:view.featuredImage'>
-   <link expr:href='data:view.featuredImage' rel='image_src'/>
-   <meta expr:content='data:view.featuredImage' name='twitter:image'/>
-   <meta expr:content='data:view.featuredImage' property='og:image'/>
+<!-- Feeds -->
+<b:if cond='data:blog.feedLinks'>
+<b:with value='path(data:blog.homepageUrl.canonical,"feeds/posts/default")' var='feeds'>
+   <link expr:href='data:feeds' title='Atom 1.0' rel='alternate' type='application/atom+xml'/>
+   <link expr:href='data:feeds params {alt: "rss"}' title='RSS 2.0' rel='alternate' type='application/rss+xml'/>
+</b:with>
 </b:if>
 
-<!-- Optimizando Titulos -->
-<b:if cond='data:view.isError'>
-   <title>Error 404 en <data:blog.pageTitle/></title>
-<b:else/>
-   <b:with value='data:blog.pageName.length != 0 ? data:blog.pageName : data:blog.title' var='titles'>
-      <meta expr:content='data:titles' property='og:title'/>
-      <meta expr:content='data:titles' name='twitter:title'/>
-      <title><b:eval expr='data:view.search.label ? "Entradas de " + data:titles : data:titles'/></title>
-   </b:with>
-</b:if>
-
-<!-- feeds -->
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" ' expr:title='data:blog.title + " - Atom"' name='link' rel='alternate' type='application/atom+xml'/>
-<b:tag cond='data:blog.feedLinks' expr:href='data:blog.homepageUrl.canonical path "feeds/posts/default" params {alt: "rss"}' expr:title='data:blog.title + " - RSS"' name='link' rel='alternate' type='application/rss+xml'/>
-
-<!-- schema ld+json -->
+<!-- Sitelinks Searchbox -->
 <script type='application/ld+json'>
-{"@context":"http://schema.org","@type":"WebSite","name":"<data:blog.title/>","url":"<data:blog.homepageUrl.canonical/>","potentialAction":{"@type":"SearchAction","target":"<data:blog.homepageUrl.canonical/>search?q={search_term_string}","query-input":"required name=search_term_string"}}
+{
+    "@context": "http://schema.org",
+    "@type": "WebSite",
+    "url": "<data:blog.homepageUrl.canonical/>",
+    "potentialAction": {
+        "@type": "SearchAction",
+        "target": "<data:blog.searchUrl/>?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+    }
+}
 </script>
 
-<!-- Single.css -->
-<b:tag cond='data:skin.vars.layout_single != "0px"' href="//cdn.rawgit.com/zkreations/Canvas.xml/master/single/single.min.css" name='link' rel='stylesheet'/>
-
-<!--[if lt IE 9]>
-   <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-<![endif]-->
-<!-- Fin de datos-->
-
+<b:comment>Global Styles</b:comment>
 <style>/*<![CDATA[*/
-/* => CSS Global */
-/*! => whale.css beta v1.3.12 | Copyright 2017 zkreations | Licensed under MIT | github.com/zkreations/whale.css/blob/master/LICENSE | normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */button,hr,input{overflow:visible}img,legend{max-width:100%}audio,canvas,img,progress,video{display:inline-block}[type=checkbox],[type=radio],legend{padding:0;box-sizing:border-box}*,::after,::before,legend{box-sizing:border-box}a,table{background-color:transparent}.column,.column-reverse{-webkit-box-orient:vertical}.embed,sub,sup{position:relative}html{line-height:1.15;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section{display:block}h1{font-size:2em}figure{margin:1em 40px}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}a{-webkit-text-decoration-skip:objects;color:#2196f3;text-decoration:none}abbr[title]{border-bottom:none;text-decoration:underline;text-decoration:underline dotted}b,strong{font-weight:bolder}dfn{font-style:italic}mark{background-color:#ff0;color:#000}small{font-size:80%}sub,sup{font-size:75%;line-height:0;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}audio:not([controls]){display:none;height:0}img{border-style:none;vertical-align:middle}.reset,progress{vertical-align:baseline}svg:not(:root){overflow:hidden}button,input,optgroup,select,textarea{font-family:sans-serif;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=reset],[type=submit],button,html [type=button]{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{padding:.35em .75em .625em}legend{color:inherit;display:table;white-space:normal}textarea{overflow:auto}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-cancel-button,[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}body{margin:0;font-family:"Helvetica Neue",arial,sans-serif;font-size:1rem;font-weight:400;overflow-x:hidden}a:hover{color:#1565c0}a:active,a:focus,a:hover{text-decoration:none;outline-width:0}ol,ul{padding-left:2rem}ol,ol li,ul,ul li{margin:0;list-style:none}h1,h2,h3,h4,h5,h6{font-weight:500;margin:0}h2{font-size:1.5rem}h3{font-size:1.4rem}h4{font-size:1.3rem}h5{font-size:1.2rem}h6{font-size:1.1rem}table{border-spacing:0;border-collapse:collapse}[role=button],a,button,input,label,select,textarea{-ms-touch-action:manipulation;touch-action:manipulation}p{margin:0}.reset{background:none;padding:0;margin:0;border:0;outline:0;box-shadow:0 0 transparent;font:inherit}.none{display:none!important}.center{display:block;margin-left:auto;margin-right:auto}.center-text{text-align:center}.clearfix::after{display:block;content:"";clear:both}.dropdown-menu,.flex{display:-webkit-box;display:-ms-flexbox}.flex{display:flex}.wrap{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column{-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse{-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row,.row-reverse{-webkit-box-orient:horizontal}.row{-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse{-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center{-ms-flex-line-pack:center;align-content:center}.align-content-end{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end{-ms-flex-item-align:end;align-self:flex-end}.align-self-start{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.button{display:inline-block;font-weight:400;line-height:1.25;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:.6em 1em;text-decoration:none!important;cursor:pointer;vertical-align:middle}embed,iframe,object{margin:0;padding:0;border:0;outline:0}.embed{padding-bottom:56.25%;height:0}.embed embed,.embed iframe,.embed object,.embed video{width:100%;height:100%;position:absolute;top:0;bottom:0;left:0}.table{display:block;width:100%;overflow-x:auto}.container{margin-right:auto;margin-left:auto;padding-left:1rem;padding-right:1rem}.dropdown-menu{display:flex}.dropdown-menu,.dropdown-menu li,.dropdown-menu ul{padding:0;margin:0}.dropdown-menu li{position:relative}.dropdown-menu a{display:-webkit-box;display:-ms-flexbox;display:flex;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between;font-size:1rem}.dropdown-menu ul{visibility:hidden;max-height:0}.dropdown-menu .is-parent>a::after{content:"";display:inline-block;width:0;height:0;vertical-align:middle;border-right:4px solid transparent;border-left:4px solid transparent;border-top:4px dashed;margin-left:.5rem}@media (max-width:991px){.dropdown-menu ul.is-active{visibility:visible;max-height:1280px}.dropdown-menu ul{overflow:hidden}.dropdown-menu{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}}@media (min-width:992px){.dropdown-menu>li{float:left}.dropdown-menu ul{text-align:left;top:0;left:100%;position:absolute;min-width:160px}.dropdown-menu>li>ul{top:100%;left:0}.dropdown-menu li:hover>ul{visibility:visible;max-height:1280px}.dropdown-menu ul .is-parent>a::after{border-left:4px dashed;border-right:0 transparent;border-top:4px solid transparent;border-bottom:4px solid transparent}}.wjs-panel:not(.is-active){display:none}@media (max-width:575px){.none-xsmall{display:none!important}.center-xsmall{display:block;margin-left:auto;margin-right:auto}.center-text-xsmall{text-align:center}.flex-xsmall{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-xsmall{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-xsmall{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-xsmall{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-xsmall{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-xsmall{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-xsmall{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-xsmall{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-xsmall{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-xsmall{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-xsmall{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-xsmall{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-xsmall{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-xsmall{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-xsmall{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-xsmall{-ms-flex-line-pack:center;align-content:center}.align-content-end-xsmall{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-xsmall{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-xsmall{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-xsmall{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-xsmall{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-xsmall{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-xsmall{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-xsmall{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-xsmall{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-xsmall{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-xsmall{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-xsmall{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-xsmall{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-xsmall{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-xsmall{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-xsmall{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media (min-width:576px){.none-small{display:none!important}.center-small{display:block;margin-left:auto;margin-right:auto}.center-text-small{text-align:center}.flex-small{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-small{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-small{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-small{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-small{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-reverse-small,.row-small{-webkit-box-orient:horizontal}.row-small{-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-small{-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-small{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-small{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-small{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-small{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-small{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-small{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-small{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-small{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-small{-ms-flex-line-pack:center;align-content:center}.align-content-end-small{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-small{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-small{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-small{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-small{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-small{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-small{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-small{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-small{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-small{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-small{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-small{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-small{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-small{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-small{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-small{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media (min-width:768px){.none-medium{display:none!important}.center-medium{display:block;margin-left:auto;margin-right:auto}.center-text-medium{text-align:center}.flex-medium{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-medium{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-medium{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-medium{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-medium{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-medium{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-medium{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-medium{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-medium{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-medium{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-medium{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-medium{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-medium{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-medium{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-medium{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-medium{-ms-flex-line-pack:center;align-content:center}.align-content-end-medium{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-medium{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-medium{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-medium{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-medium{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-medium{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-medium{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-medium{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-medium{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-medium{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-medium{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-medium{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-medium{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-medium{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-medium{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-medium{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media (min-width:992px){.none-large{display:none!important}.center-large{display:block;margin-left:auto;margin-right:auto}.center-text-large{text-align:center}.flex-large{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-large{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-large{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-large{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-large{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-large,.row-reverse-large{-webkit-box-orient:horizontal}.row-large{-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-large{-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-large{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-large{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-large{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-large{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-large{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-large{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-large{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-large{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-large{-ms-flex-line-pack:center;align-content:center}.align-content-end-large{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-large{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-large{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-large{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-large{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-large{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-large{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-large{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-large{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-large{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-large{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-large{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-large{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-large{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-large{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-large{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media (min-width:1200px){.none-xlarge{display:none!important}.center-xlarge{display:block;margin-left:auto;margin-right:auto}.center-text-xlarge{text-align:center}.flex-xlarge{display:-webkit-box;display:-ms-flexbox;display:flex}.wrap-xlarge{-ms-flex-wrap:wrap;flex-wrap:wrap}.wrap-reverse-xlarge{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.column-xlarge{-webkit-box-orient:vertical;-webkit-box-direction:normal;-ms-flex-direction:column;flex-direction:column}.column-reverse-xlarge{-webkit-box-orient:vertical;-webkit-box-direction:reverse;-ms-flex-direction:column-reverse;flex-direction:column-reverse}.row-xlarge{-webkit-box-orient:horizontal;-webkit-box-direction:normal;-ms-flex-direction:row;flex-direction:row}.row-reverse-xlarge{-webkit-box-orient:horizontal;-webkit-box-direction:reverse;-ms-flex-direction:row-reverse;flex-direction:row-reverse}.order-first-xlarge{-webkit-box-ordinal-group:0;-ms-flex-order:-1;order:-1}.order-last-xlarge{-webkit-box-ordinal-group:2;-ms-flex-order:1;order:1}.no-order-xlarge{-webkit-box-ordinal-group:1;-ms-flex-order:0;order:0}.justify-content-center-xlarge{-webkit-box-pack:center;-ms-flex-pack:center;justify-content:center}.justify-content-end-xlarge{-webkit-box-pack:end;-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-xlarge{-webkit-box-pack:start;-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-xlarge{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-xlarge{-webkit-box-pack:justify;-ms-flex-pack:justify;justify-content:space-between}.align-content-center-xlarge{-ms-flex-line-pack:center;align-content:center}.align-content-end-xlarge{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-xlarge{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-xlarge{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-xlarge{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-xlarge{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-xlarge{-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline}.align-items-center-xlarge{-webkit-box-align:center;-ms-flex-align:center;align-items:center}.align-items-end-xlarge{-webkit-box-align:end;-ms-flex-align:end;align-items:flex-end}.align-items-start-xlarge{-webkit-box-align:start;-ms-flex-align:start;align-items:flex-start}.align-items-stretch-xlarge{-webkit-box-align:stretch;-ms-flex-align:stretch;align-items:stretch}.align-self-auto-xlarge{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-xlarge{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-xlarge{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-xlarge{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-xlarge{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-xlarge{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}}@media print{.none-print{display:none!important}}
+@font-face{font-family:Pacifico;font-style:normal;font-weight:400;src:local('Pacifico Regular'),local('Pacifico-Regular'),url(https://fonts.gstatic.com/s/pacifico/v13/FwZY7-Qmy14u9lezJ-6H6M8.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:300;src:local('Roboto Light'),local('Roboto-Light'),url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fBBc-.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:400;src:local('Roboto'),local('Roboto-Regular'),url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxM.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:500;src:local('Roboto Medium'),local('Roboto-Medium'),url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc-.woff) format('woff')}@font-face{font-family:Roboto;font-style:normal;font-weight:700;src:local('Roboto Bold'),local('Roboto-Bold'),url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBBc-.woff) format('woff')}
 
-/*! => fontastic */
-[class*=" dan-"]:before,[class^=dan-]:before,[data-icon]:before{font-family:leyre!important;font-style:normal!important;font-weight:400!important;font-variant:normal!important;text-transform:none!important;speak:none;line-height:1;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}@font-face{font-family:leyre;src:url(data:application/font-woff;charset=utf-8;base64,d09GRk9UVE8AAAzgAAsAAAAAENgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABDRkYgAAABCAAACY8AAAvqxdEVHkZGVE0AAAqYAAAAGgAAABx4+02MR0RFRgAACrQAAAAdAAAAIABAAARPUy8yAAAK1AAAAEcAAABgUB1exWNtYXAAAAscAAAAZgAAAW4yXiuFaGVhZAAAC4QAAAAoAAAANg3b67loaGVhAAALrAAAABgAAAAkBC8CA2htdHgAAAvEAAAAIQAAACoE6AHNbWF4cAAAC+gAAAAGAAAABgATUABuYW1lAAAL8AAAAN4AAAFxodt1WHBvc3QAAAzQAAAAEAAAACAAAwABeJxlVmtsHNUVnkk8uxfHNYV6aUDpmvQHNJBQUKkKVFFEZAI0FBISojZNFNb22vFzveu11+t9ZB8zszNzZmZnZnfttdf22vELgxM7xG5FqYIqElciSkEhaps+/rRKJUApUlVptppI9MyaVkK913P33nPu4zvnfPdc01RNDUXTtKPbGw54KXoLRVPPVvZsqTy2tbK9Rq6joW4r1NW4a6n7j9z7BcD/OnVOgEq+kmd20I67d1DU13fQj96zg3pgx7aP7qUa7G1qqXuo7dSD1EPUd6nvU89Qz1EHqcPUUeqnlIfyUh2UjwpTcSrd19Eb9Aa8/cFgqCOIvbBvIDjQ7G3ztHibfb6udp+vvdvb0dsf9LQHPD3BgZ7m7kBLt6+lyxMI+EJ7Ah3tp4P9Xk+g5XSLp7fF243zTuMw2OoL9Xb7PK3dHb1dvj5vr3eoz9Pburmo29sWrBq8aTVF0RlaoEVaooGWaYVW6Syt0Tpt0Dk6TxfoEXqULlLfsK3aQs3RD9Mz9O0te7fMbn2sZnvN0zW3mS7mC8ePnF7yz7tytSdqI/UmesZl7jSdltPaibX62xiAQDZoFMZHytqUOjq+AZAfno8uAvnL+7/7/PcHr++y6l9+cn8jnJpoPR/VRU1RDDmrjsiaYkhKRksUuXE4S66+e+XmR6ueI892/fi4uw9CM8aCsTx+HjXTicmgb6DX25+PgBvAZ23jB/khGIDhJ95+6Rb8C2xEWHcCqcfY/cAVGwgPhaIk5rS+vdN6ynrNfQiOTJ5cykl5yMGv4J2JlTdOyq1vxtYNSQcDCpCX8wr5WaH9F/AekZ1j6RI/Ab6poWVYhbI+lS9devGm56+8mJNykIeNX757BcibsBCfGpzVzubLo+nA8OBgfFqx55J685R52GW6P7bcNxjz8pwLNE9zY6vTw3ts9PzpaCQ0OABJqYm3KLCLdb/cnE0ofik0HS3x5wEI8OvrjW8717R1e4m2Mj5enp6BgnxdM+0lBJCl2LvOF6QZKA+OR7V2lNab8/eZx1+8ee2y89rayoZ7EWZFQyJwoEViOrnoQOPxPziTe1/AA4+b3wRmvFgcb6yccI7Hi1H3nROOaDwebbxzwhktxsfd9ZUT5gXX+y1HDjdfOXzxyvtrDuudYy7zccfI3k7rLusBIE/sv3Hr1o0btxrX4ULkDX9HpyzG48Nj4YIPyGvNp44dWzv168b3YObs2Dr5nqO+EkTqTI7Fwo13jjrDsVjYfeeoIxwbm2ysHHVOjo1Nus0nrbwLxIPXrolX0U9XDx3iD4LbzFtHXWbwgFNNKglIkKZXX21qevXydTeMKCNqgRywgo5Kg7nm+uzRR531lbvN7a4kHxeikIK0zKmsmskKmqCJWCWsoBPzO599vNv82nNOCV0pYan+pMS0iJ+QyiT4BJeyayqVSJNE+gwb48nL71qPOyGhJNSEekZL5M4YiXxyJDWSKrITfImfFMryBEyoEzop6SN61sBgvGP+2wWKpIh2lQUgYYcAoiSJoiiJIJKHDjrtMY5QBgIJO0GQRdmeLqlA/u5QQZEVLLICKjFrF1zgY/3x/lj/0BA2cT/rAx/4jf5i/9jQVGw2PsvOwyKBRWO+ODs2OzWFTXHeWIRFmGdRG5saGsO5hh985Op9cDG1GloOnfPPd5Q7y235FmiBtlRnqCPk92PTmWqDFgIt+TbUdsz7z+Hc1dRFuAir+eXyufL8PDbL+VW4SOyssM9l7rOqtWfJ3GbWWUWAdbMIFvaZevNzE8GfPtMTwNITb4fT0FMMzAXm4ktwHlaKS3NYlkbPA1mBpTMoD4z2QDsxH7aSLihkcqxBdt1mZs+NXoB1WOTmk7OJudhMeDI8OTDWPxIo+DUf9IGfDyRJIDEYC2OJDSQCyX4ObYU+3V8IjATGBnF+eDo2lyBziXl+Abe6MHpultzexRhsPlOw00DWwJLNQwETyVazydX0p+t/ZnRdNfDa54Qcp3MaqyKxIC1wPHl+7ws3GU5Lq2kkG4sSjhNRBSmF1Tly/ZmmHzIoYW0mKmmd03lDsBNQTtU18tubH+5ldB43xa0NlOApqIK8YHA6uvTpSoMLkpkUiyWVSUISUlnWYI0MgoNCNm8DzWcLQBB1BuVsNgVJYl62nkaPCXn0mPW6+TqTzqX0uIaEVZJArG2OJCJPsyw2ONva5gS8VKiO66kcS8zXLQ/6IieMIKa8mjOI+aC5kzEMRIYeMf9RecX1AVz6ifwSPN/Z4u8iHMt0tz5yICOIkiAJIFT5m1Ef+aj7bcIZjP+tzovyh/DBpUsfwAosD0/3TS8sT6zYWbrBRPN4MSNk8E/kAasi4FUVs6CBpmSzWVXVFA2IBihDjZIBnty476trUIprpOoaOWsvyv7fmtWrLgydzmsYPCWNTtgOrV4mkYjzUYhCXEuMEO8F635g0sCJHMfzAgdpgnc9rbIar/M6RohUnnLkQMcoaRpyIUceMw0XBiqL++03GxygidlM9UQeyLMOBCYKiFK0z7ca9jtx64zACmmZ1XliNlgNDE4XETRk0VSUmA2MrsmGkEPXHDAxhGmEwhFPM8PzrMAipziV08jhDaSbaFQ5ZOACkEVVIDrHKBL2MNPgJ+EHKthwNU3HJxYfOBVQSOwGk4uK6UUmyEYNmb1JOkPUOLJxCPmosMAS66R5EiEILMdJsoRxwdmMKEuygOvtEGPawg9BCbzNeXQYVEUE7PQlEPQbx6g4GyQ0Q7DvBKvyGjn0Gxu/bp+oIH6yvs5ommF7FHQMEbnyig3B9j9mfYQwky5HSuTQBhMphXJBCEIoHRkmgTlmYiJXhrNwNj21qY9+qR9iIxHi8TCRSHoIh8HcUClCNl5hSpFyGqdDOV8qkbkAMxxJh6r6UClq68e/1E/lUI+oSuP2/hiMh0ywPcGlbYqDaHNOzmRJ85q1x9rN2DH+krtZ0vsGk1GrQbX5iwl7t7mneY3hdAmdrOZsTxPzW46vEhofvKoRkdIQGkCsBQcakY5ENg3AsXPTiFJkCgESc8GxCbJUyk3ZAE3NbHNtBpZ0vcVsPjRi9VUhu+3jM1VS2oy07420yUgn8GiFXfFBRPrZoOTq7aleJcRnm/jJp0z17VGI2W+7QZOqSzIyktxqsFkuVW9ipuoBPIisNe/ZzWy+bnYqUETyVhez+Zwp1beMfPrJWjOD2/+X/GoWDwYNPb3PXHJ5rKLT3GbV9fRY+8xqXeqxcMzgv3UN4Fp7z/zj37w/d6yC011L33uq7q5SXe1/ADpxq9sAeJxjYGBgZACCM7aLzoPoa3FX42A0AE37B0oAAHicY2BkYGDgA2IJBhBgYmAEQiEgZgHzGAAFEABFAAAAeJxjYGZiYJzAwMrAwejDmMbAwOAOpb8ySDK0MDAwMbByMsAAIwMSCEhzTWFwYEhkKGJ88P8Bgx4TkhrGt0BCAQgZAdnyCogAeJy1jUsOgCAMBaeAgH9g7ZG8hDvX3j/Ril7AhS9ppk2meYDlmQXhzq6X1NuxKr1SMLod51mN7eVtuUqjP45G3UCkpaNnYGJkJpEpKnnegh8jxrrGh9h2/TCNc8rl78ZPuQB56wc7AAB4nGNgZGBgAOKU0v268fw2Xxm4mRhA4Frc1ThkmokBLM4BoQAJRAhQeJxjYGRgYGIAAj0wCWIzMqACJgAF0AA5eJxjYmBgYGJAAY0MqgyhDEIMHUDaGEiLA2mgCAAltQK6AAAAAABQAAATAAB4nG2OMW7CQBBFn8EGQSKKFKlXlJFsebeJoI44AAU9xcqyZNnRAgXniJSWimPkADlA7pNvsxJFstLOfzP7Z2aBRz5J6E9CpuzGI6YsI49F75FTeS6RMx74ijxR9iNnks5UmQ9dPY9Y8BR5zBsvkVN5PiJnPHONPFH9mwbPmaBI489BshVXnPSyV52tr07NXrCho+U4aJDDY3AUlNK17n3SLbesyBWdopPL8qohXXvcdKHyxhWlWZthp9SucutyV1p5/n5pJw4cqIcv9KP7tex8ONRda2xR/tP1C0VqMyIAAHicY2BmQAaMDGgAAACOAAU=) format("woff");font-weight:400;font-style:normal}[data-icon]:before{content:attr(data-icon)}.dan-pinterest:before{content:"\61"}.dan-twitter:before{content:"\62"}.dan-youtube:before{content:"\63"}.dan-facebook:before{content:"\64"}.dan-google:before{content:"\65"}.dan-instagram:before{content:"\66"}.dan-tumblr:before{content:"\67"}.dan-clock:before{content:"\68"}.dan-arrow-right:before{content:"\69"}.dan-search:before{content:"\6a"}.dan-cancel:before{content:"\6b"}.dan-tag:before{content:"\6c"}.dan-heart:before{content:"\6e"}.dan-download:before{content:"\6d"}.dan-link:before{content:"\6f"}.dan-open:before{content:"\70"}.dan-expand:before{content:"\71"}.dan-arrow-left:before{content:"\72"}
-
-@font-face {
-  font-family: 'Pacifico';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Pacifico Regular'), local('Pacifico-Regular'), url(https://fonts.gstatic.com/s/pacifico/v9/yunJt0R8tCvMyj_V4xSjafesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+/*!
+ * Whale v1.6.0
+ * Copyright 2017-2019 zkreations
+ * Developed by Daniel Abel M. (instagram.com/danie.abel)
+ * Licensed under MIT (github.com/zkreations/whale/blob/master/LICENSE)
+ * normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css
+ */button,hr,input{overflow:visible}[type=checkbox],[type=radio],legend{padding:0;box-sizing:border-box}*,::after,::before,legend{box-sizing:border-box}dl,ol,ol ol,ol ul,ul,ul ol,ul ul{margin-bottom:0}.abbr,abbr,abbr[title]{-webkit-text-decoration:underline dotted}img,legend,video{max-width:100%}button,input,progress,sub,sup,textarea{vertical-align:baseline}.clearfix::after,.embed-fluid::before{content:""}html{line-height:1.15;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent}details,main{display:block}h1{margin:.67em 0}dl,ol,p,ul{margin-top:0}hr{box-sizing:content-box;height:0}code,kbd,pre,samp{font-family:monospace,monospace;font-size:1em}abbr[title]{border-bottom:none;text-decoration:underline dotted}b,strong{font-weight:bolder}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative}sub{bottom:-.25em}sup{top:-.5em}img{border-style:none}button,input,optgroup,select,textarea{font-family:inherit;font-size:100%;line-height:1.15;margin:0}button,select{text-transform:none}[type=button],[type=reset],[type=submit],button{-webkit-appearance:button}[type=button]::-moz-focus-inner,[type=reset]::-moz-focus-inner,[type=submit]::-moz-focus-inner,button::-moz-focus-inner{border-style:none;padding:0}[type=button]:-moz-focusring,[type=reset]:-moz-focusring,[type=submit]:-moz-focusring,button:-moz-focusring{outline:ButtonText dotted 1px}fieldset{padding:.35em .75em .625em}legend{color:inherit;display:table;white-space:normal}textarea{overflow:auto}[type=number]::-webkit-inner-spin-button,[type=number]::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}[type=search]::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}[hidden],template{display:none}/*! End normalize.css */body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";font-size:1rem;font-weight:400;line-height:1.5;text-align:left}a{color:#2196f3;text-decoration:none;background-color:transparent}a:hover{color:#1565c0}a:active,a:focus,a:hover{text-decoration:none;outline-width:0}a:not([href]):not([tabindex]),a:not([href]):not([tabindex]):focus,a:not([href]):not([tabindex]):hover{color:inherit;text-decoration:none}a:not([href]):not([tabindex]):focus{outline:0}dl,ol,ul{padding-left:0;list-style:none}.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6{margin-top:0;margin-bottom:.5rem;font-family:inherit;font-weight:500;line-height:1.2;color:inherit;display:block}.h1,h1{font-size:2.5rem}.h2,h2{font-size:2rem}.h3,h3{font-size:1.75rem}.h4,h4{font-size:1.5rem}.h5,h5{font-size:1.25rem}.h6,h6{font-size:1rem}.small,small{font-size:80%;font-weight:400}.mark,mark{padding:.2em;background-color:#FFF9C4}.abbr,abbr{font-size:90%;text-decoration:underline dotted;border-bottom:0;cursor:help;text-transform:uppercase}table{border-spacing:0;border-collapse:collapse;background-color:transparent}[role=button],a,button,input,label,select,textarea{-ms-touch-action:manipulation;touch-action:manipulation}figure{margin:0 0 1rem}img{display:inline-block;vertical-align:middle}embed,iframe,object{margin:0;padding:0;border:0;outline:0}video{display:block;height:auto}p{margin-bottom:0}.container{margin-right:auto;margin-left:auto}.position-static{position:static}.position-fixed{position:fixed}.position-sticky{position:-webkit-sticky;position:sticky}.fixed-bottom,.fixed-top{position:fixed;right:0;z-index:1100;left:0}.fixed-top{top:0}.fixed-bottom{bottom:0}button,input,textarea{background:none;padding:0;margin:0;border:0;outline:0;box-shadow:none;font:inherit}.btn,.form-input{padding:.5rem .8rem}.form-input{display:block;width:100%;background-color:#fff;background-clip:padding-box;border:1px solid #cfd8dc}.btn{display:inline-block;font-weight:400;text-align:center;white-space:nowrap;vertical-align:middle;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer}.embed-fluid{position:relative;display:block;width:100%;padding:0;overflow:hidden}.embed-fluid embed,.embed-fluid iframe,.embed-fluid object,.embed-fluid video,.embed-item{position:absolute;top:0;left:0;width:100%;height:100%}.embed-fluid::before{display:block}.embed-fluid-21by9::before{padding-top:42.857143%}.embed-fluid-16by9::before{padding-top:56.25%}.embed-fluid-4by3::before{padding-top:75%}.embed-fluid-1by1::before{padding-top:100%}.table-fluid{display:block;width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;-ms-overflow-style:-ms-autohiding-scrollbar}.dropdown-menu{display:-ms-flexbox;display:flex;-ms-flex-direction:column;flex-direction:column}.dropdown-menu li{position:relative}.dropdown-menu a{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center}.dropdown-menu ul{text-align:left;display:none}.dropdown-menu ul.is-active{display:block}.dropdown-menu .is-arrow{margin-left:auto}.dropdown-menu .is-parent>a .is-arrow::after{content:"";display:inline-block;vertical-align:middle;border-right:4px solid transparent;border-left:4px solid transparent;border-top:4px dashed;margin-left:.5rem}@media (min-width:992px){.dropdown-menu{-ms-flex-direction:row;flex-direction:row}.dropdown-menu ul{top:0;left:100%;position:absolute;min-width:100%}.dropdown-menu a{white-space:nowrap}.dropdown-menu>li>ul{top:100%;left:0}.dropdown-menu ul .is-parent>a .is-arrow::after{border-left:4px dashed;border-right:0 transparent;border-top:4px solid transparent;border-bottom:4px solid transparent}}.wjs-panel:not(.is-active){display:none}.clearfix::after{display:block;clear:both}.float-left{float:left}.float-right{float:right}.float-none{float:none}.display-none{display:none}.display-inline{display:inline}.display-inline-block{display:inline-block}.display-block{display:block}.display-table{display:table}.display-table-row{display:table-row}.display-table-cell{display:table-cell}.display-flex{display:-ms-flexbox;display:flex}.display-inline-flex{display:-ms-inline-flexbox;display:inline-flex}.position-relative{position:relative}.position-absolute{position:absolute}.flex-none{-ms-flex:none;flex:none}.flex-auto{-ms-flex:auto;flex:auto}.flex-fill{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0{-ms-flex-positive:0;flex-grow:0}.flex-grow-1{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1{-ms-flex-negative:1;flex-shrink:1}.flex-wrap{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center{-ms-flex-pack:center;justify-content:center}.justify-content-end{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between{-ms-flex-pack:justify;justify-content:space-between}.align-content-center{-ms-flex-line-pack:center;align-content:center}.align-content-end{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline{-ms-flex-align:baseline;align-items:baseline}.align-items-center{-ms-flex-align:center;align-items:center}.align-items-end{-ms-flex-align:end;align-items:flex-end}.align-items-start{-ms-flex-align:start;align-items:flex-start}.align-items-stretch{-ms-flex-align:stretch;align-items:stretch}.align-self-auto{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end{-ms-flex-item-align:end;align-self:flex-end}.align-self-start{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.row{display:-ms-flexbox;display:flex;-ms-flex-align:start;align-items:flex-start;-ms-flex-wrap:wrap;flex-wrap:wrap;margin-right:-.5rem;margin-left:-.5rem}[class*=col-]{padding-right:.5rem;padding-left:.5rem;-ms-flex-preferred-size:auto;flex-basis:auto;-ms-flex-positive:1;flex-grow:1;-ms-flex-negative:1;flex-shrink:1;width:100%}.no-gutters{margin-right:0;margin-left:0}.no-gutters>[class*=col-]{padding-right:0;padding-left:0}.col-auto{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first{-ms-flex-order:-1;order:-1}.order-last{-ms-flex-order:13;order:13}.order-0{-ms-flex-order:0;order:0}.order-1{-ms-flex-order:1;order:1}.order-2{-ms-flex-order:2;order:2}.order-3{-ms-flex-order:3;order:3}.order-4{-ms-flex-order:4;order:4}.order-5{-ms-flex-order:5;order:5}.order-6{-ms-flex-order:6;order:6}.order-7{-ms-flex-order:7;order:7}.order-8{-ms-flex-order:8;order:8}.order-9{-ms-flex-order:9;order:9}.order-10{-ms-flex-order:10;order:10}.order-11{-ms-flex-order:11;order:11}.order-12{-ms-flex-order:12;order:12}.offset-1{margin-left:8.333333%}.offset-2{margin-left:16.666667%}.offset-3{margin-left:25%}.offset-4{margin-left:33.333333%}.offset-5{margin-left:41.666667%}.offset-6{margin-left:50%}.offset-7{margin-left:58.333333%}.offset-8{margin-left:66.666667%}.offset-9{margin-left:75%}.offset-10{margin-left:83.333333%}.offset-11{margin-left:91.666667%}@media (min-width:576px){.float-left-sm{float:left}.float-right-sm{float:right}.float-none-sm{float:none}.display-none-sm{display:none}.display-inline-sm{display:inline}.display-inline-block-sm{display:inline-block}.display-block-sm{display:block}.display-table-sm{display:table}.display-table-row-sm{display:table-row}.display-table-cell-sm{display:table-cell}.display-flex-sm{display:-ms-flexbox;display:flex}.display-inline-flex-sm{display:-ms-inline-flexbox;display:inline-flex}.flex-none-sm{-ms-flex:none;flex:none}.flex-auto-sm{-ms-flex:auto;flex:auto}.flex-fill-sm{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0-sm{-ms-flex-positive:0;flex-grow:0}.flex-grow-1-sm{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0-sm{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1-sm{-ms-flex-negative:1;flex-shrink:1}.flex-wrap-sm{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse-sm{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column-sm{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse-sm{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row-sm{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse-sm{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center-sm{-ms-flex-pack:center;justify-content:center}.justify-content-end-sm{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-sm{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-sm{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-sm{-ms-flex-pack:justify;justify-content:space-between}.align-content-center-sm{-ms-flex-line-pack:center;align-content:center}.align-content-end-sm{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-sm{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-sm{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-sm{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-sm{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-sm{-ms-flex-align:baseline;align-items:baseline}.align-items-center-sm{-ms-flex-align:center;align-items:center}.align-items-end-sm{-ms-flex-align:end;align-items:flex-end}.align-items-start-sm{-ms-flex-align:start;align-items:flex-start}.align-items-stretch-sm{-ms-flex-align:stretch;align-items:stretch}.align-self-auto-sm{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-sm{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-sm{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-sm{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-sm{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-sm{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.col-auto-sm{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1-sm{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2-sm{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3-sm{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4-sm{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5-sm{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6-sm{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7-sm{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8-sm{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9-sm{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10-sm{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11-sm{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12-sm{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first-sm{-ms-flex-order:-1;order:-1}.order-last-sm{-ms-flex-order:13;order:13}.order-0-sm{-ms-flex-order:0;order:0}.order-1-sm{-ms-flex-order:1;order:1}.order-2-sm{-ms-flex-order:2;order:2}.order-3-sm{-ms-flex-order:3;order:3}.order-4-sm{-ms-flex-order:4;order:4}.order-5-sm{-ms-flex-order:5;order:5}.order-6-sm{-ms-flex-order:6;order:6}.order-7-sm{-ms-flex-order:7;order:7}.order-8-sm{-ms-flex-order:8;order:8}.order-9-sm{-ms-flex-order:9;order:9}.order-10-sm{-ms-flex-order:10;order:10}.order-11-sm{-ms-flex-order:11;order:11}.order-12-sm{-ms-flex-order:12;order:12}.offset-1-sm{margin-left:8.333333%}.offset-2-sm{margin-left:16.666667%}.offset-3-sm{margin-left:25%}.offset-4-sm{margin-left:33.333333%}.offset-5-sm{margin-left:41.666667%}.offset-6-sm{margin-left:50%}.offset-7-sm{margin-left:58.333333%}.offset-8-sm{margin-left:66.666667%}.offset-9-sm{margin-left:75%}.offset-10-sm{margin-left:83.333333%}.offset-11-sm{margin-left:91.666667%}}@media (min-width:768px){.float-left-md{float:left}.float-right-md{float:right}.float-none-md{float:none}.display-none-md{display:none}.display-inline-md{display:inline}.display-inline-block-md{display:inline-block}.display-block-md{display:block}.display-table-md{display:table}.display-table-row-md{display:table-row}.display-table-cell-md{display:table-cell}.display-flex-md{display:-ms-flexbox;display:flex}.display-inline-flex-md{display:-ms-inline-flexbox;display:inline-flex}.flex-none-md{-ms-flex:none;flex:none}.flex-auto-md{-ms-flex:auto;flex:auto}.flex-fill-md{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0-md{-ms-flex-positive:0;flex-grow:0}.flex-grow-1-md{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0-md{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1-md{-ms-flex-negative:1;flex-shrink:1}.flex-wrap-md{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse-md{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column-md{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse-md{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row-md{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse-md{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center-md{-ms-flex-pack:center;justify-content:center}.justify-content-end-md{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-md{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-md{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-md{-ms-flex-pack:justify;justify-content:space-between}.align-content-center-md{-ms-flex-line-pack:center;align-content:center}.align-content-end-md{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-md{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-md{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-md{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-md{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-md{-ms-flex-align:baseline;align-items:baseline}.align-items-center-md{-ms-flex-align:center;align-items:center}.align-items-end-md{-ms-flex-align:end;align-items:flex-end}.align-items-start-md{-ms-flex-align:start;align-items:flex-start}.align-items-stretch-md{-ms-flex-align:stretch;align-items:stretch}.align-self-auto-md{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-md{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-md{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-md{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-md{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-md{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.col-auto-md{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1-md{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2-md{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3-md{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4-md{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5-md{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6-md{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7-md{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8-md{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9-md{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10-md{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11-md{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12-md{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first-md{-ms-flex-order:-1;order:-1}.order-last-md{-ms-flex-order:13;order:13}.order-0-md{-ms-flex-order:0;order:0}.order-1-md{-ms-flex-order:1;order:1}.order-2-md{-ms-flex-order:2;order:2}.order-3-md{-ms-flex-order:3;order:3}.order-4-md{-ms-flex-order:4;order:4}.order-5-md{-ms-flex-order:5;order:5}.order-6-md{-ms-flex-order:6;order:6}.order-7-md{-ms-flex-order:7;order:7}.order-8-md{-ms-flex-order:8;order:8}.order-9-md{-ms-flex-order:9;order:9}.order-10-md{-ms-flex-order:10;order:10}.order-11-md{-ms-flex-order:11;order:11}.order-12-md{-ms-flex-order:12;order:12}.offset-1-md{margin-left:8.333333%}.offset-2-md{margin-left:16.666667%}.offset-3-md{margin-left:25%}.offset-4-md{margin-left:33.333333%}.offset-5-md{margin-left:41.666667%}.offset-6-md{margin-left:50%}.offset-7-md{margin-left:58.333333%}.offset-8-md{margin-left:66.666667%}.offset-9-md{margin-left:75%}.offset-10-md{margin-left:83.333333%}.offset-11-md{margin-left:91.666667%}}@media (min-width:992px){.float-left-lg{float:left}.float-right-lg{float:right}.float-none-lg{float:none}.display-none-lg{display:none}.display-inline-lg{display:inline}.display-inline-block-lg{display:inline-block}.display-block-lg{display:block}.display-table-lg{display:table}.display-table-row-lg{display:table-row}.display-table-cell-lg{display:table-cell}.display-flex-lg{display:-ms-flexbox;display:flex}.display-inline-flex-lg{display:-ms-inline-flexbox;display:inline-flex}.flex-none-lg{-ms-flex:none;flex:none}.flex-auto-lg{-ms-flex:auto;flex:auto}.flex-fill-lg{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0-lg{-ms-flex-positive:0;flex-grow:0}.flex-grow-1-lg{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0-lg{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1-lg{-ms-flex-negative:1;flex-shrink:1}.flex-wrap-lg{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse-lg{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column-lg{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse-lg{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row-lg{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse-lg{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center-lg{-ms-flex-pack:center;justify-content:center}.justify-content-end-lg{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-lg{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-lg{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-lg{-ms-flex-pack:justify;justify-content:space-between}.align-content-center-lg{-ms-flex-line-pack:center;align-content:center}.align-content-end-lg{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-lg{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-lg{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-lg{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-lg{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-lg{-ms-flex-align:baseline;align-items:baseline}.align-items-center-lg{-ms-flex-align:center;align-items:center}.align-items-end-lg{-ms-flex-align:end;align-items:flex-end}.align-items-start-lg{-ms-flex-align:start;align-items:flex-start}.align-items-stretch-lg{-ms-flex-align:stretch;align-items:stretch}.align-self-auto-lg{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-lg{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-lg{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-lg{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-lg{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-lg{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.col-auto-lg{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1-lg{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2-lg{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3-lg{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4-lg{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5-lg{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6-lg{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7-lg{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8-lg{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9-lg{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10-lg{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11-lg{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12-lg{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first-lg{-ms-flex-order:-1;order:-1}.order-last-lg{-ms-flex-order:13;order:13}.order-0-lg{-ms-flex-order:0;order:0}.order-1-lg{-ms-flex-order:1;order:1}.order-2-lg{-ms-flex-order:2;order:2}.order-3-lg{-ms-flex-order:3;order:3}.order-4-lg{-ms-flex-order:4;order:4}.order-5-lg{-ms-flex-order:5;order:5}.order-6-lg{-ms-flex-order:6;order:6}.order-7-lg{-ms-flex-order:7;order:7}.order-8-lg{-ms-flex-order:8;order:8}.order-9-lg{-ms-flex-order:9;order:9}.order-10-lg{-ms-flex-order:10;order:10}.order-11-lg{-ms-flex-order:11;order:11}.order-12-lg{-ms-flex-order:12;order:12}.offset-1-lg{margin-left:8.333333%}.offset-2-lg{margin-left:16.666667%}.offset-3-lg{margin-left:25%}.offset-4-lg{margin-left:33.333333%}.offset-5-lg{margin-left:41.666667%}.offset-6-lg{margin-left:50%}.offset-7-lg{margin-left:58.333333%}.offset-8-lg{margin-left:66.666667%}.offset-9-lg{margin-left:75%}.offset-10-lg{margin-left:83.333333%}.offset-11-lg{margin-left:91.666667%}}@media (min-width:1200px){.float-left-lx{float:left}.float-right-lx{float:right}.float-none-lx{float:none}.display-none-xl{display:none}.display-inline-xl{display:inline}.display-inline-block-xl{display:inline-block}.display-block-xl{display:block}.display-table-xl{display:table}.display-table-row-xl{display:table-row}.display-table-cell-xl{display:table-cell}.display-flex-xl{display:-ms-flexbox;display:flex}.display-inline-flex-xl{display:-ms-inline-flexbox;display:inline-flex}.flex-none-xl{-ms-flex:none;flex:none}.flex-auto-xl{-ms-flex:auto;flex:auto}.flex-fill-xl{-ms-flex:1 1 auto;flex:1 1 auto}.flex-grow-0-xl{-ms-flex-positive:0;flex-grow:0}.flex-grow-1-xl{-ms-flex-positive:1;flex-grow:1}.flex-shrink-0-xl{-ms-flex-negative:0;flex-shrink:0}.flex-shrink-1-xl{-ms-flex-negative:1;flex-shrink:1}.flex-wrap-xl{-ms-flex-wrap:wrap;flex-wrap:wrap}.flex-wrap-reverse-xl{-ms-flex-wrap:wrap-reverse;flex-wrap:wrap-reverse}.flex-column-xl{-ms-flex-direction:column;flex-direction:column}.flex-column-reverse-xl{-ms-flex-direction:column-reverse;flex-direction:column-reverse}.flex-row-xl{-ms-flex-direction:row;flex-direction:row}.flex-row-reverse-xl{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.justify-content-center-xl{-ms-flex-pack:center;justify-content:center}.justify-content-end-xl{-ms-flex-pack:end;justify-content:flex-end}.justify-content-start-xl{-ms-flex-pack:start;justify-content:flex-start}.justify-content-around-xl{-ms-flex-pack:distribute;justify-content:space-around}.justify-content-between-xl{-ms-flex-pack:justify;justify-content:space-between}.align-content-center-xl{-ms-flex-line-pack:center;align-content:center}.align-content-end-xl{-ms-flex-line-pack:end;align-content:flex-end}.align-content-start-xl{-ms-flex-line-pack:start;align-content:flex-start}.align-content-around-xl{-ms-flex-line-pack:distribute;align-content:space-around}.align-content-between-xl{-ms-flex-line-pack:justify;align-content:space-between}.align-content-stretch-xl{-ms-flex-line-pack:stretch;align-content:stretch}.align-items-baseline-xl{-ms-flex-align:baseline;align-items:baseline}.align-items-center-xl{-ms-flex-align:center;align-items:center}.align-items-end-xl{-ms-flex-align:end;align-items:flex-end}.align-items-start-xl{-ms-flex-align:start;align-items:flex-start}.align-items-stretch-xl{-ms-flex-align:stretch;align-items:stretch}.align-self-auto-xl{-ms-flex-item-align:auto;-ms-grid-row-align:auto;align-self:auto}.align-self-baseline-xl{-ms-flex-item-align:baseline;align-self:baseline}.align-self-center-xl{-ms-flex-item-align:center;-ms-grid-row-align:center;align-self:center}.align-self-end-xl{-ms-flex-item-align:end;align-self:flex-end}.align-self-start-xl{-ms-flex-item-align:start;align-self:flex-start}.align-self-stretch-xl{-ms-flex-item-align:stretch;-ms-grid-row-align:stretch;align-self:stretch}.col-auto-xl{-ms-flex:0 0 auto;flex:0 0 auto;width:auto;max-width:none}.col-1-xl{-ms-flex:0 0 8.333333%;flex:0 0 8.333333%;max-width:8.333333%}.col-2-xl{-ms-flex:0 0 16.666667%;flex:0 0 16.666667%;max-width:16.666667%}.col-3-xl{-ms-flex:0 0 25%;flex:0 0 25%;max-width:25%}.col-4-xl{-ms-flex:0 0 33.333333%;flex:0 0 33.333333%;max-width:33.333333%}.col-5-xl{-ms-flex:0 0 41.666667%;flex:0 0 41.666667%;max-width:41.666667%}.col-6-xl{-ms-flex:0 0 50%;flex:0 0 50%;max-width:50%}.col-7-xl{-ms-flex:0 0 58.333333%;flex:0 0 58.333333%;max-width:58.333333%}.col-8-xl{-ms-flex:0 0 66.666667%;flex:0 0 66.666667%;max-width:66.666667%}.col-9-xl{-ms-flex:0 0 75%;flex:0 0 75%;max-width:75%}.col-10-xl{-ms-flex:0 0 83.333333%;flex:0 0 83.333333%;max-width:83.333333%}.col-11-xl{-ms-flex:0 0 91.666667%;flex:0 0 91.666667%;max-width:91.666667%}.col-12-xl{-ms-flex:0 0 100%;flex:0 0 100%;max-width:100%}.order-first-xl{-ms-flex-order:-1;order:-1}.order-last-xl{-ms-flex-order:13;order:13}.order-0-xl{-ms-flex-order:0;order:0}.order-1-xl{-ms-flex-order:1;order:1}.order-2-xl{-ms-flex-order:2;order:2}.order-3-xl{-ms-flex-order:3;order:3}.order-4-xl{-ms-flex-order:4;order:4}.order-5-xl{-ms-flex-order:5;order:5}.order-6-xl{-ms-flex-order:6;order:6}.order-7-xl{-ms-flex-order:7;order:7}.order-8-xl{-ms-flex-order:8;order:8}.order-9-xl{-ms-flex-order:9;order:9}.order-10-xl{-ms-flex-order:10;order:10}.order-11-xl{-ms-flex-order:11;order:11}.order-12-xl{-ms-flex-order:12;order:12}.offset-1-xl{margin-left:8.333333%}.offset-2-xl{margin-left:16.666667%}.offset-3-xl{margin-left:25%}.offset-4-xl{margin-left:33.333333%}.offset-5-xl{margin-left:41.666667%}.offset-6-xl{margin-left:50%}.offset-7-xl{margin-left:58.333333%}.offset-8-xl{margin-left:66.666667%}.offset-9-xl{margin-left:75%}.offset-10-xl{margin-left:83.333333%}.offset-11-xl{margin-left:91.666667%}}@media print{@page{size:a3;margin:2cm}*,::after,::before{text-shadow:none;box-shadow:none;background:0 0}.display-none-print{display:none}.display-inline-print{display:inline}.display-inline-block-print{display:inline-block}.display-block-print{display:block}.display-table-print{display:table}.display-table-row-print{display:table-row}.display-table-cell-print{display:table-cell}.display-flex-print{display:-ms-flexbox;display:flex}.display-inline-flex-print{display:-ms-inline-flexbox;display:inline-flex}.wjs-accordion,.wjs-menu,.wjs-spoiler,.wjs-tab,aside,embed,footer,iframe,nav,object,video{display:none}article,body{width:100%;color:#000;padding:0;margin:0}article a{font-weight:700;text-decoration:none}article a[href^=http]:after{content:" (" attr(href) ")"}abbr[title]::after{content:" (" attr(title) ")"}pre{white-space:pre-wrap}blockquote,img,pre,tr{page-break-inside:avoid}thead{display:table-header-group}h2,h3,p{orphans:3;widows:3}h2,h3{page-break-after:avoid}}
+ 
+ /*! Style
+--------------------------------------*/
+html {
+   font-size: 13px;
 }
-@font-face {
-    font-family: RobotoDraft;
+body {
+   overflow-wrap:break-word;
+   word-wrap:break-word;
+}
+/* default
+--------------------------------------*/
+a {
+   font-weight: 400;
+   transition: color .3s;
+}
+::-moz-selection {
+	color: #fff;
+}
+::selection {
+	color: #fff;
+}
+.container {
+    padding-right: 1rem;
+    padding-left: 1rem;
+	position: relative;
+}
+/* Fixing Rendering
+--------------------------------------*/
+.nav__menu *,
+.gallery * {
+   -webkit-backface-visibility: hidden;
+           backface-visibility: hidden;
+}
+
+/* Fontawesome
+--------------------------------------*/
+.fab, .fal, .far, .fas {
+    margin-right: 4px;
+    display: inline-block;
     font-style: normal;
-    font-weight: 400;
-    src: local('RobotoDraft'), local('RobotoDraft-Regular'), url(https://fonts.gstatic.com/s/robotodraft/v1/0xES5Sl_v6oyT7dAKuoni7rIa-7acMAeDBVuclsi6Gc.woff) format('woff');
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
 }
-@font-face {
-    font-family: RobotoDraft;
-    font-style: normal;
-    font-weight: 500;
-    src: local('RobotoDraft Medium'), local('RobotoDraft-Medium'), url(https://fonts.gstatic.com/s/robotodraft/v1/u0_CMoUf3y3-4Ss4ci-VwaTA90I55Xt7owhZwpPnMsc.woff) format('woff');
+.feather {
+   margin-right: 4px;
 }
-@font-face {
-    font-family: RobotoDraft;
-    font-style: normal;
-    font-weight: 700;
-    src: local('RobotoDraft Bold'), local('RobotoDraft-Bold'), url(https://fonts.gstatic.com/s/robotodraft/v1/u0_CMoUf3y3-4Ss4ci-VwRbnBKKEOwRKgsHDreGcocg.woff) format('woff');
+.fa-mn {
+   margin-right: 0;
+}
+ /* keyframes
+--------------------------------------*/
+@-webkit-keyframes fadeOut {
+    from {
+        -webkit-transform: translateY(-3rem);
+                transform: translateY(-3rem);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    from {
+        -webkit-transform: translateY(-3rem);
+                transform: translateY(-3rem);
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translateY(0);
+                transform: translateY(0);
+        opacity: 1;
+    }
+}
+@-webkit-keyframes dropdown {
+    from {
+        -webkit-transform: translateY(-1rem) scale(.9);
+                transform: translateY(-1rem) scale(.9);
+        opacity: 0
+    }
+
+    to {
+        -webkit-transform: translateY(0) scale(1);
+                transform: translateY(0) scale(1);
+        opacity: 1
+    }
+}
+@keyframes dropdown {
+    from {
+        -webkit-transform: translateY(-1rem) scale(.9);
+                transform: translateY(-1rem) scale(.9);
+        opacity: 0
+    }
+
+    to {
+        -webkit-transform: translateY(0) scale(1);
+                transform: translateY(0) scale(1);
+        opacity: 1
+    }
+}
+.le-fadeOut {
+    -webkit-animation: .6s .1s fadeOut backwards;
+            animation: .6s .1s fadeOut backwards;
+}
+/* Parallax
+--------------------------------------*/
+.parallax__container {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 0;
+	will-change: transform;
+	-webkit-transform: translate3d(0, 0, 0);
+	        transform: translate3d(0, 0, 0);
+	-webkit-transform-style: preserve-3d;
+	        transform-style: preserve-3d;
+}
+.parallax {
+	position: absolute;
+	width: 100%;
+    will-change: transform;
+}
+/* helpers
+--------------------------------------*/
+.pl-none {padding-left: 0 !important;}
+.pr-none {padding-right: 0 !important;}
+.ml-none {margin-left: 0 !important;}
+.mr-none {margin-right: 0 !important;}
+.ml-auto {margin-left: auto !important;}
+.mr-auto {margin-right: auto !important;}
+[class*=flx-] {
+	display: -ms-flexbox !important;
+	display: flex !important;
+}
+.flx-xyc,
+.flx-yc {
+	-ms-flex-align: center !important;
+	    align-items: center !important;
+}
+.flx-xyc,
+.flx-xc {
+	-ms-flex-pack: center !important;
+	    justify-content: center !important;
 }
 
-/*Hack: Animations (Chrome)*/
-.card__image img,
-.card__image {
-	-webkit-backface-visibility: hidden;
-    -webkit-transform: translateZ(0);
+/* Leyre ui
+--------------------------------------*/
+/* Input */
+.form-input {
+   padding: .8em 1em;
+   border: 1px solid rgba(0, 0, 0, .06);
+   transition: border .2s;
+   box-shadow: 0 0 transparent;
+   background: #fff;
+   line-height: 1;
+}
+.form-input,
+.form-input::-webkit-input-placeholder {
+   font-weight: 500;
+   font-size: 1.1rem;
+   color: rgba(0, 0, 0, .5);
+}
+.form-input,
+.form-input::-moz-placeholder {
+   font-weight: 500;
+   font-size: 1.1rem;
+   color: rgba(0, 0, 0, .5);
+}
+.form-input,
+.form-input:-ms-input-placeholder {
+   font-weight: 500;
+   font-size: 1.1rem;
+   color: rgba(0, 0, 0, .5);
+}
+.form-input,
+.form-input::-ms-input-placeholder {
+   font-weight: 500;
+   font-size: 1.1rem;
+   color: rgba(0, 0, 0, .5);
+}
+.form-input,
+.form-input::placeholder {
+   font-weight: 500;
+   font-size: 1.1rem;
+   color: rgba(0, 0, 0, .5);
+}
+/* Button */
+.btn {
+   color: #444444;
+   padding: 1em;
+   font-weight: 500;    
+   background-color: #f2f2f2;
+   display: inline-block;
+}
+.btn:hover {
+   color: #262626;
+}
+.btn[class*='bg-'],
+.btn[class*='skin-bg'] {
+   color: #fff;
+}
+.btn[class*='bg-']:hover,
+.btn[class*='skin-bg']:hover {
+   color: #fff;
+}
+.btn-ghost {
+   background-color: transparent;
+   border: 2px solid rgba(0, 0, 0, 0.1);
+   transition: color .3s, border .3s;
+}
+.btn-ghost:hover {
+   border-color: rgba(0, 0, 0, 0.15);
+   color: #262626;
 }
 
-/*Vintage Colors (500)*/
-.shaded-spruce  {background-color:#93968d;}
-.campanella {background-color:#d2c7b1;}
-.coral-fern {background-color:#e7e3d8;}
-.chasm {background-color:#404040;}
-.agate {background-color:#aca8a5;}
-.info {
-    display: block;
-    margin: .5rem 0;
-    padding: 1.5rem;
-    text-align: center;
-    font-size: 1.1rem;
+/* Gallery */
+.gallery__href {
+   position: relative;
+   display: block;
+   overflow: hidden;
+   text-align: center;
 }
-html{font-size: 13px;}
-/*header*/
-.head__parallax {position: absolute;}
-.header__head {
-    overflow: hidden;
-    height: 200px;
-    -webkit-transition: height .5s;
-    transition: height .5s;
+.gallery__title {
+   white-space: initial;
+   position: absolute;
+   display: block;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   font-weight: 400;
+   font-size: 1rem;
+   z-index: 10;
+   color: #fff;
+   padding: 18px;
+   background-image: linear-gradient(transparent,rgba(0, 0, 0, 0.75));
 }
-.header__head,
-.header__menu {
+.gallery__image {
+    width: 100%;
     position: relative;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.2);
+    z-index: 5;
 }
-.head__content {
+/* Cards */
+.card__content {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.15);
+    transition: -webkit-transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+    -webkit-transform: translateY(0) translateZ(0);
+            transform: translateY(0) translateZ(0);
+    position: relative;
+    will-change: transform;
+}
+.card__content:hover {
+    -webkit-transform: translateY(-4px) translateZ(0);
+            transform: translateY(-4px) translateZ(0);
+}
+.card__content::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,.02), 0 5px 8px -2px rgba(0,0,0,.1);
+  transition: opacity 0.3s ease-in-out;
+}
+.card__content:hover::after {opacity: 1;}
+.card__image {
+    display: block;
+    position: relative;
+    overflow: hidden;
+}
+.card__image img {width: 100%;}
+.card__title {
+    font-size: 1.25rem;
+    margin: 0;
+}
+.card__title a {font-weight: 500;}
+.card__descripcion {font-size: 1.1rem;}
+.card__descripcion,
+.card__meta {border-top: 1px solid;}
+.meta__more {border-left: 1px solid;}
+.meta__time {text-transform: capitalize;}
+.card__meta .feather {
+    width: 20px;
+    position: relative;
+    top: -1px;
+}
+.meta__time .feather {margin-right: .5rem;}
+.meta__more .feather {margin: 0;}
+.share__item .feather {
+    margin: 0;
+    display: block;
+}
+.share__item:not(:last-child) {margin-right: 4px;}
+.card__data {width: 100%;}
+
+/* Pallete colors (500)
+--------------------------------------*/
+/* Color */
+.color-taupe-gray {
+    color: #B0A994;
+}
+.color-fiord {
+    color: #404663;
+}
+.color-santas-gray {
+    color: #9499B0;
+}
+.color-soya-bean {
+    color: #635D4A;
+}
+/* Background */
+.bg-taupe-gray {
+    background-color: #B0A994;
+}
+.bg-fiord {
+    background-color: #404663;
+}
+.bg-santas-gray {
+    background-color: #9499B0;
+}
+.bg-soya-bean {
+    background-color: #635D4A;
+}
+/*Global*/
+/*Drop Caps*/
+.drop-caps:first-letter {
+    float: left;
+    font-size: 50px;
+    line-height: 50px;
+    padding: 1rem;
+    font-weight: 300;
+    color: #fff;
+    font-family: Georgia, serif;
+	margin-right: 1rem;
+	border-radius: 3px;
+}
+/*Lead*/
+.lead {
+    font-size: 1.4rem;
+    font-weight: 300;
+}
+/*Blockquote*/
+blockquote {
+    border-left: 5px solid;
+    padding: 2rem;
+    font-weight: 400;
+    margin-bottom: 0;
+    margin-top: 0;
+    margin-left: 0;
+    font-size: 1.2rem;
+    background: #f9f9f9;
+    margin-right: 0;
+}
+blockquote::before {
+    opacity: .5;
+    font-size: 4rem;
+    line-height: 1;
+    margin-right: .25em;
+    content: "“";
+    float: left;
+}
+blockquote footer {
+    display: block;
+    margin-top: .5rem;
+    font-size: 1rem;
+    opacity: .8;
+}
+blockquote footer::before {
+    content: "\2014 \00A0";
+}
+/* Spoiler */
+.wjs-spoiler {
+    margin-bottom: 5px;
+    box-shadow: 0 0.125em 0.275em 0 rgba(0,0,0,0.125);
+    border: 1px solid rgba(0,0,0,0.15);
+}
+.wjs-button {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    display: block;
+    font-weight: 500;
+    color: #262626;
+    border-radius: 2px;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+.wjs-button:hover {
+	opacity: .9;
+}
+.wjs-container {
+    height: 0;
+    padding-right: 1.5rem;
+    padding-left: 1.5rem;
+    overflow: hidden;
+    -webkit-transform: translateY(-1rem);
+            transform: translateY(-1rem);
+}
+.wjs-container.is-active {
+    height: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    transition: -webkit-transform .3s;
+    transition: transform .3s;
+    transition: transform .3s, -webkit-transform .3s;
+}
+/* Alerts */
+.alert {
+    background-color: #f3f3f3;
+    padding: 1.5rem;
+    color: rgba(0, 0, 0, 0.75);
+    margin-bottom: 5px;
+}
+/* Alerts modifiers */
+.alert__postInfo {
+    margin-bottom: 1.5rem;
+}
+/*Video*/
+video {
+    background-color: #161616;
+}
+/*audio*/
+audio {
+    display: block;
+    width: 100%;
+}
+/* Header
+--------------------------------------*/
+.header__logo {
     position: relative;
     z-index: 10;
     text-align: center;
+    text-shadow: 0px 3px 3px rgba(0, 0, 0, 0.4);
 }
-@-webkit-keyframes fadeIn {
-    from {
-        -webkit-transform: translateY(4rem);
-                transform: translateY(4rem);
-        opacity: 0;
-    }
-    to {
-        -webkit-transform: translateY(0);
-                transform: translateY(0);
-        opacity: 1;
-    }
+.header__wrapper,
+.header__menu {
+    position: relative;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.15);
 }
-@keyframes fadeIn {
-    from {
-        -webkit-transform: translateY(4rem);
-                transform: translateY(4rem);
-        opacity: 0;
-    }
-    to {
-        -webkit-transform: translateY(0);
-                transform: translateY(0);
-        opacity: 1;
-    }
+.header__wrapper {
+    overflow: hidden;
+    transition: height .5s;
 }
-.head--animation {
-    -webkit-animation: .6s .1s fadeIn backwards;
-            animation: .6s .1s fadeIn backwards;
-}
-.head__logo {
+.logo__title {
+    line-height: 1.2;
+    margin-bottom: 0;
     font-size: 2rem;
 }
-.head__logo a {
-	-webkit-transition: color .3s;
-	transition: color .3s;
-}
-.head__descripcion{
-	padding-top: 1.5rem;
-    font-size: 1rem;
-	-webkit-animation-delay: .25s;
-	        animation-delay: .25s;
+.logo__descripcion {
+    padding-top: 1.5rem;
+    font-size: 14px;
+    -webkit-animation-delay: .3s;
+            animation-delay: .3s;
+    display: block;
+    font-weight: 500;
 }
 
-/*header__menu*/
-.header__menu {
-	z-index: 50;
-}
-.menu__content {
+/* Menu
+--------------------------------------*/
+.menu__nav {
     position: relative;
+    overflow: hidden;
+}
+.search-hidden {
+	opacity: 1;
+	transition: opacity .3s;
 }
 .nav__item {
     padding: 1.8rem 1.4rem;
-	-webkit-transition: box-shadow .3s, color .3s;
-	transition: box-shadow .3s, color .3s;
-	border-right: 1px solid;
+    transition: box-shadow .3s, color .3s;
 }
-.nav__item.is-active {
-    font-weight: 700;
+.nav-search input {
+    font-size: 1.2rem;
+    width: 98%;
 }
-
-/*Toggle*/
-.nav__toggle {
-    display: block;
-    padding: 1.8rem 1.4rem;
+.nav-search {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    height: 100%;
+    padding-left: 1rem;
+    padding-right: 4rem;
+    right: 0;
+    margin-left: 1rem;
+    margin-right: 1rem;
+	transition: opacity .3s;
+	pointer-events: none;
+}
+.search-btn {
     position: relative;
     z-index: 10;
-    border-right: 1px solid;
-    border-left: 1px solid;
 }
-.nav__toggle--icon {
-    width: 26px;
-    position: relative;
-    z-index: 80;
-    height: 17px;
+.nav-search,
+.nav-search.is-active ~ .search-hidden {
+    opacity: 0;
+}
+.nav-search.is-active {
+    opacity: 1;
+    pointer-events: all;
+}
+.search-btn {
+    padding-right: 1rem;
+    padding-left: 1rem;
     cursor: pointer;
-    display:block;
+}
+.search-btn:not(.is-active) .search-close,
+.search-btn.is-active .search-open {
+    display: none;
+}
+
+/* Toggle */
+.nav__toggle--icon {
+   width: 20px;
+   position: relative;
+   z-index: 80;
+   height: 12px;
+   cursor: pointer;
+   display:block;
 }
 .nav__toggle--icon span:after,
 .nav__toggle--icon span:before {content: "";}
@@ -229,197 +629,142 @@ html{font-size: 13px;}
 .nav__toggle--icon span,
 .nav__toggle--icon span::after,
 .nav__toggle--icon span::before {
-    position: absolute;
-    left: 0;
-    display: block;
-    height: 2px;
-    width: 100%;
-    -webkit-transition: top .3s,-webkit-transform .3s;
-    transition: top .3s,-webkit-transform .3s;
-    transition: transform .3s,top .3s;
-    transition: transform .3s,top .3s,-webkit-transform .3s;
+   position: absolute;
+   left: 0;
+   display: block;
+   height: 2px;
+   width: 100%;
+   transition: top .3s,-webkit-transform .3s;
+   transition: transform .3s,top .3s;
+   transition: transform .3s,top .3s,-webkit-transform .3s;
 }
-.nav__toggle--icon span::before {top: -7px;}
-.nav__toggle--icon span::after {bottom: -7px;}
+.nav__toggle--icon span::before {top: -6px;}
+.nav__toggle--icon span::after {bottom: -6px;}
 .nav__toggle--icon span {
-    top: 50%;
-    margin-top: -1px;
+   top: 50%;
+   margin-top: -1px;
 }
 .nav__toggle.is-active .nav__toggle--icon span {
-	-webkit-transform: rotate(225deg) translateZ(0);
-	        transform: rotate(225deg) translateZ(0);
+   -webkit-transform: rotate(45deg) translateZ(0);
+           transform: rotate(45deg) translateZ(0);
 }
 .nav__toggle.is-active .nav__toggle--icon span::before {
-    opacity: 0;
-    top: 0;
+   opacity: 0;
+   top: 0;
 }
 .nav__toggle.is-active .nav__toggle--icon span::after {
-    top: 0;
-	-webkit-transform: rotate(-90deg) translateZ(0);
-	        transform: rotate(-90deg) translateZ(0);
+   top: 0;
+   -webkit-transform: rotate(-90deg) translateZ(0);
+           transform: rotate(-90deg) translateZ(0);
 }
-
-/*Search*/
-.search {
-    position: absolute;
-    top: 0;
-    left: 1rem;
-    right: 1rem;
-    z-index: 20;
-    height: 100%;
-    visibility: hidden;
-    opacity: 0;
-    -webkit-transition: visibility 0s .3s, opacity .3s;
-    transition: visibility 0s .3s, opacity .3s;
-}
-.search.is-active {
-    visibility: visible;
-    opacity: 1;
-    -webkit-transition: visibility 0s 0s, opacity .3s;
-    transition: visibility 0s 0s, opacity .3s;
-}
-.search__button--control.is-active .dan-search, 
-.search__button--control .dan-cancel {
-    display: none;
-}
-.search__button--control.is-active .dan-cancel {
-    display: block;
-}
-.search__button--control {
-    position: absolute;
-    z-index: 30;
-    right: 1rem;
-    top: 0;
-    border-left: 1px solid;
+.nav__toggle {
+    padding: 1.8rem 1rem;
     border-right: 1px solid;
-}
-.search__button {
-	cursor: pointer;
-    -webkit-transition: color .3s, -webkit-transform .3s;
-    transition: color .3s, -webkit-transform .3s;
-    transition: color .3s, transform .3s;
-    transition: color .3s, transform .3s, -webkit-transform .3s;
-}
-.search__button, .search__input {
-    padding: 1rem;
-    font-size: 1.4rem;
-    height: 100%;
-}
-.search__button i::before {
-    display: block;
-}
-.search .search__button {
-    -webkit-transform: scale(0);
-            transform: scale(0);
-}
-.search.is-active .search__button {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-}
-.search__input {
-    padding-right: 75px;
-	width: 100%;
-}
-/*Main*/
-.main {
-    padding-top: 2rem;
-    padding-bottom: 2.5rem;
-}
-
-/*Cards*/
-.items {
-   	margin-right: -.75rem;
-   	margin-left: -.75rem;
-}
-.card {
-    width: 100%;
-    padding-left: .75rem;
-    padding-right: .75rem;
-    padding-bottom: 1.5rem;
-}
-.card__content {
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.2);
-    -webkit-transition: box-shadow .3s, -webkit-transform .3s;
-    transition: box-shadow .3s, -webkit-transform .3s;
-    transition: box-shadow .3s, transform .3s;
-    transition: box-shadow .3s, transform .3s, -webkit-transform .3s;
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
-}
-
-.card__content:hover {
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 5px 5px -2px rgba(0,0,0,.15);
-    -webkit-transform: translateY(-4px);
-            transform: translateY(-4px);
-}
-
-.card__title, 
-.card__snippet, 
-.meta__time, 
-.meta__more {
-    padding: 1.5rem;
-}
-.card__title {
-    font-size: 1.25rem;
-}
-.card__title a {
-    font-weight: 500;
-	-webkit-transition: color .3s;
-	transition: color .3s;
-}
-
-.card__snippet {
-    font-size: 1.1rem;
-    border-top: 1px solid;
-}
-.card__meta {
-    border-top: 1px solid;
-}
-.card__image {
-    display: block;
-    position: relative;
-    overflow: hidden;
-}
-.card__image img {
-    width: 100%;
-}
-.card__image--featured::before {
-    position: absolute;
-    top: .9rem;left: .9rem;
-    font-size: 1.5rem;
-    z-index: 10;
-}
-
-.card__image--featured::after {
-    position: absolute;
-    content: "";
-    width: 7.5rem;
-    height: 7.5rem;
-    top: 0;left: 0;
-    -webkit-transform: translate(-50%,-50%) rotate(-45deg);
-            transform: translate(-50%,-50%) rotate(-45deg);
-}
-.card__data {
-    line-height: 1.4rem;
-}
-.meta__time {
-    text-transform: capitalize;
-}
-.meta__time::before {
-    font-size: 1.5rem;
-    margin-right: .5rem;
-}
-.meta__more {
     border-left: 1px solid;
-    font-size: 1.5rem;
-    -webkit-transition: color .3s;
-    transition: color .3s;
 }
-/*pagination*/
-.blog-pager {
+
+/* Widgets
+--------------------------------------*/
+.widget-title,
+.widget>h2 {
+    font-size: 1.2rem;
+    padding: 1rem 0;
+    border-bottom: 2px solid;
+    text-align: center;
     margin-bottom: 1.5rem;
 }
-.blog-pager__link {
+/*
+=> Labels
+*/
+.tagsList__link {
+    margin: 0 6px 6px 0;
+    background: #fff;
+    padding: .3rem;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.15);
+}
+.tagsList__name {
+    display: block;
+    padding: 1rem;
+    color: #757575;
+    background: #f2f2f2;
+    border-radius: 2px;
+    transition: background .3s, color .3s;
+    text-transform: capitalize;
+    font-weight: 500;
+}
+.tagsList__link .feather {
+    margin-left: .5rem;
+    font-size: 1.2rem;
+    color: #ccc;
+    width: 20px;
+    margin-right: .5rem;
+}
+.tagsList__link:hover .tagsList__name {
+    color: #fff;
+}
+/*
+=> Newsletter
+*/
+.newsletter {
+    padding: 2.5rem;
+    background: #fff;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.15);
+	position: relative;
+}
+.newsletter__input {
+    margin-bottom: 1rem;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-width: 2px;
+}
+.newsletter form {
+    width: 100%;
+}
+.newsletter::before {
+    background: linear-gradient(to right, #706C5E 20%,#C7C19D 20%, #C7C19D 30%, #B0A994 30%, #B0A994 50%, #9499B0 50%, #9499B0 70%,#96917F 70%, #96917F 90%, #C7C19D 90%);
+    position: absolute;
+    content: '';
+    height: 3px;
+    right: 0;
+    left: 0;
+    top: 0;
+}
+.newsletter-snippet {
+    text-align: center;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+/*Error page*/
+.error-page {
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+.error-page__title {
+	font-size: 4rem
+}
+.error-page__text {
+	font-size: 1.2rem;
+	font-weight: 500
+}
+/* Layout
+--------------------------------------*/
+.blog {
+	padding-bottom: 2rem;
+}
+.blog.noSidebar {
+    width: 100%;
+}
+.col-5ta {
+    -ms-flex: 0 0 20%;
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+.blogPager {
+    margin-bottom: 1.5rem;
+}
+.blogPager-link {
     text-align: center;
     vertical-align: middle;
     font-size: 1.1rem;
@@ -429,120 +774,11 @@ html{font-size: 13px;}
     font-weight: 500;
     transition: color .3s;
 }
-.blog-pager__link i {
-    position: relative;
-    top: 3px;
+.blogPager-link .feather-arrow-right {
+    margin-left: 4px;
 }
-.blog-pager__link.is-here {
-    background: rgba(0, 0, 0, 0.05);
-}
-
-/*sidebar*/
-.sidebar {
-    margin-left: -1rem;
-    margin-right: -1rem;
-}
-.sidebar__case {
-    padding: 0 1rem;
-	width: 100%;
-}
-.widget {
-    margin-bottom: .5rem;
-}
-.header .widget { margin: 0;}
-.widget > h2 {
-    font-size: 1.2rem;
-    padding: 1rem 0;
-    border-bottom: 2px solid;
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-
-/*
-Custom Widget Profile
-*/
-.user-card:before {
-    background-color: rgba(0,0,0,.5);
-    background-repeat: no-repeat;
-    background-size: cover;
-    content: "";
-    height: 150px;
-    width: 100%;
-    display: block;
-}
-.user-card {
-    text-align: center;
-    background: #fff;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.2);
-}
-
-.user-card__name {
-    padding: 1rem;
-    display: block;
-    color: rgba(0, 0, 0, 0.7);
-    font-size: 1.2rem;
-	font-weight: 500;
-	-webkit-transition: color .3s;
-	transition: color .3s;
-}
-
-.user-card__name:hover {
-    color: rgba(0, 0, 0, 0.85);
-    text-decoration: none;
-}
-
-.user-card__image {
-    display: block;
-    margin: -40px auto 0;
-    border-radius: 50%;
-}
-
-.user-card__aboutme {
-    padding: 0 2rem 2rem;
-    font-size: 1.1rem;
-    color: rgba(0, 0, 0, 0.6);
-}
-
-/*
-Custom Widget tags
-*/
-.tags-list {
-    padding: 0;
-}
-.tags-list__link {
-    margin: 0 5px 5px 0;
-    background: #fff;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,.05), 0 1px 3px 0 rgba(0,0,0,.05), 0 2px 1px -2px rgba(0,0,0,.2);
-    padding: .3rem;
-}
-.tags-list__link::before {
-    margin: 0 .5rem;
-    font-size: 1.2rem;
-    color: rgba(0, 0, 0, 0.2);
-}
-.tags-list__name {
-    display: block;
-    padding: 1rem;
-    color: rgba(0, 0, 0, 0.5);
-    background: rgba(0, 0, 0, 0.05);
-    border-radius: 2px;
-    -webkit-transition: background .3s, color .3s;
-    transition: background .3s, color .3s;
-    text-transform: capitalize;
-    font-weight: 500;
-}
-.tags-list__num {
-    color: rgba(0, 0, 0, 0.6);
-    font-weight: 500;
-    float: right;
-    margin-left: .5rem;
-}
-
-.tags-list__name:hover, 
-.tags-list__name.is-here {
-    color: #fff;
-}
-/*footer*/
+/* Footer
+--------------------------------------*/
 .footer {
     text-align: center;
     position: relative;
@@ -560,1047 +796,909 @@ Custom Widget tags
     margin-left: -10px;
     border-radius: 50%;
 }
-.footer__social a {
-    padding: 0 .5rem;
-    font-size: 1.6rem;
-	-webkit-transition: color .3s;
-	transition: color .3s;
-}
-.footer__copy {
+.copy__attribution {
     margin: .5rem 0;
     padding: 1rem;
     display: inline-block;
     border-radius: 3px;
 }
-.copy__link {
+.copy__attribution a {
     font-weight: 700;
-	-webkit-transition: color .3s;
-	transition: color .3s;
+    transition: color .3s;
 }
-
-/*error*/
-.error {
-    text-align: center;
-}
-
-.error__title {
-    font-size: 1.5rem;
-    padding-top: 2rem;
-}
-
-.error__snippet {
-    padding: 1rem;
-    max-width: 900px;
-    margin: 0 auto 1rem;
-}
-.error__image {
-    opacity: 0.75;
-    width: 160px;
-}
-/*Related*/
-.wjs-rel__title,
-.wjs-rel__image::before {
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
-.wjs-rel__title {
-    padding: 1rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: #fff;
-}
-.wjs-rel__image::before {
-    content: "";
-    top: 0;
-    display: block;
-    opacity: .5;
-}
-.wjs-rel {
-    margin-bottom: 1rem;
-    width: 100%;
-}
-.wjs-rel__image {
+.copy__web svg {
+    display: inline-block;
     position: relative;
-    -webkit-transition: box-shadow .3s, -webkit-transform .3s;
-    transition: box-shadow .3s, -webkit-transform .3s;
-    transition: box-shadow .3s, transform .3s;
-    transition: box-shadow .3s, transform .3s, -webkit-transform .3s;
-    min-height: 45px;
-    width: 100%;
-    display: block;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .05), 0 1px 5px 0 rgba(0, 0, 0, .05), 0 3px 1px -2px rgba(0, 0, 0, .4);
+    top: 3px;
 }
-.wjs-rel__image:hover {
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 5px 5px -2px rgba(0,0,0,.3);
-    -webkit-transform: translateY(-4px);
-            transform: translateY(-4px);
+.social__item {
+    padding: 0 .5rem;
+    font-size: 20px;
+    transition: color .3s;
 }
-.wjs-rel__image,
-.wjs-rel__image img {
-    display: block;
-    width: 100%;
-}
-/*
-=>MediaQuerys
-*/
-/* Extra small devices */
-@media (max-width: 575px) {
-
-}
-
 /* Small devices */
 @media (min-width: 576px) {
-	.card,
-	.sidebar__case {
-    	width: 50%;
-	}
+   .col-5ta-sm {
+      -ms-flex: 0 0 20%;
+      flex: 0 0 20%;
+      max-width: 20%;
+   }
 }
 
 /* Medium devices */
 @media (min-width: 768px) {
-	.error__image {width: auto;}
-	.error__title {font-size: 2.5rem;}
-	.error__snippet {font-size: 1.4rem;}
-	.head__logo {
-	    font-size: 3rem;
+   html {
+     font-size: 14px;
+   }
+   .col-5ta-md {
+      -ms-flex: 0 0 20%;
+      flex: 0 0 20%;
+      max-width: 20%;
+   }
+	.logo__title {
+		font-size: 2.8rem;
 	}
-	.head__descripcion{
-    	font-size: 1.2rem;
+	.logo__descripcion {
+		font-size: 16px;
 	}
-	.card,
-	.sidebar__case {
-    	width: 33.333333%;
-	}
-	/*toggle layout*/
-	.sidebar--noindex {
-    	width: 30%;
-    	float: right;
-		margin: 0;
-	}
-	.sidebar--noindex .sidebar__case {
-		width: 100%;
-		padding: 0;
-	}
-	.blog--noindex {
-    	width: calc(70% - 1.5rem);
-		float: left;
-	}
-	.left {float: left;}
-	.right {float: right;}
 }
-
-/* Large devices */
 @media (max-width: 991px) {
 	.menu__nav {
-    	position: absolute;
-    	left: 0;
-    	right: 0;
-    	top: 100%;
-    	visibility: hidden;
-    	opacity: 0;
-    	-webkit-transform: translateY(-2rem);
-    	        transform: translateY(-2rem);
-    	-webkit-transition: visibility .3s, opacity .3s, -webkit-transform .3s;
-    	transition: visibility .3s, opacity .3s, -webkit-transform .3s;
-    	transition: transform .3s, visibility .3s, opacity .3s;
-    	transition: transform .3s, visibility .3s, opacity .3s, -webkit-transform .3s;
-		box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.2);
+		position: absolute;
+		z-index: 500;
+		left: 0;
+		top: 100%;
+		right: 0;
+		box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.15);
+		display: none;
+		-webkit-animation: fadeOut .4s cubic-bezier(.7,.006,.2,1);
+		        animation: fadeOut .4s cubic-bezier(.7,.006,.2,1);
 	}
 	.menu__nav.is-active {
-    	visibility: visible;
-    	opacity: 1;
-    	-webkit-transform: translateY(0);
-    	        transform: translateY(0);
+		display: -ms-flexbox;
+		display: flex;
 	}
 	.nav__item {
-    	border-top: 1px solid;
+		border-top: 1px solid;
 	}
 }
-
 /* Large devices */
 @media (min-width: 992px) {
-	.nav__toggle {
-		display: none;
-	}
-	.card {
-    	width: 25%;
-	}
+   .nav__toggle {
+      display: none;
+   }
+   .skin-left {
+      float: left;
+   }
+   .skin-right {
+      float: right;
+   }
+   .col-5ta-lg {
+      -ms-flex: 0 0 20%;
+      flex: 0 0 20%;
+      max-width: 20%;
+   }
 }
-
 /* Extra large devices */
-@media (min-width: 1367px) {
-	html{font-size: 14px;}
+@media (min-width: 1200px) {
+   .col-5ta-xl {
+      -ms-flex: 0 0 20%;
+      flex: 0 0 20%;
+      max-width: 20%;
+   }
 }
 /*]]>*/</style>
 
+<b:comment>Post/Static Page Styles</b:comment>
 <b:if cond='data:view.isSingleItem'>
 <style>/*<![CDATA[*/
-/* => SingleItem */
-.article,.comments__container {
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.05), 0 1px 5px 0 rgba(0,0,0,.05), 0 3px 1px -2px rgba(0,0,0,.2);
-    margin-bottom: 1rem;
-}
-.post-body,.comments__container {padding: 1.5rem;}
-.article__title {
-    padding-bottom: 1.5rem;
-}
-.article__titlePage {
-    padding: 1.5rem;
-    border-bottom: 1px solid;
-}
-.title__name {
-    margin: 0;
-    font-size: 1.6rem;
-    font-weight: 500;
-}
-.title__time {text-transform: capitalize;}
-.post-body .button {
-    color: #fff;
-    padding: 1em 1.4em;
-    border-radius: 2px;
-    -webkit-transition: opacity .2s;
-    transition: opacity .2s;
-    font-weight: 400;
-}
-.post-body .button::before, 
-.post-body .button > i {
-    font-size: 1.4rem;
-    float: left;
-    margin-right: .5rem;
-    color: rgba(0, 0, 0, 0.5);
-}
-.post-body .button:hover {opacity: .8;}
+.article{box-shadow:0 2px 2px 0 rgba(0,0,0,.05),0 1px 5px 0 rgba(0,0,0,.05),0 3px 1px -2px rgba(0,0,0,.15)}.article__title .title__name{font-size:1.5rem;margin-bottom:.5rem}.title__time{text-transform:capitalize}.article__title{margin-bottom:2rem}.post__title{padding:1.8rem;font-size:1.6rem;border-bottom:1px solid;margin-bottom:0}.post-top{padding:calc(1.8rem - 3px)}.post__share svg{width:18px;height:18px}.article__author img{border-radius:3px}.articleTags{padding-top:1.5rem;clear:both;margin-top:2rem;padding-bottom:.5rem}.articleTags-hash{color:#444;padding:.6rem 1rem;font-weight:400;background-color:#f2f2f2;display:inline-block;font-size:1rem;margin:2px 4px 2px 0}/*! Include: Article v1.1.0 */.post-body{font-size:16px;padding:1.8rem}.post-body .h1,.post-body .h2,.post-body .h3,.post-body .h4,.post-body .h5,.post-body .h6,.post-body h1,.post-body h2,.post-body h3,.post-body h4,.post-body h5,.post-body h6{margin:0 0 1.5rem;font-weight:400}.post-body ol,.post-body ul{margin-left:1.75em}.post-body ul{list-style-type:disc}.post-body ul ul{list-style-type:circle}.post-body ol{list-style-type:decimal;counter-reset:counter}.post-body .fa-ul{list-style-type:none}.post-body .list-unstyled{padding-left:0;margin-left:0;list-style:none}.post-body table{text-align:left;width:100%;border:1px solid rgba(0,0,0,.15)}.post-body .table-fluid{box-shadow:0 .125em .275em 0 rgba(0,0,0,.125)}.post-body table tbody td,.post-body table thead th{padding:1.2rem;border-bottom:1px solid rgba(0,0,0,.15);color:#757575}.post-body table thead th{white-space:nowrap;color:#454545}.post-body tr td:nth-child(even),.post-body tr:nth-child(even){background:rgba(0,0,0,.05)}.post-body .btn{border-radius:2px;margin-right:2px;margin-bottom:6px}.reactions-iframe{width:100%;height:22px}
 /*]]>*/</style>
 </b:if>
 
-<b:if cond='data:view.isPost'>
-<style>/*<![CDATA[*/
-/* => CSS Post */
-.article__header {
-    padding: 1.5rem;
-    border-bottom: 1px solid;
-}
-.share__item {
-    padding: 1rem;
-    margin-right: 4px;
-    border-radius: 2px;
-    -webkit-transition: opacity .2s, color .2s;
-    transition: opacity .2s, color .2s;
-    font-size: 1.2rem;
-}
-.share__item::before {display:block;}
-.article__author {
-    border-radius: 2px;
-    overflow: hidden;
-}
-.article__tags {
-    padding-top: 1.5rem;
-    clear: both;
-    margin-top: 2rem;
-	padding-bottom: .5rem;
-    border-top: 1px solid;
-}
-/*Reactions*/
-.article__reactions {
-    padding: 1.5rem 1rem;
-    border-top: 1px solid;
-}
-.reactions-iframe {
-    width: 100%;
-    height: 22px;
-}
-/*]]>*/</style>
+<b:comment>Bundle (Widgets)</b:comment>
+<b:if cond='data:skin.vars.config_bundle'>
+<b:with value='{dir: "//cdn.jsdelivr.net/gh/zkreations/bundle@1/dist/wgts/", theme: "default"}' var='wgts'>
+  <link expr:href='+(data:wgts.dir,"wgts_bundle.min.css")' rel='stylesheet'/>
+  <link expr:href='+(data:wgts.dir,"theme_",data:wgts.theme,".min.css")' rel='stylesheet'/>
+</b:with>
 </b:if>
 
-<!--
-=> ESTILOS BASICOS
--->
-<b:if cond='data:view.isSingleItem'>
-<link href='//cdn.rawgit.com/zkreations/Canvas.xml/master/misc/skins/articleSkin/dist/article.leyre.min.css' rel='stylesheet'/>
-<link href='//cdn.rawgit.com/zkreations/Canvas.xml/master/misc/skins/commentSkin/dist/threadedComments.leyre.min.css' rel='stylesheet'/>
-</b:if>
-
-<!--
-=> CONFIGURACION BASICA
--->
+<b:comment>Options (Warning, it can cause crashing!)</b:comment>
 <b:skin><![CDATA[
 /*!
-=> Theme Name: Leyre.xml
-=> Theme URI: https://zkreations.com
-=> Author: Daniel Abel {Zero}
-=> Author URI: https://fb.com/daniei.abel
+=> Theme Name: Leyre.xml Free
+=> Theme URI: https://shop.zkreations.com
+=> Author: Daniel Abel M. (Copyright 2019 zkreations)
+=> Author URI: https://fb.com/danieI.abel
+=> Version: 3.0.0
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
 
-/*Deleted: unnecessary elements*/
+/*Fix: Unnecessary elements removed*/ 
+.widget-item-control,.item-control.blog-admin,
+.continue,.loadmore,.thread-chrome.thread-collapsed,
 .singleton-element:not(.cookie-choices-info),
-.item-control.blog-admin,
-.widget-item-control{display: none}
+.noAllowNewComments .comment-actions {display:none}
 
-/*Fix: Blogger lightbox*/
-.CSS_LIGHTBOX{z-index: 90001 !important}
+/*Fix: Show lightbox*/
+.CSS_LIGHTBOX{z-index:90001!important}
 
-/*Fix: Post image responsive*/
-a[imageanchor],a[imageanchor] > img{margin:0!important;height:auto!important}
+/*Fix: Image responsive*/
+a[imageanchor]:not([style*=float]) {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+}
+
+.widget-content img,
+img[data-original-height],
+img[data-original-width] {height: auto;}
 
 /*Fix: Comment Editor*/
-#comment-editor{border: 0;width: 100%;min-height: 220px}
+#comment-editor{
+    border:0;
+    width:100%;
+    min-height:220px
+}
 
-/*Fix: fb responsive hack ?= google plus hack */
-.fb-comments,.fb-comments iframe span[style],
-.fb-comments iframe[style],.fb-comments span,
-.fb-like-box,.fb-like-box iframe span[style],
-.fb-like-box iframe[style],.fb-like-box span,
-.cmt_iframe_holder, .cmt_iframe_holder > iframe {width:100%!important;display: block !important}
-
-/*Design: is Layout Mode*/
-body#layout .left{float: left;width: 50%}
-body#layout .right{float: right;width: 50%}
-body#layout .blayout{float: left;width: 33.333333%}
-body#layout .sidebar--noindex .blayout{float: none;width: 100%}
-
-/* Variable definitions
+/* Configurations
    ====================
+   <!-- General Options -->
+   <Variable name="config.comments" description="Comment system" type="string" default="blogger" value="blogger"/>
+   <Variable name="config.shortname" description="Short name of Disqus" type="string" default="shortname" value="shortname"/>
+   
+   <!-- Admin Options -->
+   <Variable name="config.admin.dark" description="Admin is dark?" type="string" default="false" value="false"/>
+   <Variable name="config.admin.showInfo" description="Show widget subtitles" type="string" default="false" value="false"/>
 
+   <!-- Bundle.css -->
+   <Variable name="config.bundle" description="Bundle.css" type="string" default="false" value="false"/>
+
+   <!-- Cards (Home posts) -->
+   <Variable name="config.post.column" description="Number of columns" type="string" default="4" value="4"/>
+   <Variable name="config.post.showSnippet" description="Show Snippet" type="string" default="true" value="true"/>
+   <Variable name="config.post.showMeta" description="Show Meta" type="string" default="true" value="true"/>
+
+   <!-- Image Ratio -->
+   <Variable name="config.post.ratio" description="Aspect ratio" type="string" default="false" value="false"/>
+   <Variable name="config.card.ratio" description="Aspect ratio (Featured Post)" type="string" default="true" value="true"/>
+
+   <!-- Show -->
+   <Variable name="config.show.sidebar" description="Show sidebar" type="string" default="false" value="false"/>
+   <Variable name="config.show.postSidebar" description="Show Post sidebar" type="string" default="true" value="true"/>
+   <Variable name="config.show.footerWidgets" description="Show footer widgets section" type="string" default="true" value="true"/>
+   <Variable name="config.show.oppositeBlog" description="Exchange between sidebar and blog" type="string" default="false" value="false"/>
+
+   <!-- image default -->
+   <Variable name="config.default.image" description="Default image" type="string" default="https://2.bp.blogspot.com/-1J-byOnRoAI/W3Cot79qVUI/AAAAAAAADmE/IwXCcRdJl70_yR7FivfpmM62MVqD4CwbQCLcBGAs/s1600/no-img-blogger.png" value="https://2.bp.blogspot.com/-1J-byOnRoAI/W3Cot79qVUI/AAAAAAAADmE/IwXCcRdJl70_yR7FivfpmM62MVqD4CwbQCLcBGAs/s1600/no-img-blogger.png"/>
+
+   Variable definitions
+   ====================
+   
    <Variable name="keycolor" description="Main Color" type="color" default="#ccb666" value="#ccb666"/>
    
-   <Group description="Basico" selector="body">
-      <Variable name="body.background.true" description="Color de fondo" type="color" default="#ececec" value="#ececec"/>
-      <Variable name="main.color" description="Color principal" type="color" default="#B0A994" value="#B0A994"/>
-      <Variable name="link.color" description="Color de enlaces" type="color" default="#B0A994" value="#B0A994"/>
-      <Variable name="logo.font" description="Fuente del logo" type="font" family="Custom" default="Custom" value="Custom"/>
-      <Variable name="main.font" description="Fuente del texto" type="font" family="RobotoDraft" default="RobotoDraft" value="RobotoDraft"/>
+   <Group description="Accents" selector="body">
+      <Variable name="main.bg" description="Main Background" type="color" default="#ececec" value="#ececec"/>
+      <Variable name="main.color" description="Color" type="color" default="#B0A994" value="#B0A994"/>
+      <Variable name="main.linkColor" description="Link color" type="color" default="#B0A994" value="#B0A994"/>
    </Group>
    
-   <Group description="Cabecera" selector=".header__head">
-      <Variable name="body.background.color" description="fondo del header" type="color" default="#ccb666" value="#ccb666"/>
-      <Variable name="head.logo.color" description="Color del logo" type="color" default="#ffffff" value="#ffffff"/>
-      <Variable name="head.description.color" description="Color de la descripcion" type="color" default="rgba(255,255,255,0.8)" value="rgba(255,255,255,0.8)"/>
-      <Variable name="body.background.blur" description="Background blur" type="length" min="0px" max="50px" default="0px" value="0px"/>
-      <Variable name="head.cover.size" description="Altura del header" type="length" min="200px" max="500px" default="360px" value="360px"/>
-      <Variable name="head.description.letter" description="Espaciado de la descripcion" type="length" min="0" max="10px" default="6px" value="6px"/>
+   <Group description="Widths" selector="body">
+      <Variable name="width.content" description="Content width" type="length" min="800px" max="1600px" default="1200px" value="1200px"/>
+      <Variable name="width.sidebar" description="Sidebar width" type="length" min="200px" max="600px" default="300px" value="300px"/>
    </Group>
    
-   <Group description="Menu principal" selector=".menu__nav">
-      <Variable name="menu.fondo" description="Fondo del menu principal" type="color" default="#ffffff" value="#ffffff"/>
-      <Variable name="menu.color" description="Color de los items" type="color" default="#92918C" value="#92918C"/>
-      <Variable name="menu.border.color" description="Color de los bordes" type="color" default="rgba(0,0,0,0.08)" value="rgba(0,0,0,0.08)"/>
-   </Group>
-
-   <Group description="Cuerpo" selector=".container__main">
-      <Variable name="main.width" description="Cuerpo" type="length" min="1000px" max="1600px" default="1200px" value="1200px"/>
-      <Variable name="fondo.main" description="Fondo del cuerpo" type="color" default="rgba(0,0,0,0)" value="rgba(0,0,0,0)"/>
-      <Variable name="info.color" description="Color de avisos" type="color" default="rgba(0,0,0,0.5)" value="rgba(0,0,0,0.5)"/>
-      <Variable name="info.fondo" description="fondo de avisos" type="color" default="rgba(0,0,0,0.05)" value="rgba(0,0,0,0.05)"/>
+   <Group description="Content font" selector="body">
+      <Variable name="font.logo" description="Title Font" type="font" family="Custom" default="$(family)" value="$(family)"/>
+      <Variable name="font.text" description="Content font" type="font" family="Custom" default="$(family)" value="$(family)"/>
    </Group>
    
-   <Group description="Widgets" selector=".main .widget">
-      <Variable name="widget.title.fondo" description="Fondo titulo" type="color" default="rgba(0, 0, 0, 0)" value="rgba(0, 0, 0, 0)"/>
-      <Variable name="widget.title.color" description="Color titulo" type="color" default="rgba(0, 0, 0, .5)" value="rgba(0, 0, 0, .5)"/>
-      <Variable name="widget.title.border.color" description="Color borde titulo" type="color" default="rgba(0, 0, 0, 0.1)" value="rgba(0, 0, 0, 0.1)"/>
-      <Variable name="widget.title.icons.color" description="Color iconos" type="color" default="rgba(0, 0, 0, .5)" value="rgba(0, 0, 0, .5)"/>
-   </Group>
-   
-   <Group description="Tarjetas" selector=".card__content, .card-featured">
-      <Variable name="card.fondo" description="Tarjeta" type="color" default="#ffffff" value="#ffffff"/>
-      <Variable name="card.color.title" description="Titulo" type="color" default="rgba(0, 0, 0, .75)" value="rgba(0, 0, 0, .75)"/>
-      <Variable name="card.color.body" description="Cuerpo de la entrada" type="color" default="rgba(0, 0, 0, .6)" value="rgba(0, 0, 0, .6)"/>
-      <Variable name="card.border.color" description="Borde de datos" type="color" default="rgba(0, 0, 0, .1)" value="rgba(0, 0, 0, .1)"/>
+   <Group description="Content color" selector=".skin-main-bg">
+      <Variable name="body.bg" description="Page Background Color" type="color" default="transparent" value="transparent"/>
+      <Variable name="body.colorTitle" description="Title Color" type="color" default="#262626" value="#262626"/>
+      <Variable name="body.colorText" description="Text Color" type="color" default="#757575" value="#757575"/>
    </Group>
 
-   <Group description="Paginacion" selector=".blog-pager__link">
-      <Variable name="page.color" description="Color del texto" type="color" default="rgba(0, 0, 0, .5)" value="rgba(0, 0, 0, .5)"/>
-      <Variable name="page.border.color" description="Color del borde" type="color" default="rgba(0, 0, 0, .2)" value="rgba(0, 0, 0, .2)"/>
+   <Group description="Header" selector=".header__wrapper">
+      <Variable name="header.bg" description="Header Background" type="color" default="#ccb666" value="#ccb666"/>
+      <Variable name="header.colorLogo" description="Blog Title Color" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="header.colorDesc" description="Blog Description Color" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="header.letter" description="Letter spacing" type="length" min="0" max="10px" default="5px" value="5px"/>
    </Group>
 
-   <Group description="Articulos" selector=".items">
-      <Variable name="fondo.article.body" description="Fondo Articulo (cuerpo)" type="color" default="#ffffff" value="#ffffff"/>
-      <Variable name="fondo.article" description="Fondo tarjetas (spoiler, code, tablas, social)" type="color" default="rgba(0,0,0,.05)" value="rgba(0,0,0,.05)"/>
-      <Variable name="color.article.title" description="Color titulos (h1, h2, h3, etc)" type="color" default="rgba(0,0,0,.7)" value="rgba(0,0,0,.7)"/>
-      <Variable name="color.article.body" description="Color textos (post-body, social)" type="color" default="rgba(0, 0, 0, .5)" value="rgba(0, 0, 0, .5)"/>
-      <Variable name="borde.article.body" description="Color bordes (spoiler, tablas, reactions)" type="color" default="rgba(0,0,0,.1)" value="rgba(0,0,0,.1)"/>
-      <Variable name="fondo.article.quote" description="Color Citacion (blockquote)" type="color" default="#f9f9f9" value="#f9f9f9"/>
+   <Group description="Header Bar" selector=".header__menu">
+      <Variable name="menu.bg" description="Background Color" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="menu.color" description="Color" type="color" default="#757575" value="#757575"/>
+      <Variable name="menu.icon" description="Icon color" type="color" default="#757575" value="#757575"/>
+      <Variable name="menu.border" description="Separator Line Color" type="color" default="#e9e9e9" value="#e9e9e9"/>
    </Group>
-   
-   <Group description="Footer" selector=".footer">
-      <Variable name="border.footer" description="Color borde" type="color" default="rgba(0, 0, 0, 0.1)" value="rgba(0, 0, 0, 0.1)"/>
-      <Variable name="color.footer.social" description="Iconos sociales" type="color" default="rgba(0, 0, 0, .4)" value="rgba(0, 0, 0, .4)"/>
-      <Variable name="color.footer.texto" description="Color texto" type="color" default="rgba(0, 0, 0, .5)" value="rgba(0, 0, 0, .5)"/>
-      <Variable name="fondo.footer" description="Fondo copyright" type="color" default="#ececec" value="#ececec"/>
+
+   <Group description="Gadgets" selector=".skin-main-bg .widget">
+      <Variable name="gadget.titleBg" description="Background Color" type="color" default="transparent" value="transparent"/>
+      <Variable name="gadget.title" description="Gadget title color" type="color" default="#757575" value="#757575"/>
+      <Variable name="gadget.border" description="Separator Line Color" type="color" default="#d4d4d4" value="#d4d4d4"/>
    </Group>
-   
-   <Group description="Layout (Refrescar)" selector="body">
-      <Variable name="layout.postnum" description="Numero de entradas" type="string" default="10" value="10"/> 
-      <Variable name="layout.single" description="Activar Single.css (Widgets)" type="length" min="0" max="1px" default="0px" value="0px"/>
-      <Variable name="layout.pagination" description="Activar Paginacion numerica" type="length" min="0" max="1px" default="0px" value="0px"/>
-      <Variable name="layout.column" description="Dos columnas (Cuerpo)" type="length" min="0" max="1px" default="0px" value="0px"/>
-      <Variable name="layout.invert" description="Invertir blog y sidebar (Cuerpo)" type="length" min="0" max="1px" default="0px" value="0px"/>
-      <Variable name="layout.cards" description="Numero de columnas (Entradas)" type="length" min="2px" max="6px" default="4px" value="4px"/>
-      <Variable name="layout.cards.snippet" description="Mostrar resumen (Entradas)" type="length" min="0" max="1px" default="1px" value="1px"/>
-      <Variable name="layout.cards.meta" description="Mostrar datos (Entradas)" type="length" min="0" max="1px" default="1px" value="1px"/>
-      <Variable name="layout.cards.image" description="Cortar imagenes en 16:9 (Entradas)" type="length" min="0" max="1px" default="0px" value="0px"/>
-   </Group>
-   
-   <Variable name="body.background" description="Main Background" type="background" color="$(body.background.color)" default="$(color) url(//4.bp.blogspot.com/-IqaTXZATNaY/WjlZHOKQciI/AAAAAAAADOY/rPtmYFLtT5gn05MCM9-PQnfDRC6W7AgiACK4BGAYYCw/s0/base-01.jpg) no-repeat scroll center center" value="$(color) url(//4.bp.blogspot.com/-IqaTXZATNaY/WjlZHOKQciI/AAAAAAAADOY/rPtmYFLtT5gn05MCM9-PQnfDRC6W7AgiACK4BGAYYCw/s0/base-01.jpg) no-repeat scroll center center"/>
-*/
-
-/*
-=> Personalizacion estandar
-*/
-/*Fuente global ?= Color de fondo*/
-body {
-    font-family: '$(main.font.family)', sans-serif;
-}
-body, .footer::before {
-	background-color: $(body.background.true);
-}
-/*Logo*/
-.head__logo a {
-    font-family: '$(logo.font.family)', 'Pacifico', sans-serif;
-}
-.user-card:before, .Profile .widget-content:before {
-    background-image: url(https://4.bp.blogspot.com/-8YaJIAzhHBs/WjirrBM0F8I/AAAAAAAADN0/bMptCrmPmzwJJqLV4n9vOWICaivnI7LHwCLcBGAs/w400/art-landscape.jpg);
-    background-position: center;
-}
-.avatar-image-container {/* 2 */
-	background-image: url(https://3.bp.blogspot.com/-tlRt4Dl1KEY/VvLRnk7Iu1I/AAAAAAAABdQ/9rP4egHb5ksfsUVt7loSkaH4C7I3mqcGw/s1600/anon.gif);
-}
-/*color principal*/
-.color,
-.wjs-rel__image,
-.card__image--featured::after,
-.tags-list__name:hover, 
-.tags-list__name.is-here,
-.widget input[type=submit], 
-.widget input[type=button] {background-color: $(main.color);}
-.nav__item.is-active,
-.nav__item:hover{box-shadow: 0 -2px 0 0 $(main.color) inset, 0 0 0 transparent;}
-.wjs-rel__image::before {
-    background-image: -webkit-linear-gradient(rgba(36,38,38,0) 0,$(main.color) 100%);
-    background-image: linear-gradient(rgba(36,38,38,0) 0,$(main.color) 100%);
-}
-/*color de los enlaces*/
-a,a:hover,
-.footer__social a:hover,
-.card__title a:hover,
-.search__button:hover,
-.head__logo a:hover,
-.nav__item.is-active {
-	color: $(link.color);
-}
-
-/*
-=> Header (Colores avansados)
-*/
-@media (min-width: 768px) {.header__head {height: $(head.cover.size);}}
-.header__head--noindex {height: 200px;}
-.head__logo a {color: $(head.logo.color);}
-.head__descripcion {
-    color: $(head.description.color);
-    letter-spacing: $(head.description.letter);
-}
-
-/*
-=> Parallax (Colores avansados)
-*/
-.head--cover {
-	background: $(body.background);
-    background-size: cover;
-    background-attachment: scroll;
-}
-
-/*
-=> Blur (Colores avansados)
-*/
-.head__parallax {
-    top: calc(-25% - $(body.background.blur));
-    left: calc(0px - 2 * $(body.background.blur));
-    width: calc(100% + 4 * $(body.background.blur));
-    bottom: calc(-25% - $(body.background.blur));
-	-webkit-filter: blur($(body.background.blur));
-			filter: blur($(body.background.blur));
-}
-
-/*
-=> Menu (Colores avansados)
-*/
-.header__menu,
-.search,
-.menu__nav {
-	background: $(menu.fondo);
-}
-.nav__item,.search__button,
-.search__input,.nav__toggle {
-    border-color: $(menu.border.color);
-    color: $(menu.color);
-}
-.nav__toggle--icon span,
-.nav__toggle--icon span::after,
-.nav__toggle--icon span::before {
-    background-color: $(menu.color);
-}
-
-/*
-=> Widgets (Colores avansados)
-*/
-.widget > h2 {
-    color: $(widget.title.color);
-    border-color: $(widget.title.border.color);
-    background-color: $(widget.title.fondo);
-}
-.card__image--featured::before {color: $(widget.title.icons.color);}
-
-/*
-=> Cuerpo (Colores avansados)
-*/
-.container {max-width: $(main.width);} /* <= Ancho del cuerpo*/
-.container__main {background-color: $(fondo.main);} /* <= color del cuerpo*/
-
-/*
-=> Cards (Colores avansados)
-*/
-.card__content {background-color:$(card.fondo);}
-.card__title a,.error__title {color:$(card.color.title);}
-.card__snippet,.meta__more,.meta__time,.error__snippet {color: $(card.color.body);}
-.card__snippet,.card__meta,.meta__more {border-color: $(card.border.color);}
-
-/*
-=> Pagination (Colores avansados)
-*/
-.blog-pager__link {
-    color: $(page.color);
-    border-color: $(page.border.color);
-}
   
-/*
-=> Articulos (Colores avansados)
-*/
-.article__spoiler .wjs-container,article code, article pre,.share__item {background-color: $(fondo.article);} /* <= Fondo de tarjetas*/
-.article,.comments__container {background: $(fondo.article.body);} /* <= Color de fondo*/
-article h1,article h2,article h3,article h4,article h5,article h6 {color: $(color.article.title);} /* <= Color de titulos*/
-article .post-body,.share__item,.title__time {color: $(color.article.body);} /* <= Color de textos*/
-article blockquote,article table tbody td,article table thead,
-.article__reactions,
-.article__header,.article__tags,.article__titlePage,
-article table thead th {border-color: $(borde.article.body);} /* <= Color de bordes*/
-article blockquote {background: $(fondo.article.quote);} /* <= fondo citacion*/
-
-/*
-=> Avisos (Colores avansados)
-*/
-.info {
-    background-color: $(info.fondo);
-    color: $(info.color);
-}
+   <Group description="Posts" selector=".card__content">
+      <Variable name="post.bg" description="Post background color" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="post.margin" description="Content margin" type="length" min="0" max="50px" default="21px" value="21px"/>
+      <Variable name="post.titles" description="Post Title Color" type="color" default="#616161" value="#616161"/>
+      <Variable name="post.snippetColor" description="Post text color" type="color" default="#757575" value="#757575"/>
+      <Variable name="post.border" description="Separator Line Color" type="color" default="#e9e9e9" value="#e9e9e9"/>
+   </Group>
    
-/*
-=> Footer (Colores avansados)
-*/
-.footer,
-.footer::before {border-color: $(border.footer);}
-.footer__copy {background: $(fondo.footer);}
-.footer__social a {color: $(color.footer.social);}
-.footer__copy, .copy__link {color: $(color.footer.texto);}
+   <Group description="Individual Post or Page" selector=".skin-main-bg">
+      <Variable name="post.bgPost" description="Post background color" type="color" default="#ffffff" value="#ffffff"/>
+      <Variable name="post.borderPost" description="Separator Line Color" type="color" default="#e9e9e9" value="#e9e9e9"/>
+   </Group>
 
-/*
-=> Opciones avansadas
-*/
-/* 2 Cards */
-@media (min-width: 768px) {
-	.card--2px .card {width: 50%;}
-}
-/* 3 Cards */
-@media (min-width: 768px) {
-	.card--3px .card {width: 33.333333%;}
-}
-/* 5 Cards */
-@media (min-width: 1200px) {
-	.card--5px .card {width: 20%;}
-}
-/* 6 Cards */
-@media (min-width: 1200px) {
-	.card--6px .card {width: 20%;}
-}
-@media (min-width: 1367px) {
-	.card--6px .card {width: 16.666667%;}
-}
+   <Group description="Footer" selector=".footer">
+      <Variable name="footer.border" description="Separator Line Color" type="color" default="#d4d4d4" value="#d4d4d4"/>
+      <Variable name="footer.shareColor" description="Sharing icons color" type="color" default="#868686" value="#868686"/>
+      <Variable name="footer.copyBg" description="Footer Background" type="color" default="#ececec" value="#ececec"/>
+      <Variable name="footer.copyColor" description="Text Color" type="color" default="#868686" value="#868686"/>
+      <Variable name="footer.links" description="Link Color" type="color" default="#868686" value="#868686"/>
+   </Group>
 
+   <Variable name="body.background" description="Main Background" type="background" color="$(header.bg)" default="$(color) url(//2.bp.blogspot.com/-6FlMntiv-QM/XHqS-LCeUaI/AAAAAAAAD4M/Ytwi80ug7NMakyJvZKNdhj54iZFjanCMgCLcBGAs/s1600/header-01.jpg) repeat scroll top center" value="$(color) url(//2.bp.blogspot.com/-6FlMntiv-QM/XHqS-LCeUaI/AAAAAAAAD4M/Ytwi80ug7NMakyJvZKNdhj54iZFjanCMgCLcBGAs/s1600/header-01.jpg) repeat scroll top center"/>
+
+*/
+.skin-body-font,body{font-family:'$(font.text.family)',Roboto,sans-serif}.footer::before,body{background-color:$(main.bg)}.container{max-width:$(width.content)}.card__title a:hover,.nav__item.is-active,.skin-color,.skin-color-hover:hover,a,a:hover{color:$(main.linkColor)}blockquote{border-color:$(main.color)}::-moz-selection{background-color:$(main.color)}::selection{background-color:$(main.color)}.drop-caps:first-letter,.skin-bg,.skin-bg-hover:hover,.tagsList__link:hover .tagsList__name{background-color:$(main.color)}.wjs-item.is-active{box-shadow:inset $(main.color) 0 3px}.tab-vertical .wjs-item.is-active{box-shadow:inset $(main.color) 3px 0}.h1,.h2,.h3,.h4,.h5,.h6,.skin-color-title,h1,h2,h3,h4,h5,h6{color:$(body.colorTitle)}.skin-color-text,body{color:$(body.colorText)}.skin-main-bg{background-color:$(body.bg)}.skin-font{font-family:'$(font.logo.family)',Pacifico,cursive}.logo__link{color:$(header.colorLogo)}.logo__descripcion{color:$(header.colorDesc);letter-spacing:$(header.letter)}.header__wrapper{height:240px}@media (min-width:768px){.header__wrapper{height:380px}}.header-isSingle{height:240px}.header-cover{background:$(body.background);background-size:cover;background-attachment:scroll;top:calc(-25%);left:calc(0px - 2);width:calc(100% + 4);bottom:calc(-25%)}.header__menu,.menu__nav,.search{background:$(menu.bg)}.nav__item,.nav__toggle,.search-btn,.search-input{border-color:$(menu.border);color:$(menu.color)}.nav__toggle--icon span,.nav__toggle--icon span::after,.nav__toggle--icon span::before{background:$(menu.color)}.nav__item{color:$(menu.color);box-shadow:0 0 0 0 $(main.color) inset,-1px 0 0 $(menu.border) inset}.nav__item.is-active,.nav__item:hover{box-shadow:0 -2px 0 0 $(main.color) inset,-1px 0 0 $(menu.border) inset}.nav__item i{color:$(menu.icon)}.search-btn{border-right:1px solid $(menu.border);border-left:1px solid $(menu.border)}.card__content{background-color:$(post.bg)}.card__space{padding:$(post.margin)}.card__title a,.meta__more,.meta__time svg{color:$(post.titles)}.card__meta,.card__space,.post__title{border-color:$(post.border)}.card__descripcion{color:$(post.snippetColor)}.article{background:$(post.bgPost)}.post-top{border-bottom:1px solid $(post.borderPost)}.articleTags{border-top:1px solid $(post.borderPost)}.widget-title,.widget>h2{color:$(gadget.title);border-color:$(gadget.border);background-color:$(gadget.titleBg)}.footer__items,.items{margin-left:calc(-22px / 2);margin-right:calc(-22px / 2)}.card,.footer__case{padding-left:calc(22px/ 2);padding-right:calc(22px/ 2)}.card{padding-bottom:22px}.main__blog{padding-top:22px}.footer__widgets{padding-bottom:22px}.footer{margin-top:22px}.title-space{margin-top:22px}@media (min-width:992px){.blog{width:calc(100% - $(width.sidebar) - 22px)}.sidebar{width:$(width.sidebar)}}.footer,.footer::before{border-color:$(footer.border)}.copy__attribution{background:$(footer.copyBg);color:$(footer.copyColor)}.copy__attribution a{color:$(footer.links)}.social__item{color:$(footer.shareColor)}
 ]]></b:skin>
 
-&lt;!--</head>--&gt;&lt;/head&gt;
+<b:if cond='data:view.isLayoutMode'>
+<b:template-skin><![CDATA[
+body#layout{width:1000px;margin:0 auto}body#layout .container{margin-right:auto;margin-left:auto;max-width:1000px}body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:100%}body#layout .skin-left{float:left}body#layout .skin-right{float:right}body#layout #three-column{width:33.333333%;float:left}
+]]></b:template-skin>
+</b:if>
 
+&lt;!--</head>--&gt;&lt;/head&gt;
 <body>
 
-<header class="header">
+<b:with value='data:skin.vars.config_default_image' var='imgDefault'>
+<b:with value='{mode: data:view.isLayoutMode, postSidebar: data:skin.vars.config_show_postSidebar, sidebar: data:skin.vars.config_show_sidebar, oppositeBlog: data:skin.vars.config_show_oppositeBlog, showMeta: data:skin.vars.config_post_showMeta, showSnippet: data:skin.vars.config_post_showSnippet}' var='layout'>
 
-<b:section id='Header'>
+<header class='header'>
+<b:section id='Header' maxwidgets='2'>
   <b:widget id='Header1' locked='false' title='Leyre (Cabecera)' type='Header' version='1'>
     <b:includable id='main'>
-		<div class="header__head flex align-items-center justify-content-center">
-		<b:class cond='!data:view.isMultipleItems' name='header__head--noindex'/>
-			<div class='head__content'>
-				<b:include expr:name='data:useImage ? "logo" : "title"'/>
-				<b:include cond='data:useImage ? (data:imagePlacement == "BEFORE_DESCRIPTION") : data:description' name='description'/>
-			</div><!-- .head__content -->
-			<b:include name='parallax'/>
-		</div><!-- .header__head -->
-	</b:includable>
+      <div class="header__wrapper flx-xyc">
+        <b:class cond='!data:view.isMultipleItems' name='header-isSingle'/>
+        <div class="header__logo">
+          <b:include expr:name='data:useImage ? "logo" : "title"'/>
+          <b:include cond='data:useImage ? (data:imagePlacement == "BEFORE_DESCRIPTION") : data:description' name='description'/>
+        </div>
+        <div class="parallax__container rellax" data-rellax-speed="-8">
+          <div class="parallax header-cover"></div>
+        </div>
+      </div>
+    </b:includable>
     <b:includable id='description'>
-      	<p class='head__descripcion'><b:class cond='data:view.isMultipleItems' name='head--animation'/><data:description/></p>
-	</b:includable>
+      <span class='logo__descripcion'>
+        <data:description/>
+      </span>
+    </b:includable>
     <b:includable id='logo'>
-		<a class='head__logo head__logo--image' expr:href='data:blog.homepageUrl' expr:title='data:title'>
-			<img expr:alt='data:title' expr:src='data:sourceUrl'/>
-		</a>
-	</b:includable>
-    <b:includable id='parallax'>
-    	<div class='head__parallax parallax head--cover' data-0='transform: translate3d(0px, 0px, 0px);' data-300='transform: translate3d(0px, 200px, 0px);'></div>
-	</b:includable>
+      <a class='logo__image' expr:href='data:blog.homepageUrl'>
+        <img expr:alt='data:title' expr:src='data:sourceUrl'/>
+      </a>
+    </b:includable>
     <b:includable id='title'>
-		<b:tag class='head__logo' expr:name='data:view.isHomepage ? "h1" : "div"'>
-			<b:class cond='data:view.isMultipleItems' name='head--animation'/>
-			<a expr:href='data:blog.homepageUrl' expr:title='data:title'><data:title/></a>
-		</b:tag>
-	</b:includable>
+      <b:tag class='logo__title' expr:name='data:view.isHomepage ? "h1" : "div"'>
+        <a expr:href='data:blog.homepageUrl' class='logo__link skin-font'><data:title/></a>
+      </b:tag>
+    </b:includable>
   </b:widget>
-  <b:widget id='PageList1' locked='false' title='Menu Principal' type='PageList' version='1'>
+  <b:widget id='PageList1' locked='false' title='Main menu' type='PageList' version='1'>
     <b:widget-settings>
       <b:widget-setting name='homeTitle'>Inicio</b:widget-setting>
     </b:widget-settings>
 	<b:includable id='main'>
 		<div class='header__menu'>
-			<div class='container menu__content'>
+			<div class="container display-flex justify-content-between">
 				<b:include name='menu'/>
-				<b:include name='search'/>
 			</div>
 		</div>
 	</b:includable>
 	<b:includable id='menu'>
-		<button class='nav__toggle reset wjs-outsite' data-target='menu__nav'>
+		<b:include name='search'/>
+		<button class="nav__toggle search-hidden wjs-outsite" data-target="menu__nav">
 			<span class='nav__toggle--icon'><span></span></span>
 		</button>
-		<nav class='menu__nav flex row-large column' id='menu__nav'>
+		<nav class="menu__nav search-hidden display-flex flex-row-lg flex-column" id="menu__nav">
 			<b:loop values='data:links' var='link'>
 				<a class='nav__item' expr:href='data:link.href'><b:class cond='data:link.isCurrentPage' name='is-active'/><data:link.title/></a>
 			</b:loop>
 		</nav>
+		<b:include name='search-btn'/>
 	</b:includable>
 	<b:includable id='search'>
-		<form action="/search" class="search flex align-items-center" id="search" method="get">
-			<button class="reset search__button" type="submit">
-				<i class="dan-search"/>
-			</button>
-			<input class="reset search__input" name="q" onblur='if(this.value=="") this.value = this.defaultValue' onfocus='if(this.value==this.defaultValue) this.value = ""' type="text" value="Buscar"/>
+		<form action="/search" class="nav-search flx-yc" id="search" method="get">
+			<input autocomplete="off" name="q" placeholder="Buscar en el blog" required="required" spellcheck="false" type="text" value="" class="skin-color-text"/>
 		</form>
-		<button class="reset search__button search__button--control flex align-items-center wjs-outsite" data-target="search">
-			<i class="dan-search"></i>
-			<i class="dan-cancel"></i>
+	</b:includable>
+	<b:includable id='search-btn'>
+		<button class="search-btn flx-yc wjs-outsite" data-target="search">
+			<svg class="search-open feather feather-search mr-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+			<svg class="search-close feather feather-x" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
 		</button>
 	</b:includable>
   </b:widget>
-</b:section><!-- b#Header -->
+</b:section>
+</header><!-- End .header -->
 
-</header><!-- .header -->
+<div class="skin-main-bg container">
+<div class="main__blog clearfix">
 
-
-<div class="container container__main">
-
-<div class="main clearfix">
-
-<b:with value='"https://1.bp.blogspot.com/-Fbez64J0gFU/WjlMapnlYRI/AAAAAAAADOE/Yj7KBY5VWB0w7unCocsLsclET6ihFDjIwCLcBGAs/s1600/noimg-cover.png"' var='imgDefault'><!-- imagen por defecto -->
-
-<b:if cond='data:view.isError'>
-<div class="error">
-	<h1 class='error__title'>404 tree found</h1>
-	<p class='error__snippet'>¡Haz encontrado un arbol! oh espera... creo que no era lo que buscabas.</p>
-	<img class='error__image' alt="tree" src="https://3.bp.blogspot.com/-M97tkz8YSLw/Wjh4pSlz-6I/AAAAAAAADL4/4zReFUeVVHExSPUHAAMuXCqUExDk1_XyQCLcBGAs/s1600/404-tree.png"/>
-</div>
-<b:else/>
-<div expr:class='data:skin.vars.layout_column != "0px" ? "blog--noindex " + (data:skin.vars.layout_invert != "0px" ? "right" : "left") : "blog"'>
-<b:class cond='data:view.isSingleItem' name='blog--noindex'/>
+<div expr:class='"blog " + (data:layout.oppositeBlog ? "skin-right" : "skin-left") + (data:layout.mode and !data:layout.sidebar ? " noSidebar" : "")'>
+<b:class cond='!data:view.isSingleItem and !data:layout.sidebar or data:view.isSingleItem and !data:layout.postSidebar' name='noSidebar'/>
+<b:class cond='data:view.isError' name='noSidebar'/>
 
 <b:section id='Blog'>
-  <b:widget id='Blog1' locked='true' title='Entradas del blog' type='Blog'>
-    <b:widget-settings>
-      <b:widget-setting name='showDateHeader'>false</b:widget-setting>
-      <b:widget-setting name='showShareButtons'>true</b:widget-setting>
-      <b:widget-setting name='showAuthor'>true</b:widget-setting>
-    </b:widget-settings>
-    <b:includable id='main' var='top'>
-        
-   <b:with value='["blogger","Shortname","10"]' var='commentsType'><!-- Elige entre facebook, disqus o blogger -->
-         
-   <b:if cond='data:view.isMultipleItems'>
+   <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
+   <b:includable id='main' var='top'>
+
+   <b:if cond='data:view.isError'>
+     <div class="error-page skin-color-text">
+       <h1 class="error-page__title flx-xyc skin-color-title"><svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-frown"><circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg> 404</h1>
+       <div class='error-page__text'><data:navMessage/></div>
+     </div>
+   <b:elseif cond='data:view.isMultipleItems'/>
       <b:if cond='data:view.search.query or data:view.search.label'>
-         <h2><b:eval expr='data:view.search.query ? "Resultados de: " + data:view.search.query : "Mostrando entradas de: " + data:view.search.label'/></h2>
+        <div class='alert alert__postInfo'><data:navMessage/></div>
+      <b:elseif cond='data:view.isArchive'/>
+        <div class='alert alert__postInfo'><data:view.archive.rangeMessage/></div>
+      <b:elseif cond='data:posts.empty'/>
+        <div class='alert'><strong><data:widget.type/></strong>: <data:messages.theresNothingHere/></div>
       </b:if>
-      <b:if cond='data:posts.size == 0'>
-         <p class='info'><b:include name='status-message'/></p>
-      <b:else/>
-         <div class="items flex align-items-start wrap">
-         <b:class expr:name='"card--" + data:skin.vars.layout_cards'/>
-         <b:loop values='data:posts' var='post'><!-- bucle posts -->
-            <b:include data='post' name='post'/><!-- insertamos entradas -->
-         </b:loop>
-         </div>
-      </b:if>
-      <b:include name='nextprev'/><!-- paginacion estandar -->
+      <b:with value='data:skin.vars.config_post_column' var='isColumn'>
+        <div class="items row">
+          <b:loop values='data:posts' var='post'>
+            <b:include data='post' name='post'/><!-- Include posts -->
+          </b:loop>
+        </div>
+      </b:with>
+      <b:include name='nextprev'/><!-- Include pagination -->
    <b:else/>
       <b:loop values='data:posts' var='post'>
          <article class='article'>
-            <b:include data='post' name='post'/><!-- insertamos entradas -->
-         </article><!-- .article -->
-         <!-- insertamos comentarios -->
-         <div class='comentarios widget'>
-			<h2><b:if cond='data:commentsType[0] == "blogger"'><data:post.numComments/> Comentario<b:if cond='data:post.numComments neq 1'>s</b:if><b:else/><b:eval expr='data:commentsType[0]'/></b:if></h2>
-      		<div class='widget-content'>
-      		<b:class cond='data:commentsType[0] != "blogger"' name='comments__container'/>
-            	<b:include data='post' expr:name='data:view.isPreview ? "comment_status" : (data:post.allowComments ? "comment-" + data:commentsType[0] : "comment_status")'/>
-            	<noscript><p class='info'>Los comentarios requieren javascript</p></noscript>
-            </div>
-         </div><!-- .article -->
-         <!-- fin comentarios -->
+           <b:include data='post' name='post'/><!-- Include posts -->
+         </article>
+         <b:include cond='data:view.isPost' name='post-related'/><!-- Include related -->
+         <b:include data='post' name='comments'/><!-- Include comments -->
       </b:loop>
    </b:if>
    
-   </b:with><!-- b:with == commentsType -->
-   
    </b:includable>
-   <b:includable id='backlinkDeleteIcon' var='backlink'><!--none--></b:includable>
-   <b:includable id='backlinks' var='post'><!--none--></b:includable>
-   <b:includable id='comment-blogger' var='post'>
-      <b:if cond='data:post.commentSource == 1'>
-         <b:include data='post' name='iframe_comments'/>
-      <b:else/>
+   <b:includable id='backlinkDeleteIcon' var='backlink'><!--disabled--></b:includable>
+   <b:includable id='backlinks' var='post'><!--disabled--></b:includable>
+   <b:includable id='comments-blogger' var='post'>
+      <b:comment>Bundle (Comments)</b:comment>
+      <b:with value='{dir: "//cdn.jsdelivr.net/gh/zkreations/bundle@1/dist/ctms/", theme: "leyre"}' var='cmts'>
+        <link expr:href='+(data:cmts.dir,"cmts_bundle.min.css")' rel='stylesheet'/>
+        <link expr:href='+(data:cmts.dir,"theme_",data:cmts.theme,".min.css")' rel='stylesheet'/>
+      </b:with>
+      <b:include data='post' name='comment_picker'/>
+   </b:includable>
+   <b:includable id='comments-disqus' var='post'>
+      <div id='disqus_thread'/>
+      <script>
+      var disqus_shortname = "<data:skin.vars.config_shortname/>",
+          disqus_config = function(){
+             this.page.url = "<data:view.url.canonical/>";
+             this.page.title = "<data:view.title.escaped/>";
+          };//<![CDATA[
+       (function() {
+           var d = document, s = d.createElement('script');
+           s.async = true;s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+           s.setAttribute('data-timestamp', +new Date());(d.head || d.body).appendChild(s);
+       })();//]]>
+       </script>
+   </b:includable>
+   <b:includable id='comments-facebook' var='post'>
+      <div class='fb-comments' data-colorscheme='light' data-numposts='10' data-width='100%' expr:data-href='data:view.url.canonical'/>
+   </b:includable>
+   <b:includable id='comment-form' var='post'><!--disabled--></b:includable>
+   <b:includable id='commentDeleteIcon' var='comment'><!--disabled--></b:includable>
+   <b:includable id='comment_count_picker' var='post'><!--disabled--></b:includable>
+   <b:includable id='comment_picker' var='post'>
       <div class='comments' id='comments'>
          <div class='comments-content'>
             <div id='comment-holder'><data:post.commentHtml/></div>
             <b:include data='post' name='threaded_comment_js'/>
          </div>
-         <b:include data='post' expr:name='data:post.allowNewComments ? "threaded-comment-form" : "comment_status"'/>
+         <b:include data='post' expr:name='data:post.allowNewComments ? "threaded-comment-form" : "status-message"'/>
       </div>
-      </b:if>
    </b:includable>
-   <b:includable id='comment-disqus'>
-      <div id='disqus_thread'/>
-      <script type='text/javascript'>
-         var disqus_url = "<data:post.url.canonical/>",
-         disqus_shortname = "<b:eval expr='data:commentsType[1]'/>";//<![CDATA[
-         (function() {var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-         })();//]]>
-      </script>
+   <b:includable id='comments' var='post'>
+     <b:if cond='data:post.allowComments'>
+        <h3 class="widget-title title-space">
+          <b:if cond='data:skin.vars.config_comments != "blogger"'>
+            <data:skin.vars.config_comments/>
+          <b:else/>
+            <data:post.commentLabelFull/>
+          </b:if>
+        </h3>
+        <div id='infoComments' class='post-comments'>
+           <b:include data='post' expr:name='data:view.isPreview ? "status-message" : "comments-" + data:skin.vars.config_comments'/>
+        </div>
+     </b:if>
    </b:includable>
-   <b:includable id='comment-facebook'>
-      <div class='fb-comments' expr:data-numposts='data:commentsType[2]' expr:data-href='data:post.url.canonical'/>
-   </b:includable>
-   <b:includable id='comment-form' var='post'><!--none--></b:includable>
-   <b:includable id='commentDeleteIcon' var='comment'><!--none--></b:includable>
-   <b:includable id='comment_count_picker' var='post'><!--none--></b:includable>
-   <b:includable id='comment_picker' var='post'><!--none--></b:includable>
-   <b:includable id='comment_status'>
-      <p class='info'><b:eval expr='data:view.isPreview ? data:messages.widgetNotAvailableInPreview : "No se permiten nuevos comentarios"'/></p>
-   </b:includable>
-   <b:includable id='comments' var='post'><!--none--></b:includable>
-   <b:includable id='feedLinks'><!--none--></b:includable>
-   <b:includable id='feedLinksBody' var='links'><!--none--></b:includable>
-   <b:includable id='iframe_comments' var='post'>
-      <script expr:src='data:post.iframeCommentSrc' type='text/javascript'/>
-      <div class='cmt_iframe_holder' expr:data-href='data:post.url.canonical' expr:data-viewtype='data:post.viewType'/>
-   </b:includable>
-   <b:includable id='mobile-index-post' var='post'><!--none--></b:includable>
-   <b:includable id='mobile-main' var='top'><!--none--></b:includable>
-   <b:includable id='mobile-nextprev'><!--none--></b:includable>
-   <b:includable id='mobile-post' var='post'><!--none--></b:includable>
+   <b:includable id='feedLinks'><!--disabled--></b:includable>
+   <b:includable id='feedLinksBody' var='links'><!--disabled--></b:includable>
+   <b:includable id='iframe_comments' var='post'><!--disabled--></b:includable>
+   <b:includable id='mobile-index-post' var='post'><!--disabled--></b:includable>
+   <b:includable id='mobile-main' var='top'><!--disabled--></b:includable>
+   <b:includable id='mobile-nextprev'><!--disabled--></b:includable>
+   <b:includable id='mobile-post' var='post'><!--disabled--></b:includable>
    <b:includable id='nextprev'>
-      <b:if cond='data:newerPageUrl or data:olderPageUrl'>
-      <div class='blog-pager flex align-items-center justify-content-center wrap' id='blog-pager'>
-         <b:if cond='data:newerPageUrl'><a class='newer-link blog-pager__link' expr:href='data:newerPageUrl' expr:title='data:newerPageTitle'><i class="dan-arrow-left"></i> Anterior</a></b:if>
-         <b:if cond='data:olderPageUrl'><a class='older-link blog-pager__link' expr:href='data:olderPageUrl' expr:title='data:olderPageTitle'>Siguiente <i class="dan-arrow-right"></i></a></b:if>
-      </div>
-      <b:include cond='data:skin.vars.layout_pagination != "0px"' name='nextprev-num'/>
-      </b:if>
-   </b:includable>
-   <b:includable id='nextprev-num'>
-   <script>/*! Paginacion numerica emiliocobos.net/paginacion-para-blogger-mas-ligera/ | modificacion zkreations.com */
-   function paginacion(c) {
-    var k = <b:eval expr='data:skin.vars.layout_postnum'/>,//<![CDATA[
-        h = location.href,f = k,e = 6,z = 'is-here',x = '<i class="dan-arrow-left"></i> Anterior',A = 'Siguiente <i class="dan-arrow-right"></i>',B = true,C = '<a class="blog-pager__link" href="{{link}}" {{rel}}>{{num}}</a>',y = '<a class="blog-pager__link" href="#is-here">{{num}}</a>',D = '';a = '';var m=function(b,a,c){a=a!==l?"/search"+l+"?updated-max="+a+"&max-results="+k:"/"!==a?"/search"+l:a;return C.replace(/{{num}}/g,b).replace(/{{link}}/g,a).replace(/{{rel}}/g,c?'rel="'+c+'"':"")},p=function(a,b){return void 0===b?y.replace(/{{num}}/g,a).replace(/class=("|')([^"']*)/,"class=$1$2 "+z):y.replace(/{{num}}/g,a)},q=function(a,b){b||(b=a,a=0);d=d.slice(a,b)},n=h.match(/\/label\/[^?]*/),l=null===n?"/":n[0];n=c.feed.entry;c=[];var d=[],r=
-f-1;f=0;for(var b,g=0,t=[],u=[],v,w;g=n[r];r+=k)g=g.published.$t,g=encodeURIComponent(g.substring(0,19)+g.substring(23,29)),-1!==h.indexOf(g)&&(b=c.length),n[r+1]&&c.push(g);g=c.length+1;void 0!==b?(t.push(c[b-1]?m(x,c[b-1]):0===b?m(x,l,"prev"):""),d.push(m(1,l))):(d.push(p(1)),b=-1);for(;f<c.length;f++)h=c[f],f===b?d.push(p(f+2)):d.push(m(f+2,h)),f===c.length-1&&f!==b&&u.push(c[b+1]?m(A,c[b+1],"next"):"");e&&d.length>=e&&(b++,d[b-Math.floor(e/2)]&&d[b+Math.ceil(e/2)]?(v=0!==b-Math.floor(e/2),w=b+
-Math.ceil(e/2)!==d.length,q(b-Math.floor(e/2),b+Math.ceil(e/2))):b<=e/2?(q(e),w=!0):b>=d.length-e/2&&(q(d.length-e,d.length),v=!0));B&&(v&&t.push(p("...",!0)),w&&u.unshift(p("...",!0)));d=t.concat(d,u);document.getElementById("blog-pager").innerHTML=D.replace(/{{total}}/g,g)+d.join("")+a.replace(/{{total}}/g,g)}
-(function(c,a){var k="/feeds/posts/summary",h=c.URL,f=c.createElement(a),e=c.getElementsByTagName(a)[0];k+=/\/label\//.test(h)?"/-/"+h.match(/\/label\/[^?^]*/)[0].substring(7):"";f.src=k+"?alt=json-in-script&max-results=150&callback=paginacion";e.parentNode.insertBefore(f,e)})(document,"script");
-        //]]></script>
+      <b:tag cond='data:newerPageUrl or data:olderPageUrl' class='blogPager flx-xc blog-pager' id='blog-pager' name='div'>
+         <b:if cond='data:newerPageUrl'><a class='blogPager-link flx-yc' expr:href='data:newerPageUrl' expr:title='data:newerPageTitle'>
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg> <data:messages.newer/></a></b:if>
+         <b:if cond='data:olderPageUrl'><a class='blogPager-link flx-yc' expr:href='data:olderPageUrl' expr:title='data:olderPageTitle'><data:messages.older/> 
+<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right mr-none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a></b:if>
+      </b:tag>
    </b:includable>
    <b:includable id='post' var='post'>
     
-      <b:if  cond='data:view.isMultipleItems'>
+      <b:if cond='data:view.isMultipleItems'>
 
-      <!--{{ Pagina principal }}-->
-		<div class="card">
-			<div class="card__content">
-				<b:include cond='data:post.firstImageUrl' name='post-firstImageUrl'/><!-- Imagen del post -->
-				<div class="card__data">
-					<b:include name='post-title'/><!-- Titulo -->
-					<b:include cond='data:skin.vars.layout_cards_snippet != "0px"' name='post-snippet'/><!-- Resumen -->
-					<b:if cond='data:skin.vars.layout_cards_meta != "0px"'>
-						<div class="card__meta flex justify-content-between">
-							<b:include name='post-timestamp'/><!-- Fecha -->
-							<b:include name='post-readmore'/><!-- read more -->
-						</div><!-- .card__meta -->
-					</b:if><!-- b:if = !data:skin.vars -->
-				</div><!-- .card__data -->
-			</div><!-- .card__content -->
-		</div><!-- .card -->
-     
+        <!--{{ Home Page }}-->
+        <b:include name='post-card'/>
+
       <b:elseif cond='data:view.isPost'/>
 
-      <!--{{ Entradas }}-->
-		<aside class="article__header flex align-items-center justify-content-between">
-			<b:include cond='data:post.sharePostUrl' name='shareButtons'/><!-- Compartir -->
-			<b:include cond='data:top.showAuthor' name='post-author'/><!-- Author -->
+        <!--{{ Posts }}-->
+		<aside class="post-top display-flex justify-content-between">
+		  <b:include name='shareButtons'/>
+		  <b:include name='post-author'/>
 		</aside>
-		<div class='post-body clearfix' expr:data-postid='data:post.id'>
-			<header class="article__title">
-    			<b:include name='post-title'/><!-- Titulo -->
-    			<b:include name='post-timestamp'/><!-- Fecha -->
-			</header>
-			<b:include name='post-body'/><!-- Contenido de la entrada -->
-			<b:include cond='data:top.showPostLabels and data:post.labels' name='post-tags'/><!-- Etiquetas -->
-		</div><!-- .post-body -->
-		<b:include name='post-reactions'/><!-- Reacciones -->
-		<b:include cond='!data:view.isPreview' name='post-related'/><!-- Post relacionados -->
-
+        <div class='post-body clearfix skin-color-text' expr:data-post-id='data:post.id'>
+          <header class='article__title'>
+            <b:include name='post-title'/>
+            <b:include name='post-timestamp'/>
+          </header>
+          <b:include name='post-body'/>
+          <b:include name='post-tags'/>
+        </div>
+     
       <b:elseif cond='data:view.isPage'/>
 
-      <!--{{ Pagina independiente }}-->
-		<header class="article__titlePage">
-    		<b:include name='post-title'/><!-- Titulo -->
-		</header>
-		<div class='post-body clearfix' expr:data-postidd='data:post.id'>
-			<b:include name='post-body'/><!-- Contenido de la entrada -->
-		</div><!-- .post-body -->
+        <!--{{ Static page }}-->
+        <header class="page__header">
+		  <b:include name='post-title'/>
+        </header>
+        <div class='post-body clearfix skin-color-text' expr:data-post-id='data:post.id'>
+		  <b:include name='post-body'/>
+        </div>
       </b:if>
 
    </b:includable>
    <b:includable id='post-author'>
-		<a class='article__author g-profile' expr:href='data:post.authorProfileUrl' rel='author' target='_blank'>
-			<img expr:alt='data:post.author' expr:src='resizeImage(data:post.authorPhoto.url,44,"1:1")'/>
-		</a>
-	</b:includable>
-   <b:includable id='post-body'>
-		<div class="post-entry"><data:post.body/></div>
+      <a class="article__author" href="https://plus.google.com/113774234055328809168" rel="author" target="_blank">
+		<img expr:alt='data:post.author' expr:src='resizeImage(data:post.authorPhoto.thumbUrl,44,"1:1")'/>
+      </a>
    </b:includable>
-   <b:includable id='post-firstImageUrl'>
-		<a class='card__image' expr:href='data:post.url' expr:title='data:post.title'>
-			<img expr:alt='data:post.title' expr:src='data:skin.vars.layout_cards_image != "0px" ? resizeImage(data:post.firstImageUrl,400,"16:9") : resizeImage(data:post.firstImageUrl,400)'/>
-		</a><!-- .card__image -->
-    </b:includable>
-   <b:includable id='post-reactions'>
-		<b:if cond='data:top.showReactions'>
-			<div class='article__reactions'>
-				<iframe allowtransparency='true' class='reactions-iframe' expr:src='data:post.reactionsUrl' frameborder='0' name='reactions' scrolling='no'/>
-			</div>
-		</b:if>
-    </b:includable>
-   <b:includable id='post-readmore'>
-		<a class='meta__more flex align-items-center dan-arrow-right' expr:href='data:post.url' expr:title='data:messages.readMore'/>
-    </b:includable>
-   <b:includable id='post-related'>
-      <b:if cond='data:post.labels and !data:blog.isPrivateBlog'>
-	    <script>//<![CDATA[
-	    /*!	wjs-related v1.0.0 | José Gregorio fb.com/JGMateran (zkreations team) | Licensed under MIT | github.com/zkreations/wjs-related/blob/master/LICENSE*/
-	    'use strict';
-	    var getData = {//]]>
-			'labels':[<b:loop values='data:post.labels' var='label'>'<data:label.name />',</b:loop>]};</script>
-      <b:else/>
-	    <p class='info info--margin'><strong>Posts relacionados:</strong> No está disponible si <strong><b:eval expr='!data:post.labels ? "la entrada carece de etiquetas" : "el blog es privado"'/></strong></p>
+   <b:includable id='post-body'><data:post.body/></b:includable>
+   <b:includable id='post-card'>
+     <div class='card card-masonry'>
+       <b:class expr:name='data:isColumn == 2 ? "col-6-sm" : (data:isColumn == 3 ? "col-4-md col-6-sm" : (data:isColumn == 4 ? "col-3-lg col-4-md col-6-sm" : (data:isColumn == 5 ? "col-5ta-xl col-3-lg col-4-md col-6-sm" : (data:isColumn == 6 ? "col-2-xl col-3-lg col-4-md col-6-sm" : "col-12"))))'/>
+       <div class="card__content">
+         <b:include cond='data:post.firstImageUrl' name='post-card-cover'/>
+         <div class='card__data'>
+           <b:include name='post-title'/>
+           <b:include cond='data:layout.showSnippet' name='post-snippet' data='{length: "sm" }'/>
+           <b:include cond='data:layout.showMeta' name='post-meta'/>
+         </div>
+       </div>
+     </div>
+   </b:includable>
+   <b:includable id='post-card-cover'>
+      <a class='card__image flex-none' expr:href='data:post.url'>
+        <b:include name='post-image'/>
+      </a>
+   </b:includable>
+   <b:includable id='post-image'>
+      <b:with value='data:post.firstImageUrl ? data:post.firstImageUrl : data:imgDefault' var='img'>
+        <img expr:alt='data:post.title' expr:src='data:skin.vars.config_post_ratio ? resizeImage(data:img,300,"16:9") : resizeImage(data:img,300)'/>
+      </b:with>
+   </b:includable>
+   <b:includable id='post-meta'>
+      <div class='card__meta display-flex justify-content-between'>
+        <b:include cond='data:top.showTimestamp' name='post-timestamp'/>
+        <a class="card__space meta__more flx-yc" expr:href='data:post.url' expr:title='data:messages.readMore'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+      </div>
+   </b:includable>
+   <b:includable data='post' id='post-related'>
+      <b:if cond='!data:blog.isPrivateBlog and data:post.labels'>
+      <div class='post-related'>
+        <h3 class="widget-title title-space"><data:messages.youMayLikeThesePosts/></h3>
+        <div id='wjs-related' class='items row wjs-related'/>
+      </div>
+      <script>
+      /*!
+       * wjs-related v2.0.6
+       * Copyright 2018 zkreations
+       * Developed by José Gregorio (fb.com/JGMateran)
+       * Licensed under MIT (github.com/zkreations/wjs-related/blob/master/LICENSE)
+       */
+       var related = (function(){
+       'use strict';
+       var defaults = {
+         id: '<data:post.id/>',
+         homepage: window.location.protocol + '//' + window.location.hostname,
+         image: '<b:eval expr='resizeImage(data:imgDefault,400,"4:3")'/>',
+         length: 6,
+         snippet: 80,
+         imgSize: 'w300-h200-c',
+         container: document.getElementById('wjs-related'),
+         tags: [<b:loop values='data:post.labels' var='label'>'<data:label.name/>',</b:loop>]
+       };
+       //<![CDATA[
+       var tags$length = defaults.tags.length;
+       var script = document.createElement( 'script' );
+       var src = defaults.homepage + '/feeds/posts/default' +
+          '?alt=json-in-script' +
+          '&callback=related' +
+          '&max-results=' + ( defaults.length + 1 ) +
+          '&q=';
+       for ( var n = 0; n < tags$length; n++ ){
+          src += 'label:"' + defaults.tags[ n ] + '"' + ( n === tags$length - 1 ? '' : '|' );
+       }
+       
+       script.src = src;
+       
+       document.body.appendChild( script );
+       
+       function render( data ){
+          var title = data.title.$t;
+          var content = data.content;
+          var summary = data.summary;
+          var body = content ? content.$t : summary.$t;
+          var snippet = (body).replace(/<[^>]*>?/g,'').substring( 0, defaults.snippet ) + '...';
+          var img = data.media$thumbnail;
+          var tempHtml = document.createElement('div');
+          tempHtml.innerHTML = body;
+          var imgHtml = tempHtml.querySelector('img');
+          var image = ( img ? img.url : (imgHtml ? imgHtml.src : defaults.image)).replace( /s\B\d{2,4}-c/, defaults.imgSize); 
+          var url = (function(){
+             for ( var i = 0; i < data.link.length; i++ ){
+                var link = data.link[i];
+                if ( link.rel === 'alternate' ){
+                   return link.href;
+                }
+             }
+          })();
+          var published = new Date( data.published.$t ).toLocaleDateString(
+             'es-ES',
+             {
+                year:'numeric',
+                month:'numeric',
+                day: 'numeric'
+             }
+          );
+          return (
+             '<div class="card col-4-md col-6-sm col-12">'+
+                '<div class="card__content">'+
+                   '<a href="' + url + '" class="card__image flex-none">'+
+                      '<img src="' + image + '" alt="' + title + '" />'+
+                   '</a>'+
+                   '<div class="card__data display-flex flex-column">'+
+                      '<h2 class="card__title card__space"><a href="' + url + '">' + title + '</a></h2>'+
+                      '<p class="card__descripcion flex-fill card__space">' + snippet + '</p>'+
+                      '<div class="card__meta display-flex">'+
+                         '<time class="card__space meta__time flx-yc" datetime=""><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> ' + published + '</time>'+
+					  '</div>'+
+                   '</div>'+
+                '</div>'+
+             '</div>'
+          );
+       }       
+       
+       function related( json ){
+          var i = 0;
+          var post;
+          var length = defaults.length;
+          for ( ; i < length && ( post = json.feed.entry[ i ] ); i++ ){
+             if ( defaults.id !== post.id.$t.split( '.post-' )[ 1 ] ){
+                defaults.container.innerHTML += render( post );
+             } else {
+                length++;
+             }
+          }
+       }
+       return related;
+       //]]>
+       })();</script>
       </b:if>
     </b:includable>
    <b:includable id='post-snippet'>
-      <b:if cond='data:post.snippet.length != 0'><p class='card__snippet'><data:post.snippet/></p></b:if>
-    </b:includable>
+      <b:if cond='data:post.snippet.length != 0'>
+        <p class="card__descripcion flex-fill card__space">
+          <b:eval expr='data:length == "lg" ? data:post.longSnippet snippet {length: 350} : (data:length == "md" ? data:post.longSnippet snippet {length: 180} : data:post.longSnippet snippet {length: 80})'/>
+        </p>
+      </b:if>
+   </b:includable>
    <b:includable id='post-tags'>
       <b:if cond='data:top.showPostLabels and data:post.labels'>
-		<div class="article__tags">
-			<b:loop values='data:post.labels' var='label'>
-				<a expr:href='data:label.url' rel='tag'>#<data:label.name/></a><b:if cond='!data:label.isLast'>, </b:if>
-			</b:loop>
-		</div>
+        <div class='articleTags clearfix'>
+          <b:loop values='data:post.labels' var='i'>
+            <a class='articleTags-hash' expr:href='data:i.url' rel='tag'>#<data:i.name/></a>
+          </b:loop>
+        </div>
       </b:if>
-   </b:includable>
+    </b:includable>
    <b:includable id='post-timestamp'>
-    	<time expr:class='data:view.isSingleItem ? "title__time" : "meta__time flex align-items-center dan-clock published"' expr:datetime='data:post.timestampISO8601'><data:post.timestamp/></time>
-   </b:includable>
+      <time expr:class='data:view.isPost ? "title__time" : "card__space meta__time flx-yc"' expr:datetime='data:post.timestampISO8601'><b:if cond='!data:view.isPost'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></b:if><data:post.timestamp/></time>
+    </b:includable>
    <b:includable id='post-title'>
       <b:if cond='data:post.title.length != 0'>
-        <b:tag expr:class='data:view.isMultipleItems ? "card__title" : "title__name"' expr:name='data:view.isMultipleItems ? "h2" : "h1"'>
-          <b:tag cond='data:view.isMultipleItems' expr:href='data:post.url' name='a'><data:post.title/></b:tag>
+        <b:tag expr:name='data:view.isMultipleItems ? "h2" : "h1"'>
+          <b:class expr:name='data:view.isMultipleItems ? "card__title card__space" : "title__name"'/>
+          <b:class cond='data:view.isPage' name='post__title skin-color-title'/>
+          <b:tag cond='data:view.isMultipleItems' expr:href='data:post.url' name='a'>
+            <data:post.title/>
+          </b:tag>
         </b:tag>
       </b:if>
-   </b:includable>
-   <b:includable id='postQuickEdit' var='post'><!--none--></b:includable>
+    </b:includable>
+   <b:includable id='postQuickEdit' var='post'><!--disabled--></b:includable>
    <b:includable id='shareButtons'>
-		<div class="article__share flex wrap">
-		<b:with value='"share__item wjs-window "' var='socialCss'><!-- imagen por defecto -->
-			<a expr:class='data:socialCss + "dan-facebook"' expr:href='params("//facebook.com/sharer/sharer.php",{u: data:post.url.canonical})'/>
-			<a expr:class='data:socialCss + "dan-twitter"' expr:href='params("//twitter.com/intent/tweet",{url: data:post.url.canonical})'/>
-			<a expr:class='data:socialCss + "dan-google"' expr:href='params("//plus.google.com/share",{url: data:post.url.canonical})'/>
-			<a expr:class='data:socialCss + "dan-tumblr"' expr:href='params("//tumblr.com/share/photo",{url: data:post.firstImageUrl, caption: data:post.url.canonical})'/>
-			<a expr:class='data:socialCss + "dan-pinterest"' expr:href='params("//pinterest.com/pin/create/button/",{url: data:post.url.canonical, media: data:post.firstImageUrl})'/>
-		</b:with>
-		</div>
-   </b:includable>
+      <b:if cond='data:post.sharePostUrl'>
+        <div class="card__share flex-wrap flx-xyc">
+          <b:class expr:name='data:view.isMultipleItems ? "card__space card__meta" : "post__share"'/>
+          <a class='share__item btn wjs-window skin-color-hover' expr:href='params(data:post.sharePostUrl,{target: "facebook"})'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+          <a class='share__item btn wjs-window skin-color-hover' expr:href='params(data:post.sharePostUrl,{target: "twitter"})'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+          <a class='share__item btn wjs-window skin-color-hover' expr:href='params(data:post.sharePostUrl,{target: "pinterest"})'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></a>
+          <b:if cond='data:view.isSingleItem'>
+            <a class='share__item btn wjs-window skin-color-hover' expr:href='params("//www.tumblr.com/widgets/share/tool/preview",{canonicalUrl: data:post.url.canonical, caption: data:post.snippet, posttype: "link", title: data:post.title})'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-hash"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg></a>
+            <b:if cond='data:top.showEmailButton'>
+              <a class='share__item btn wjs-window skin-color-hover' expr:href='params(data:post.sharePostUrl,{target: "email"})'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg></a>
+            </b:if>
+          </b:if>
+        </div>
+      </b:if>
+    </b:includable>
    <b:includable id='status-message'>
-      <b:eval expr='data:view.search.query ? data:messages.noResultsFound : data:messages.theresNothingHere'/>
+     <div class='alert'>
+       <b:eval expr='data:view.isPreview ? data:messages.widgetNotAvailableInPreview : data:post.noNewCommentsText'/>
+     </div>
    </b:includable>
    <b:includable id='threaded-comment-form' var='post'>
-      <div class='comment-form'><a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+      <div class='comment-form'>
+         <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
          <iframe class='blogger-iframe-colorize blogger-comment-from-post' id='comment-editor' src=''/>
-         <data:post.cmtfpIframe/><script type='text/javascript'>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
+         <data:post.cmtfpIframe/>
+         <script>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
       </div>
    </b:includable>
    <b:includable id='threaded_comment_js' var='post'>
-      <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/><b:template-script inline='true' name='threaded_comments'/>
-      <b:if cond='data:post.showThreadedComments'><script type='text/javascript'>blogger.widgets.blog.initThreadedComments(<data:post.commentJso/>,<data:post.commentMsgs/>,<data:post.commentConfig/>);/*<![CDATA[*/var a=document.getElementsByClassName("avatar-image-container");for(i=0;i<a.length;i++)a[i].childNodes[0].setAttribute("src",a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/,"s120-c"));//]]></script></b:if>
+      <script async='async' expr:src='data:post.commentSrc'/>
+      <b:template-script inline='true' name='threaded_comments'/>
+      <b:if cond='data:post.showThreadedComments'>
+         <script>blogger.widgets.blog.initThreadedComments(
+            <data:post.commentJso/>,
+            <data:post.commentMsgs/>,
+            <data:post.commentConfig/>);//<![CDATA[
+            var a = document.getElementsByClassName("avatar-image-container");
+            for (i = 0; i < a.length; i++) a[i].childNodes[0].setAttribute("src", a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/, "s80"));
+         //]]></script>
+      </b:if>
    </b:includable>
-   <b:includable id='threaded_comments' var='post'><!--none--></b:includable>
+   <b:includable id='threaded_comments' var='post'><!--disabled--></b:includable>
    </b:widget>
 </b:section>
+</div>
 
-</div><!-- .blog -->
-<aside expr:class='(data:skin.vars.layout_column != "0px" ? "sidebar--noindex sidebar " + (data:skin.vars.layout_invert != "0px" ? "left" : "right") : "sidebar") + " clearfix flex align-items-start wrap"'>
-<b:class cond='data:view.isSingleItem' name='sidebar--noindex'/>
-<b:if cond='data:view.isSingleItem and data:view.isPreview'>
-<div class='widget'><h2>Widgets</h2><p class='info'><data:messages.widgetNotAvailableInPreview/></p></div>
-<b:else/>
-<div class="sidebar__case blayout">
-<b:section id='sidebar-1'>
-  <b:widget id='FeaturedPost10' locked='false' title='Recomendado' type='FeaturedPost' version='1'>
+<b:if cond='data:view.isMultipleItems and data:layout.sidebar or data:view.isSingleItem and data:layout.postSidebar'>
+<div expr:class='"sidebar " + (data:layout.oppositeBlog ? "skin-left" : "skin-right")'>
+<b:section id='sidebar'>
+  <b:widget id='PopularPosts101' locked='false' title='Popular Posts' type='PopularPosts'>
+    <b:widget-settings>
+      <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
+      <b:widget-setting name='showThumbnails'>true</b:widget-setting>
+      <b:widget-setting name='showSnippets'>false</b:widget-setting>
+      <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
+    </b:widget-settings>
+    <b:includable id='main'>
+      <b:if cond='data:title.length != 0'>
+        <h3 class='widget-title'><data:title/></h3>
+      </b:if>
+      <div class='widget-content'>
+        <b:if cond='data:posts.empty'>
+          <div class='alert'>
+            <strong><data:widget.type/></strong>: <data:messages.theresNothingHere/>
+          </div>
+        <b:else/>
+          <div class='items row'>
+          <b:loop values='data:posts' var='i'>
+            <div class="card col-12-lg col-4-md col-6-sm">
+            <div class="card__content">
+               <b:if cond='data:i.featuredImage and data:showThumbnails'>
+                 <a class="card__image flex-none" expr:href='data:i.href'>
+                    <img expr:src='resizeImage(data:i.featuredImage, 200)' expr:alt='data:i.title'/>
+                 </a>
+               </b:if>
+               <div class="card__data">
+                  <b:if cond='data:i.title.length != 0'>
+                    <h2 class="card__title card__space"><a expr:href='data:i.href'><data:i.title/></a></h2>
+                  </b:if>
+                  <b:if cond='data:i.snippet.length != 0 and data:showSnippets'>
+                    <p class="card__descripcion flex-fill card__space"><b:eval expr='data:i.snippet snippet {length: 80}'/></p>
+                  </b:if>
+               </div>
+            </div>
+            </div>
+          </b:loop>
+          </div>
+        </b:if>
+      </div>
+    </b:includable>
+  </b:widget>
+</b:section>
+</div>
+</b:if>
+
+</div><!-- .main-blog -->
+
+<div class='footer__widgets'>
+<div class='footer__items row clearfix'>
+<b:tag cond='data:layout.mode' name='div' id='three-column'>
+<b:section id='footer-case-1' class='footer__case col-4-md'>
+  <b:widget id='FeaturedPost100' locked='false' title='Featured post' type='FeaturedPost' version='1'>
     <b:widget-settings>
       <b:widget-setting name='useMostRecentPost'>true</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
-	<b:if cond='data:title.length != 0'><h2><data:title/></h2></b:if>
-	<div class='widget-content'><b:include name='content'/></div>
-	</b:includable>
+      <b:if cond='data:title.length != 0'>
+        <h3 class='widget-title'><data:title/></h3>
+      </b:if>
+      <div class='widget-content'>
+        <b:include name='content'/>
+      </div>
+    </b:includable>
     <b:includable id='content'>
-		<div class="card--featured card__content">
-			<b:if cond='data:postFirstImage'>
-			<a class="card__image card__image--featured dan-heart" expr:href='data:postUrl'>
-				<img expr:alt='data:postTitle' expr:src='resizeImage(data:postFirstImage,400)'/>
-			</a>
-   			</b:if>
-    		<div class="card__data">
-    			<b:if cond='data:showPostTitle and data:postTitle.length != 0'><h3 class="card__title"><a expr:href='data:postUrl'><data:postTitle/></a></h3></b:if>
-    			<b:if cond='data:showSnippet and data:postSummary.length != 0'><p class="card__snippet"><data:postSummary/></p></b:if>
-    		</div><!-- .card__data -->
-		</div><!-- .card-featured -->
-	</b:includable>
-  </b:widget>
-</b:section>
-</div><!-- .sidebar__case -->
-<div class="sidebar__case blayout">
-<b:section id='sidebar-2'>
-  <b:widget id='HTML10' cond='data:view.isPost' locked='false' title='Relacionados' type='HTML' version='1'>
-    <b:widget-settings>
-      <b:widget-setting name='content'><![CDATA[<div class='post-related flex wrap align-items-start'></div>]]></b:widget-setting>
-    </b:widget-settings>
-    <b:includable id='main'>
-    <b:if cond='data:title.length != 0'><h2><data:title/></h2></b:if>
-		<div class='widget-content'>
-  			<data:content/>
-			<script>//<![CDATA[
-	    //<![CDATA[
-	    var defaults = {
-			'container':document.querySelector('.post-related'),
-			'results':5,
-			'size':'w350-h140-c',
-			'snippetLength':100,//]]>
-			'image':'<b:eval expr='resizeImage(data:imgDefault,350,"5:1")'/>',
-			'postId':'<data:view.postId/>',
-			'homepageUrl':'<data:blog.homepageUrl/>',
-			'labels':getData.labels
-	    };//<![CDATA[
-	    function forEach(e,t){for(var r=0,l=e.length;l>r&&!t.call(e[r],r,e[r]);r++);}function createScript(e,t){var r,l,a,s=document.createElement("script"),n=e+"?alt=json-in-script";for(r in t)l=t[r],a=methods[r],n+="&"+(a?a(l):r+"="+l);return s.src=n,document.body.appendChild(s).parentNode.removeChild(s),n}function render(e){return['<div class="wjs-rel"><a href="'+e.url+'" class="wjs-rel__image"><img src="'+e.image+'" alt="'+e.title+'" /><h3 class="wjs-rel__title">'+e.title+'</h3></a></div>'].join("")}function related(e){forEach(e.feed.entry,function(e,t){var r=t.id.$t.split(".post-")[1],l=t.content.$t.replace(/<[^>]*>?/g,""),a=t.media$thumbnail;r!==defaults.postId&&(defaults.container.innerHTML+=render({id:r,snippet:l.substring(0,defaults.snippetLength)+"...",title:t.title.$t,image:(a?a.url:defaults.image).replace('s72-c',defaults.size),published:new Date(t.published.$t).toLocaleDateString("es-ES",{year:"numeric",month:"long",day:"numeric"}),description:l,category:t.category,url:function(){for(var e,r=0,l=t.link,a=l.length;a>r;r++)if(e=l[r],"alternate"===e.rel)return e.href}()}))})}var methods={labels:function(e){for(var t=0,r=e.length,l="q=";r>t;t++)l+='label:"'+e[t]+(t+1!==r?'"%7C':"");return l}};createScript(defaults.homepageUrl+"feeds/posts/default",{"max-results":defaults.results+1,callback:"related",labels:defaults.labels});//]]></script>
-		</div>
+      <div class='card-featured'>
+        <div class='card__content'>
+          <a class='card__image' expr:href='data:postUrl'>
+            <b:include name='featured-image'/>
+          </a>
+          <div class='card__data display-flex flex-column'>
+            <b:include name='featured-title'/>
+            <b:include name='featured-summary'/>
+            <b:include name='featured-share'/>
+          </div>
+        </div>
+      </div>
+    </b:includable>
+    <b:includable id='featured-image'>
+      <b:with value='data:postFirstImage ? data:postFirstImage : data:imgDefault' var='img'>
+        <img expr:alt='data:postTitle' expr:src='data:skin.vars.config_card_ratio ? resizeImage(data:img,300,"16:9") : resizeImage(data:img,300)'/>
+      </b:with>
+    </b:includable>
+    <b:includable id='featured-title'>
+      <b:if cond='data:showPostTitle and data:postTitle.length != 0'>
+        <h2 class='card__title card__space'>
+          <a expr:href='data:postUrl'><data:postTitle/></a>
+        </h2>
+      </b:if>
+    </b:includable>
+    <b:includable id='featured-summary'>
+      <b:if cond='data:showSnippet and data:postSummary.length != 0'>
+        <p class='card__descripcion flex-fill card__space'><data:postSummary/></p>
+      </b:if>
+    </b:includable>
+    <b:includable id='featured-share'>
+      <b:if cond='!data:blog.isPrivateBlog'>
+        <div class="card__meta card__space card__share flx-xyc">
+          <a class='share__item btn wjs-window skin-color-hover' expr:href='params(data:sharePostUrl,{target: "facebook"})'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+          <a class='share__item btn wjs-window skin-color-hover' expr:href='params(data:sharePostUrl,{target: "twitter"})'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
+          <a class='share__item btn wjs-window skin-color-hover' expr:href='params(data:sharePostUrl,{target: "pinterest"})'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></a>
+        </div>
+      </b:if>
     </b:includable>
   </b:widget>
-  <b:widget id='Label10' locked='false' title='Etiquetas' type='Label' version='1'>
+</b:section>
+</b:tag>
+<b:tag cond='data:layout.mode' name='div' id='three-column'>
+<b:section id='footer-case-2' class='footer__case col-4-md'>
+  <b:widget id='Label100' locked='false' title='Labels' type='Label' version='1'>
     <b:widget-settings>
       <b:widget-setting name='display'>CLOUD</b:widget-setting>
     </b:widget-settings>
     <b:includable id='main'>
-    <b:if cond='data:title.length != 0'><h2><data:title/></h2></b:if>
-	<div class='widget-content'>
-		<ul class="tags-list flex align-items-start wrap">
-		<b:class cond='data:display == "list"' name='tags-list--list'/>
-		<b:loop values='data:labels' var='label'>
-			<li class="tags-list__link dan-tag flex align-items-center">
-				<a class='tags-list__name' expr:href='data:label.url'><b:class cond='data:view.url == data:label.url' name='is-here'/><data:label.name/><b:if cond='data:showFreqNumbers'><span class='tags-list__num'><data:label.count/></span></b:if></a>
-			</li>
-		</b:loop>
-		</ul>
-    </div>
+      <b:if cond='data:title.length != 0'>
+        <h3 class='widget-title'><data:title/></h3>
+      </b:if>
+      <div class='widget-content'>
+        <div class="tagsList display-flex align-items-start flex-wrap">
+          <b:class cond='data:display == "list"' name='tagsList--list'/>
+          <b:loop values='data:labels' var='i'>
+            <a class="tagsList__link flx-yc" expr:href='data:i.url'>
+            <b:class cond='data:view.url == data:i.url' name='here'/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+              <span class="tagsList__name"><data:i.name/></span>
+              <b:if cond='data:showFreqNumbers'>
+                <span class='tagsList__num'><data:i.count/></span>
+              </b:if>
+            </a>
+          </b:loop>
+        </div>
+      </div>
     </b:includable>
   </b:widget>
 </b:section>
-</div><!-- .sidebar__case -->
-<div class="sidebar__case blayout">
-<b:section id='sidebar-3'>
-  <b:widget id='Profile1' locked='false' title='Acerca de mí' type='Profile' version='1'>
-    <b:widget-settings>
-      <b:widget-setting name='showaboutme'>true</b:widget-setting>
-      <b:widget-setting name='showlocation'>false</b:widget-setting>
-    </b:widget-settings>
-    <b:includable id='main'>
-    	<b:if cond='data:title.length != 0'><h2><data:title/></h2></b:if>
-    	<div class="user-card">
-			<b:if cond='data:team'>
-				<span class='user-card__name'>Multiple users</span>
-			<b:else/>
-				<img class='user-card__image' expr:alt='data:displayname' expr:src='resizeImage(data:photo.url,80,"1:1")'/>
-				<a class="user-card__name" expr:href='data:userUrl' rel='author'><data:displayname/></a>
-				<p class="user-card__aboutme"><data:aboutme/></p>
-			</b:if>
-    	</div>
-    </b:includable>
-  </b:widget>
-</b:section>
-</div><!-- .sidebar__case -->
-</b:if>
-</aside><!-- .sidebar -->
-</b:if><!-- b:if == view.isError -->
-
-</b:with><!-- b:with == imgDefault -->
-
-</div><!-- .main -->
+</b:tag>
+<b:tag cond='data:layout.mode' name='div' id='three-column'>
+<b:section id='footer-case-3' class='footer__case col-4-md'/>
+</b:tag>
+</div><!-- .footer__items .row -->
+</div><!-- .footer__widgets -->
 
 <footer class="footer">
-<b:section id='footer-social' maxwidgets='1' showaddelement='no'>
-  <b:widget id='LinkList10' locked='true' title='Redes sociales' type='LinkList' version='1'>
+<b:section id='footer-social' maxwidgets='2'>
+  <b:widget id='LinkList100' locked='true' title='Social Networks' type='LinkList' version='1'>
     <b:includable id='main'>
-		<div class="footer__social flex align-items-center justify-content-center wrap">
-			<b:loop values='data:links' var='link'>
-				<a expr:class='"dan-" + data:link.name + " flex align-items-center"' expr:href='data:link.target' target='_blank' rel='nofollow'/>
-			</b:loop>
-		</div>
+      <div class="footer__social flx-xyc flex-wrap">
+        <b:loop values='data:links' var='i'>
+          <a class='social__item' expr:href='data:i.target' rel='nofollow' target='_blank'><i expr:data-feather='data:i.name'/></a>
+        </b:loop>
+      </div>
+    </b:includable>
+  </b:widget>
+  <b:widget id='Text100' locked='true' title='Copyright' type='Text'>
+    <b:includable id='main'>
+      <div class='footer__copy'>
+        <b:comment>This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License: http://creativecommons.org/licenses/by-nc/4.0/</b:comment>
+        <div class='copy__attribution'>
+          Created by <a class='skin-color-hover' href='//zkreations.com' property='cc:attributionName' rel='cc:attributionURL,nofollow' target='_blank'>zkreations</a> &amp; <a class='skin-color-hover' expr:href='data:blog.bloggerUrl' rel='nofollow' target='_blank'>Blogger</a> | <span class="copy__web"><svg xmlns="http://www.w3.org/2000/svg" width="16px" viewBox="0 0 512 512"><path fill="currentColor" d="M256 8a248 248 0 1 0 0 496 248 248 0 0 0 0-496zm117.1 346.8a149.3 149.3 0 0 1-109.8 45.7c-84.7 0-144.5-63.3-144.5-145.6 0-81.3 62-143.4 143.8-143.4 67 0 102 37.3 103.4 39a12 12 0 0 1 1.2 14.5l-22.4 34.7a12 12 0 0 1-18.2 2.3c-.2-.2-26.5-23.9-61.9-23.9-46 0-73.9 33.6-73.9 76 0 39.7 25.5 79.8 74.3 79.8 38.7 0 65.3-28.4 65.5-28.6a12 12 0 0 1 18.5 1l24.6 33.6a12 12 0 0 1-.6 14.9z"/></svg> <data:blog.title/> 2019</span> <data:content/>
+        </div>
+      </div>
     </b:includable>
   </b:widget>
 </b:section>
-<!--Esta obra está licenciada bajo la Licencia Creative Commons Atribución-NoComercial 4.0 Internacional. Para ver una copia de esta licencia, visita http://creativecommons.org/licenses/by-nc/4.0/-->
-<p class="footer__copy" data-rel="cc:attribution">Made with <strong class="love">♥</strong> <a href="//zkreations.com" property="cc:attributionName" rel="cc:attributionURL,nofollow" target="_blank" class="copy__link">by zkreations</a> &amp; <a class="copy__link" href="https://www.blogger.com" rel="nofollow" target="_blank">Blogger</a> | <span>© <data:blog.title/> 2017</span></p>
 </footer>
+
 </div><!-- .container -->
 
-<!-- => END TEMPLATE -->
-<!-- => All VANILLA JS (No framework Dependency) -->
-<script async='async' src='https://cdn.rawgit.com/zkreations/whale/master/dist/version/whale@1.3.12.min.js'/>
-<b:tag cond='data:view.isMultipleItems' name='script' src='https://cdn.jsdelivr.net/g/masonry@4.2.0,imagesloaded@4.1.0,skrollr@0.6.30'/>
-<b:tag cond='data:view.isMultipleItems' name='script' src='https://cdn.rawgit.com/zkreations/Canvas.xml/master/templates/Leyre/source/scripts.min.js'/>
+<!-- END TEMPLATE -->
+<!-- All VANILLA JS (No framework Dependency) -->
+<script src='https://cdn.jsdelivr.net/gh/zkreations/whale@1.5.4/dist/js/whale.min.js'/>
+
+<!-- Font Awesome 5 -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"/>
+
+<!-- Feather icons -->
+<script src="https://unpkg.com/feather-icons"/>
+<script>feather.replace()</script>
+
+<b:if cond='data:view.isMultipleItems'>
+<!-- Universal Parallax -->
+<script src="//cdn.jsdelivr.net/gh/danieIabel/rellax@1.8.0/rellax.min.js"/>
+<script>//<![CDATA[
+var rellax = new Rellax('.rellax');
+//]]></script>
+
+<!-- Masonry -->
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"/>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"/>
+<script>//<![CDATA[
+var grid = document.querySelector('.items');
+var msnry = new Masonry( grid, {
+  itemSelector: '.card-masonry',
+  columnWidth: '.card-masonry',
+  percentPosition: true
+});    
+imagesLoaded( grid ).on( 'progress', function(instance, image) {
+  msnry.layout();    
+});
+//]]></script>
+
+</b:if>
+
+</b:with><b:comment> End data:layout </b:comment>
+</b:with><b:comment> End data:imgDefault </b:comment>
 
 <!-- Google Analytics -->
 <b:include data='blog' name='google-analytics'/>
