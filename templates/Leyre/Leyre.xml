@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:js='true' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Leyre.xml v3.0.0-free | Canvas.xml v1.7.0 | github.com/zkreations/canvas.xml -->
+<!-- Leyre.xml v3.0.2-free | Canvas.xml v1.7.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -912,7 +912,7 @@ audio {
 => Theme URI: https://shop.zkreations.com
 => Author: Daniel Abel M. (Copyright 2019 zkreations)
 => Author URI: https://fb.com/danieI.abel
-=> Version: 3.0.0
+=> Version: 3.0.2
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -1667,7 +1667,7 @@ body#layout{width:1000px;margin:0 auto}body#layout .container{margin-right:auto;
 <script src='https://cdn.jsdelivr.net/gh/zkreations/whale@1.5.4/dist/js/whale.min.js'/>
 
 <!-- Font Awesome 5 -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"/>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
 
 <!-- Feather icons -->
 <script src="https://unpkg.com/feather-icons"/>
