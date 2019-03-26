@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Anime.xml v3.2.0-free | Canvas.xml v1.7.0 | github.com/zkreations/canvas.xml -->
+<!-- Anime.xml v3.2.5-free | Canvas.xml v1.7.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -952,11 +952,6 @@ audio {
 <style>/*<![CDATA[*/
 .post__header{padding-bottom:1.5rem}.tags{padding-bottom:.5rem}.post__title{font-size:2rem;margin-bottom:1.5rem;font-weight:400}.post__title--page{padding-bottom:2rem;border-bottom:2px solid #f2f2f2;margin-bottom:2rem}.post-body .h1,.post-body .h2,.post-body .h3,.post-body .h4,.post-body .h5,.post-body .h6,.post-body h1,.post-body h2,.post-body h3,.post-body h4,.post-body h5,.post-body h6,.wjs-related .gallery{margin:0 0 1rem}.wjs-related{padding-top:1.5rem;padding-bottom:1rem}.reactions-iframe{width:100%;height:22px}.post-comments{padding-top:1rem}/*!include: article.css*/.post-body{font-size:16px}.lead{font-size:1.4rem;font-weight:300}blockquote{border-left:3px solid;padding:1rem 1.5rem;font-weight:400;margin-bottom:0;margin-top:0;margin-left:1rem;font-size:1.2rem}.post-body ol,.post-body ul{margin-left:1.75em}.post-body ul{list-style-type:disc}.post-body ul ul{list-style-type:circle}.post-body ol{list-style-type:decimal;counter-reset:counter}.post-body .fa-ul{list-style-type:none}.post-body .list-unstyled{padding-left:0;margin-left:0;list-style:none}.post-body table{text-align:left;width:100%}.post-body table tbody td,.post-body table thead th{padding:1rem;border-bottom:1px solid #e3e3e3;color:#757575}.post-body table thead th{white-space:nowrap;color:#454545;border-width:2px}.post-body .btn{border-radius:2px;margin-right:2px;margin-bottom:6px}
 /*]]>*/</style>
-<b:comment>Bundle (Comments)</b:comment>
-<b:with value='{dir: "//cdn.jsdelivr.net/gh/zkreations/bundle@1/dist/ctms/", theme: "anime"}' var='cmts'>
-  <link expr:href='+(data:cmts.dir,"cmts_bundle.min.css")' rel='stylesheet'/>
-  <link expr:href='+(data:cmts.dir,"theme_",data:cmts.theme,".min.css")' rel='stylesheet'/>
-</b:with>
 </b:if>
 
 <b:comment>Bundle (Widgets)</b:comment>
@@ -974,7 +969,7 @@ audio {
 => Theme URI: https://zkreations.com/anime-xml
 => Author: Daniel Abel M. (Copyright 2018 zkreations)
 => Author URI: https://instagram.com/danie.abel
-=> Version: 3.2.0
+=> Version: 3.2.5
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -1269,6 +1264,11 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
     <b:includable id='backlinkDeleteIcon' var='backlink'><!--disabled--></b:includable>
     <b:includable id='backlinks' var='post'><!--disabled--></b:includable>
     <b:includable id='comments-blogger' var='post'>
+      <b:comment>Bundle (Comments)</b:comment>
+      <b:with value='{dir: "//cdn.jsdelivr.net/gh/zkreations/bundle@1/dist/ctms/", theme: "anime"}' var='cmts'>
+        <link expr:href='+(data:cmts.dir,"cmts_bundle.min.css")' rel='stylesheet'/>
+        <link expr:href='+(data:cmts.dir,"theme_",data:cmts.theme,".min.css")' rel='stylesheet'/>
+      </b:with>
       <b:include data='post' name='comment_picker'/>
     </b:includable>
     <b:includable id='comments-disqus' var='post'>
@@ -1564,7 +1564,6 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
           <b:class expr:name='data:view.isMultipleItems ? "card__space card__share" : "post__share bottom-space"'/>
           <a class='btn-border wjs-window' expr:href='params(data:post.sharePostUrl,{target: "facebook"})'><i class='fab fa-facebook-f fa-mn fa-fw'/></a>
           <a class='btn-border wjs-window' expr:href='params(data:post.sharePostUrl,{target: "twitter"})'><i class='fab fa-twitter fa-mn fa-fw'/></a>
-          <a class='btn-border wjs-window' expr:href='params(data:post.sharePostUrl,{target: "googlePlus"})'><i class='fab fa-google-plus-g fa-mn fa-fw'/></a>
           <a class='btn-border wjs-window' expr:href='params(data:post.sharePostUrl,{target: "pinterest"})'><i class='fab fa-pinterest-p fa-mn fa-fw'/></a>
           <b:if cond='data:view.isSingleItem'>
             <a class='btn-border wjs-window' expr:href='params("//www.tumblr.com/widgets/share/tool/preview",{canonicalUrl: data:post.url.canonical, caption: data:post.snippet, posttype: "link", title: data:post.title})'><i class='fab fa-tumblr fa-mn fa-fw'/></a>
@@ -1751,7 +1750,7 @@ body#layout .blog,body#layout .sidebar{width:50%}body#layout .noSidebar{width:10
 <script src='https://cdn.jsdelivr.net/gh/zkreations/whale@1.5.4/dist/js/whale.min.js'/>
 
 <!-- Font Awesome 5 -->
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"/>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"/>
 
 <!-- Tiny Slider 2 -->
 <b:if cond='data:view.isHomepage'>
