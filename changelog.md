@@ -1,6 +1,6 @@
 # changelog
 
-## v1.7.0
+## v1.8.0
 
 - Se agrega la class `noAllowNewComments` si no se permiten nuevos comentarios de Blogger
 - Se corrigen los estilos obligatorios para el correcto funcionamiento de la plantilla
