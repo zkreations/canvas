@@ -2,6 +2,12 @@
 
 ## v1.7.0
 
+- Se agrega la class `noAllowNewComments` si no se permiten nuevos comentarios de Blogger
+- Se corrigen los estilos obligatorios para el correcto funcionamiento de la plantilla
+
+
+## v1.7.0
+
 - Se retira `meta=rating` puesto que no influye en SEO
 - Se retira `image_src` puesto que no se le da uso
 - Ahora `meta=robots` solo bloquea páginas sin impedir el rastreo

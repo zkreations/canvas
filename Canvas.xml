@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:js='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Canvas.xml v1.7.0 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.8.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -93,7 +93,8 @@
 .widget-item-control,.item-control.blog-admin,
 .continue,.loadmore,.thread-chrome.thread-collapsed,
 .singleton-element:not(.cookie-choices-info),
-.noAllowNewComments .comment-actions {display:none}
+.noAllowNewComments .comment-reply,
+.comments .hidden {display:none}
 
 /*Fix: Show lightbox*/
 .CSS_LIGHTBOX{z-index:90001!important}
@@ -177,6 +178,7 @@ img[data-original-width] {height: auto;}
    <b:includable id='comment_count_picker' var='post'><!--disabled--></b:includable>
    <b:includable id='comment_picker' var='post'>
       <div class='comments' id='comments'>
+         <b:class cond='!data:post.allowNewComments' name='noAllowNewComments'/>
          <div class='comments-content'>
             <div id='comment-holder'><data:post.commentHtml/></div>
             <b:include data='post' name='threaded_comment_js'/>
