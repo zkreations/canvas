@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:js='true' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Leyre.xml v3.0.2-free | Canvas.xml v1.7.0 | github.com/zkreations/canvas.xml -->
+<!-- Leyre.xml v3.1.0-free | Canvas.xml v1.8.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -912,7 +912,7 @@ audio {
 => Theme URI: https://shop.zkreations.com
 => Author: Daniel Abel M. (Copyright 2019 zkreations)
 => Author URI: https://fb.com/danieI.abel
-=> Version: 3.0.2
+=> Version: 3.1.0
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -921,7 +921,8 @@ audio {
 .widget-item-control,.item-control.blog-admin,
 .continue,.loadmore,.thread-chrome.thread-collapsed,
 .singleton-element:not(.cookie-choices-info),
-.noAllowNewComments .comment-actions {display:none}
+.noAllowNewComments .comment-reply,
+.comments .hidden {display:none}
 
 /*Fix: Show lightbox*/
 .CSS_LIGHTBOX{z-index:90001!important}
@@ -1204,6 +1205,7 @@ body#layout{width:1000px;margin:0 auto}body#layout .container{margin-right:auto;
    <b:includable id='comment_count_picker' var='post'><!--disabled--></b:includable>
    <b:includable id='comment_picker' var='post'>
       <div class='comments' id='comments'>
+         <b:class cond='!data:post.allowNewComments' name='noAllowNewComments'/>
          <div class='comments-content'>
             <div id='comment-holder'><data:post.commentHtml/></div>
             <b:include data='post' name='threaded_comment_js'/>
