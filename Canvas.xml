@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:js='false' b:responsive='true' b:version='2' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
+<html b:css='false' b:defaultwidgetversion='2' b:js='false' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Canvas.xml v1.8.0 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.9.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -27,24 +27,23 @@
 
 <!-- Url canonical -->
 <meta expr:content='data:view.url.canonical' property='og:url'/>
-<meta expr:content='data:view.url.canonical' name='twitter:url'/>
 <link expr:href='data:view.url.canonical' rel='canonical'/>
 
 <!-- Descripcion -->
 <b:if cond='data:view.description'>
    <meta expr:content='data:view.description.escaped' property='og:description'/>
-   <meta expr:content='data:view.description.escaped' name='twitter:description'/>
    <meta expr:content='data:view.description.escaped' name='description'/>
 </b:if>
-	
+
 <b:if cond='data:view.isError or data:view.isArchive or data:view.isSearch'>
    <meta content='noindex,follow' name='robots'/>
 </b:if>
 
 <!-- Featured Image -->
-<b:if cond='data:view.featuredImage'>
-   <meta expr:content='data:view.featuredImage' name='twitter:image'/>
-   <meta expr:content='resizeImage(data:view.featuredImage,1200,"1200:630")' property='og:image'/>
+<b:if cond='data:widgets'>
+   <b:loop values='data:widgets.Blog.first.posts where (p => p.featuredImage) map (p => p.featuredImage)' var='imageUrl'>
+     <meta expr:content='resizeImage(data:imageUrl,1200,"1200:630")' property='og:image'/>
+   </b:loop>
    <meta property='og:image:width' content="1200"/>
    <meta property='og:image:height' content="630"/>
 </b:if>
@@ -62,6 +61,11 @@
    <link expr:href='data:feeds' title='Atom 1.0' rel='alternate' type='application/atom+xml'/>
    <link expr:href='data:feeds params {alt: "rss"}' title='RSS 2.0' rel='alternate' type='application/rss+xml'/>
 </b:with>
+</b:if>
+
+<!-- AdSense -->
+<b:if cond='data:widgets.AdSense.first or data:blog.adsenseClientId'>
+   <script async='async' src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'/>
 </b:if>
 
 <!-- Sitelinks Searchbox -->
@@ -124,38 +128,42 @@ img[data-original-width] {height: auto;}
 */
 ]]></b:skin>
 
+<b:if cond='data:view.isLayoutMode'>
 <b:template-skin><![CDATA[ 
 /* => Your Layout Styles */
 ]]></b:template-skin>
+</b:if>
 
-&lt;!--</head>--&gt;&lt;/head&gt;
+</head>
+
 <body>
 
+<!-- Posts -->
 <b:section id='Blog'>
-   <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog'>
-   <b:includable id='main' var='top'>
+  <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
+    <b:includable id='main'>
 
-   <!-- Basic structure of example. You can delete from here {{ -->
-   <b:if cond='data:view.isMultipleItems'>
+    <!-- Basic structure of example. You can delete from here {{ -->
+    <b:if cond='data:view.isMultipleItems'>
       <b:loop values='data:posts' var='post'>
          <b:include data='post' name='post'/><!-- Include posts -->
       </b:loop>
-      <b:include name='nextprev'/><!-- Include pagination -->
-   <b:else/>
+      <b:include name='postPagination'/><!-- Include pagination -->
+    <b:else/>
       <b:loop values='data:posts' var='post'>
          <b:include data='post' name='post'/><!-- Include posts -->
          <b:include data='post' name='comments'/><!-- Include comments -->
       </b:loop>
-   </b:if>
-   <!-- }} Up to this point -->
-   
-   </b:includable>
-   <b:includable id='backlinkDeleteIcon' var='backlink'><!--disabled--></b:includable>
-   <b:includable id='backlinks' var='post'><!--disabled--></b:includable>
-   <b:includable id='comments-blogger' var='post'>
-      <b:include data='post' name='comment_picker'/>
-   </b:includable>
-   <b:includable id='comments-disqus' var='post'>
+    </b:if>
+    <!-- }} Up to this point -->
+
+    </b:includable>
+    <b:includable id='aboutPostAuthor'><!-- disable --></b:includable>
+    <b:includable id='addComments'><!-- disable --></b:includable>
+    <b:includable id='comments-blogger' var='post'>
+      <b:include data='post' name='commentPicker'/>
+    </b:includable>
+    <b:includable id='comments-disqus' var='post'>
       <div id='disqus_thread'/>
       <script>
       var disqus_shortname = "<data:skin.vars.config_shortname/>",
@@ -169,42 +177,41 @@ img[data-original-width] {height: auto;}
            s.setAttribute('data-timestamp', +new Date());(d.head || d.body).appendChild(s);
        })();//]]>
        </script>
-   </b:includable>
-   <b:includable id='comments-facebook' var='post'>
+    </b:includable>
+    <b:includable id='comments-facebook' var='post'>
       <div class='fb-comments' data-colorscheme='light' data-numposts='10' data-width='100%' expr:data-href='data:view.url.canonical'/>
-   </b:includable>
-   <b:includable id='comment-form' var='post'><!--disabled--></b:includable>
-   <b:includable id='commentDeleteIcon' var='comment'><!--disabled--></b:includable>
-   <b:includable id='comment_count_picker' var='post'><!--disabled--></b:includable>
-   <b:includable id='comment_picker' var='post'>
+    </b:includable>
+    <b:includable id='commentAuthorAvatar'><!-- disable --></b:includable>
+    <b:includable id='commentDeleteIcon' var='comment'><!-- disable --></b:includable>
+    <b:includable id='commentForm' var='post'><!-- disable --></b:includable>
+    <b:includable id='commentFormIframeSrc' var='post'><!-- disable --></b:includable>
+    <b:includable id='commentItem' var='comment'><!-- disable --></b:includable>
+    <b:includable id='commentList' var='comments'><!-- disable --></b:includable>
+    <b:includable id='commentPicker' var='post'>
       <div class='comments' id='comments'>
          <b:class cond='!data:post.allowNewComments' name='noAllowNewComments'/>
          <div class='comments-content'>
             <div id='comment-holder'><data:post.commentHtml/></div>
-            <b:include data='post' name='threaded_comment_js'/>
+            <b:include data='post' name='threadedCommentJs'/>
          </div>
-         <b:include data='post' expr:name='data:post.allowNewComments ? "threaded-comment-form" : "status-message"'/>
+         <b:include data='post' expr:name='data:post.allowNewComments ? "threadedCommentForm" : "status-message"'/>
       </div>
-   </b:includable>
-   <b:includable id='comments' var='post'>
+    </b:includable>
+    <b:includable id='comments' var='post'>
       <b:if cond='data:post.allowComments'>
          <b:include data='post' expr:name='data:view.isPreview ? "status-message" : "comments-" + data:skin.vars.config_comments'/>
       </b:if>
-   </b:includable>
-   <b:includable id='feedLinks'><!--disabled--></b:includable>
-   <b:includable id='feedLinksBody' var='links'><!--disabled--></b:includable>
-   <b:includable id='iframe_comments' var='post'><!--disabled--></b:includable>
-   <b:includable id='mobile-index-post' var='post'><!--disabled--></b:includable>
-   <b:includable id='mobile-main' var='top'><!--disabled--></b:includable>
-   <b:includable id='mobile-nextprev'><!--disabled--></b:includable>
-   <b:includable id='mobile-post' var='post'><!--disabled--></b:includable>
-   <b:includable id='nextprev'>
-      <b:tag cond='data:newerPageUrl or data:olderPageUrl' class='blog-pager' id='blog-pager' name='div'>
-         <b:if cond='data:newerPageUrl'><a expr:href='data:newerPageUrl' expr:title='data:newerPageTitle'><data:messages.newer/></a></b:if>
-         <b:if cond='data:olderPageUrl'><a expr:href='data:olderPageUrl' expr:title='data:olderPageTitle'><data:messages.older/></a></b:if>
-      </b:tag>
-   </b:includable>
-   <b:includable id='post' var='post'>
+    </b:includable>
+    <b:includable id='commentsTitle'><!-- disable --></b:includable>
+    <b:includable id='feedLinks'><!-- disable --></b:includable>
+    <b:includable id='feedLinksBody' var='links'><!-- disable --></b:includable>
+    <b:includable id='homePageLink'><!-- disable --></b:includable>
+    <b:includable id='iframeComments' var='post'><!-- disable --></b:includable>
+    <b:includable id='inlineAd' var='post'><!-- disable --></b:includable>
+    <b:includable id='nextPageLink'>
+      <a expr:href='data:olderPageUrl'><data:messages.older/></a>
+    </b:includable>
+    <b:includable id='post' var='post'>
     
       <b:if cond='data:view.isMultipleItems'>
 
@@ -220,21 +227,38 @@ img[data-original-width] {height: auto;}
    
       </b:if>
 
-   </b:includable>
-   <b:includable id='postQuickEdit' var='post'><!--disabled--></b:includable>
-   <b:includable id='shareButtons'><!--disabled--></b:includable>
-   <b:includable id='status-message'>
-      <b:eval expr='data:view.isPreview ? data:messages.widgetNotAvailableInPreview : data:post.noNewCommentsText'/>
-   </b:includable>
-   <b:includable id='threaded-comment-form' var='post'>
+    </b:includable>
+    <b:includable id='postBody' var='post'><!-- disable --></b:includable>
+    <b:includable id='postBodySnippet' var='post'><!-- disable --></b:includable>
+    <b:includable id='postCommentsAndAd' var='post'><!-- disable --></b:includable>
+    <b:includable id='postCommentsLink'><!-- disable --></b:includable>
+    <b:includable id='postFooter' var='post'><!-- disable --></b:includable>
+    <b:includable id='postFooterAuthorProfile' var='post'><!-- disable --></b:includable>
+    <b:includable id='postHeader' var='post'><!-- disable --></b:includable>
+    <b:includable id='postJumpLink' var='post'><!-- disable --></b:includable>
+    <b:includable id='postMeta' var='post'><!-- disable --></b:includable>
+    <b:includable id='postPagination'>
+      <b:tag cond='data:newerPageUrl or data:olderPageUrl' class='blog-pager' id='blog-pager' name='div'>
+        <b:include cond='data:newerPageUrl' name='newerPageUrl'/>
+        <b:include cond='data:olderPageUrl' name='nextPageLink'/>
+      </b:tag>
+    </b:includable>
+    <b:includable id='postTitle' var='post'><!-- disable --></b:includable>
+    <b:includable id='previousPageLink'>
+      <a expr:href='data:newerPageUrl'><data:messages.newer/></a>
+    </b:includable>
+    <b:includable id='threadedCommentForm' var='post'>
       <div class='comment-form'>
          <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
          <iframe class='blogger-iframe-colorize blogger-comment-from-post' id='comment-editor' src=''/>
          <data:post.cmtfpIframe/>
          <script>BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>");</script>
       </div>
-   </b:includable>
-   <b:includable id='threaded_comment_js' var='post'>
+    </b:includable>
+    <b:includable id='status-message'>
+      <b:eval expr='data:view.isPreview ? data:messages.widgetNotAvailableInPreview : data:post.noNewCommentsText'/>
+    </b:includable>
+    <b:includable id='threadedCommentJs' var='post'>
       <script async='async' expr:src='data:post.commentSrc'/>
       <b:template-script inline='true' name='threaded_comments'/>
       <b:if cond='data:post.showThreadedComments'>
@@ -246,12 +270,12 @@ img[data-original-width] {height: auto;}
             for (i = 0; i < a.length; i++) a[i].childNodes[0].setAttribute("src", a[i].childNodes[0].getAttribute("src").replace(/s\B\d{2,4}/, "s80"));
          //]]></script>
       </b:if>
-   </b:includable>
-   <b:includable id='threaded_comments' var='post'><!--disabled--></b:includable>
-   </b:widget>
+    </b:includable>
+    <b:includable id='threadedComments' var='post'><!-- disable --></b:includable>
+  </b:widget>
 </b:section>
 
-<!-- Google Analytics -->
+<!-- Google analytics -->
 <b:include data='blog' name='google-analytics'/>
 </body>
 </html>

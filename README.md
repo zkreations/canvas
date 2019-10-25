@@ -1,112 +1,74 @@
-<p align="center">
-	<a href="#url" target="_blank">
-		<img src="./static/logo.svg" style='opacity: .8' width="400" alt="Canvas.xml Logo">
-	</a>
-</p>
+<img src="https://github.com/zkreations/Canvas.xml/raw/master/static/logo.svg?sanitize=true" width="280" alt="Canvas.xml Logo">
 
-<p align="center">
-	<a href="https://github.com/zkreations/Canvas.xml/releases/tag/v1.8.0">
-		<img src="https://img.shields.io/badge/release-v1.8.0-yellowgreen.svg" alt="version">
-	</a>
-	<a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml">
-		<img src="https://img.shields.io/badge/layout%20version-2-lightgrey.svg" alt="layout version">
-	</a>
-	<a href="https://github.com/zkreations/Canvas.xml/blob/master/changelog.md">
-		<img src="https://img.shields.io/badge/changelog-md-blue.svg" alt="changelog">
-	</a>
-	<a href="https://github.com/zkreations/Canvas.xml/blob/master/LICENSE">
-		<img src="https://img.shields.io/badge/license-GPL%203.0-orange.svg" alt="LICENSE">
-	</a>
-</p>
+[![](https://img.shields.io/badge/release-v1.9.0-yellowgreen.svg)](https://github.com/zkreations/Canvas.xml/releases/tag/v1.9.0)
+[![](https://img.shields.io/badge/layout-v3-lightgrey.svg)](https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml)
+[![](https://img.shields.io/badge/changelog-md-blue.svg)](./changelog.md)
+[![](https://img.shields.io/badge/license-GPL%203.0-orange.svg)](./LICENSE)
 
-Canvas.xml es una base para Blogger que le permite crear plantillas desde cero. Está optimizada para seo, no contiene javascript, html ni css intrusivo e integra de forma inteligente comentarios de Disqus y facebook.
+Base para Blogger SEO optimizada, no contiene javascript, html ni css intrusivo e integra de forma inteligente comentarios de Disqus, Facebook y Blogger.
 
-## Instalación
+## Caracteristicas
 
-Copia todo el contenido de <a href="https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml" target="_blank">Canvas.xml</a>. Ahora ve a Blogger, crea un nuevo blog y selecciona la plantilla **Sencillo**, luego ve a Temas > Editar HTML, elimina todo el código dentro del editor y pega el código copiado con anterioridad. Guarda los cambios.
+- **Código limpio** - Sin javascript, html ni css intrusivo
+- **SEO** - Meta etiquetas esenciales para SEO
+- **Twitter Cards** - Integra las Cards de twitter
+- **Open graph** - Meta etiquetas open graph para facebook y twitter
+- **Layout 3** - Basado en la version mas reciente de Blogger
 
-## Meta
+## Instalacion
 
-### Referrer
+Copia todo el contenido de <a href="./Canvas.xml" target="_blank">Canvas.xml</a>, luego ve a Blogger, crea un nuevo blog y selecciona la plantilla  "Contemporánea", "Soho", "Emporio" o "Destacado", luego preciona **Editar HTML**, elimina todo el código y pega el código copiado con anterioridad. Guarda los cambios.
 
-En la **línea 17** se encuentra la etiqueta meta referrer para especificar qué datos de referente, de entre los que se envían con la cabecera deben incluirse con las solicitudes realizadas. Por defecto esta establecido en `unsafe-url`, lo que permite cualquier dominio o ruta de acceso de referencia. Leer [Referrer-Policy](https://developer.mozilla.org/es/docs/Web/HTTP/Headers/Referrer-Policy) redactado por **moz://a** para más información.
+## Configuracion
 
-#### twitter:card
+Antes de proceder a utilizar Canvas.xml, puede realizar algunas configuraciones básicas. Esta configuración es opcional asi que puede saltarlo.
 
-Las `twitter:card` estan configuradas con sus valores mínimos y el estilo por defecto `summary_large_image`. Puedes cambiarlo en la **linea 20**:
+#### Referrer
+
+En la **línea 20** se encuentra la etiqueta meta referrer para especificar qué datos de referente, de entre los que se envían con la cabecera deben incluirse con las solicitudes realizadas.
 
 ```html
+<!-- Meta Referrer Tag -->
+<meta content='unsafe-url' name='referrer'/>
+```
+
+Por defecto esta establecido en `unsafe-url` (cualquier dominio o ruta de acceso de referencia). Leer [Referrer-Policy](https://developer.mozilla.org/es/docs/Web/HTTP/Headers/Referrer-Policy) redactado por **moz://a** para más información.
+
+#### Twitter
+
+Las Cards de Twitter estan configuradas con sus valores mínimos y el estilo por defecto `summary_large_image`. Puede cambiarlo en la **linea 23**:
+
+```html
+<!-- Type of twitter card -->
 <meta content='summary_large_image' name='twitter:card'/>
 ```
 
-También puedes agregar etiquetas meta opcionales para `twitter:card`, ejemplo:
+También puedes agregar otras etiquetas meta opcionales si asi lo requiere:
 
 ```html
 <meta content='@userProfile' name='twitter:site'/>
 <meta content='@pageProfile' name='twitter:creator'/>
 ```
 
-Para saber más, visita la documentación en [twitter developers](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started.html)
-
-#### Open Graph
-
-Esta configurado con sus valores mínimos aceptables. Para saber más, visita la documentación en [The Open Graph protocol](http://ogp.me/)
+Visite la documentación en [twitter developers](https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started.html) para mas información
 
 ## Opciones
 
-A partir de la versión 1.6 las opciones son manejadas por variables dentro de `b:skin`. La siguiente tabla contiene los datos disponibles hasta el momento
-
-| Variable                | Type   |  Default  | Description | 
+| Variable                | Type   |  Default  | Description |
 | ----------------------- | ------ | ----------| ----------------------------- |
 | `config.comments`       | string | `blogger` | Establece los comentarios por defecto: `blogger`, `facebook` o `disqus` |
-| `config.shortname`   | string | `shortname` | Nombre corto del sitio en Disqus - [Ver más](https://help.disqus.com/installation/whats-a-shortname) |
+| `config.shortname`   | string | `shortname` | Nombre corto del sitio en [Disqus](https://help.disqus.com/installation/whats-a-shortname) |
 
 
 #### Modo de uso
 
-Solo se cambia el valor del campo `value`, por otro valor  que sea aceptable, ejemplo:
+Solo se cambia el valor del campo `value`, por otro valor que sea aceptable, ejemplo:
 
 ```xml
-<Variable {{..}} default="blogger" value="facebook"/>
+<Variable {{..}} default="blogger" value="disqus"/>
 ```
 
-**Nota:** El valor dentro del atributo `default`, lo volverá a tomar Canvas.xml si restauras la configuración desde el **Diseñador de Plantilla**.
-
-## Includes
-
-| Includables                                  |  Description | 
-| -------------------------------------------- | ----------------------------------- |
-| `post`       | Inserta entradas en la pagina principal, post y pagina estática |
-| `nextprev`       | Inserta la paginación |
-| `comments`       | Inserta el sistema de comentarios, de acuerdo a la configuración de la variable `config.comments` |
-| `comments-blogger`       | Inserta el sistema de comentarios de Blogger |
-| `comments-disqus`       | Inserta el sistema de comentarios de disqus |
-| `comments-facebook`       | Inserta el sistema de comentarios de facebook |
-
-#### Modo de uso
-
-Se emplea una etiqueta `b:include` mas el nombre del includable a solicitar, ejemplo:
-
-```xml
-<b:include data='post' name='post'/>
-```
-
-Otro ejemplo llamando a los comentarios de disqus:
-
-```xml
-<b:include data='post' name='disqus'/>
-```
-
-**Nota:** Todos los includables (excepto `netxprev`) requieren de un ciclo `b:loop` para la tabla `data:posts` con la variable `post`, ejemplo: 
-
-```xml
-<b:loop values='data:posts' var='post'>
-   <b:include data='post' name='post'/><!-- Include posts -->
-</b:loop>
-```
-
-Además, solo funcionan en el widget **Blog1**. Dentro del `b:includable` con la id "**main**" se encuentra un ejemplo.
-
+El valor dentro del atributo `default`, lo volverá a tomar Canvas.xml si restaura la configuración desde el **Diseñador de Plantilla**.
 
 ## License
 

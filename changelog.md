@@ -1,10 +1,18 @@
 # changelog
 
+## v1.9.0
+
+- Actualización de sintaxis a **Layout 3** de Blogger
+- Ahora las twitter card funcionan con Open graph
+- Integración con widgets de adsense de Blogger
+- Ahora los estilos `b:template-skin` solo afectan a la vista de diseño
+- Ahora se obtiene `og:image` en la pagina principal, a partir de las entradas
+- Corrección general de la estructura xml
+
 ## v1.8.0
 
 - Se agrega la class `noAllowNewComments` si no se permiten nuevos comentarios de Blogger
 - Se corrigen los estilos obligatorios para el correcto funcionamiento de la plantilla
-
 
 ## v1.7.0
 
