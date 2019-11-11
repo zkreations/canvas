@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Anime.xml-free v4.0.0 | Canvas.xml v1.9.0 | github.com/zkreations/canvas.xml -->
+<!-- Anime.xml-free v4.0.1 | Canvas.xml v1.9.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -1419,7 +1419,7 @@ header .imgCaption {
 => Theme URI: https://shop.zkreations.com
 => Author: Daniel Abel M. (Copyright 2019 zkreations)
 => Author URI: https://fb.com/danieI.abel
-=> Version: 4.0.0
+=> Version: 4.0.1
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -2462,7 +2462,7 @@ document.body.classList.remove("no-js");
 
 <!-- END TEMPLATE -->
 <!-- All VANILLA JS (No framework Dependency) -->
-<script src='https://cdn.jsdelivr.net/gh/zkreations/whale@1.5.4/dist/js/whale.min.js'/>
+<script src='https://cdn.jsdelivr.net/gh/zkreations/whale@1.5.5/dist/js/whale.min.js'/>
 
 <!-- Tiny slider -->
 <b:if cond='data:view.isHomepage'>
