@@ -2192,7 +2192,7 @@ document.body.classList.remove("no-js");
     </b:includable>
     <b:includable id='threadedComments' var='post'><!-- disable --></b:includable>
   </b:widget>
-  <b:widget cond='data:view.isHomepage' id='LinkList210' locked='true' title='WJS Sections B' type='LinkList' version='2' visible='true'>
+  <b:widget cond='data:view.isHomepage' id='LinkList210' locked='true' title='WJS Sections' type='LinkList' version='2' visible='true'>
     <b:includable id='main'>
       <div class='sections'>
       <b:loop values='data:links' var='section'>
