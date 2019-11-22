@@ -239,7 +239,7 @@ img[data-original-width] {height: auto;}
     <b:includable id='postMeta' var='post'><!-- disable --></b:includable>
     <b:includable id='postPagination'>
       <b:tag cond='data:newerPageUrl or data:olderPageUrl' class='blog-pager' id='blog-pager' name='div'>
-        <b:include cond='data:newerPageUrl' name='newerPageUrl'/>
+        <b:include cond='data:newerPageUrl' name='previousPageLink'/>
         <b:include cond='data:olderPageUrl' name='nextPageLink'/>
       </b:tag>
     </b:includable>
