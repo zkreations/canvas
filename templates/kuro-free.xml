@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Kuro.xml-free v2.0.0 | Canvas.xml v1.9.0 | github.com/zkreations/canvas.xml -->
+<!-- Kuro.xml-free v2.0.1 | Canvas.xml v1.9.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -1421,7 +1421,7 @@ header .widget-title {
 => Theme URI: https://shop.zkreations.com
 => Author: Daniel Abel M. (Copyright 2019 zkreations)
 => Author URI: https://fb.com/danieI.abel
-=> Version: 2.0.0
+=> Version: 2.0.1
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -1994,7 +1994,7 @@ document.body.classList.remove("no-js");
       <b:include cond='data:layout.postsRelated' name='postRelated'/>
     </b:includable>
     <b:includable id='postFooterAuthorProfile'>
-      <b:if cond='data:widgets.Blog.first.headerByline.items.author'>
+      <b:if cond='data:widgets.Blog.first.allBylineItems.author'>
         <b:with value='data:post.author.authorPhoto ? data:post.author.authorPhoto.image : "https://2.bp.blogspot.com/-hroWP5PDx-w/XT3h2s0xMLI/AAAAAAAAEDk/iBbeT96r5ZoEQed1DbkL-oZd1oGBGokRgCLcBGAs/s40/anon-default.png"' var='imgAuthor'>
           <a class='card__item' expr:href='data:post.author.profileUrl' rel='author' target='_blank'>
             <img class='card__authorImage' expr:alt='data:post.author.name' expr:src='resizeImage(data:imgAuthor,30,"1:1")'/>
@@ -2016,7 +2016,7 @@ document.body.classList.remove("no-js");
     <b:includable id='postMeta'>
       <div class="card__meta">
         <b:include cond='data:view.isPost' name='postFooterAuthorProfile'/>
-        <b:include cond='data:widgets.Blog.first.headerByline.items.timestamp' name='postTimestamp'/>
+        <b:include cond='data:widgets.Blog.first.allBylineItems.timestamp' name='postTimestamp'/>
         <b:include cond='data:view.isPost and data:widgets.Blog.first.allBylineItems.comments' name='postCommentsLink'/>
       </div>
     </b:includable>
@@ -2388,7 +2388,6 @@ document.body.classList.remove("no-js");
 </div><!-- .template-container -->
 
 <footer class="footer">
-
 <b:section class='footerLinks' id='footer-links' maxwidgets='1'>
   <b:widget id='LinkList110' locked='true' title='Footer links' type='LinkList' version='2'>
     <b:includable id='main'>
@@ -2409,7 +2408,7 @@ document.body.classList.remove("no-js");
 </b:section>
 <div class='footer-copy'>
 <div class="container">
-<b:section id='footer-copyright' class='display-flex flex-row-md flex-column justify-content-between align-items-center' maxwidgets='2'>
+<b:section id='footer-copyright' class='display-flex bfix flex-row-md flex-column justify-content-between align-items-center' maxwidgets='2'>
   <b:widget id='Text100' locked='true' title='Copyright' type='Text'>
     <b:includable id='main'>
       <b:comment>This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License: http://creativecommons.org/licenses/by-nc/4.0/</b:comment>
