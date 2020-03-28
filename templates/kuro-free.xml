@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Kuro.xml-free v2.0.1 | Canvas.xml v1.9.0 | github.com/zkreations/canvas.xml -->
+<!-- Kuro.xml-free v2.1.0 | Canvas.xml v1.9.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -479,6 +479,33 @@ time.card__item {
 .bg-sushi {
     background-color: #8AC24A;
 }
+/* FeatureTags
+---------------------------------------------------*/
+.ftag-content {
+   position: absolute;
+   z-index: 20;
+   display: inline-block;
+   top: 1rem;
+   left: 1rem;
+}
+.ftag-name {
+   text-transform: capitalize;
+   float: left;
+   text-decoration: none;
+   cursor: pointer;
+   transition: background .3s;
+   white-space: nowrap;
+   padding: .7rem;
+   color: #fff;
+   border-radius: 2px;
+   margin: 2px;
+   font-size: 13px;
+   line-height: 1;
+}
+.ftag-name:hover {
+    background: #262626;
+    color: #fff;
+}
 /*! Article v1.1.0 
 --------------------------------------*/
 .drop-caps:first-letter {
@@ -898,7 +925,7 @@ audio {
     position: relative;
     margin-bottom: 1.5rem;
 }
-.blog.noSidebar {
+.blog:not(.showSidebar) {
     width: 100%;
 }
 .col-5ta {
@@ -1421,7 +1448,7 @@ header .widget-title {
 => Theme URI: https://shop.zkreations.com
 => Author: Daniel Abel M. (Copyright 2019 zkreations)
 => Author URI: https://fb.com/danieI.abel
-=> Version: 2.0.1
+=> Version: 2.1.0
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -1482,11 +1509,16 @@ img[data-original-width] {height: auto;}
    <Variable name="config.show.postSidebar" description="Show Post sidebar" type="string" default="true" value="true"/>
    <Variable name="config.show.pageSidebar" description="Show Page sidebar" type="string" default="true" value="true"/>
    <Variable name="config.show.errorSidebar" description="Sidebar on Error" type="string" default="true" value="true"/>
-   <Variable name="config.show.oppositeBlog" description="Exchange between sidebar and blog" type="string" default="false" value="false"/>
-   <Variable name="config.show.postsRelated" description="Show related entries" type="string" default="true" value="true"/>
-   <Variable name="config.show.postsRelated.num" description="Number of posts related" type="string" default="3" value="3"/>
-   <Variable name="config.show.localeDate" description="Time formatting" type="string" default="en-Us" value="en-Us"/>
    <Variable name="config.show.search" description="Show menu search" type="string" default="true" value="true"/>
+
+   <!-- Funtions -->
+   <Variable name="config.el.oppositeBlog" description="Exchange between sidebar and blog" type="string" default="false" value="false"/>
+   <Variable name="config.el.postsRelated" description="Related entries" type="string" default="true" value="true"/>
+   <Variable name="config.el.postsRelated.num" description="Number of posts related" type="string" default="3" value="3"/>
+   <Variable name="config.el.postsRelated.column" description="Columns of posts related" type="string" default="3" value="3"/>
+   <Variable name="config.el.localeDate" description="Time formatting" type="string" default="en-Us" value="en-Us"/>
+   <Variable name="config.el.featureTags" description="Feature Tags" type="string" default="false" value="false"/>
+   <Variable name="config.el.featureTags.tags" description="Array of labels" type="string" default="" value=""/>
 
    <!-- image default -->
    <Variable name="config.default.image" description="Default image" type="string" default="https://2.bp.blogspot.com/-1J-byOnRoAI/W3Cot79qVUI/AAAAAAAADmE/IwXCcRdJl70_yR7FivfpmM62MVqD4CwbQCLcBGAs/s1600/no-img-blogger.png" value="https://2.bp.blogspot.com/-1J-byOnRoAI/W3Cot79qVUI/AAAAAAAADmE/IwXCcRdJl70_yR7FivfpmM62MVqD4CwbQCLcBGAs/s1600/no-img-blogger.png"/>
@@ -1562,7 +1594,7 @@ img[data-original-width] {height: auto;}
 
    <Variable name="body.background" description="Main Background" type="background" color="$(main.bg)" default="$(color) none repeat scroll top center" value="$(color) none repeat scroll top center"/>
 */
-body{background:$(body.background);font-family:'$(font.text.family)','Open Sans',sans-serif}.logo__title{font-family:'$(font.logo.family)','Open Sans',sans-serif}.container{max-width:$(width.content)}.drop-caps:first-letter,.gallery__href:hover .gallery__title,.logo__link:first-letter,.nav__menu a:hover,.pageLink.is-selected .btn,.skin-color,.skin-color-hover:hover,.tagsList__link.here,a,a:hover{color:$(main.linkColor)}.pageLink.is-selected .btn,.tagsList__link.here{background-color:$(main.color)!important}.pageLink.is-selected .btn,.tagsList__link.here{color:#fff!important}::-moz-selection{background-color:$(main.color)}::selection{background-color:$(main.color)}.contact-form-button,.footer .widget-title:not(.widget-title-kuro),.main .widget-title:not(.widget-title-kuro),.skin-bg,.skin-bg-hover:hover,.wjs-item.is-active{background-color:$(main.color)}.wjs-tab:not(.tab-vertical) .tab-header{border-bottom:2px solid $(main.color)}.tab-vertical .tab-header{border-right:2px solid $(main.color)}.h1,.h2,.h3,.h4,.h5,.h6,.skin-color-title,h1,h2,h3,h4,h5,h6{color:$(body.colorTitle)}.skin-color-text{color:$(body.colorText)}.search-container input{-webkit-animation:$(config.animate.search);animation:$(config.animate.search)}.header__menu{background-color:$(menu.bg)}@media (max-width:991px){.nav__menu{-webkit-animation:$(config.animate.menu.mobile);animation:$(config.animate.menu.mobile)}}.nav__toggle--icon span,.nav__toggle--icon span::after,.nav__toggle--icon span::before{background-color:$(menu.color)}.logo__link,.logo__link:hover{color:$(header.colorLogo)}.logo__descripcion{color:$(header.colorDesc)}@media (min-width:768px){.main{padding-top:$(main.margin);margin-bottom:$(main.margin)}.header__wrapper{padding-bottom:$(header.margin);padding-top:0}}.template-box{background-color:$(body.bg)}.search-btn{color:$(menu.color)}@media (min-width:992px){.nav__menu li:hover>ul{-webkit-animation:$(config.animate.menu) cubic-bezier(.7,.006,.2,1);animation:$(config.animate.menu) cubic-bezier(.7,.006,.2,1)}.blog{width:calc(100% - $(width.sidebar) - $(width.margin))}.sidebar{width:$(width.sidebar)}.nav__menu>li>a{color:$(menu.color)}}.card__content{background-color:$(post.bg);border-radius:$(post.borderRadius)}.card__title,.card__title a{color:$(post.titleColor);font-weight:600}.card__item{color:$(post.dateColor)}.card__descripcion,.post-body{color:$(post.snippetColor)}.shareButtons .btn,.shareFeatured .btn{border-color:$(post.share);color:$(post.shareColor)}@media (min-width:576px){.article .card__header{margin-bottom:$(post.margin)}.post-related,.postComments,.shareButtons{padding-top:$(post.margin)}.card-portfolio [rel=author],.card__data,.section-featuredPost:not(:first-child) .card__content{padding:$(post.margin)}.card-list .card__image{margin-right:$(post.margin)}.article__cover{padding-bottom:$(post.margin)}}.main .widget,.widget-content-article{background-color:$(gadget.bg)}.footer .widget-title,.main .widget-title{padding:$(gadget.margin)}.main .widget-title i{color:$(gadget.icon)}.main .widget-name{color:$(gadget.color)}.footer .widget-title,.main .widget-title{border-radius:$(gadget.borderRadius) $(gadget.borderRadius) 0 0}.footer .widget,.main .widget{border-radius:$(gadget.borderRadius)}.footer .widget-content,.main .widget-content{border-radius:0 0 $(gadget.borderRadius) $(gadget.borderRadius)}.footer{background-color:$(footer.bg)}@media (min-width:768px){.main .widget-content{padding:$(gadget.margin)}article.article .card__content{padding:calc($(post.margin) + 1rem)}.Image__full{margin-left:calc(-$(post.margin) - 1rem);margin-right:calc(-$(post.margin) - 1rem)}#Header .widget,.article:not(:last-child),.widget:not(:last-child){margin-bottom:$(width.margin)}}.footer-copy{background-color:$(footer.linksBg)}.copy__attribution,.socialList-item{color:$(footer.linksText)}.copy__attribution a,.copy__web .fas{color:$(footer.linksColor)}
+body{background:$(body.background);font-family:'$(font.text.family)','Open Sans',sans-serif}.logo__title{font-family:'$(font.logo.family)','Open Sans',sans-serif}.container{max-width:$(width.content)}.drop-caps:first-letter,.gallery__href:hover .gallery__title,.logo__link:first-letter,.nav__menu a:hover,.pageLink.is-selected .btn,.skin-color,.skin-color-hover:hover,.tagsList__link.here,a,a:hover{color:$(main.linkColor)}.pageLink.is-selected .btn,.tagsList__link.here{background-color:$(main.color)!important}.pageLink.is-selected .btn,.tagsList__link.here{color:#fff!important}::-moz-selection{background-color:$(main.color)}::selection{background-color:$(main.color)}.contact-form-button,.footer .widget-title:not(.widget-title-kuro),.main .widget-title:not(.widget-title-kuro),.ftag-name,.skin-bg,.skin-bg-hover:hover,.wjs-item.is-active{background-color:$(main.color)}.wjs-tab:not(.tab-vertical) .tab-header{border-bottom:2px solid $(main.color)}.tab-vertical .tab-header{border-right:2px solid $(main.color)}.h1,.h2,.h3,.h4,.h5,.h6,.skin-color-title,h1,h2,h3,h4,h5,h6{color:$(body.colorTitle)}.skin-color-text{color:$(body.colorText)}.search-container input{-webkit-animation:$(config.animate.search);animation:$(config.animate.search)}.header__menu{background-color:$(menu.bg)}@media (max-width:991px){.nav__menu{-webkit-animation:$(config.animate.menu.mobile);animation:$(config.animate.menu.mobile)}}.nav__toggle--icon span,.nav__toggle--icon span::after,.nav__toggle--icon span::before{background-color:$(menu.color)}.logo__link,.logo__link:hover{color:$(header.colorLogo)}.logo__descripcion{color:$(header.colorDesc)}@media (min-width:768px){.main{padding-top:$(main.margin);margin-bottom:$(main.margin)}.header__wrapper{padding-bottom:$(header.margin);padding-top:0}}.template-box{background-color:$(body.bg)}.search-btn{color:$(menu.color)}@media (min-width:992px){.nav__menu li:hover>ul{-webkit-animation:$(config.animate.menu) cubic-bezier(.7,.006,.2,1);animation:$(config.animate.menu) cubic-bezier(.7,.006,.2,1)}.blog{width:calc(100% - $(width.sidebar) - $(width.margin))}.sidebar{width:$(width.sidebar)}.nav__menu>li>a{color:$(menu.color)}}.card__content{background-color:$(post.bg);border-radius:$(post.borderRadius)}.card__title,.card__title a{color:$(post.titleColor);font-weight:600}.card__item{color:$(post.dateColor)}.card__descripcion,.post-body{color:$(post.snippetColor)}.shareButtons .btn,.shareFeatured .btn{border-color:$(post.share);color:$(post.shareColor)}@media (min-width:576px){.article .card__header{margin-bottom:$(post.margin)}.post-related,.postComments,.shareButtons{padding-top:$(post.margin)}.card-portfolio [rel=author],.card__data,.section-featuredPost:not(:first-child) .card__content{padding:$(post.margin)}.card-list .card__image{margin-right:$(post.margin)}.article__cover{padding-bottom:$(post.margin)}}.main .widget,.widget-content-article{background-color:$(gadget.bg)}.footer .widget-title,.main .widget-title{padding:$(gadget.margin)}.main .widget-title i{color:$(gadget.icon)}.main .widget-name{color:$(gadget.color)}.footer .widget-title,.main .widget-title{border-radius:$(gadget.borderRadius) $(gadget.borderRadius) 0 0}.footer .widget,.main .widget{border-radius:$(gadget.borderRadius)}.footer .widget-content,.main .widget-content{border-radius:0 0 $(gadget.borderRadius) $(gadget.borderRadius)}.footer{background-color:$(footer.bg)}@media (min-width:768px){.main .widget-content{padding:$(gadget.margin)}article.article .card__content{padding:calc($(post.margin) + 1rem)}.Image__full{margin-left:calc(-$(post.margin) - 1rem);margin-right:calc(-$(post.margin) - 1rem)}#Header .widget,.article:not(:last-child),.widget:not(:last-child){margin-bottom:$(width.margin)}}.footer-copy{background-color:$(footer.linksBg)}.copy__attribution,.socialList-item{color:$(footer.linksText)}.copy__attribution a,.copy__web .fas{color:$(footer.linksColor)}
 ]]></b:skin>
 
 <b:if cond='data:view.isLayoutMode'>
@@ -1624,6 +1656,7 @@ document.body.classList.remove("no-js");
         <b:include name='widgetMsg'/>
       </b:if>
     </b:includable>
+    <b:includable id='columnClass'><b:class cond='data:isColumn gte 2' name='col-6-sm'/><b:class cond='data:isColumn gte 3' name='col-4-md'/><b:class cond='data:isColumn gte 4' name='col-3-lg'/><b:class cond='data:isColumn == 5' name='col-5ta-xl'/><b:class cond='data:isColumn == 6' name='col-2-xl'/></b:includable>
   </b:defaultmarkup>
 </b:defaultmarkups>
 
@@ -1632,11 +1665,13 @@ document.body.classList.remove("no-js");
                 homeSidebar: data:skin.vars.config_show_homeSidebar,
                 pageSidebar: data:skin.vars.config_show_pageSidebar,
                 errorSidebar: data:skin.vars.config_show_errorSidebar,
-                oppositeBlog: data:skin.vars.config_show_oppositeBlog,
+                oppositeBlog: data:skin.vars.config_el_oppositeBlog,
                 showMeta: data:skin.vars.config_post_showMeta,
                 showSnippet: data:skin.vars.config_post_showSnippet,
                 showShare: data:skin.vars.config_post_showShare,
-                postsRelated: data:skin.vars.config_show_postsRelated,
+                postsRelated: data:skin.vars.config_el_postsRelated,
+                featureTags: data:skin.vars.config_el_featureTags,
+                fTags: data:skin.vars.config_el_featureTags_tags,
                 search: data:skin.vars.config_show_search,
                 nojsMsj: data:skin.vars.config_msj_nojs}' var='layout'>
 
@@ -1774,8 +1809,10 @@ document.body.classList.remove("no-js");
   </b:widget>
 </b:section>
 
+<b:with value='data:view.isMultipleItems and data:layout.homeSidebar or data:view.isPost and data:layout.postSidebar or data:view.isPage and data:layout.pageSidebar or data:view.isError and data:layout.errorSidebar or data:view.isLayoutMode' var='showSidebar'>
+
 <div expr:class='"blog " + (data:layout.oppositeBlog ? "skin-right" : "skin-left")'>
-<b:class cond='data:view.isMultipleItems and !data:layout.homeSidebar or data:view.isPost and !data:layout.postSidebar or data:view.isPage and !data:layout.pageSidebar or data:view.isError and !data:layout.errorSidebar' name='noSidebar'/>
+<b:class cond='data:showSidebar' name='showSidebar'/>
 
 <b:section id='Blog'>
   <b:widget id='Blog1' locked='true' title='Blog Posts' type='Blog' version='2' visible='true'>
@@ -1933,16 +1970,15 @@ document.body.classList.remove("no-js");
     </b:includable>
     <b:includable id='postCard'>
       <div class='card col-12'>
-        <b:class cond='data:isColumn gte 2' name='col-6-sm'/>
-        <b:class cond='data:isColumn gte 3' name='col-4-md'/>
-        <b:class cond='data:isColumn gte 4' name='col-3-lg'/>
-        <b:class cond='data:isColumn == 5' name='col-5ta-xl'/>
-        <b:class cond='data:isColumn == 6' name='col-2-xl'/>
+        <b:include name='columnClass'/>
         <div class="card__content">
+          <b:with value='data:layout.fTags' var='tags'>
+            <b:include cond='data:layout.featureTags' name='postFeaturedTags'/>
+          </b:with>
           <b:include name='postFeaturedImage'/>
           <div class="card__data">
             <b:include name='postHeader'/>
-            <b:include cond='data:layout.showSnippet' name='postBodySnippet' data='{length: 100}'/>>
+            <b:include cond='data:layout.showSnippet' name='postBodySnippet' data='{length: 100}'/>
             <b:include cond='data:layout.showMeta' name='postMeta'/>
           </div>
         </div>
@@ -1988,6 +2024,21 @@ document.body.classList.remove("no-js");
         </b:with>
       </div>
       </b:tag>
+    </b:includable>
+    <b:includable id='postFeaturedTags'>
+      <b:if cond='!data:tags'>
+        <div class='ftag-content'>
+          <a expr:class='"ftag-name ftag-" + data:post.labels.first.name' expr:href='data:post.labels.first.url'>
+            <i class='fas fa-tag'/> <data:post.labels.first.name/>
+          </a>
+        </div>
+      <b:elseif cond='data:post.labels any (t => t.name in data:tags)'/>
+        <div class='ftag-content'>
+        <b:loop values='data:post.labels filter (t => t.name in data:tags)' var='i'>
+          <a expr:class='"ftag-name ftag-" + data:i.name' expr:href='data:i.url'><i class='fas fa-tag'/> <data:i.name/></a>
+        </b:loop>
+        </div>
+      </b:if>
     </b:includable>
     <b:includable id='postFooter'>
       <b:include name='postShare'/>
@@ -2056,8 +2107,8 @@ document.body.classList.remove("no-js");
          id: '<data:post.id/>',
          homepage: window.location.protocol + '//' + window.location.hostname,
          image: '<b:eval expr='resizeImage(data:imgDefault,400,"4:3")'/>',
-         length: <data:skin.vars.config_show_postsRelated_num/>,
-         localeDate: '<data:skin.vars.config_show_localeDate/>',
+         length: <data:skin.vars.config_el_postsRelated_num/>,
+         localeDate: '<data:skin.vars.config_el_localeDate/>',
          snippet: 80,
          imgSize: 'w300-h200-c',
          container: document.getElementById('wjs-related'),
@@ -2105,15 +2156,15 @@ document.body.classList.remove("no-js");
                 month:'numeric',
                 day: 'numeric'
              }
-          );
-          return (
-             '<figure class="gallery col-4-sm col-6">'+
-                 '<a href="' + url + '" class="gallery__href">'+
-                    '<img class="gallery__image" src="' + image + '"/>'+
-                    '<figcaption class="gallery__title">' + title + '</figcaption>'+
-                 '</a>'+
-             '</figure>'
-          );
+          );//]]>
+          return (<b:with value='data:skin.vars.config_el_postsRelated_column' var='isColumn'>
+             "<figure class='gallery col-12'><b:include name='columnClass'/>"+
+                 "<a href='" + url + "' class='gallery__href'>"+
+                    "<img class='gallery__image' src='" + image + "'/>"+
+                    "<div class='gallery__title'>" + title + "</div>"+
+                 "</a>"+
+             "</figure>"
+          );</b:with>//<![CDATA[
        }
        
        function related( json ){
@@ -2239,18 +2290,18 @@ document.body.classList.remove("no-js");
             className: '.wjs-section',
             imgSize: 'w300-h225-p-k-no-nu', // Tamaño de imagen (parametros de picasa)
             snippet: 80, // Cantidad texto para el resumen,
-            locale: '<data:skin.vars.config_show_localeDate/>'
+            locale: '<data:skin.vars.config_el_localeDate/>'
         };
         var datas={category:null,"max-results":6,template:{<b:with value='data:skin.vars.config_post_column' var='isColumn'>
-        "default":"<div class='card card-grid col-12'><b:class cond='data:isColumn gte 2' name='col-6-sm'/><b:class cond='data:isColumn gte 3' name='col-4-md'/><b:class cond='data:isColumn gte 4' name='col-3-lg'/><b:class cond='data:isColumn == 5' name='col-5ta-xl'/><b:class cond='data:isColumn == 6' name='col-2-xl'/><div class='card__content'><a class='card__image flex-none' href='URL'><div class='card__image-content'><img src='IMG_DEFAULT' /></div></a><div class='card__data'><header class='card__header'><h2 class='card__title'><a class='skin-color-hover' href='URL'>TITLE</a></h2></header><b:if cond='data:layout.showSnippet'><p class='card__descripcion'>SNIPPET</p></b:if><b:if cond='data:layout.showMeta'><div class='card__meta'><time class='card__item'><i class='far fa-clock'></i> TIME</time></div></b:if></div></div></div>",</b:with>//<![CDATA[
-        empty:'<div class="col-12"><p class"alert">No se han encontrado entradas</p></div>'}};function forEach(d,b){var a,c;for(a=0;(c=d[a++])&&!1!==b.call(c,a,c););return d}function getCurrentData(d){var b,a,c={};for(b in datas)(a=d.getAttribute("data-"+b))&&(c[b]=a);return c}function temp(d,b){for(var a in b)d=d.replace(new RegExp(a,"g"),b[a]);return d}function getLabel(d,b){var a,c=b.category,g=document.createElement("script"),h=defaults.homeUrl+"/feeds/posts/default?alt=json-in-script&callback=callbacks."+c.replace(/[^A-Z0-9]/ig, '');callbacks[c.replace(/[^A-Z0-9]/ig, '')]=function(a){var c,l="",g=a.feed.entry;if(g)for(a=0;c=g[a++];){var k=c.content,e=c.summary;k=k?k.$t:e.$t;e=c.media$thumbnail;var f=document.createElement("div");f.innerHTML=k;var h=f.querySelector("img");f=c.author[0];e=e?e.url:h?h.src:defaults.image;l+=temp(b.template,{AUTHOR_NAME:f.name.$t,AUTHOR_URL:f.uri?f.uri.$t:'#noAuthor',AUTHOR_IMAGE:f.gd$image.src,IMG_DEFAULT:e.replace(/s\B\d{2,4}-c/,defaults.imgSize),TITLE:c.title.$t,TIME:(new Date(c.published.$t)).toLocaleDateString(defaults.locale,{month:"long",day:"2-digit"}),SNIPPET:k.replace(/<[^>]*>?/g,"").substring(0,defaults.snippet)+"...",URL:function(){var a,b;for(a=0;b=c.link[a++];)if("alternate"===b.rel)return b.href}})}else l+=datas.template.empty;d.innerHTML=l};for(a in b)"template"!==a&&(h+="&"+a+"="+b[a]);g.src=h;document.body.appendChild(g)}forEach(document.querySelectorAll(defaults.className),function(d,b){var a=getCurrentData(b);a.category&&(a["max-results"]||(a["max-results"]=datas["max-results"]),a.template=datas.template["default"],getLabel(b,a))});
+        "default":"<div class='card card-grid col-12'><b:include name='columnClass'/><div class='card__content'><b:if cond='data:layout.featureTags'><div class='ftag-content'><a class='ftag-name ftag-TAG_NAME' href='TAG_URL'><i class='fas fa-tag'></i>TAG_NAME</a></div></b:if><a class='card__image flex-none' href='URL'><div class='card__image-content'><img src='IMG_DEFAULT' /></div></a><div class='card__data'><header class='card__header'><h2 class='card__title'><a class='skin-color-hover' href='URL'>TITLE</a></h2></header><b:if cond='data:layout.showSnippet'><p class='card__descripcion'>SNIPPET</p></b:if><b:if cond='data:layout.showMeta'><div class='card__meta'><time class='card__item'><i class='far fa-clock'></i> TIME</time></div></b:if></div></div></div>",</b:with>//<![CDATA[
+        empty:'<div class="col-12"><p class"alert">No se han encontrado entradas</p></div>'}};function forEach(d,b){var a,c;for(a=0;(c=d[a++])&&!1!==b.call(c,a,c););return d}function getCurrentData(d){var b,a,c={};for(b in datas)(a=d.getAttribute("data-"+b))&&(c[b]=a);return c}function temp(d,b){for(var a in b)d=d.replace(new RegExp(a,"g"),b[a]);return d}function getLabel(d,b){var a,c=b.category,g=document.createElement("script"),h=defaults.homeUrl+"/feeds/posts/default?alt=json-in-script&callback=callbacks."+c.replace(/[^A-Z0-9]/ig, '');callbacks[c.replace(/[^A-Z0-9]/ig, '')]=function(a){var c,l="",g=a.feed.entry;if(g)for(a=0;c=g[a++];){var k=c.content,e=c.summary;k=k?k.$t:e.$t;e=c.media$thumbnail;var f=document.createElement("div");f.innerHTML=k;var h=f.querySelector("img");f=c.author[0];e=e?e.url:h?h.src:defaults.image;l+=temp(b.template,{TAG_NAME:b.category,TAG_URL:defaults.homeUrl+"/search/label/"+b.category,AUTHOR_NAME:f.name.$t,AUTHOR_URL:f.uri?f.uri.$t:'#noAuthor',AUTHOR_IMAGE:f.gd$image.src,IMG_DEFAULT:e.replace(/s\B\d{2,4}-c/,defaults.imgSize),TITLE:c.title.$t,TIME:(new Date(c.published.$t)).toLocaleDateString(defaults.locale,{month:"long",day:"2-digit"}),SNIPPET:k.replace(/<[^>]*>?/g,"").substring(0,defaults.snippet)+"...",URL:function(){var a,b;for(a=0;b=c.link[a++];)if("alternate"===b.rel)return b.href}})}else l+=datas.template.empty;d.innerHTML=l};for(a in b)"template"!==a&&(h+="&"+a+"="+b[a]);g.src=h;document.body.appendChild(g)}forEach(document.querySelectorAll(defaults.className),function(d,b){var a=getCurrentData(b);a.category&&(a["max-results"]||(a["max-results"]=datas["max-results"]),a.template=datas.template["default"],getLabel(b,a))});
       //]]></script>
     </b:includable>
   </b:widget>
 </b:section>
 </div>
 
-<b:if cond='data:view.isMultipleItems and data:layout.homeSidebar or data:view.isPost and data:layout.postSidebar or data:view.isPage and data:layout.pageSidebar or data:view.isError and data:layout.errorSidebar or data:view.isLayoutMode'>
+<b:if cond='data:showSidebar'>
 <div expr:class='"sidebar " + (data:layout.oppositeBlog ? "skin-left" : "skin-right")'>
 <b:section id='sidebar'>
   <b:widget id='FeaturedPost1' locked='false' title='Featured Post' type='FeaturedPost' visible='true'>
@@ -2383,6 +2434,7 @@ document.body.classList.remove("no-js");
 </div>
 </b:if>
 
+</b:with><b:comment> End data:showSidebar </b:comment>
 </div><!-- .main__blog -->
 </div><!-- .main -->
 </div><!-- .template-container -->
@@ -2465,9 +2517,9 @@ var carousel = tns({
 <!-- Font Awesome -->
 <link rel='stylesheet' 
       media='print' onload='this.media="all"' 
-      href='https://use.fontawesome.com/releases/v5.11.2/css/all.css'/>
+      href='https://use.fontawesome.com/releases/v5.12.1/css/all.css'/>
 <noscript>
-  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.11.2/css/all.css'/>
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.12.1/css/all.css'/>
 </noscript>
 
 <!-- Animate.css -->
