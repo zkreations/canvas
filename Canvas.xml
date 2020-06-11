@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:js='false' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Canvas.xml v1.9.0 | github.com/zkreations/canvas.xml -->
+<!-- Canvas.xml v1.10.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -93,7 +93,7 @@
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
 
-/*Fix: Unnecessary elements removed*/ 
+/*Fix: Unnecessary elements removed*/
 .widget-item-control,.item-control.blog-admin,
 .continue,.loadmore,.thread-chrome.thread-collapsed,
 .singleton-element:not(.cookie-choices-info),
@@ -103,7 +103,8 @@
 /*Fix: Show lightbox*/
 .CSS_LIGHTBOX{z-index:90001!important}
 
-/*Fix: Image responsive*/
+/*Fix: Responsive images*/
+a[style^=margin-left],
 a[imageanchor]:not([style*=float]) {
     margin-right: 0 !important;
     margin-left: 0 !important;
@@ -112,6 +113,11 @@ a[imageanchor]:not([style*=float]) {
 .widget-content img,
 img[data-original-height],
 img[data-original-width] {height: auto;}
+
+/*Fix: Responsive videos*/
+.BLOG_video_class, .b-hbp-video, .b-uploade {
+    max-width: 100%;
+}
 
 /*Fix: Comment Editor*/
 #comment-editor{
