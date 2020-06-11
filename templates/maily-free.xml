@@ -2647,17 +2647,17 @@ document.body.classList.remove("no-js");
 <!-- Font Awesome -->
 <link rel='stylesheet' 
       media='print' onload='this.media="all"' 
-      href='https://use.fontawesome.com/releases/v5.12.1/css/all.css'/>
+      href='https://use.fontawesome.com/releases/v5.13.0/css/all.css'/>
 <noscript>
-  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.12.1/css/all.css'/>
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.13.0/css/all.css'/>
 </noscript>
 
 <!-- Animate.css -->
 <link rel="stylesheet" 
       media="print" onload="this.media='all'"
-      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"/>
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css"/>
 <noscript>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css'/>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.0/animate.min.css'/>
 </noscript>
 
 </b:with><b:comment> End data:layout </b:comment>
