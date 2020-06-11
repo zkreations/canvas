@@ -1,5 +1,9 @@
 # changelog
 
+## v1.10.0
+
+- Corrige la visualización de imágenes y videos en el nuevo editor de entradas
+
 ## v1.9.0
 
 - Actualización de sintaxis a **Layout 3** de Blogger

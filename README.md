@@ -1,6 +1,6 @@
 <img src="https://github.com/zkreations/Canvas.xml/raw/master/static/logo.svg?sanitize=true" width="280" alt="Canvas.xml Logo">
 
-[![](https://img.shields.io/badge/release-v1.9.0-yellowgreen.svg)](https://github.com/zkreations/Canvas.xml/releases/tag/v1.9.0)
+[![](https://img.shields.io/badge/release-v1.10.0-yellowgreen.svg)](https://github.com/zkreations/Canvas.xml/releases/tag/v1.10.0)
 [![](https://img.shields.io/badge/layout-v3-lightgrey.svg)](https://raw.githubusercontent.com/zkreations/Canvas.xml/master/Canvas.xml)
 [![](https://img.shields.io/badge/changelog-md-blue.svg)](./changelog.md)
 [![](https://img.shields.io/badge/license-GPL%203.0-orange.svg)](./LICENSE)
