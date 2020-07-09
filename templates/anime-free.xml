@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Anime.xml-free v4.2.0 | Canvas.xml v1.10.0 | github.com/zkreations/canvas.xml -->
+<!-- Anime.xml-free v4.3.0 | Canvas.xml v1.10.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -1446,7 +1446,7 @@ header .imgCaption {
 => Theme URI: https://shop.zkreations.com
 => Author: Daniel Abel M. (Copyright 2019 zkreations)
 => Author URI: https://fb.com/danieI.abel
-=> Version: 4.2.0
+=> Version: 4.3.0
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -2097,7 +2097,7 @@ document.body.classList.remove("no-js");
       </div>
       <script>
       /*!
-       * wjs-related v2.0.6
+       * wjs-related v2.1.0
        * Copyright 2019 zkreations
        * Developed by José Gregorio (fb.com/JGMateran)
        * Licensed under MIT (github.com/zkreations/wjs-related/blob/master/LICENSE)
@@ -2107,7 +2107,7 @@ document.body.classList.remove("no-js");
        var defaults = {
          id: '<data:post.id/>',
          homepage: window.location.protocol + '//' + window.location.hostname,
-         image: '<b:eval expr='resizeImage(data:imgDefault,400,"4:3")'/>',
+         image: '<b:eval expr='resizeImage(data:imgDefault,400)'/>',
          length: <data:skin.vars.config_el_postsRelated_num/>,
          localeDate: '<data:skin.vars.config_el_localeDate/>',
          snippet: 80,
@@ -2141,7 +2141,7 @@ document.body.classList.remove("no-js");
           var tempHtml = document.createElement('div');
           tempHtml.innerHTML = body;
           var imgHtml = tempHtml.querySelector('img');
-          var image = ( img ? img.url : (imgHtml ? imgHtml.src : defaults.image)).replace( /s\B\d{2,4}-c/, defaults.imgSize); 
+          var image = ( img ? img.url : (imgHtml ? imgHtml.src : defaults.image)).replace(/[swh]\d{2,4}(?:-[swh]\d{2,4})?(?:-c)?/, defaults.imgSize);
           var url = (function(){
              for ( var i = 0; i < data.link.length; i++ ){
                 var link = data.link[i];
@@ -2282,7 +2282,7 @@ document.body.classList.remove("no-js");
     <b:includable id='js'>
       <script>
         /*!
-         * wjs-section v2.0.0
+         * wjs-section v2.1.0
          * Copyright 2019 zkreations
          * Developed by José Gregorio (fb.com/JGMateran)
          * Licensed under MIT (github.com/zkreations/wjs-sections/blob/master/LICENSE)
@@ -2291,18 +2291,18 @@ document.body.classList.remove("no-js");
         var callbacks = {};
         var defaults = {
             homeUrl: window.location.protocol+"//"+window.location.hostname,
-            image: '<b:eval expr='resizeImage(data:imgDefault,400,"16:9")'/>',
+            image: '<b:eval expr='resizeImage(data:imgDefault,400)'/>',
             className: '.wjs-section',
             imgSize: 'w380-h213-p-k-no-nu', // Tamaño de imagen (parametros de picasa)
             snippet: 100, // Cantidad texto para el resumen,
             locale: '<data:skin.vars.config_el_localeDate/>'
         };
-        var datas={category:null,"max-results":6,template:{<b:with value='data:skin.vars.config_post_column' var='isColumn'>
+        var datas={expReg:/[swh]\d{2,4}(?:-[swh]\d{2,4})?(?:-c)?/,category:null,"max-results":6,template:{<b:with value='data:skin.vars.config_post_column' var='isColumn'>
         "default":"<div class='card card-grid col-12'><b:include name='columnClass'/><div class='card__content'><b:if cond='data:layout.featureTags'><div class='ftag-content'><a class='ftag-name ftag-TAG_NAME' href='TAG_URL'><i class='fas fa-tag'></i>TAG_NAME</a></div></b:if><a class='card__image flex-none' href='URL'><span class='card__overlay'></span><i class='card__readMore flx-xyc fas fa-search'></i><img src='IMG_DEFAULT'/></a><div class='card__data'><header class='card__header'><h2 class='card__title skin-font'><a class='skin-color-hover' href='URL'>TITLE</a></h2></header><b:if cond='data:layout.showSnippet'><p class='card__descripcion'>SNIPPET</p></b:if><b:if cond='data:layout.showMeta'><div class='card__meta'><b:if cond='data:widgets.Blog.first.allBylineItems.author'><a class='card__item' href='AUTHOR_URL' rel='author' target='_blank'><img class='card__authorImage' src='AUTHOR_IMAGE'/><span class='card__authorName skin-color-title skin-color-hover'>AUTHOR_NAME</span></a></b:if><b:if cond='data:widgets.Blog.first.allBylineItems.timestamp'><time class='card__item'><i class='far fa-clock'></i> TIME</time></b:if></div></b:if></div></div></div>",</b:with>//<![CDATA[
         empty:'<div class="col-12"><p class="alert">No se han encontrado entradas</p></div>'}};function forEach(d,b){var a,c;for(a=0;(c=d[a++])&&!1!==b.call(c,a,c););return d}
         function getCurrentData(d){var b,a,c={};for(b in datas)(a=d.getAttribute("data-"+b))&&(c[b]=a);return c}function temp(d,b){for(var a in b)d=d.replace(new RegExp(a,"g"),b[a]);return d}
         function getLabel(d,b){var a,c=b.category,g=document.createElement("script"),h=defaults.homeUrl+"/feeds/posts/default?alt=json-in-script&callback=callbacks."+c.replace(/[^A-Z0-9]/ig, '');callbacks[c.replace(/[^A-Z0-9]/ig, '')]=function(a){var c,l="",g=a.feed.entry;if(g)for(a=0;c=g[a++];){var k=c.content,e=c.summary;k=k?k.$t:e.$t;e=c.media$thumbnail;var f=document.createElement("div");f.innerHTML=k;var h=f.querySelector("img");f=c.author[0];e=e?e.url:h?h.src:defaults.image;l+=temp(b.template,{TAG_NAME:b.category,TAG_URL:defaults.homeUrl+"/search/label/"+b.category,AUTHOR_NAME:f.name.$t,AUTHOR_URL:f.uri?f.uri.$t:'#noAuthor',AUTHOR_IMAGE:f.gd$image.src.replace(/s\B\d{2,4}/,
-        "w30-h30-p-k-no-nu"),IMG_DEFAULT:e.replace(/s\B\d{2,4}-c/,defaults.imgSize),TITLE:c.title.$t,TIME:(new Date(c.published.$t)).toLocaleDateString(defaults.locale,{month:"long",day:"2-digit"}),SNIPPET:k.replace(/<[^>]*>?/g,"").substring(0,defaults.snippet)+"...",URL:function(){var a,b;for(a=0;b=c.link[a++];)if("alternate"===b.rel)return b.href}})}else l+=
+        "w30-h30-p-k-no-nu"),IMG_DEFAULT:e.replace(datas.expReg,defaults.imgSize),TITLE:c.title.$t,TIME:(new Date(c.published.$t)).toLocaleDateString(defaults.locale,{month:"long",day:"2-digit"}),SNIPPET:k.replace(/<[^>]*>?/g,"").substring(0,defaults.snippet)+"...",URL:function(){var a,b;for(a=0;b=c.link[a++];)if("alternate"===b.rel)return b.href}})}else l+=
         datas.template.empty;d.innerHTML=l};for(a in b)"template"!==a&&(h+="&"+a+"="+b[a]);g.src=h;document.body.appendChild(g)}forEach(document.querySelectorAll(defaults.className),function(d,b){var a=getCurrentData(b);a.category&&(a["max-results"]||(a["max-results"]=datas["max-results"]),a.template=datas.template["default"],getLabel(b,a))});
       //]]></script>
     </b:includable>
@@ -2547,9 +2547,9 @@ var carousel = tns({
 <!-- Font Awesome -->
 <link rel='stylesheet' 
       media='print' onload='this.media="all"' 
-      href='https://use.fontawesome.com/releases/v5.13.0/css/all.css'/>
+      href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css'/>
 <noscript>
-  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.13.0/css/all.css'/>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css'/>
 </noscript>
 
 <!-- Animate.css -->
