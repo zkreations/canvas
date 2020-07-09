@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html b:css='false' b:defaultwidgetversion='2' b:js='true' b:layoutsVersion='3' b:responsive='true' expr:dir='data:blog.locale.languageDirection' expr:lang='data:blog.locale.language' prefix='og: http://ogp.me/ns#'>
 
-<!-- Maily.xml-free v1.2.0 | Canvas.xml v1.10.0 | github.com/zkreations/canvas.xml -->
+<!-- Maily.xml-free v1.3.0 | Canvas.xml v1.10.0 | github.com/zkreations/canvas.xml -->
 
 <head>
 <!-- Basic data -->
@@ -1616,7 +1616,7 @@ header .imgCaption {
 => Theme URI: https://shop.zkreations.com
 => Author: Daniel Abel M. (Copyright 2019 zkreations)
 => Author URI: https://fb.com/danieI.abel
-=> Version: 1.2.0
+=> Version: 1.3.0
 => License: Creative Commons Atribucion-NoComercial 4.0 Internacional
 => License URI: http://creativecommons.org/licenses/by-nc/4.0/
 */
@@ -2316,7 +2316,7 @@ document.body.classList.remove("no-js");
       </div>
       <script>
       /*!
-       * wjs-related v2.0.6
+       * wjs-related v2.1.0
        * Copyright 2019 zkreations
        * Developed by José Gregorio (fb.com/JGMateran)
        * Licensed under MIT (github.com/zkreations/wjs-related/blob/master/LICENSE)
@@ -2326,7 +2326,7 @@ document.body.classList.remove("no-js");
        var defaults = {
          id: '<data:post.id/>',
          homepage: window.location.protocol + '//' + window.location.hostname,
-         image: '<b:eval expr='resizeImage(data:imgDefault,400,"4:3")'/>',
+         image: '<b:eval expr='resizeImage(data:imgDefault,400)'/>',
          length: <data:skin.vars.config_el_postsRelated_num/>,
          localeDate: '<data:skin.vars.config_el_localeDate/>',
          snippet: 80,
@@ -2360,7 +2360,7 @@ document.body.classList.remove("no-js");
           var tempHtml = document.createElement('div');
           tempHtml.innerHTML = body;
           var imgHtml = tempHtml.querySelector('img');
-          var image = ( img ? img.url : (imgHtml ? imgHtml.src : defaults.image)).replace( /s\B\d{2,4}-c/, defaults.imgSize); 
+          var image = ( img ? img.url : (imgHtml ? imgHtml.src : defaults.image)).replace(/[swh]\d{2,4}(?:-[swh]\d{2,4})?(?:-c)?/, defaults.imgSize);
           var url = (function(){
              for ( var i = 0; i < data.link.length; i++ ){
                 var link = data.link[i];
@@ -2506,7 +2506,7 @@ document.body.classList.remove("no-js");
     <b:includable id='js'>
       <script>
         /*!
-         * wjs-section v2.0.0
+         * wjs-section v2.1.0
          * Copyright 2018 zkreations
          * Developed by José Gregorio (fb.com/JGMateran)
          * Licensed under MIT (github.com/zkreations/wjs-sections/blob/master/LICENSE)
@@ -2515,15 +2515,15 @@ document.body.classList.remove("no-js");
         var callbacks = {};
         var defaults = {
             homeUrl: window.location.protocol+"//"+window.location.hostname,
-            image: '<b:eval expr='resizeImage(data:imgDefault,400,"16:9")'/>',
+            image: '<b:eval expr='resizeImage(data:imgDefault,400)'/>',
             className: '.wjs-section',
             imgSize: 'w380-h213-p-k-no-nu', // Tamaño de imagen (parametros de picasa)
             snippet: 180, // Cantidad texto para el resumen,
             locale: '<data:skin.vars.config_el_localeDate/>'
         };
-        var datas={category:null,"max-results":6,template:{<b:with value='data:skin.vars.config_post_column' var='isColumn'>
+        var datas={expReg:/[swh]\d{2,4}(?:-[swh]\d{2,4})?(?:-c)?/,category:null,"max-results":6,template:{<b:with value='data:skin.vars.config_post_column' var='isColumn'>
         "default":"<div class='card card-grid col-12'><b:include name='columnClass'/><div class='card__content'><div class='featured-content flex-none card__iLabels'><b:if cond='data:layout.featureTags'><div class='ftag-content'><a class='ftag-name ftag-TAG_NAME' href='TAG_URL'><i class='fas fa-tag'></i>TAG_NAME</a></div></b:if><a class='card__image featured-image flex-none' href='URL'><img src='IMG_DEFAULT'/></a></div><div class='card__data'><header class='card__header'><h2 class='card__title skin-font'><a class='skin-color-hover' href='URL'>TITLE</a></h2></header><b:if cond='data:layout.showMeta'><div class='card__meta'><b:if cond='data:widgets.Blog.first.allBylineItems.author'><a class='card__item' href='AUTHOR_URL' rel='author' target='_blank'><i class='fas fa-user'></i> AUTHOR_NAME</a></b:if><b:if cond='data:widgets.Blog.first.allBylineItems.timestamp'><time class='card__item'><i class='far fa-clock'></i> TIME</time></b:if></div></b:if><b:if cond='data:layout.showSnippet'><p class='card__descripcion'>SNIPPET</p></b:if></div></div></div>",</b:with>//<![CDATA[
-        empty:'<div class="col-12"><p class"alert">No se han encontrado entradas</p></div>'}};function forEach(c,b){var a,d;for(a=0;(d=c[a++])&&!1!==b.call(d,a,d););return c}function getCurrentData(c){var b,a,d={};for(b in datas)(a=c.getAttribute("data-"+b))&&(d[b]=a);return d}function temp(c,b){for(var a in b)c=c.replace(new RegExp(a,"g"),b[a]);return c}function getLabel(c,b){var a,d=b.category,externalUrl=b.externalUrl,h=document.createElement("script"),k=defaults.homeUrl+"/feeds/posts/default?alt=json-in-script&callback=callbacks."+d.replace(/[^A-Z0-9]/ig, '');callbacks[d.replace(/[^A-Z0-9]/ig, '')]=function(a){var f,m="",h=a.feed.entry;if(h)for(a=0;f=h[a++];){var l=f.content,e=f.summary;l=l?l.$t:e.$t;e=f.media$thumbnail;var g=document.createElement("div");g.innerHTML=l;var k=g.querySelector("img");g=f.author[0];e=e?e.url:k?k.src:defaults.image;m+=temp(b.template,{TAG_NAME:b.category,TAG_URL:defaults.homeUrl+"/search/label/"+b.category,AUTHOR_NAME:g.name.$t,AUTHOR_URL:g.uri?g.uri.$t:'#noAuthor',AUTHOR_IMAGE:g.gd$image.src.replace(/s\B\d{2,4}/,"w30-h30-p-k-no-nu"),IMG_DEFAULT:e.replace(/s\B\d{2,4}-c/,defaults.imgSize),IMG_GALLERY:e.replace(/s\B\d{2,4}-c/,"w260-h195-c"),IMG_LIST:e.replace(/s\B\d{2,4}-c/,"w200-h200-p-k-no-nu"),IMG_ITEM:e.replace(/s\B\d{2,4}-c/,"s80-c"),TITLE:f.title.$t,TIME:(new Date(f.published.$t)).toLocaleDateString(defaults.locale,{month:"long",day:"2-digit"}),SNIPPET:l.replace(/<[^>]*>?/g,"").substring(0,defaults.snippet)+"...",URL:function(){var a,b;for(a=0;b=f.link[a++];)if("alternate"===b.rel)return b.href}})}else m+=datas.template.empty;c.innerHTML=m};for(a in b)"template"!==a&&(k+="&"+a+"="+b[a]);h.src=k;document.body.appendChild(h)}forEach(document.querySelectorAll(defaults.className),function(c,b){var a=getCurrentData(b);a.category&&(a["max-results"]||(a["max-results"]=datas["max-results"]),a.template=datas.template[a.template]||datas.template["default"],getLabel(b,a))});
+        empty:'<div class="col-12"><p class"alert">No se han encontrado entradas</p></div>'}};function forEach(c,b){var a,d;for(a=0;(d=c[a++])&&!1!==b.call(d,a,d););return c}function getCurrentData(c){var b,a,d={};for(b in datas)(a=c.getAttribute("data-"+b))&&(d[b]=a);return d}function temp(c,b){for(var a in b)c=c.replace(new RegExp(a,"g"),b[a]);return c}function getLabel(c,b){var a,d=b.category,externalUrl=b.externalUrl,h=document.createElement("script"),k=defaults.homeUrl+"/feeds/posts/default?alt=json-in-script&callback=callbacks."+d.replace(/[^A-Z0-9]/ig, '');callbacks[d.replace(/[^A-Z0-9]/ig, '')]=function(a){var f,m="",h=a.feed.entry;if(h)for(a=0;f=h[a++];){var l=f.content,e=f.summary;l=l?l.$t:e.$t;e=f.media$thumbnail;var g=document.createElement("div");g.innerHTML=l;var k=g.querySelector("img");g=f.author[0];e=e?e.url:k?k.src:defaults.image;m+=temp(b.template,{TAG_NAME:b.category,TAG_URL:defaults.homeUrl+"/search/label/"+b.category,AUTHOR_NAME:g.name.$t,AUTHOR_URL:g.uri?g.uri.$t:'#noAuthor',AUTHOR_IMAGE:g.gd$image.src.replace(/s\B\d{2,4}/,"w30-h30-p-k-no-nu"),IMG_DEFAULT:e.replace(datas.expReg,defaults.imgSize),TITLE:f.title.$t,TIME:(new Date(f.published.$t)).toLocaleDateString(defaults.locale,{month:"long",day:"2-digit"}),SNIPPET:l.replace(/<[^>]*>?/g,"").substring(0,defaults.snippet)+"...",URL:function(){var a,b;for(a=0;b=f.link[a++];)if("alternate"===b.rel)return b.href}})}else m+=datas.template.empty;c.innerHTML=m};for(a in b)"template"!==a&&(k+="&"+a+"="+b[a]);h.src=k;document.body.appendChild(h)}forEach(document.querySelectorAll(defaults.className),function(c,b){var a=getCurrentData(b);a.category&&(a["max-results"]||(a["max-results"]=datas["max-results"]),a.template=datas.template[a.template]||datas.template["default"],getLabel(b,a))});
       //]]></script>
     </b:includable>
   </b:widget>
@@ -2647,9 +2647,9 @@ document.body.classList.remove("no-js");
 <!-- Font Awesome -->
 <link rel='stylesheet' 
       media='print' onload='this.media="all"' 
-      href='https://use.fontawesome.com/releases/v5.13.0/css/all.css'/>
+      href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css'/>
 <noscript>
-  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.13.0/css/all.css'/>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css'/>
 </noscript>
 
 <!-- Animate.css -->
