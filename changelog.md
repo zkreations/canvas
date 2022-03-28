@@ -1,4 +1,47 @@
 # changelog
+## v2.0.0
+
+- Nueva versión desarrollada desde cero para el nuevo escritorio de Blogger
+- Ahora el código JavaScript cargará por defecto
+- Mejora en los comentarios nativos:
+  - Ahora puedes borrar comentarios y destacar como autor
+  - Ahora los blogs pueden mostrar más de 200 comentarios
+  - Mejora en la configuración basada en variables
+  - Se retiraron todas las etiquetas de datos obsoletas (http://bit.ly/3l3icbn)
+  - Sistema de temas y mejor optimización
+- Mejora del SEO en la plantilla:
+  - Nuevo conjunto de meta controles robots para los fragmentos en los resultados de búsqueda
+  - Mejora del código necesario para Open graph
+  - Ahora se generan datos estructurados JSON para las entradas
+- Mejoras para desarrolladores:
+  - Reducción de CSS necesario para Blogger
+  - Variables para establecer fondo predeterminado y fondo responsivo
+  - Ahora Canvas puede generar el código de AdSense entre las entradas, el contenido y los widgets
+- Añadidas etiquetas `b:includable` del widget Blog para desarrolladores:
+  - `postAds` inserta los anuncios de AdSense
+  - `postAuthor` inserta los datos del autor (requiere `postAuthorName` y `postAuthorPhoto`)
+  - `postBody` inserta el contenido
+  - `postBodySnippet` genera un resumen del texto
+  - `postFeaturedImage` inserta la imagen destacada
+  - `postMeta` genera los metadatos JSON para buscadores
+  - `postLabels` genera las etiquetas
+  - `postLocation` inserta la ubicación
+  - `postPagination` genera la paginación (requiere `previousPageLink` y `nextPageLink`)
+  - `postTitle` inserta el título que puede contener el enlace alternativo del título
+  - `postTimestamp` inserta la fecha de publicación
+  - `sharingButtons` genera botones de compartir
+- Añadidas etiquetas `b:includable` globales para desarrolladores:
+  - `cv_head` genera todo el código debajo de `<head>`
+  - `cv_footer` genera todo el código arriba de `</body>`
+  - `cv_devClass` genera las clases de desarrollo
+  - `cv_alerts` genera todos los mensajes del blog
+  - `cv_featuredImage` genera imágenes responsive compatibles con plugins lazyload
+  - `cv_fbSDK` genera el código SDK necesario para plugins de facebook
+  - `cv_sharing` genera enlaces para compartir
+  - `cv_gtag` genera el còdigo de Google Analytics
+  - `cv_gads` genera el còdigo de Google Adsense
+  - `cv_sharing` genera botones de compartir para widgets tipo Blog, FeaturedPost y PopularPosts
+  - `cv_disqusComments` genera comentarios de disqus
 
 ## v1.10.0
 

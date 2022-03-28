@@ -1,0 +1,111 @@
+-
+  //- Style
+  //-
+  //- Define las variables del tema
+  //- @author zkreations
+  //- @link https://www.zkreations.com
+  var style = {
+    configuration: {
+      "c.comments": { description: "Comments system", value: "blogger" },
+      "c.newFirst": { description: "New Comments first", value: "true" },
+      "c.replies": { description: "Enable Replies", value: "true" },
+    },
+
+    information: {
+      "i.defaultImage" : { description: "Imagen"},
+      "i.defaultAvatar" : { description: "Avatar", value: "https://lh3.googleusercontent.com/a/default-user"},
+    },
+
+    customize: {
+      //- Define el color principal (obligatorio)
+      "keycolor" : { description: "keycolor", default: "#2196f3"},
+
+      //- Define el fondo principal (obligatorio)
+      "Backgrounds": {
+        selector: "body",
+        group: {
+          "body.background": {
+            description: "Background",
+            type: "background",
+            color: "$(body.background.color)",
+            default: "$(color) none repeat scroll top center"
+          },
+          "body.background.color": {
+            description: "Body background color",
+            type: "color",
+            default: "#fff"
+          }
+        }
+      },
+    }
+  }
+
+  //- Blogger comments
+  //-
+  //- Lista de variables según el tema de comentarios
+  //-   * soho: Sin bordes
+  //-   * emporio: Sin bordes
+  //-   * notable: Bordes
+  //-   * essential: Bordes
+  //-   * contempo: Bordes
+  //- @author zkreations
+  //- @link https://www.zkreations.com
+
+  const commentStyle = {
+    color: "#333",
+    text: "14px Roboto",
+  }
+
+  const commentVars = {
+    soho: {
+      "body.text.color": { description: "Color", value: commentStyle.color },
+      "body.text.font": { description: "Font", value: commentStyle.text },
+      "body.link.color": { description: "Link", value: commentStyle.color },
+      "body.action.font.large": { description: "Link font", value: commentStyle.text },
+      "body.title.color": { description: "none1", value: "0" },
+    },
+    emporio: {
+      "posts.text.color": { description: "Color", value: commentStyle.color },
+      "posts.text.font": { description: "Font", value: commentStyle.text },
+      "posts.link.color": { description: "Link", value: commentStyle.color },
+      "posts.background.color": { description: "Bg", value: "transparent" },
+      "posts.title.color": { description: "none1", value: "0" },
+      "body.link.color": { description: "none2", value: "0" },
+      "body.text.font": { description: "none3", value: "0" },
+    },
+    notable: {
+      "body.text.color": { description: "Color", value: commentStyle.color },
+      "body.text.font": { description: "Font", value: commentStyle.text },
+      "body.link.color": { description: "Link", value: commentStyle.color },
+      "item.action.font": { description: "Link font", value: commentStyle.text },
+      "item.action.color": { description: "none1", value: "0" },
+      "header.background": { description: "none2", value: "0" },
+    },
+    essential: {
+      "body.text.color": { description: "Color", value: commentStyle.color },
+      "body.text.font": { description: "Font", value: commentStyle.text },
+      "body.link.color": { description: "Link", value: commentStyle.color },
+      "posts.background.color": { description: "Bg", value: "transparent" },
+      "posts.title.color": { description: "none1", value: "0" },
+      "posts.text.color": { description: "none2", value: "0" },
+      "posts.icons.color": { description: "none3", value: "0" },
+      "labels.background.color": { description: "none4", value: "0" },
+      "tabs.font": { description: "none5", value: "0" },
+    },
+    contempo: {
+      "body.text.color": { description: "Color", value: commentStyle.color },
+      "body.text.font": { description: "Font", value: commentStyle.text },
+      "body.link.color": { description: "Link", value: commentStyle.color },
+      "posts.background.color": { description: "Bg", value: "transparent" },
+      "posts.title.color": { description: "none1", value: "0" },
+      "posts.text.color": { description: "none2", value: "0" },
+      "posts.icons.color": { description: "none3", value: "0" },
+      "labels.background.color": { description: "none4", value: "0" },
+      "tabs.font": { description: "none5", value: "0" },
+    }
+  }
+
+  //- Asignamos las variables correspondientes al tema
+  if (blogger.commentsThemeVars && blogger.commentsTheme != "legacy") {
+    style = Object.assign({[blogger.commentsTheme]: commentVars[blogger.commentsTheme]}, style);
+  }

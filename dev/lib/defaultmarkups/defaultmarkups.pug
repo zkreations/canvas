@@ -1,0 +1,24 @@
+//- Default Markups
+//-
+//- Configura inclusiones predeterminadas de Blogger
+//- Agrega includables exclusivos de canvas
+//- @author zkreations
+//- @link https://www.zkreations.com
+
+mixin defaultmarkups
+  b:defaultmarkups
+    //- Herramientas
+    +markup
+      include Common/head
+      include Common/image
+      include Common/bodyClass
+      include Common/setAttr
+      include Common/truncate
+    //- Desabilitamos inclusiones del servidor
+    each includables, key in widgetIncludes
+      b:defaultmarkup(type=key)
+        each includable in includables
+          b:includable(id=includable)/
+
+    if block
+      block

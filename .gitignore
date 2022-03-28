@@ -1,4 +1,11 @@
+# Compiled class file
 *.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
@@ -6,13 +13,20 @@
 # Package Files #
 *.jar
 *.war
+*.nar
 *.ear
+*.zip
+*.tar.gz
+*.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# Ignore files and folders
+package-lock.json
+.vscode
+node_modules/
+ignore/
+dev/themes/*
+build/*
 
-prepros-6.config
-recycle/
-Canvas-l3.xml
-Canvas-l2.xml
-Canvas-amp.xml
+# But not these files
+!dev/themes/canvas
+!build/canvas

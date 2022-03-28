@@ -1,0 +1,9 @@
+//- Set Attributes
+//-
+//- Agrega o remueve multiples atributos
+//- @author zkreations
+//- @link https://www.zkreations.com
+
+b:includable(id='canvas:setAttr', var='array')
+  b:loop(values="data:array", var="i")
+    b:attr(expr:name='data:i[0]', expr:value='data:i[1]')

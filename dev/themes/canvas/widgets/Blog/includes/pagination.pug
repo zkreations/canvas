@@ -1,0 +1,19 @@
+//- Blogger Pagination
+//-
+//- Inserta la paginación de entradas
+//- @author zkreations
+//- @link https://www.zkreations.com
+
+//- BOTON "Siguiente"
+b:includable#nextPageLink
+  a(expr:href='data:olderPageUrl') <data:messages.olderPosts/>
+
+//- BOTON "Anterior"
+b:includable#previousPageLink
+  a(expr:href='data:newerPageUrl') <data:messages.newerPosts/>
+
+//- PAGINACION
+b:includable#postPagination
+  b:tag#blog-pager(cond='data:newerPageUrl or data:olderPageUrl', name='div')
+    b:include(cond='data:newerPageUrl', name='previousPageLink')
+    b:include(cond='data:olderPageUrl', name='nextPageLink')

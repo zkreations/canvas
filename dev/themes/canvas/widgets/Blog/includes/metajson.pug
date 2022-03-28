@@ -1,0 +1,44 @@
+//- Blogger MetaDataJson
+//-
+//- Inserta los datos estructurados en formato JSON (preferido por google)
+//- @author zkreations
+//- @link https://www.zkreations.com
+
+//- METADATOS
+b:includable#postMeta(var="post")
+  script(type="application/ld+json").
+    {
+      "@context": "http://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "<data:post.url.canonical.jsonEscaped/>"
+      },
+      "headline": "<data:post.title.jsonEscaped/>",
+      "description": "<b:eval expr='(data:post.snippets.long snippet { length: 150 }).jsonEscaped'/>",
+      "datePublished": "<data:post.date.iso8601.jsonEscaped/>",
+      "dateModified": "<data:post.lastUpdated.iso8601.jsonEscaped/>",
+      <b:include name='postMetadataJSONImage'/>
+      "author": {
+        "@type": "Person",
+        <b:if cond="data:post.author.profileUrl">
+          "url": "<data:post.author.profileUrl.jsonEscaped/>",
+        </b:if>
+        "name": "<data:post.author.name.jsonEscaped/>"
+      }
+    }
+  //- End BlogPosting
+
+//- METADATOS DE IMAGEN
+b:includable#postMetadataJSONImage
+  //- Si no existe una imagen en el artículo se intenta con la imagen por defecto
+  b:with(value='resizeImage((data:post.featuredImage ?: data:skin.vars.i_defaultImage), 1200, "16:9")', var='image')
+    //- Se muestra solo si alguna imagen existe
+    b:if(cond='data:image').
+      "image": {
+        "@type": "ImageObject",
+        "url": "<b:eval expr='data:image.escaped'/>",
+        "width": <b:eval expr='data:image.width'/>,
+        "height":  <b:eval expr='data:image.height'/>
+      },
+  //- End ImageObject

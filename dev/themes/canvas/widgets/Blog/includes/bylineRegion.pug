@@ -1,0 +1,15 @@
+//- Blogger allBylineItems
+//-
+//- Muestra elementos del post según las preferencias del usuario:
+//-   * data:show.share (Botones de compartir)
+//-   * data:show.author (Perfil del author)
+//-   * data:show.timestamp (Fecha de publicacion)
+//-   * data:show.comments (Comentarios)
+//-   * data:show.labels (Etiquetas)
+//-   * data:show.icons (Botón enviar por email)
+//- @author zkreations
+//- @link https://www.zkreations.com
+
+b:includable#bylineRegion(var='post')
+  b:with(value='data:widgets.Blog.first.allBylineItems', var='show')
+    b:include(data='post', name='post')

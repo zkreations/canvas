@@ -1,0 +1,39 @@
+//- Widget Blog
+//-
+//- Genera el contenido de las entradas
+//- @author zkreations
+//- @link https://www.zkreations.com
+
++root-widget("Blog")
+  //- Evita el problema de "comentarios cerrados" al instalar el tema
+  b:widget-settings
+    b:widget-setting(name='showCommentLink') true
+
+  //- La variable "this" almacenará datos de este widget
+  b:includable#main(var='this')
+
+    //- Bucle con la tabla posts
+    b:loop(values='data:posts', var='post')
+      b:include(data='post', name='bylineRegion')
+
+    //- Incluye la paginación solo en el feed
+    b:include(cond=view.feed name='postPagination')
+
+  //- Incluye las entradas
+  b:includable#post(var='post')
+
+    b:if(cond=view.feed)
+      include content/feed
+
+      b:elseif(cond=view.post)
+      include content/post
+
+      b:elseif(cond=view.page)
+      include content/page
+
+  //- Inclusiones adicionales
+  include includes/bylineRegion
+  include includes/comments
+  include includes/posts
+  include includes/pagination
+  include includes/metajson

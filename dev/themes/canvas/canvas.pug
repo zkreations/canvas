@@ -1,0 +1,14 @@
+extends templates/default
+
+append head 
+  //- Imagen responsive de fondo
+  +responsiveImageStyle({ selector: "body" })
+
+block body
+  b:include(name="canvas:bodyClass")
+
+  b:section#header
+    include widgets/Header/main
+
+  b:section#content
+    include widgets/Blog/main
