@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
-<html b:css="false" b:js="false" b:defaultwidgetversion="2" b:layoutsVersion="3" expr:dir="data:blog.locale.languageDirection" expr:lang="data:blog.locale.language" prefix="og: http://ogp.me/ns#">
+<html b:css="false" b:js="false" b:defaultwidgetversion="2" b:layoutsVersion="3" b:responsive="true" expr:dir="data:blog.locale.languageDirection" expr:lang="data:blog.locale.language" prefix="og: http://ogp.me/ns#">
 <!--
 Canvas v2.0.0-beta1 | github.com/zkreations/canvas
 -->
@@ -43,12 +43,15 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
       <Variable name="body.background.color" description="Body background color" type="color" default="#fff"/>
     </Group>
     */
-    /*! root.css */]]>
+    /*! root.css */
+    ]]>
   </b:skin>
-  <style>/*<![CDATA[*//*! main.css *//*]]>*/
+  <style>/*<![CDATA[*//*! main.css */
+    /*]]>*/
   </style>
   <b:if cond="data:view.isLayoutMode">
-    <b:template-skin><![CDATA[/*! admin.css */]]>
+    <b:template-skin><![CDATA[/*! admin.css */
+      ]]>
     </b:template-skin>
   </b:if>
   <b:defaultmarkups>
@@ -82,26 +85,28 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
         <b:tag defer="defer" name="script" cond="data:blog.adsenseClientId" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></b:tag>
       </b:includable>
       <b:includable id="canvas:image">
-        <b:with value="resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)" var="image">
-          <b:tag expr:alt="data:alt ?: data:messages.image" name="img">
-            <b:attr name="width" expr:value="data:image.width"/>
-            <b:attr name="height" expr:value="data:image.height"/>
-            <b:attr name="sizes" expr:value="data:sizes"/>
-            <b:attr name="sizes" expr:value="data:sizes"/>
-            <b:class cond="data:class" expr:name="data:class"/>
-            <b:attr cond="!data:lazyload" name="loading" value="lazy"/>
-            <b:class cond="data:lazyload" expr:name="data:lazyload"/>
-            <b:with value="data:lazyload ? &quot;data-&quot; : &quot;&quot;" var="data">
-              <b:attr cond="data:data" name="src" value="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></b:attr>
-              <b:attr cond="data:srcset" expr:name="data:data + &quot;srcset&quot;" expr:value="sourceSet(data:image, (data:srcset ?: []), data:ratio)"/>
-              <b:attr expr:name="data:data + &quot;src&quot;" expr:value="data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image"/>
-            </b:with>
-          </b:tag>
-          <b:if cond="data:noscript">
-            <noscript>
-              <b:include name="canvas:image" data="{ src: data:image }"/>
-            </noscript>
-          </b:if>
+        <b:with value="resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)" var="source">
+          <b:with value="data:weserv ? (&quot;https://images.weserv.nl/?url=&quot; + data:src) params data:weserv : data:source" var="image">
+            <b:tag expr:alt="data:alt ?: data:messages.image" name="img">
+              <b:attr name="id" expr:value="data:id"/>
+              <b:attr name="width" expr:value="data:width ?: data:image.width"/>
+              <b:attr name="height" expr:value="data:height ?: data:image.height"/>
+              <b:attr cond="!data:weserv" name="sizes" expr:value="data:sizes"/>
+              <b:class cond="data:class" expr:name="data:class"/>
+              <b:attr cond="data:loading" name="loading" value="lazy"/>
+              <b:class cond="data:lazyload" expr:name="data:lazyload"/>
+              <b:with value="data:lazyload ? &quot;data-&quot; : &quot;&quot;" var="data">
+                <b:attr cond="data:data" name="src" value="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></b:attr>
+                <b:attr cond="data:srcset and !data:weserv" expr:name="data:data + &quot;srcset&quot;" expr:value="sourceSet(data:image, (data:srcset ?: []), data:ratio)"/>
+                <b:attr expr:name="data:data + &quot;src&quot;" expr:value="data:srcset and !data:weserv ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image"/>
+              </b:with>
+            </b:tag>
+            <b:if cond="data:noscript">
+              <noscript>
+                <b:include name="canvas:image" data="{ src: data:image }"/>
+              </noscript>
+            </b:if>
+          </b:with>
         </b:with>
       </b:includable>
       <b:includable id="canvas:bodyClass">
@@ -124,7 +129,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
           <b:attr expr:name="data:i[0]" expr:value="data:i[1]"/>
         </b:loop>
       </b:includable>
-      <b:includable id="canvas:snippet">
+      <b:includable id="canvas:truncate">
         <b:eval expr="data:string snippet { length: (data:length ?: 50), links: false, linebreaks: false }"/>
       </b:includable>
     </b:defaultmarkup>
@@ -260,7 +265,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
 <body>
   <b:include name="canvas:bodyClass"/>
   <b:section id="header">
-    <b:widget id="Header1" type="Header" locked="true" version="2">
+    <b:widget id="Header1" type="Header" version="2" locked="true">
       <b:includable id="main">
         <b:include name="behindImageStyle"/>
       </b:includable>
@@ -275,7 +280,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
     </b:widget>
   </b:section>
   <b:section id="content">
-    <b:widget id="Blog1" type="Blog" locked="true" version="2">
+    <b:widget id="Blog1" type="Blog" version="2" locked="true">
       <b:widget-settings>
         <b:widget-setting name="showCommentLink">true</b:widget-setting>
       </b:widget-settings>
