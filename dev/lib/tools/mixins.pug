@@ -8,6 +8,17 @@ mixin markup(type='Common')
     if block
       block
 
+//- Markup
+//-
+//- Inserta inclusion de configuracion predeterminada
+//- @author zkreations
+//- @link https://www.zkreations.com
+mixin settings(object={})
+  if Object.getOwnPropertyNames(object).length !== 0
+    b:widget-settings
+      each items, key in object
+        b:widget-setting(name=key) #{items}
+
 //- Section
 //-
 //- Inserta una seccion para widgets que identifica si contiene gadgets
@@ -24,8 +35,9 @@ mixin section(id)
 //- @author zkreations
 //- @link https://www.zkreations.com
 
-mixin widget(name="HTML")
+mixin widget(name="HTML", settings={})
   b:widget(id=name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
+    +settings(settings)
     b:includable#main
       b:include(name='widget-title')
       b:include(name='content')
@@ -39,8 +51,9 @@ mixin widget(name="HTML")
 //- @author zkreations
 //- @link https://www.zkreations.com
 
-mixin root-widget(name="HTML")
+mixin root-widget(name="HTML", settings={})
   b:widget(id=name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
+    +settings(settings)
     if block
       block
 

@@ -4,11 +4,7 @@
 //- @author zkreations
 //- @link https://www.zkreations.com
 
-+root-widget("Blog")(locked="true")
-  //- Evita el problema de "comentarios cerrados" al instalar el tema
-  b:widget-settings
-    b:widget-setting(name='showCommentLink') true
-
++root-widget("Blog", { showCommentLink: "true" })(locked="true")
   //- La variable "this" almacenará datos de este widget
   b:includable#main(var='this')
 
