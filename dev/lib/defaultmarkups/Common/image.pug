@@ -7,56 +7,61 @@
 b:includable(id='canvas:image')
   //- `data:src`: Etiqueta de datos tipo imagen o url de imagen (obligatorio)
   //- `data:alt`: Texto alternativo de respaldo (opcional)
+  //- `data:width`: Ancho de la imagen (opcional)
+  //- `data:height`: Alto de la imagen (opcional)
   //- `data:ratio`: Aspect ratio => "16:9", "1:1", etc (opcional)
   //- `data:resize`: Cambiar las dimensiones originales
   //- `data:sizes`: Media query de tamaños (opcional)
   //- `data:srcset`: Tamaños => "500,600,700", "100,300", etc (opcional)
+  //- `data:loading`: Agrega el atributo "loading=lazy" (opcional)
   //- `data:lazyload`: clase lazyload (si se especifica, se usa imagen de respaldo en `src` y su valor pasa a `data-src`) (opcional)
   //- `data:class`: clases adicionales css (opcional)
   //- `data:noscript`: Agrega respaldo si javascript no está diponible (opcional)
-  b:with(value='resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)', var='image')
-    b:tag(expr:alt='data:alt ?: data:messages.image', name='img')
-      //- Obtiene el ancho si existe
-      b:attr(name='width', expr:value='data:image.width')
+  //- `data:weserv`: Parametros de images.weserv.nl (opcional)
+  b:with(value='resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)', var='source')
+    b:with(value='data:weserv ? ("https://images.weserv.nl/?url=" + data:src) params data:weserv : data:source', var='image')
+      b:tag(expr:alt='data:alt ?: data:messages.image', name='img')
+        //- Asigna una ID unica
+        b:attr(name='id', expr:value='data:id')
 
-      //- Obtiene el alto si existe
-      b:attr(name='height', expr:value='data:image.height')
+        //- Obtiene el ancho si existe
+        b:attr(name='width', expr:value='data:width ?: data:image.width')
 
-      //- Agrega las especificaciones del atributo sizes
-      b:attr(name='sizes', expr:value='data:sizes')
-      
-      //- Agrega las especificaciones del atributo sizes
-      b:attr(name='sizes', expr:value='data:sizes')
+        //- Obtiene el alto si existe
+        b:attr(name='height', expr:value='data:height ?: data:image.height')
 
-      //- Agrega clases adicionales
-      b:class(cond='data:class', expr:name='data:class')
+        //- Agrega las especificaciones del atributo sizes
+        b:attr(cond='!data:weserv', name='sizes', expr:value='data:sizes')
 
-      //- Usamos loading si lazyload no está disponible
-      b:attr(cond='!data:lazyload', name='loading', value='lazy')
+        //- Agrega clases adicionales
+        b:class(cond='data:class', expr:name='data:class')
 
-      //- Agrega la clase lazyload
-      b:class(cond='data:lazyload', expr:name='data:lazyload')
+        //- Usamos loading si lazyload no está disponible
+        b:attr(cond='data:loading', name='loading', value='lazy')
 
-      //- Si lazyload existe, la variable data es igual a "data-", caso contrario "vacío"
-      b:with(value='data:lazyload ? "data-" : ""', var='data')
+        //- Agrega la clase lazyload
+        b:class(cond='data:lazyload', expr:name='data:lazyload')
 
-        //- Si lazyload existe, "src" contiene la imagen de respaldo
-        b:attr(cond='data:data',
-              name='src',
-              value='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==')
+        //- Si lazyload existe, la variable data es igual a "data-", caso contrario "vacío"
+        b:with(value='data:lazyload ? "data-" : ""', var='data')
 
-        //- Si srcset existe, genera las variantes de tamaños especificados
-        //- Si lazyload existe, "srcset" pasa a "data-srcset"
-        b:attr(cond='data:srcset',
-              expr:name='data:data + "srcset"',
-              expr:value='sourceSet(data:image, (data:srcset ?: []), data:ratio)')
+          //- Si lazyload existe, "src" contiene la imagen de respaldo
+          b:attr(cond='data:data',
+                name='src',
+                value='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==')
 
-        //- Si srcset existe, el valor de "src" equivale a la primera resolución
-        //- Si lazyload existe, "src" pasa a "data-src"
-        b:attr(expr:name='data:data + "src"',
-              expr:value='data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image')
+          //- Si srcset existe, genera las variantes de tamaños especificados
+          //- Si lazyload existe, "srcset" pasa a "data-srcset"
+          b:attr(cond='data:srcset and !data:weserv',
+                expr:name='data:data + "srcset"',
+                expr:value='sourceSet(data:image, (data:srcset ?: []), data:ratio)')
 
-    //- Respaldo en caso de que javascript no este disponible (recomendado combinar con .no-js)
-    b:if(cond='data:noscript')
-      noscript
-        b:include(name="canvas:image", data='{ src: data:image }')
+          //- Si srcset existe, el valor de "src" equivale a la primera resolución
+          //- Si lazyload existe, "src" pasa a "data-src"
+          b:attr(expr:name='data:data + "src"',
+                expr:value='data:srcset and !data:weserv ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image')
+
+      //- Respaldo en caso de que javascript no este disponible (recomendado combinar con ".no-js")
+      b:if(cond='data:noscript')
+        noscript
+          b:include(name="canvas:image", data='{ src: data:image }')
