@@ -8,13 +8,23 @@ mixin markup(type='Common')
     if block
       block
 
+//- Section
+//-
+//- Inserta una seccion para widgets que identifica si contiene gadgets
+//- @author zkreations
+//- @link https://www.zkreations.com
+mixin section(id)
+  b:section(id=id, cond=`data:widgets any (w => w.sectionId == "${id}")`)&attributes(attributes)
+    if block
+      block
+
 //- Blogger widgets
 //-
 //- Crea la estructura por defecto de los gadgets
 //- @author zkreations
 //- @link https://www.zkreations.com
 
-mixin widget(name)
+mixin widget(name="HTML")
   b:widget(id=name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
     b:includable#main
       b:include(name='widget-title')
@@ -29,8 +39,8 @@ mixin widget(name)
 //- @author zkreations
 //- @link https://www.zkreations.com
 
-mixin root-widget(name)
-  b:widget(id=name + widgetCalls[name]++, type=name, locked="true", version=2)&attributes(attributes)
+mixin root-widget(name="HTML")
+  b:widget(id=name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
     if block
       block
 
@@ -49,6 +59,7 @@ mixin cdata(tag)
     |
     if block
       block
+    |
     |
     if ['style','script'].includes(tag)
       | /*]]>*/
@@ -138,6 +149,9 @@ mixin skin(enable=true)
       +skin-meta(themeInfo)
       | 
       | /*
+      //- Asignamos las variables correspondientes al tema
+      if (blogger.commentsThemeVars && blogger.commentsTheme != "legacy")
+        - style = Object.assign({[blogger.commentsTheme]: commentVars[blogger.commentsTheme]}, style);
       //- Todas las variables especificadas
       +skin-variables(style)
       |
