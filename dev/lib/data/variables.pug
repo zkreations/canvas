@@ -104,8 +104,3 @@
       "tabs.font": { description: "none5", value: "0" },
     }
   }
-
-  //- Asignamos las variables correspondientes al tema
-  if (blogger.commentsThemeVars && blogger.commentsTheme != "legacy") {
-    style = Object.assign({[blogger.commentsTheme]: commentVars[blogger.commentsTheme]}, style);
-  }
