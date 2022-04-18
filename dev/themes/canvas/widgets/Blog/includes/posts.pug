@@ -9,7 +9,7 @@ b:includable#postTitle
   //- Solo genera un enlace si se trata del feed (Home, Search, Archive)
   //- Si existe la url del titulo se usara en lugar de la url canónica
   b:tag(cond='data:post.link or (data:view.url != data:post.url)',
-      expr:href='data:post.link ?: data:post.url', name='a') <data:post.title/>
+      expr:href='data:post.link ?: data:post.url', name='a') <data:post.title.escaped/>
 
 //- BODY
 b:includable#postBody
