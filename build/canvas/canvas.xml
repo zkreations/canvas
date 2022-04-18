@@ -130,7 +130,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
         </b:loop>
       </b:includable>
       <b:includable id="canvas:truncate">
-        <b:eval expr="data:string snippet { length: (data:length ?: 50), links: false, linebreaks: false }"/>
+        <b:eval expr="data:string snippet { length: (data:length ?: 50), links: false, linebreaks: false, ellipsis: (data:ellipsis ?: false) }"/>
       </b:includable>
     </b:defaultmarkup>
     <b:defaultmarkup type="BlogList,ContactForm,Feed,HTML,Image,LinkList,Stats,TextList,Translate,Wikipedia">
@@ -379,7 +379,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
         </div>
       </b:includable>
       <b:includable id="postTitle">
-        <b:tag cond="data:post.link or (data:view.url != data:post.url)" expr:href="data:post.link ?: data:post.url" name="a"><data:post.title/></b:tag>
+        <b:tag cond="data:post.link or (data:view.url != data:post.url)" expr:href="data:post.link ?: data:post.url" name="a"><data:post.title.escaped/></b:tag>
       </b:includable>
       <b:includable id="postBody">
         <div class="post-body" expr:data-postid="data:post.id"><data:post.body/></div>
@@ -421,7 +421,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
           <b:if cond="data:image">
             "image": {
               "@type": "ImageObject",
-              "url": "<b:eval expr='data:image.escaped'/>",
+              "url": "<b:eval expr='data:image.jsonEscaped'/>",
               "width": <b:eval expr='data:image.width'/>,
               "height":  <b:eval expr='data:image.height'/>
             },
