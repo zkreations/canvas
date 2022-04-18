@@ -37,7 +37,7 @@ b:includable#postMetadataJSONImage
     b:if(cond='data:image').
       "image": {
         "@type": "ImageObject",
-        "url": "<b:eval expr='data:image.escaped'/>",
+        "url": "<b:eval expr='data:image.jsonEscaped'/>",
         "width": <b:eval expr='data:image.width'/>,
         "height":  <b:eval expr='data:image.height'/>
       },
