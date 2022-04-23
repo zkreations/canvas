@@ -8,7 +8,9 @@ b:includable(id='canvas:head')
   //- Dados comunes (obligatorio)
   meta(expr:charset='data:blog.encoding')
   meta(content='width=device-width,initial-scale=1', name='viewport')
-  title <data:view.title.escaped/>
+
+  //- Gestion de titulos
+  title: b:eval(expr='data:view.isError ? data:skin.vars.i_404 : data:view.title.escaped')
 
   //- Informacion básica del sitio (recomendado)
   meta(expr:content='data:view.description.escaped', name='description')
