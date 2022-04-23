@@ -47,21 +47,22 @@ b:includable(id='canvas:image')
 
           //- Si lazyload existe, "src" contiene la imagen de respaldo
           b:attr(cond='data:data',
-                name='src',
-                value='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==')
+              name='src',
+              value='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==')
 
           //- Si srcset existe, genera las variantes de tamaños especificados
           //- Si lazyload existe, "srcset" pasa a "data-srcset"
           b:attr(cond='data:srcset and !data:weserv',
-                expr:name='data:data + "srcset"',
-                expr:value='sourceSet(data:image, (data:srcset ?: []), data:ratio)')
+              expr:name='data:data + "srcset"',
+              expr:value='sourceSet(data:image, (data:srcset ?: []), data:ratio)')
 
           //- Si srcset existe, el valor de "src" equivale a la primera resolución
           //- Si lazyload existe, "src" pasa a "data-src"
           b:attr(expr:name='data:data + "src"',
-                expr:value='data:srcset and !data:weserv ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image')
+              expr:value='data:srcset and !data:weserv ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image')
 
       //- Respaldo en caso de que javascript no este disponible (recomendado combinar con ".no-js")
       b:if(cond='data:noscript')
         noscript
-          b:include(name="canvas:image", data='{ src: data:image }')
+          b:include(name="canvas:image",
+            data='{ class: (data:class ?: false), src: data:image, resize: (data:resize ?: (data:srcset.first ?: 300)), ratio: data:ratio }')
