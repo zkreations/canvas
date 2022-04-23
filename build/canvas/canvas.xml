@@ -34,6 +34,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
     ====================
     <Variable name="i.defaultImage" description="Imagen" type="string"/>
     <Variable name="i.defaultAvatar" description="Avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
+    <Variable name="i.404" description="Error 404" type="string" value="Error 404"/>
      
     { Customize }
     ====================
@@ -59,7 +60,9 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
       <b:includable id="canvas:head">
         <meta expr:charset="data:blog.encoding"></meta>
         <meta content="width=device-width,initial-scale=1" name="viewport"></meta>
-        <title><data:view.title.escaped/></title>
+        <title>
+          <b:eval expr="data:view.isError ? data:skin.vars.i_404 : data:view.title.escaped"/>
+        </title>
         <meta expr:content="data:view.description.escaped" name="description"></meta>
         <link expr:href="data:view.url.canonical" rel="canonical"></link>
         <link expr:href="data:blog.blogspotFaviconUrl" rel="icon" type="image/x-icon"></link>
@@ -103,7 +106,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
             </b:tag>
             <b:if cond="data:noscript">
               <noscript>
-                <b:include name="canvas:image" data="{ src: data:image }"/>
+                <b:include name="canvas:image" data="{ class: (data:class ?: false), src: data:image, resize: (data:resize ?: (data:srcset.first ?: 300)), ratio: data:ratio }"/>
               </noscript>
             </b:if>
           </b:with>
