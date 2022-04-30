@@ -88,28 +88,26 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
         <b:tag defer="defer" name="script" cond="data:blog.adsenseClientId" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></b:tag>
       </b:includable>
       <b:includable id="canvas:image">
-        <b:with value="resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)" var="source">
-          <b:with value="data:weserv ? (&quot;https://images.weserv.nl/?url=&quot; + data:src) params data:weserv : data:source" var="image">
-            <b:tag expr:alt="data:alt ?: data:messages.image" name="img">
-              <b:attr name="id" expr:value="data:id"/>
-              <b:attr name="width" expr:value="data:width ?: data:image.width"/>
-              <b:attr name="height" expr:value="data:height ?: data:image.height"/>
-              <b:attr cond="!data:weserv" name="sizes" expr:value="data:sizes"/>
-              <b:class cond="data:class" expr:name="data:class"/>
-              <b:attr cond="data:loading" name="loading" value="lazy"/>
-              <b:class cond="data:lazyload" expr:name="data:lazyload"/>
-              <b:with value="data:lazyload ? &quot;data-&quot; : &quot;&quot;" var="data">
-                <b:attr cond="data:data" name="src" value="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></b:attr>
-                <b:attr cond="data:srcset and !data:weserv" expr:name="data:data + &quot;srcset&quot;" expr:value="sourceSet(data:image, (data:srcset ?: []), data:ratio)"/>
-                <b:attr expr:name="data:data + &quot;src&quot;" expr:value="data:srcset and !data:weserv ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image"/>
-              </b:with>
-            </b:tag>
-            <b:if cond="data:noscript">
-              <noscript>
-                <b:include name="canvas:image" data="{ class: (data:class ?: false), src: data:image, resize: (data:resize ?: (data:srcset.first ?: 300)), ratio: data:ratio }"/>
-              </noscript>
-            </b:if>
-          </b:with>
+        <b:with value="resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)" var="image">
+          <b:tag expr:alt="data:alt ?: data:messages.image" name="img">
+            <b:attr name="id" expr:value="data:id"/>
+            <b:attr name="width" expr:value="data:width ?: data:image.width"/>
+            <b:attr name="height" expr:value="data:height ?: data:image.height"/>
+            <b:attr name="sizes" expr:value="data:sizes"/>
+            <b:class cond="data:class" expr:name="data:class"/>
+            <b:attr cond="data:loading" name="loading" value="lazy"/>
+            <b:class cond="data:lazyload" expr:name="data:lazyload"/>
+            <b:with value="data:lazyload ? &quot;data-&quot; : &quot;&quot;" var="data">
+              <b:attr cond="data:data" name="src" value="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></b:attr>
+              <b:attr cond="data:srcset" expr:name="data:data + &quot;srcset&quot;" expr:value="sourceSet(data:image, (data:srcset ?: []), data:ratio)"/>
+              <b:attr expr:name="data:data + &quot;src&quot;" expr:value="data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image"/>
+            </b:with>
+          </b:tag>
+          <b:if cond="data:noscript">
+            <noscript>
+              <b:include name="canvas:image" data="{ class: (data:class ?: false), src: data:image, resize: (data:resize ?: (data:srcset.first ?: 300)), ratio: data:ratio }"/>
+            </noscript>
+          </b:if>
         </b:with>
       </b:includable>
       <b:includable id="canvas:bodyClass">
