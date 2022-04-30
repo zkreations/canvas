@@ -35,8 +35,8 @@ mixin section(id)
 //- @author zkreations
 //- @link https://www.zkreations.com
 
-mixin widget(name="HTML", settings={})
-  b:widget(id=name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
+mixin widget(name="HTML", settings={}, number)
+  b:widget(id=number ? name + number : name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
     +settings(settings)
     b:includable#main
       b:include(name='widget-title')
@@ -51,8 +51,8 @@ mixin widget(name="HTML", settings={})
 //- @author zkreations
 //- @link https://www.zkreations.com
 
-mixin root-widget(name="HTML", settings={})
-  b:widget(id=name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
+mixin root-widget(name="HTML", settings={}, number)
+  b:widget(id=number ? name + number : name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
     +settings(settings)
     if block
       block
