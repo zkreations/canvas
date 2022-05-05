@@ -8,7 +8,7 @@ b:includable#commentAuthorAvatar
   //- Imagen del autor del comentario
   //- Reemplaza `blank.gif` por el avatar configurado por defecto
   b:include(name="canvas:image",
-    data='{src: (data:comment.authorAvatarSrc contains "/img/bl" ?  data:skin.vars.d_defaultImage : data:comment.authorAvatarSrc), resize: 40, ratio: "1:1" }')
+    data='{src: (data:comment.authorAvatarSrc contains "/img/bl" ?  data:skin.vars.d_avatar : data:comment.authorAvatarSrc), resize: 40, ratio: "1:1" }')
 
 b:includable#commentDeleteIcon
   //- Agrega el boton solo si se trata del administrador
