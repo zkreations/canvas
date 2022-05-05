@@ -32,7 +32,7 @@ b:includable#postMeta(var="post")
 //- METADATOS DE IMAGEN
 b:includable#postMetadataJSONImage
   //- Si no existe una imagen en el artículo se intenta con la imagen por defecto
-  b:with(value='resizeImage((data:post.featuredImage ?: data:skin.vars.i_defaultImage), 1200, "16:9")', var='image')
+  b:with(value='resizeImage((data:post.featuredImage ?: data:skin.vars.d_defaultImage), 1200, "16:9")', var='image')
     //- Se muestra solo si alguna imagen existe
     b:if(cond='data:image').
       "image": {

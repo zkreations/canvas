@@ -30,10 +30,13 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
     <Variable name="c.newFirst" description="New Comments first" type="string" value="true"/>
     <Variable name="c.replies" description="Enable Replies" type="string" value="true"/>
      
+    { Defaults }
+    ====================
+    <Variable name="d.defaultImage" description="Imagen" type="string"/>
+    <Variable name="d.defaultAvatar" description="Avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
+     
     { Information }
     ====================
-    <Variable name="i.defaultImage" description="Imagen" type="string"/>
-    <Variable name="i.defaultAvatar" description="Avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
     <Variable name="i.404" description="Error 404" type="string" value="Error 404"/>
      
     { Customize }
@@ -306,7 +309,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
         </b:with>
       </b:includable>
       <b:includable id="commentAuthorAvatar">
-        <b:include name="canvas:image" data="{src: (data:comment.authorAvatarSrc contains &quot;/img/bl&quot; ?  data:skin.vars.i_defaultAvatar : data:comment.authorAvatarSrc), resize: 40, ratio: &quot;1:1&quot; }"></b:include>
+        <b:include name="canvas:image" data="{src: (data:comment.authorAvatarSrc contains &quot;/img/bl&quot; ?  data:skin.vars.d_defaultImage : data:comment.authorAvatarSrc), resize: 40, ratio: &quot;1:1&quot; }"></b:include>
       </b:includable>
       <b:includable id="commentDeleteIcon"><a expr:class="data:comment.adminClass" expr:href="data:comment.deleteUrl"><data:messages.deleteComment/></a></b:includable>
       <b:includable id="commentReplyIcon">
@@ -418,7 +421,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
         </script>
       </b:includable>
       <b:includable id="postMetadataJSONImage">
-        <b:with value="resizeImage((data:post.featuredImage ?: data:skin.vars.i_defaultImage), 1200, &quot;16:9&quot;)" var="image">
+        <b:with value="resizeImage((data:post.featuredImage ?: data:skin.vars.d_defaultImage), 1200, &quot;16:9&quot;)" var="image">
           <b:if cond="data:image">
             "image": {
               "@type": "ImageObject",
