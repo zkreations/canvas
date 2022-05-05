@@ -35,9 +35,9 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
     <Variable name="d.image" description="Imagen" type="string"/>
     <Variable name="d.avatar" description="Avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
      
-    { Information }
+    { Texts }
     ====================
-    <Variable name="i.404" description="Error 404" type="string" value="Error 404"/>
+    <Variable name="t.404" description="Error 404" type="string" value="Error 404"/>
      
     { Customize }
     ====================
@@ -64,7 +64,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
         <meta expr:charset="data:blog.encoding"></meta>
         <meta content="width=device-width,initial-scale=1" name="viewport"></meta>
         <title>
-          <b:eval expr="data:view.isError ? data:skin.vars.i_404 : data:view.title.escaped"/>
+          <b:eval expr="data:view.isError ? data:skin.vars.t_404 : data:view.title.escaped"/>
         </title>
         <meta expr:content="data:view.description.escaped" name="description"></meta>
         <link expr:href="data:view.url.canonical" rel="canonical"></link>

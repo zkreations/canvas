@@ -10,7 +10,7 @@ b:includable(id='canvas:head')
   meta(content='width=device-width,initial-scale=1', name='viewport')
 
   //- Gestion de titulos
-  title: b:eval(expr='data:view.isError ? data:skin.vars.i_404 : data:view.title.escaped')
+  title: b:eval(expr='data:view.isError ? data:skin.vars.t_404 : data:view.title.escaped')
 
   //- Informacion básica del sitio (recomendado)
   meta(expr:content='data:view.description.escaped', name='description')
