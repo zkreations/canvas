@@ -164,7 +164,8 @@ mixin skin(enable=true)
       | /*
       //- Asignamos las variables correspondientes al tema
       if (blogger.commentsThemeVars)
-        - style = Object.assign({[blogger.commentsTheme]: commentVars[blogger.commentsTheme]}, style);
+        - let commentsTheme = blogger.commentsTheme || "emporio"
+        - style = Object.assign({[commentsTheme]: commentVars[commentsTheme]}, style);
       //- Todas las variables especificadas
       +skin-variables(style)
       |
