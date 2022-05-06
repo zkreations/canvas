@@ -10,13 +10,11 @@ function commentsReply(data, document) {
   // Crea el formulario de Blogger
   function createForm(src) {
     var iframe = document.createElement("iframe");
-    iframe.className = "blogger-iframe-colorize",
     iframe.src = src;
-    iframe.id = "comment-editor";
     iframe.width = "100%";
-    iframe.height = "88px";
+    iframe.height = "180px";
+    iframe.loading = "lazy";
     iframe.setAttribute("frameborder", "0");
-    iframe.setAttribute("scrolling", "no");
     return iframe;
   }
 
@@ -66,17 +64,14 @@ function commentsReply(data, document) {
   }
 
   function replies(event) {
-
     event.preventDefault();
     // Obtenemos el ID del comentario a responder
     var commentId = this.dataset.parentId;
-    var commentType = commentsParams.get("postID") ? "postID" : "pageID";
-    var replyingSrc = `https://www.blogger.com/comment-iframe.g?blogID=${blogID}&${commentType}=${entryID}&skin=${commentTheme}&parentID=${commentId}`;
+    var commentType = commentsParams.get("po") ? "po" : "pa";
+    var replyingSrc = `https://www.blogger.com/comment/frame/${blogID}?${commentType}=${entryID}&skin=${commentTheme}&parentID=${commentId}`;
     // Obtenemos el contenedor para el formulario de respuestas
     var replyEditorContainer = document.getElementById('c' + commentId + '-ce');
-
     setReplyStatus(this, replyEditorContainer, replyingSrc)
-
   }
 
   // Contenedor de los comentarios
@@ -85,18 +80,22 @@ function commentsReply(data, document) {
   // Obtenemos todos los botones para responder
   var replyLinks = comments.querySelectorAll(data.replyBtn);
 
-  // Obtenemos el contenido de un solo boton, con el fin de poderlo restaurar todos los demas mas adelante
-  var replyLinksText = comments.querySelector(data.replyBtn).innerHTML;
-
-  // Url Original del atributo src para el formulario
-  var originalSrc = document.getElementById('comment-editor-src').href;
+  if(replyLinks) {
+    replyLinks.forEach(function (item) {
+      item.addEventListener('click', replies, false)
+    });
+    // Obtenemos el contenido de un solo boton, con el fin de poderlo restaurar todos los demas mas adelante
+    var replyLinksText = replyLinks[0].innerHTML
+  }
 
   // Obtenemos solo el formulario (iframe)
   var commentEditor = document.getElementById('comment-editor');
 
+  // Url Original del atributo src para el formulario
+  var originalSrc = commentEditor.src;
+
   // Obtenemos el contenedor del formulario 
   var commentEditorContainer = document.getElementById('comment-form-thread');
-
 
   // A partir de la url original, obtenemos toda la información necesaria
   var commentsEditorSrc = new URL(originalSrc);
@@ -104,13 +103,10 @@ function commentsReply(data, document) {
 
   var blogID = commentsParams.get("blogID");
   // Los post y las paginas estaticas tienen un parametro especifico
-  var entryID = commentsParams.get("postID") || commentsParams.get("pageID");
+  var entryID = commentsParams.get("po") || commentsParams.get("pa");
   // Si el parametro skin no existe, entonces usamos el formulario antiguo
   var commentTheme = commentsParams.get("skin") || "legacy";
 
-  replyLinks.forEach(function (item) {
-    item.addEventListener('click', replies, false)
-  });
 };
 
 function initCommentsReply(config) {

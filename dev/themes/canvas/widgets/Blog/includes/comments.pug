@@ -24,22 +24,9 @@ b:includable#commentReplyIcon
     //- La clase .comment-reply es obligatoria
     a.comment-reply(expr:data-parent-id="data:comment.id",  href="#reply") Responder
 
-b:includable#commentFormIframeSrc
-  //- Enlace del formulario de comentarios
-  //- ID `#comment-editor-src` (obligatorio)
-  a#comment-editor-src(expr:href=`data:post.commentFormIframeSrc params {skin: "${blogger.commentsTheme}"}`)
-
-b:includable#commentFormIframeJs
-  <data:post.cmtfpIframe/>
-  script BLOG_CMT_createIframe("<data:post.appRpcRelayPath/>")
-
 b:includable#commentForm
-  b:include(name="commentFormIframeSrc")
-  //- Clase `.blogger-iframe-colorize` (obligatorio)
   //- ID `#comment-editor` (obligatorio)
-  iframe(frameborder='0',width='100%',scrolling="no",height="88px")#comment-editor.blogger-iframe-colorize
-  //- Código javascript del formulario (obligatorio)
-  b:include(name="commentFormIframeJs")
+  iframe(expr:src=`data:post.commentFormIframeSrc params {skin: "${blogger.commentsTheme}", blogID: data:blog.blogId }`, frameborder='0', width='100%', height="180px", loading="lazy")#comment-editor
 
 b:includable#comments(var='post')
   b:if(cond='not data:view.isPreview and data:post.allowComments')
