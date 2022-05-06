@@ -80,7 +80,7 @@ function commentsReply(data, document) {
   // Obtenemos todos los botones para responder
   var replyLinks = comments.querySelectorAll(data.replyBtn);
 
-  if(replyLinks) {
+  if(replyLinks && replyLinks.length > 0) {
     replyLinks.forEach(function (item) {
       item.addEventListener('click', replies, false)
     });
