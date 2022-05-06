@@ -22,7 +22,7 @@ b:includable#commentReplyIcon
   //-   * Las respuestas estan permitidas
   b:if(cond='not data:reply and data:post.allowNewComments and data:skin.vars.c_replies')
     //- La clase .comment-reply es obligatoria
-    a.comment-reply(expr:data-parent-id="data:comment.id",  href="#reply") Responder
+    a.comment-reply(expr:data-parent-id="data:comment.id",  href="#reply") <data:skin.vars.t_reply/>
 
 b:includable#commentForm
   //- ID `#comment-editor` (obligatorio)

@@ -38,6 +38,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
     { Texts }
     ====================
     <Variable name="t.404" description="Error 404" type="string" value="Error 404"/>
+    <Variable name="t.reply" description="Reply" type="string" value="Responder"/>
      
     { Customize }
     ====================
@@ -313,7 +314,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
       </b:includable>
       <b:includable id="commentDeleteIcon"><a expr:class="data:comment.adminClass" expr:href="data:comment.deleteUrl"><data:messages.deleteComment/></a></b:includable>
       <b:includable id="commentReplyIcon">
-        <b:if cond="not data:reply and data:post.allowNewComments and data:skin.vars.c_replies"><a class="comment-reply" expr:data-parent-id="data:comment.id" href="#reply">Responder</a></b:if>
+        <b:if cond="not data:reply and data:post.allowNewComments and data:skin.vars.c_replies"><a class="comment-reply" expr:data-parent-id="data:comment.id" href="#reply"><data:skin.vars.t_reply/></a></b:if>
       </b:includable>
       <b:includable id="commentForm">
         <iframe expr:src="data:post.commentFormIframeSrc params {skin: &quot;emporio&quot;, blogID: data:blog.blogId }" frameborder="0" width="100%" height="180px" loading="lazy" id="comment-editor"></iframe>
