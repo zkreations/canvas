@@ -105,7 +105,7 @@ function commentsReply(data, document) {
   // Los post y las paginas estaticas tienen un parametro especifico
   var entryID = commentsParams.get("po") || commentsParams.get("pa");
   // Si el parametro skin no existe, entonces usamos el formulario antiguo
-  var commentTheme = commentsParams.get("skin") || "legacy";
+  var commentTheme = commentsParams.get("skin");
 
 };
 

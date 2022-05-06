@@ -16,9 +16,9 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
      
     { Emporio }
     ====================
-    <Variable name="posts.text.color" description="Color" type="string" value="#333"/>
-    <Variable name="posts.text.font" description="Font" type="string" value="14px Roboto"/>
-    <Variable name="posts.link.color" description="Link" type="string" value="#333"/>
+    <Variable name="posts.text.color" description="Color" type="string" value="#666"/>
+    <Variable name="posts.text.font" description="Font" type="string" value="15px Roboto"/>
+    <Variable name="posts.link.color" description="Link" type="string" value="#666"/>
     <Variable name="posts.background.color" description="Bg" type="string" value="transparent"/>
     <Variable name="posts.title.color" description="none1" type="string" value="0"/>
     <Variable name="body.link.color" description="none2" type="string" value="0"/>

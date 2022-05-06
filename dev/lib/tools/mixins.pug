@@ -163,7 +163,7 @@ mixin skin(enable=true)
       | 
       | /*
       //- Asignamos las variables correspondientes al tema
-      if (blogger.commentsThemeVars && blogger.commentsTheme != "legacy")
+      if (blogger.commentsThemeVars)
         - style = Object.assign({[blogger.commentsTheme]: commentVars[blogger.commentsTheme]}, style);
       //- Todas las variables especificadas
       +skin-variables(style)
