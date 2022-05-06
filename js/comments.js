@@ -68,7 +68,7 @@ function commentsReply(data, document) {
     // Obtenemos el ID del comentario a responder
     var commentId = this.dataset.parentId;
     var commentType = commentsParams.get("po") ? "po" : "pa";
-    var replyingSrc = `https://www.blogger.com/comment/frame/${blogID}?${commentType}=${entryID}&skin=${commentTheme}&parentID=${commentId}`;
+    var replyingSrc = `https://www.blogger.com/comment/frame/${blogID}?${commentType}=${entryID}&hl=${commentHl}&skin=${commentTheme}&parentID=${commentId}`;
     // Obtenemos el contenedor para el formulario de respuestas
     var replyEditorContainer = document.getElementById('c' + commentId + '-ce');
     setReplyStatus(this, replyEditorContainer, replyingSrc)
@@ -101,11 +101,13 @@ function commentsReply(data, document) {
   var commentsEditorSrc = new URL(originalSrc);
   var commentsParams = new URLSearchParams(commentsEditorSrc.search);
 
+  // Parametros adicionales
+  var commentTheme = commentsParams.get("skin");
+  var commentHl = commentsParams.get("hl");
+
   var blogID = commentsParams.get("blogID");
   // Los post y las paginas estaticas tienen un parametro especifico
   var entryID = commentsParams.get("po") || commentsParams.get("pa");
-  // Si el parametro skin no existe, entonces usamos el formulario antiguo
-  var commentTheme = commentsParams.get("skin");
 
 };
 
