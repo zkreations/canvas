@@ -1,6 +1,7 @@
 -
+  //- Configuración
+  //-
   var blogger = {
-
     //- Tema para el formulario => {string}: soho, emporio, notable, essential, contempo
     commentsTheme: "emporio",
 
@@ -18,9 +19,56 @@
     adsense: true
   }
 
-  //- Informacion del tema
+  //- Información del tema
+  //-
   var themeInfo = {
     "Theme": "YOUR_THEME_NAME",
     "Version": "1.0.0",
     "License": "GNU General Public License v2 or later",
+  }
+
+  //- Variables de Blogger
+  //-
+  var style = {
+    //- Ajustes
+    configuration: {
+      "c.comments": { description: "Comments system", value: "blogger" },
+      "c.newFirst": { description: "New Comments first", value: "true" },
+      "c.replies": { description: "Enable Replies", value: "true" },
+    },
+
+    //- Valores por defecto
+    defaults: {
+      "d.image" : { description: "Imagen"},
+      "d.avatar" : { description: "Avatar", value: "https://lh3.googleusercontent.com/a/default-user"},
+    },
+
+    //- Texto traducible
+    texts: {
+      "t.404" : { description: "Error 404", value: "Error 404"},
+      "t.reply" : { description: "Reply", value: "Responder"},
+    },
+    
+    customize: {
+      //- Define el color principal (obligatorio)
+      "keycolor" : { description: "keycolor", default: "#2196f3"},
+
+      //- Define el fondo principal (obligatorio)
+      "Backgrounds": {
+        selector: "body",
+        group: {
+          "body.background": {
+            description: "Background",
+            type: "background",
+            color: "$(body.background.color)",
+            default: "$(color) none repeat scroll top center"
+          },
+          "body.background.color": {
+            description: "Body background color",
+            type: "color",
+            default: "#fff"
+          },
+        },
+      },
+    }
   }
