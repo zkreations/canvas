@@ -11,8 +11,10 @@ function commentsReply(data, document) {
   function createForm(src) {
     var iframe = document.createElement("iframe");
     iframe.src = src;
-    iframe.width = "100%";
-    iframe.height = "180px";
+    iframe.className = data.iframeClass;
+    iframe.id = data.commentEditor;
+    iframe.width = data.editorWidth;
+    iframe.height = data.editorHeight;
     iframe.loading = "lazy";
     iframe.setAttribute("frameborder", "0");
     return iframe;
@@ -89,7 +91,7 @@ function commentsReply(data, document) {
   }
 
   // Obtenemos solo el formulario (iframe)
-  var commentEditor = document.getElementById('comment-editor');
+  var commentEditor = document.getElementById(data.commentEditor);
 
   // Url Original del atributo src para el formulario
   var originalSrc = commentEditor.src;
@@ -113,10 +115,14 @@ function commentsReply(data, document) {
 
 function initCommentsReply(config) {
   config = Object.assign({
-    container: '#comments',
-    replyBtn: '.comment-reply',
-    replyingClass: 'is-replying',
-    cancelText: 'Cancelar'
+    container: "#comments",
+    commentEditor: "comment-editor",
+    editorWidth: "100%",
+    editorHeight: "200",
+    iframeClass: "comment-iframe",
+    replyingClass: "is-replying",
+    replyBtn: ".comment-reply",
+    cancelText: "Cancelar",
   }, config);
   commentsReply(config, document);
 }

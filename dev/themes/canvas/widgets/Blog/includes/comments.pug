@@ -26,7 +26,7 @@ b:includable#commentReplyIcon
 
 b:includable#commentForm
   //- ID `#comment-editor` (obligatorio)
-  iframe(expr:src=`data:post.commentFormIframeSrc params {skin: "${blogger.commentsTheme}", blogID: data:blog.blogId }`, frameborder='0', width='100%', height="180px", loading="lazy")#comment-editor
+  iframe(expr:src=`data:post.commentFormIframeSrc params {skin: "${blogger.commentsTheme}", blogID: data:blog.blogId }`, frameborder='0', width='100%', height="200", loading="lazy")#comment-editor
 
 b:includable#comments(var='post')
   b:if(cond='not data:view.isPreview and data:post.allowComments')
