@@ -305,7 +305,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
         </b:if>
       </b:includable>
       <b:includable id="bylineRegion" var="post">
-        <b:with value="data:widgets.Blog.first.allBylineItems" var="show">
+        <b:with value="data:widgets.Blog1.allBylineItems" var="show">
           <b:include data="post" name="post"/>
         </b:with>
       </b:includable>
