@@ -27,8 +27,9 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
     { Configuration }
     ====================
     <Variable name="c.comments" description="Comments system" type="string" value="blogger"/>
-    <Variable name="c.newFirst" description="New Comments first" type="string" value="true"/>
-    <Variable name="c.replies" description="Enable Replies" type="string" value="true"/>
+    <Variable name="c.newFirst" description="New comments first" type="string" value="true"/>
+    <Variable name="c.linkFilter" description="Enable link filter" type="string" value="true"/>
+    <Variable name="c.replies" description="Enable replies" type="string" value="true"/>
      
     { Defaults }
     ====================
@@ -39,6 +40,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
     ====================
     <Variable name="t.404" description="Error 404" type="string" value="Error 404"/>
     <Variable name="t.reply" description="Reply" type="string" value="Responder"/>
+    <Variable name="t.nolinks" description="no Links" type="string" value="Los enlaces no están permitidos"/>
      
     { Customize }
     ====================
@@ -368,7 +370,8 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
               <time><data:comment.timestamp/></time>
             </div>
             <div class="comment-body">
-              <b:class cond="data:comment.isDeleted" name="comment-deleted"/><data:comment.body/>
+              <b:class cond="data:comment.isDeleted" name="comment-deleted"/>
+              <b:eval expr="data:skin.vars.c_linkFilter and data:comment.body contains &quot;&lt;/a&gt;&quot; ? data:skin.vars.t_nolinks : data:comment.body"></b:eval>
             </div>
             <div class="comment-footer">
               <b:include name="commentReplyIcon"/>

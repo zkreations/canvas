@@ -112,7 +112,9 @@ b:includable#commentItem(var='comment')
       .comment-body
         //- Si el contenido se borró, pero no el comentario, agregamos una clase
         b:class(cond='data:comment.isDeleted', name='comment-deleted')
-        <data:comment.body/>
+
+        //- Comprobamos si el filtro de enlaces está disponible
+        b:eval(expr='data:skin.vars.c_linkFilter and data:comment.body contains "</a>" ? data:skin.vars.t_nolinks : data:comment.body')
 
       .comment-footer
         //- Boton responder

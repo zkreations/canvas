@@ -32,21 +32,23 @@
   var style = {
     //- Ajustes
     configuration: {
-      "c.comments": { description: "Comments system", value: "blogger" },
-      "c.newFirst": { description: "New Comments first", value: "true" },
-      "c.replies": { description: "Enable Replies", value: "true" },
+      "c.comments": { description: "Comments system", value: "blogger" }, //- {string} => blogger, disqus shortname
+      "c.newFirst": { description: "New comments first", value: "true" }, //- {boolean}
+      "c.linkFilter": { description: "Enable link filter", value: "true" }, //- {boolean}
+      "c.replies": { description: "Enable replies", value: "true" }, //- {boolean}
     },
 
-    //- Valores por defecto
+    //- Valores por defecto {url}
     defaults: {
       "d.image" : { description: "Imagen"},
-      "d.avatar" : { description: "Avatar", value: "https://lh3.googleusercontent.com/a/default-user"},
+      "d.avatar" : { description: "Avatar", value: "https://lh3.googleusercontent.com/a/default-user"}, //- {url}
     },
 
-    //- Texto traducible
+    //- Texto traducible {string}
     texts: {
-      "t.404" : { description: "Error 404", value: "Error 404"},
+      "t.404" : { description: "Error 404", value: "Error 404"}, 
       "t.reply" : { description: "Reply", value: "Responder"},
+      "t.nolinks" : { description: "no Links", value: "Los enlaces no están permitidos"},
     },
     
     customize: {
