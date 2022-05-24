@@ -12,9 +12,9 @@ function commentsReply(data, document) {
     var iframe = document.createElement("iframe");
     iframe.src = src;
     iframe.className = data.iframeClass;
-    iframe.id = data.commentEditor;
-    iframe.width = data.editorWidth;
-    iframe.height = data.editorHeight;
+    iframe.id = data.iframe;
+    iframe.width = data.iframeWidth;
+    iframe.height = data.iframeHeight;
     iframe.loading = "lazy";
     iframe.setAttribute("frameborder", "0");
     return iframe;
@@ -80,7 +80,7 @@ function commentsReply(data, document) {
   var comments = document.querySelector(data.container);
 
   // Obtenemos todos los botones para responder
-  var replyLinks = comments.querySelectorAll(data.replyBtn);
+  var replyLinks = comments.querySelectorAll('[data-parent-id]');
 
   if(replyLinks && replyLinks.length > 0) {
     replyLinks.forEach(function (item) {
@@ -91,7 +91,7 @@ function commentsReply(data, document) {
   }
 
   // Obtenemos solo el formulario (iframe)
-  var commentEditor = document.getElementById(data.commentEditor);
+  var commentEditor = document.getElementById(data.iframe);
 
   // Url Original del atributo src para el formulario
   var originalSrc = commentEditor.src;
@@ -116,12 +116,11 @@ function commentsReply(data, document) {
 function initCommentsReply(config) {
   config = Object.assign({
     container: "#comments",
-    commentEditor: "comment-editor",
-    editorWidth: "100%",
-    editorHeight: "200",
+    iframe: "comment-editor",
+    iframeWidth: "100%",
+    iframeHeight: "200",
     iframeClass: "comment-iframe",
     replyingClass: "is-replying",
-    replyBtn: ".comment-reply",
     cancelText: "Cancelar",
   }, config);
   commentsReply(config, document);
