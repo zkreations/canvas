@@ -302,6 +302,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
           <b:comment>Feed</b:comment>
           <b:elseif cond="data:view.isPost"/>
           <b:comment>Post</b:comment>
+          <b:include name="comments" data="post"/>
           <b:elseif cond="data:view.isPage"/>
           <b:comment>Page</b:comment>
         </b:if>

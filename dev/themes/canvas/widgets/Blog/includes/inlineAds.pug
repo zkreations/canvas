@@ -12,6 +12,4 @@ b:includable#inlineAd(var='post')
     //- La cantidad de anuncios totales (Incrustados y widgets Adsense)
       no deben superar el limite de "3", (recomendado)
     b:if(cond='data:post.adNumber + data:widgets.AdSense.size lt 3')
-
-      //- Codigo de anuncios del servidor
       b:include(name='super.inlineAd')
