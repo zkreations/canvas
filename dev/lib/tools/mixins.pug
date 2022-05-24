@@ -10,7 +10,7 @@ mixin markup(type='Common')
 
 //- Markup
 //-
-//- Inserta inclusion de configuracion predeterminada
+//- Inserta inclusion de opciones predeterminadas
 //- @author zkreations
 //- @link https://www.zkreations.com
 mixin settings(object={})
@@ -36,22 +36,6 @@ mixin section(id)
 //- @link https://www.zkreations.com
 
 mixin widget(name="HTML", settings={}, number)
-  b:widget(id=number ? name + number : name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
-    +settings(settings)
-    b:includable#main
-      b:include(name='widget-title')
-      b:include(name='content')
-    b:includable#content
-      if block
-        block
-
-//- Blogger root widgets
-//-
-//- Crea solo la etiqueta widget bloqueada por defecto
-//- @author zkreations
-//- @link https://www.zkreations.com
-
-mixin root-widget(name="HTML", settings={}, number)
   b:widget(id=number ? name + number : name + widgetCalls[name]++, type=name, version=2)&attributes(attributes)
     +settings(settings)
     if block

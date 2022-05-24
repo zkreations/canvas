@@ -25,7 +25,6 @@ b:includable#commentReplyIcon
     a.comment-reply(expr:data-parent-id="data:comment.id",  href="#reply") <data:skin.vars.t_reply/>
 
 b:includable#commentForm
-  //- ID `#comment-editor` (obligatorio)
   iframe(expr:src=`data:post.commentFormIframeSrc params {skin: "${blogger.commentsTheme}", blogID: data:blog.blogId }`, frameborder='0', width='100%', height="200", loading="lazy")#comment-editor
 
 b:includable#comments(var='post')
@@ -48,7 +47,6 @@ b:includable#comments(var='post')
 //- @link https://www.zkreations.com
 
 b:includable#commentList(var='post')
-  //- Para un correcto funcionamiento, proponemos esta estructura
   .comments#comments
     .comments-content
       //- Filtramos comentarios segun el criterio
@@ -58,6 +56,7 @@ b:includable#commentList(var='post')
 
         .comments-item
           b:include(name='commentItem', data='comment')
+
           //- Si las respuestas estan habilitadas
           b:if(cond="data:skin.vars.c_replies")
             .comments-replies
@@ -65,10 +64,10 @@ b:includable#commentList(var='post')
               b:loop(values="data:post.comments where (c => c.inReplyTo == data:comment.id)", var='reply')
                 b:include(name='commentItem', data='reply')
 
-              //- Contenedor de formulario de respuestas
+              //- Contenedor para formulario de respuestas
               .comment-replies-form(expr:id='"c" + data:comment.id + "-ce"')
 
-    //- Insertamos si hay más de 200 comentarios (incluyendo respuestas)
+    //- Insertamos paginación si hay más de 200 comentarios (incluyendo respuestas)
     b:if(cond='data:post.commentPagingRequired')
       .comments-paging
         b:if(cond='data:post.hasOlderLinks')
@@ -82,7 +81,6 @@ b:includable#commentList(var='post')
           a(expr:href='data:post.newestLinkUrl') <data:messages.newest/>
 
     //- Insertamos el formulario solo si esta permitido comentar
-    //- ID `#comment-form-thread` (obligatorio)
     .comments-form#comment-form-thread
       b:include(cond='data:post.allowNewComments', data='post', name='commentForm')
 
@@ -94,20 +92,16 @@ b:includable#commentList(var='post')
 
 //- COMENTARIOS
 b:includable#commentItem(var='comment')
-  //- ID de comentario obligatoria para responder
   .comment(expr:id="data:comment.cmtBodyIdPostfix")
     //- Avatar
     .comment-avatar
       b:include(name="commentAuthorAvatar")
 
-    //- Contenedor de comentarios
+    //- Comentario
     .comment-block
       .comment-header
-        //- El enlace solo se crea si existe
-        b:tag(name='a', cond='data:comment.authorUrl',
-              expr:href='data:comment.authorUrl') <data:comment.author/>
-        //- Fecha del comentario
-        time <data:comment.timestamp/>
+        b:tag(name='a', cond='data:comment.authorUrl', expr:href='data:comment.authorUrl') <data:comment.author/>
+        <data:comment.timestamp/>
 
       .comment-body
         //- Si el contenido se borró, pero no el comentario, agregamos una clase
@@ -117,8 +111,5 @@ b:includable#commentItem(var='comment')
         b:eval(expr='data:skin.vars.c_linkFilter and data:comment.body contains "</a>" ? data:skin.vars.t_nolinks : data:comment.body')
 
       .comment-footer
-        //- Boton responder
         b:include(name="commentReplyIcon")
-
-        //- Boton eliminar comentario 
         b:include(name="commentDeleteIcon")

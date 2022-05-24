@@ -366,8 +366,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
           </div>
           <div class="comment-block">
             <div class="comment-header">
-              <b:tag name="a" cond="data:comment.authorUrl" expr:href="data:comment.authorUrl"><data:comment.author/></b:tag>
-              <time><data:comment.timestamp/></time>
+              <b:tag name="a" cond="data:comment.authorUrl" expr:href="data:comment.authorUrl"><data:comment.author/></b:tag><data:comment.timestamp/>
             </div>
             <div class="comment-body">
               <b:class cond="data:comment.isDeleted" name="comment-deleted"/>
