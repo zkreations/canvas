@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html b:css="false" b:js="false" b:defaultwidgetversion="2" b:layoutsVersion="3" b:responsive="true" expr:dir="data:blog.locale.languageDirection" expr:lang="data:blog.locale.language" prefix="og: http://ogp.me/ns#">
-<!--
-Canvas v2.0.0-beta1 | github.com/zkreations/canvas
--->
 <head>
   <b:include name="canvas:head"/>
   <b:skin><![CDATA[
@@ -11,6 +8,7 @@ Canvas v2.0.0-beta1 | github.com/zkreations/canvas
     => Theme: YOUR_THEME_NAME
     => Version: 1.0.0
     => License: GNU General Public License v2 or later
+    => Core: Canvas v2.0.0-beta1 (https://github.com/zkreations/canvas)
     */ 
     /*
      
