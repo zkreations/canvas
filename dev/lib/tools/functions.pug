@@ -5,12 +5,6 @@
   //- @author zkreations
   //- @link https://www.zkreations.com
 
-  function getObjectData(object) { 
-    return JSON.stringify(object)
-      .replace(/"([^"]+)":\s*/g, "$1: ")
-      .replace(/"(data:.[^"]*)"/g, "$1")
-  }
-
   function capitalizeFirstLetter(string) {
     return (string.charAt(0).toUpperCase() + string.slice(1)).split('-').join(' ')
   }
