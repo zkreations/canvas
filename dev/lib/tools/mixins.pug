@@ -171,20 +171,3 @@ mixin template-skin
     +cdata("b:template-skin")
       if block
         block
-
-//- Blogger Responsive Image Style
-//-
-//- Inserta la inclusion responsiveImageStyle
-//- @author zkreations
-//- @link https://www.zkreations.com
-
-mixin responsiveImageStyle(params)
-  -
-    params = Object.assign({
-      image: "data:skin.vars.body_background.image",
-      selector: "body",
-    }, params);
-
-  b:include(cond=`!${view.preview}`,
-      data=getObjectData(params),
-      name='responsiveImageStyle')

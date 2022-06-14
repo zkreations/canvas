@@ -265,7 +265,7 @@
       <b:includable id="feeds"/>
     </b:defaultmarkup>
   </b:defaultmarkups>
-  <b:include cond="!data:view.isPreview" data="{image: data:skin.vars.body_background.image,selector: &quot;body&quot;}" name="responsiveImageStyle"/>
+  <b:include cond="not data:view.isPreview" data="{ selector: &quot;body&quot;, image: data:skin.vars.body_background.image }" name="responsiveImageStyle"/>
 </head>
 <body>
   <b:include name="canvas:bodyClass"/>

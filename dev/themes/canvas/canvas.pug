@@ -1,8 +1,10 @@
 extends templates/default
 
-append head 
+append head
   //- Imagen responsive de fondo
-  +responsiveImageStyle({ selector: "body" })
+  b:include(cond=`not ${view.preview}`,
+    data='{ selector: "body", image: data:skin.vars.body_background.image }',
+    name='responsiveImageStyle')
 
 block body
   b:include(name="canvas:bodyClass")
