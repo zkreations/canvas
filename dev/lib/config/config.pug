@@ -6,7 +6,7 @@
     commentsTheme: "emporio",
 
     //- Habilita las variables => {boolean}
-    //- Nota: Utilizar variables del tema manualmente o recibiras un error del formulario
+    //- Nota: Utilizar variables del tema manualmente (obligatorio)
     commentsThemeVars: true,
 
     //- Agrega meta datos de canvas (robots, open graph, twitter card) => {boolean}
@@ -15,7 +15,7 @@
     //- Agrega Analytics (GA-4) => {boolean}
     analytics: true,
 
-    //- Agrega adsense => {boolean}
+    //- Agrega Adsense => {boolean}
     adsense: true
   }
 
@@ -39,10 +39,11 @@
       "c.replies": { description: "Enable replies", value: "true" }, //- {boolean}
     },
 
-    //- Valores por defecto {url}
+    //- Enlaces por defecto {url}
     defaults: {
       "d.image" : { description: "Imagen"},
-      "d.avatar" : { description: "Avatar", value: "https://lh3.googleusercontent.com/a/default-user"}, //- {url}
+      "d.avatar" : { description: "Avatar", value: "https://lh3.googleusercontent.com/a/default-user"},
+      "d.cookie" : { description: "About the cookies", value: "https://www.blogger.com/go/blogspot-cookies"},
     },
 
     //- Texto traducible {string}
@@ -50,6 +51,7 @@
       "t.404" : { description: "Error 404", value: "Error 404"}, 
       "t.reply" : { description: "Reply", value: "Responder"},
       "t.nolinks" : { description: "no Links", value: "Los enlaces no están permitidos"},
+      "t.cookie" : { description: "Cookie notice"},
     },
     
     customize: {

@@ -33,12 +33,14 @@
     ====================
     <Variable name="d.image" description="Imagen" type="string"/>
     <Variable name="d.avatar" description="Avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
+    <Variable name="d.cookie" description="About the cookies" type="string" value="https://www.blogger.com/go/blogspot-cookies"/>
      
     { Texts }
     ====================
     <Variable name="t.404" description="Error 404" type="string" value="Error 404"/>
     <Variable name="t.reply" description="Reply" type="string" value="Responder"/>
     <Variable name="t.nolinks" description="no Links" type="string" value="Los enlaces no están permitidos"/>
+    <Variable name="t.cookie" description="Cookie notice" type="string"/>
      
     { Customize }
     ====================
@@ -80,6 +82,12 @@
           <meta content="noindex,follow" name="robots"></meta>
         </b:if>
         <meta content="summary_large_image" name="twitter:card"></meta>
+        <script>
+          cookieOptions = {
+            <b:if cond='data:skin.vars.t_cookie != ""'>msg: "<data:skin.vars.t_cookie/>",</b:if>
+            <b:if cond='data:skin.vars.d_cookie != ""'>link: "<data:skin.vars.d_cookie/>",</b:if>
+          };
+        </script>
         <b:if cond="data:blog.analyticsAccountNumber">
           <script async="async" expr:src="params(&quot;https://www.googletagmanager.com/gtag/js&quot;,{id: data:blog.analyticsAccountNumber})"></script>
           <script>

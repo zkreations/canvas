@@ -35,6 +35,14 @@ b:includable(id='canvas:head')
     //- Especificar tipo de Twitter Card (recomendado)
     meta(content='summary_large_image', name='twitter:card')
 
+  //- Aviso de cookies (recomendado)
+  script.
+    cookieOptions = {
+      <b:if cond='data:skin.vars.t_cookie != ""'>msg: "<data:skin.vars.t_cookie/>",</b:if>
+      <b:if cond='data:skin.vars.d_cookie != ""'>link: "<data:skin.vars.d_cookie/>",</b:if>
+    };
+  //- End Cookie Choices
+
   //- Datos para analítica (opcional)
   if blogger.analytics
     b:if(cond='data:blog.analyticsAccountNumber')
