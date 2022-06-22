@@ -97,7 +97,7 @@
             gtag('config','<data:blog.analyticsAccountNumber/>');
           </script>
         </b:if>
-        <b:tag defer="defer" name="script" cond="data:blog.adsenseClientId and data:blog.adsenseHostId and data:blog.adsenseHasAds" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></b:tag>
+        <b:tag async="async" name="script" cond="data:blog.adsenseClientId and data:blog.adsenseHostId and data:blog.adsenseHasAds" expr:src="&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot; params {client: data:blog.adsenseClientId}" crossorigin="anonymous"></b:tag>
       </b:includable>
       <b:includable id="canvas:image">
         <b:with value="resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)" var="image">
@@ -144,6 +144,9 @@
       </b:includable>
       <b:includable id="canvas:truncate">
         <b:eval expr="data:string snippet { length: (data:length ?: 50), links: false, linebreaks: false, ellipsis: (data:ellipsis ?: false) }"/>
+      </b:includable>
+      <b:includable id="canvas:ads"><ins class="adsbygoogle" data-ad-format="auto" expr:data-ad-client="data:adClientId ?: data:blog.adsenseClientId" expr:data-ad-host="data:blog.adsenseHostId" data-full-width-responsive="true" expr:data-analytics-uacct="data:blog.analyticsAccountNumber" expr:style="data:style ?: &quot;display: block;&quot;"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </b:includable>
     </b:defaultmarkup>
     <b:defaultmarkup type="BlogList,ContactForm,Feed,HTML,Image,LinkList,Stats,TextList,Translate,Wikipedia">
@@ -312,6 +315,13 @@
           <b:include name="comments" data="post"/>
           <b:elseif cond="data:view.isPage"/>
           <b:comment>Page</b:comment>
+        </b:if>
+      </b:includable>
+      <b:includable id="inlineAd" var="post">
+        <b:if cond="data:post.includeAd">
+          <b:if cond="data:post.adNumber + data:widgets.AdSense.size lt 3">
+            <b:include name="canvas:ads"/>
+          </b:if>
         </b:if>
       </b:includable>
       <b:includable id="bylineRegion" var="post">
