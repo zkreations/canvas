@@ -97,7 +97,7 @@
             gtag('config','<data:blog.analyticsAccountNumber/>');
           </script>
         </b:if>
-        <b:tag defer="defer" name="script" cond="data:blog.adsenseClientId" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></b:tag>
+        <b:tag defer="defer" name="script" cond="data:blog.adsenseClientId and data:blog.adsenseHostId and data:blog.adsenseHasAds" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></b:tag>
       </b:includable>
       <b:includable id="canvas:image">
         <b:with value="resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)" var="image">

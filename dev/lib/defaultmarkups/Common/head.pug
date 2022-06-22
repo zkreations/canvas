@@ -57,5 +57,5 @@ b:includable(id='canvas:head')
   //- Datos para adsense (opcional)
   if blogger.adsense
     b:tag(defer, name='script',
-      cond='data:blog.adsenseClientId',
+      cond='data:blog.adsenseClientId and data:blog.adsenseHostId and data:blog.adsenseHasAds',
       src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
