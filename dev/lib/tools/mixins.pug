@@ -90,8 +90,8 @@ mixin skin-separator(name)
 
 mixin skin-variable(name,object)
   Variable(name=name,
-    description=object.description || name,
-    type=object.type || "string",
+    description=(object.description || name),
+    type=(object.type || "string"),
     color=object.color,
     red=object.red,
     green=object.green,
@@ -103,7 +103,7 @@ mixin skin-variable(name,object)
     max=object.max,
     hideEditor=object.hideEditor,
     default=object.default,
-    value=object.value)/
+    value=(object.value || object.default))/
 
 //- Blogger variables and Group
 //-
