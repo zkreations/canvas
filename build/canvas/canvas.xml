@@ -44,7 +44,7 @@
      
     { Customize }
     ====================
-    <Variable name="keycolor" description="keycolor" type="string" default="#2196f3"/>
+    <Variable name="keycolor" description="Main color" type="color" default="#2196f3"/>
     <Group description="Backgrounds" selector="body">
       <Variable name="body.background" description="Background" type="background" color="$(body.background.color)" default="$(color) none repeat scroll top center"/>
       <Variable name="body.background.color" description="Body background color" type="color" default="#fff"/>
