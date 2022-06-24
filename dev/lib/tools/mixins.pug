@@ -47,7 +47,7 @@ mixin widget(name="HTML", settings={}, number)
 //- @author zkreations
 //- @link https://www.zkreations.com
 
-mixin cdata(tag)
+mixin cdata(tag="style")
   #{tag}&attributes(attributes)
     if ['style','script'].includes(tag)
       | /*<![CDATA[*/
