@@ -2,40 +2,27 @@ const { src, dest, series, watch } = require('gulp')
 
 // Rutas
 const dir = {
-  build: 'build/',
   allFiles: 'dev/**/*',
-  templates: 'dev/themes/*/*.pug'
-}
-
-const blogger = {
-  tags: /<(b:*[^/>]*)>\s*<\/(b:*[^>]*)>/g,
-  variables: /<(Variable[^>]*)><\/Variable>/g,
+  templates: 'dev/themes/*/*.pug',
+  xml: 'dev/themes/*/*.xml'
 }
 
 // Plugins
 const rename = require("gulp-rename")
 const pug = require('gulp-pug')
-const replace = require('gulp-replace')
 
 const build = () => {
-  return src( [ dir.templates ] )
+  return src( [dir.templates], { base: "." } )
     .pipe(pug({
       pretty: true,
-      doctype: 'xml',
     }))
-    // Etiquetas de Blogger
-    .pipe(replace(blogger.tags, "<$1/>"))
-    .pipe(replace(blogger.variables, "<$1/>"))
-    // Espacio adicional
-    .pipe(replace(/(^|\G) {2}/gm, ""))
-    // Extensión
     .pipe( rename( { extname: '.xml' } ) )
-    .pipe( dest( dir.build ) )
+    .pipe( dest( './' ) )
 }
 
 const watchFiles = () => {
   watch(
-    [ dir.allFiles ],
+    [ dir.allFiles, `!${dir.xml}` ],
     series( build )
   );
 };
