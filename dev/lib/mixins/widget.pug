@@ -25,7 +25,7 @@ mixin widget(type="HTML", settings={}, number)
       //- Se compone del nombre mas un numero del 1 al 999
       //- El numero se obtiene del objeto `widgets`
       //- Definir un numero arbitrario o un contador inicial también es posible
-      let instanceId = widgetType + ((number ?? locals.widgets[widgetType]) + (initCall ?? 0))
+      let instanceId = widgetType + ( number ?? ( locals.widgets[widgetType] + (initCall ?? 0) ) )
 
     //- Creamos la etiqueta b:widget con la información hasta el momento
     b:widget(id=instanceId type=widgetType version=2)&attributes(attributes)
