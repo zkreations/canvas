@@ -1,0 +1,33 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+include /lib/init
+
+html&attributes(html.layout3)(b:css='false' b:js='false')
+  head
+    //- Dados comunes (obligatorio)
+    meta(expr:charset='data:blog.encoding')
+    meta(content='width=device-width,initial-scale=1', name='viewport')
+
+    //- Información básica del sitio (recomendado)
+    title <data:view.title.escaped/>
+    meta(expr:content='data:view.description.escaped', name='description')
+    link(expr:href='data:view.url.canonical', rel='canonical')
+    link(expr:href='data:blog.blogspotFaviconUrl', rel='icon', type='image/x-icon')
+
+    //- Etiqueta b:skin desactivada
+    b:if(cond='data:view.isLayoutMode')
+      +cdata("b:skin")
+
+    //- Estilos
+    +cdata
+      include assets/main.css
+
+    //- Etiqueta b:defaultmarkups
+    +markups(includable.compact)
+
+  body
+
+    //- Etiqueta b:section desactivada
+    b:if(cond='data:view.isLayoutMode')
+      b:section#main
