@@ -270,6 +270,10 @@
             <b:include name="postMetadataJSON" data="{ defaultImage: data:skin.vars.d_image }"></b:include>
             <b:elseif cond="data:view.isPage"></b:elseif>
             <b:comment>Page</b:comment>
+            <article>
+              <h1><data:post.title.escaped/></h1>
+              <section><data:post.body/></section>
+            </article>
           </b:if>
         </b:includable>
         <b:includable id="postMetadataJSONImage">
