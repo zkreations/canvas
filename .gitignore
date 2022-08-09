@@ -20,6 +20,7 @@
 *.rar
 
 # Ignore files and folders
+_site
 package-lock.json
 .vscode
 node_modules/
