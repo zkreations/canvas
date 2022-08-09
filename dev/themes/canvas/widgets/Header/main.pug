@@ -1,27 +1,17 @@
-//- Widget Header
-//-
 //- Estructura limpia para el widget Header
 //- @author zkreations
-//- @link https://www.zkreations.com
 
-+widget("Header")(locked="true")
++widget("Header")
   b:includable#main
     //- MODOS DEL LOGO
     //-   * BEHIND: Detrás del título y la descripción
     //-   * REPLACE: En lugar del título y la descripción
     //-   * BEFORE_DESCRIPTION: Ubicar la descripción después de la imagen
 
-    //- Inserta logo (si existe), titulo y descripción
-    b:include(name='behindImageStyle')
-
-  b:includable#behindImageStyle
-    //- Si existe un logo se inserta antes que todo
     b:include(cond='data:image', name='image')
-    //- Si la configuracion del logo es igual a "BEHIND" se permite el titulo
     b:include(cond='data:imagePlacement == "BEHIND"', name='title')
-    //- Si la configuracion del logo no es "REPLACE" se incluye la descripcion
     b:include(cond='data:description and data:imagePlacement != "REPLACE"', name='description')
-    
+
   b:includable#description
     <data:description/>
 
