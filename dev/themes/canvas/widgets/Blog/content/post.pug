@@ -1,3 +1,7 @@
+//- Entrada individual
+//- @author zkreations
+
 b:comment Post
-b:include(name="postMeta", data="post")
-b:include(name="comments", data="post")
+
+b:include(name="comments" data='{ minDepth: data:skin.vars.c_depth, newestFirst: data:skin.vars.c_newer, filterLinks: data:skin.vars.c_filter }')
+b:include(name='postMetadataJSON' data='{ defaultImage: data:skin.vars.d_image }')
