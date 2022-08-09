@@ -258,10 +258,14 @@
           <b:if cond="data:view.isMultipleItems">
             <b:comment>Feed</b:comment>
             <article><a expr:href="data:post.url.canonical">
-                <b:include name="$:image" data="{ src: data:post.featuredImage, resize: 300, loading: &quot;lazy&quot; }"></b:include>
+                <b:include cond="data:post.featuredImage" name="$:image" data="{ src: data:post.featuredImage, resize: 300, loading: &quot;lazy&quot; }"></b:include>
                 <h2><data:post.title/></h2></a></article>
             <b:elseif cond="data:view.isPost"></b:elseif>
             <b:comment>Post</b:comment>
+            <article>
+              <h1><data:post.title.escaped/></h1>
+              <section><data:post.body/></section>
+            </article>
             <b:include name="comments" data="{ minDepth: data:skin.vars.c_depth, newestFirst: data:skin.vars.c_newer, filterLinks: data:skin.vars.c_filter }"></b:include>
             <b:include name="postMetadataJSON" data="{ defaultImage: data:skin.vars.d_image }"></b:include>
             <b:elseif cond="data:view.isPage"></b:elseif>

@@ -3,5 +3,9 @@
 
 b:comment Post
 
+article
+  h1 <data:post.title.escaped/>
+  section <data:post.body/>
+
 b:include(name="comments" data='{ minDepth: data:skin.vars.c_depth, newestFirst: data:skin.vars.c_newer, filterLinks: data:skin.vars.c_filter }')
 b:include(name='postMetadataJSON' data='{ defaultImage: data:skin.vars.d_image }')
