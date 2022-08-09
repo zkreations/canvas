@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html b:css="false" b:js="false" b:defaultwidgetversion="2" b:layoutsVersion="3" expr:dir="data:blog.languageDirection" expr:lang="data:blog.locale">
+  <head>
+    <b:include name="head"></b:include>
+    <b:skin><![CDATA[
+      /*!
+       * Name      : Tema
+       * Version   : 1.0.0
+       * Author    : Tu nombre
+       * License   : GNU General Public License v2 or later
+       *//* 
+
+      Comentarios
+      =====================
+      <Variable name="c.depth" description="Replies level" type="string" value="2"/>
+      <Variable name="c.newer" description="New comments first" type="string" value="true"/>
+      <Variable name="c.filter" description="Enable link filter" type="string" value="true"/>
+
+      Recursos por defecto
+      =====================
+      <Variable name="d.image" description="Imagen" type="string" value=""/>
+      <Variable name="d.avatar" description="Avatar" type="string" value="https://lh3.googleusercontent.com/a/default-user"/>
+
+      Personalizar
+      =====================
+      <Group description="Backgrounds" selector="body">
+        <Variable name="body.background" description="Background" type="background" default="$(color) none repeat scroll top center" color="$(body.background.color)" value="$(color) none repeat scroll top center"/>
+        <Variable name="body.background.color" description="Body background color" type="color" default="#fff" value="#fff"/>
+      </Group>*/ 
+/*! skin.css */ :where(.item-control){ display: none }]]>
+    </b:skin>
+    <style>/*<![CDATA[*//*! main.css *//*]]>*/
+    </style>
+    <b:if cond="data:view.isLayoutMode">
+      <b:template-skin><![CDATA[/*! admin.css */]]>
+      </b:template-skin>
+    </b:if>
+    <b:defaultmarkups>
+      <b:defaultmarkup type="All">
+        <b:includable id="main"/>
+        <b:includable id="content"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="AdSense,Blog">
+        <b:includable id="defaultAdUnit"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="Blog,PopularPosts,FeaturedPost">
+        <b:includable id="blogThisShare"/>
+        <b:includable id="bylineByName"/>
+        <b:includable id="bylineRegion"/>
+        <b:includable id="commentsLink"/>
+        <b:includable id="commentsLinkIframe"/>
+        <b:includable id="emailPostIcon"/>
+        <b:includable id="facebookShare"/>
+        <b:includable id="footerBylines"/>
+        <b:includable id="headerByline"/>
+        <b:includable id="googlePlusShare"/>
+        <b:includable id="linkShare"/>
+        <b:includable id="otherSharingButton"/>
+        <b:includable id="platformShare"/>
+        <b:includable id="postAuthor"/>
+        <b:includable id="postCommentsLink"/>
+        <b:includable id="postJumpLink"/>
+        <b:includable id="postLabels"/>
+        <b:includable id="postLocation"/>
+        <b:includable id="postReactions"/>
+        <b:includable id="postShareButtons"/>
+        <b:includable id="postTimestamp"/>
+        <b:includable id="sharingButton"/>
+        <b:includable id="sharingButtonContent"/>
+        <b:includable id="sharingButtons"/>
+        <b:includable id="sharingButtonsMenu"/>
+        <b:includable id="sharingPlatformIcon"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="PopularPosts,FeaturedPost">
+        <b:includable id="snippetedPostByline"/>
+        <b:includable id="snippetedPostContent"/>
+        <b:includable id="snippetedPosts"/>
+        <b:includable id="snippetedPostThumbnail"/>
+        <b:includable id="snippetedPostTitle"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="Blog">
+        <b:includable id="aboutPostAuthor"/>
+        <b:includable id="addComments"/>
+        <b:includable id="commentAuthorAvatar"/>
+        <b:includable id="commentDeleteIcon"/>
+        <b:includable id="commentForm"/>
+        <b:includable id="commentFormIframeSrc"/>
+        <b:includable id="commentItem"/>
+        <b:includable id="commentList"/>
+        <b:includable id="commentPicker"/>
+        <b:includable id="comments"/>
+        <b:includable id="commentsTitle"/>
+        <b:includable id="feedLinks"/>
+        <b:includable id="feedLinksBody"/>
+        <b:includable id="homePageLink"/>
+        <b:includable id="iframeComments"/>
+        <b:includable id="inlineAd"/>
+        <b:includable id="manageComments"/>
+        <b:includable id="nextPageLink"/>
+        <b:includable id="post"/>
+        <b:includable id="postBody"/>
+        <b:includable id="postBodySnippet"/>
+        <b:includable id="postCommentsAndAd"/>
+        <b:includable id="postFooter"/>
+        <b:includable id="postFooterAuthorProfile"/>
+        <b:includable id="postHeader"/>
+        <b:includable id="postMeta"/>
+        <b:includable id="postMetadataJSONImage"/>
+        <b:includable id="postMetadataJSONPublisher"/>
+        <b:includable id="postPagination"/>
+        <b:includable id="postTitle"/>
+        <b:includable id="previousPageLink"/>
+        <b:includable id="threadedCommentForm"/>
+        <b:includable id="threadedCommentJs"/>
+        <b:includable id="threadedComments"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="BlogArchive">
+        <b:includable id="flat"/>
+        <b:includable id="hierarchy"/>
+        <b:includable id="interval"/>
+        <b:includable id="posts"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="BlogSearch">
+        <b:includable id="searchForm"/>
+        <b:includable id="searchSubmit"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="Header">
+        <b:includable id="behindImageStyle"/>
+        <b:includable id="description"/>
+        <b:includable id="image"/>
+        <b:includable id="title"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="Label">
+        <b:includable id="cloud"/>
+        <b:includable id="list"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="PageList">
+        <b:includable id="overflowButton"/>
+        <b:includable id="overflowablePageList"/>
+        <b:includable id="pageLink"/>
+        <b:includable id="pageList"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="Profile">
+        <b:includable id="authorProfileImage"/>
+        <b:includable id="defaultProfileImage"/>
+        <b:includable id="profileImage"/>
+        <b:includable id="teamProfile"/>
+        <b:includable id="teamProfileLink"/>
+        <b:includable id="userGoogleProfile"/>
+        <b:includable id="userLocation"/>
+        <b:includable id="userProfile"/>
+        <b:includable id="userProfileData"/>
+        <b:includable id="userProfileImage"/>
+        <b:includable id="userProfileInfo"/>
+        <b:includable id="userProfileLink"/>
+        <b:includable id="userProfileText"/>
+        <b:includable id="viewProfileLink"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="Subscribe">
+        <b:includable id="feeds"/>
+      </b:defaultmarkup>
+      <b:defaultmarkup type="Common">
+        <b:includable id="$:ads">
+          <b:tag class="adsbygoogle" name="ins" data-full-width-responsive="true">
+            <b:attr name="data-ad-slot" expr:value="data:slot"></b:attr>
+            <b:attr name="data-ad-client" expr:value="data:adClientId ?: data:blog.adsenseClientId"></b:attr>
+            <b:attr name="data-ad-host" expr:value="data:blog.adsenseHostId"></b:attr>
+            <b:attr name="data-ad-format" expr:value="data:layout ? &quot;fluid&quot; : &quot;auto&quot;"></b:attr>
+            <b:attr expr:name="&quot;data-ad-layout&quot; + (data:layout != &quot;in-article&quot; ? &quot;-key&quot; : &quot;&quot;)" expr:value="data:layout"></b:attr>
+            <b:attr name="style" expr:value="data:style ?: &quot;display: block&quot;"></b:attr>
+          </b:tag>
+          <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </b:includable>
+        <b:includable id="$:adsense">
+          <b:if cond="data:blog.adsenseHostId and not data:blog.adsenseAutoAds">
+            <b:tag async="async" name="script" cond="data:blog.adsenseClientId and data:blog.adsenseHasAds" expr:src="&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot; params {client: data:blog.adsenseClientId}" crossorigin="anonymous"></b:tag>
+          </b:if>
+        </b:includable>
+        <b:includable id="$:image">
+          <b:with value="resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)" var="image">
+            <b:tag expr:alt="data:alt ?: data:messages.image" name="img">
+              <b:attr name="b:whitespace" value="remove"></b:attr>
+              <b:attr name="id" expr:value="data:id"></b:attr>
+              <b:attr name="width" expr:value="data:width ?: data:image.width"></b:attr>
+              <b:attr name="height" expr:value="data:height ?: data:image.height"></b:attr>
+              <b:attr name="sizes" expr:value="data:sizes"></b:attr>
+              <b:attr name="loading" expr:value="data:loading"></b:attr>
+              <b:class cond="data:class" expr:name="data:class"></b:class>
+              <b:class cond="data:lazyload" expr:name="data:lazyload"></b:class>
+              <b:with value="data:lazyload ? &quot;data-&quot; : &quot;&quot;" var="data">
+                <b:attr cond="data:data" name="src" value="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="></b:attr>
+                <b:attr cond="data:srcset" expr:name="data:data + &quot;srcset&quot;" expr:value="sourceSet(data:image, (data:srcset ?: []), data:ratio)"></b:attr>
+                <b:attr expr:name="data:data + &quot;src&quot;" expr:value="data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image"></b:attr>
+              </b:with>
+            </b:tag>
+          </b:with>
+        </b:includable>
+        <b:includable id="$:kind">
+          <b:class cond="data:view.isHomepage" name="is-home"></b:class>
+          <b:class cond="data:view.isMultipleItems" name="is-items"></b:class>
+          <b:class cond="data:view.isPost" name="is-post"></b:class>
+          <b:class cond="data:view.isPage" name="is-page"></b:class>
+          <b:class cond="data:view.isArchive" name="is-archive"></b:class>
+          <b:class cond="data:view.isLabelSearch" name="is-label"></b:class>
+          <b:class cond="data:view.isSearch" name="is-search"></b:class>
+          <b:class cond="data:view.isError" name="is-error"></b:class>
+          <b:class cond="data:view.isPreview" name="is-preview"></b:class>
+          <b:class cond="data:view.isSingleItem" expr:name="&quot;is-single single-id-&quot; + (data:view.postId ?: data:view.pageId)"></b:class>
+        </b:includable>
+        <b:includable id="$:meta">
+          <meta expr:charset="data:blog.encoding"/>
+          <meta content="width=device-width,initial-scale=1" name="viewport"/>
+          <link expr:href="data:blog.blogspotFaviconUrl" rel="icon" type="image/x-icon"/>
+          <meta expr:content="data:view.description.escaped" name="description"/>
+          <link expr:href="data:view.url.canonical" rel="canonical"/>
+          <meta expr:content="data:view.isHomepage or data:view.isSingleItem ? &quot;index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1&quot; : &quot;noindex,follow&quot;" name="robots"/>
+          <meta expr:content="not data:view.isSingleItem ? &quot;article&quot; : &quot;website&quot;" property="og:type"/>
+          <b:include cond="not data:view.isError" name="openGraphMetaData"></b:include>
+          <meta expr:content="data:cardType ?: &quot;summary_large_image&quot;" name="twitter:card"/>
+        </b:includable>
+        <b:includable id="head">
+          <title><data:view.title.escaped/></title>
+          <b:include name="$:meta"></b:include>
+          <b:include name="$:adsense"></b:include>
+        </b:includable>
+      </b:defaultmarkup>
+    </b:defaultmarkups>
+  </head>
+  <body>
+    <b:include name="$:kind"></b:include>
+    <b:section id="header">
+      <b:widget id="Header1" type="Header" version="2">
+        <b:includable id="main">
+          <b:include cond="data:image" name="image"></b:include>
+          <b:include cond="data:imagePlacement == &quot;BEHIND&quot;" name="title"></b:include>
+          <b:include cond="data:description and data:imagePlacement != &quot;REPLACE&quot;" name="description"></b:include>
+        </b:includable>
+        <b:includable id="description"><data:description/></b:includable>
+        <b:includable id="image"><a expr:href="data:blog.homepageUrl"><img expr:alt="data:title" expr:height="data:height" expr:src="data:image" expr:width="data:width"/></a></b:includable>
+        <b:includable id="title"><a expr:href="data:blog.homepageUrl"><data:title/></a></b:includable>
+      </b:widget>
+    </b:section>
+    <b:section id="content">
+      <b:widget id="Blog1" type="Blog" version="2" locked="true">
+        <b:widget-settings>
+          <b:widget-setting name="showCommentLink">true</b:widget-setting>
+        </b:widget-settings>
+        <b:includable id="main" var="this">
+          <b:with value="data:widgets.Blog.first.allBylineItems" var="show">
+            <b:loop values="data:posts" var="post">
+              <b:include data="post" name="post"></b:include>
+            </b:loop>
+            <b:include cond="data:view.isMultipleItems" name="postPagination"></b:include>
+          </b:with>
+        </b:includable>
+        <b:includable id="post" var="post">
+          <b:if cond="data:view.isMultipleItems">
+            <b:comment>Feed</b:comment>
+            <b:elseif cond="data:view.isPost"></b:elseif>
+            <b:comment>Post</b:comment>
+            <b:include name="comments" data="{ minDepth: data:skin.vars.c_depth, newestFirst: data:skin.vars.c_newer, filterLinks: data:skin.vars.c_filter }"></b:include>
+            <b:include name="postMetadataJSON" data="{ defaultImage: data:skin.vars.d_image }"></b:include>
+            <b:elseif cond="data:view.isPage"></b:elseif>
+            <b:comment>Page</b:comment>
+          </b:if>
+        </b:includable>
+        <b:includable id="postMetadataJSONImage">
+          <b:with value="resizeImage((data:post.featuredImage ?: data:defaultImage), 1200, &quot;1200:630&quot;)" var="image">
+            <b:if cond="data:image">
+              "image": {
+                "@type": "ImageObject",
+                "url": "<b:eval expr='data:image.jsonEscaped'/>",
+                "width": <b:eval expr='data:image.width'/>,
+                "height":  <b:eval expr='data:image.height'/>
+              },
+            </b:if>
+          </b:with>
+        </b:includable>
+        <b:includable id="inlineAd" var="post">
+          <b:if cond="data:post.includeAd">
+            <b:if cond="data:post.adNumber + data:widgets.AdSense.size lt 3">
+              <b:include name="$:ads"></b:include>
+            </b:if>
+          </b:if>
+        </b:includable>
+        <b:includable id="commentAvatar">
+          <b:with value="data:comment.authorAvatarSrc contains &quot;/img/bl&quot; ? (data:avatarDefault ?: &quot;https://lh3.googleusercontent.com/a/default-user&quot;) : data:comment.authorAvatarSrc" var="avatarSrc">
+            <b:with value="resizeImage(data:avatarSrc, (data:avatarSize ?: 40), &quot;1:1&quot;)" var="avatar"><img expr:src="data:avatar" expr:width="data:avatar.width" expr:height="data:avatar.height" expr:alt="data:comment.author"/></b:with>
+          </b:with>
+        </b:includable>
+        <b:includable id="commentDeleteIcon"><span expr:class="&quot;item-control &quot; + data:comment.adminClass"><a expr:href="data:comment.deleteUrl">
+              <b:eval expr="data:deleteText ?: data:messages.deleteComment"></b:eval></a></span></b:includable>
+        <b:includable id="commentReplyIcon">
+          <b:if cond="data:post.allowNewComments">
+            <button expr:data-parent-id="data:comment.id">
+              <b:eval expr="data:replyText ?: data:messages.postAComment"></b:eval>
+            </button>
+          </b:if>
+        </b:includable>
+        <b:includable id="commentHeader">
+          <b:tag class="comment-author" expr:name="data:comment.authorUrl ? &quot;a&quot; : &quot;span&quot;" expr:href="data:comment.authorUrl"><data:comment.author/></b:tag>
+          <b:if cond="data:comment.extraIconClass"><span class="comment-badge"></span></b:if><span class="comment-time"><data:comment.timestamp/></span>
+        </b:includable>
+        <b:includable id="commentBody">
+          <b:class cond="data:comment.isDeleted" name="comment-deleted"></b:class>
+          <b:eval expr="(data:filterLinks ?: false) and data:comment.body contains &quot;href=\&quot;http&quot; ? (data:hiddenText ?: data:messages.hidden) : data:comment.body"></b:eval>
+        </b:includable>
+        <b:includable id="commentList" var="post">
+          <b:with value="data:minDepth &gt;= (data:maxDepth ?: 5) ? (data:maxDepth ?: 5) : data:minDepth" var="depth">
+            <div class="comments-content">
+              <b:loop expr:reverse="data:newestFirst ?: false" values="data:post.comments where (c =&gt; ((data:depth &gt; 0) ? not c.inReplyTo : c.id))" var="comment">
+                <div class="comments-item">
+                  <b:include name="commentItem" data="comment"></b:include>
+                </div>
+              </b:loop>
+            </div>
+            <b:include cond="data:post.commentPagingRequired" name="commentPaging"></b:include>
+            <b:include cond="data:post.allowNewComments" name="commentForm"></b:include>
+            <b:include cond="data:depth &gt; 0" name="threadedCommentJs"></b:include>
+          </b:with>
+        </b:includable>
+        <b:includable id="commentItem" var="comment">
+          <b:with value="1 + (data:currentDepth ?: -1)" var="currentDepth">
+            <div class="comment" expr:id="&quot;c&quot; + data:comment.id" expr:data-depth="data:currentDepth">
+              <div class="comment-avatar">
+                <b:include name="commentAvatar"></b:include>
+              </div>
+              <div class="comment-block">
+                <div class="comment-header">
+                  <b:include name="commentHeader"></b:include>
+                </div>
+                <div class="comment-body">
+                  <b:include name="commentBody"></b:include>
+                </div>
+                <b:include name="commentDeleteIcon"></b:include>
+                <b:if cond="(data:depth gt 0) and (data:currentDepth lt data:depth)">
+                  <b:include name="commentReplyIcon"></b:include>
+                  <div class="comments-replies">
+                    <b:loop values="data:post.comments where (c =&gt; c.inReplyTo == data:comment.id)" var="reply">
+                      <b:include name="commentItem" data="reply"></b:include>
+                    </b:loop>
+                    <div class="comment-replies-form" expr:id="&quot;c&quot; + data:comment.id + &quot;-ce&quot;"></div>
+                  </div>
+                </b:if>
+              </div>
+            </div>
+          </b:with>
+        </b:includable>
+        <b:includable id="commentForm">
+          <div class="comments-form" id="comment-form-thread">
+            <iframe expr:src="data:post.commentFormIframeSrc params {skin: &quot;emporio&quot;, blogID: data:blog.blogId }" frameborder="0" width="100%" height="200" loading="lazy"></iframe>
+          </div>
+        </b:includable>
+        <b:includable id="commentPaging">
+          <div class="comments-paging">
+            <b:if cond="data:post.hasOlderLinks"><a expr:href="data:post.oldestLinkUrl"><data:messages.oldest/></a><a expr:href="data:post.olderLinkUrl"><data:messages.older/></a></b:if><data:post.commentRangeText/>
+            <b:if cond="data:post.hasNewerLinks"><a expr:href="data:post.newerLinkUrl"><data:messages.newer/></a><a expr:href="data:post.newestLinkUrl"><data:messages.newest/></a></b:if>
+          </div>
+        </b:includable>
+        <b:includable id="threadedCommentJs">
+          <script src="https://cdn.jsdelivr.net/gh/zkreations/canvas-assets@1/dist/js/comments.min.js" crossorigin="anonymous" defer="defer"></script>
+          <script>
+            /*<![CDATA[*/
+            window.addEventListener('DOMContentLoaded', () => {
+              commentsReply();
+            });
+            /*]]>*/
+          </script>
+        </b:includable>
+        <b:includable id="comments">
+          <b:if cond="not data:view.isPreview and data:post.allowComments">
+            <div class="comments" id="comments">
+              <b:include name="commentList" data="post"></b:include>
+            </div>
+          </b:if>
+        </b:includable>
+        <b:includable id="nextPageLink"><a expr:href="data:olderPageUrl"><data:messages.olderPosts/></a></b:includable>
+        <b:includable id="previousPageLink"><a expr:href="data:newerPageUrl"><data:messages.newerPosts/></a></b:includable>
+        <b:includable id="postPagination">
+          <b:tag id="blog-pager" cond="data:newerPageUrl or data:olderPageUrl" name="div">
+            <b:include cond="data:newerPageUrl" name="previousPageLink"></b:include>
+            <b:include cond="data:olderPageUrl" name="nextPageLink"></b:include>
+          </b:tag>
+        </b:includable>
+      </b:widget>
+    </b:section>
+  </body>
+</html>
