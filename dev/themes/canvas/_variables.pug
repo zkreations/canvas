@@ -1,0 +1,34 @@
+
+| Comentarios
+| =====================
++variables({
+  "c.depth" : { description: "Replies level", value: "2" },
+  "c.newer" : { description: "New comments first", value: "true" },
+  "c.filter": { description: "Enable link filter", value: "true" },
+}) 
+| #{'\n'}
+
+| Recursos por defecto
+| =====================
++variables({
+  "d.image"  : { description: "Imagen", value: ""},
+  "d.avatar" : { description: "Avatar", value: "https://lh3.googleusercontent.com/a/default-user"},
+})
+| #{'\n'}
+
+| Personalizar
+| =====================
+Group(description="Backgrounds" selector="body")
+  +variables({ 
+    "body.background": {
+      description: "Background",
+      type: "background",
+      color: "$(body.background.color)",
+      value: "$(color) none repeat scroll top center"
+    },
+    "body.background.color": {
+      description: "Body background color",
+      type: "color",
+      value: "#fff"
+    },
+  })
