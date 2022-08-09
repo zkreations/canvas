@@ -1,8 +1,5 @@
-//- Blogger Ads
-//-
-//- Inserta Los anuncios de adsense entre los articulos
+//- Anuncios de adsense entre los artículos
 //- @author zkreations
-//- @link https://www.zkreations.com
 
 //- ANUNCIOS
 b:includable#inlineAd(var='post')
@@ -13,5 +10,5 @@ b:includable#inlineAd(var='post')
       no deben superar el limite de "3", (recomendado)
     b:if(cond='data:post.adNumber + data:widgets.AdSense.size lt 3')
 
-      //- Codigo de anuncios
-      b:include(name='canvas:ads')
+      //- Código de anuncios
+      b:include(name='$:ads')
