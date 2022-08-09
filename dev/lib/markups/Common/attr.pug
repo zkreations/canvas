@@ -1,0 +1,7 @@
+//- Agregar o remover multiples atributos
+//- @author zkreations
+//- @arg {Array} - Matriz de matrices
+
+b:includable(id='$:attr')
+  b:loop(values='data:' var='i')
+    b:attr(expr:name='data:i[0] ?: "null"' expr:value='data:i[1]')

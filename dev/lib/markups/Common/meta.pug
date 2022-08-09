@@ -1,0 +1,24 @@
+//- Metadatos de cabecera
+//- @author zkreations
+//- @param {string} [cardType="summary_large_image"] - Tipo de tarjeta de Twitter
+
+b:includable(id='$:meta')
+  //- Dados comunes (obligatorio)
+  meta(expr:charset='data:blog.encoding')
+  meta(content='width=device-width,initial-scale=1' name='viewport')
+  link(expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon')
+
+  //- Información básica (recomendado)
+  meta(expr:content='data:view.description.escaped' name='description')
+  link(expr:href='data:view.url.canonical' rel='canonical')
+
+  //- Robots (recomendado)
+  meta(expr:content='data:view.isHomepage or data:view.isSingleItem ? "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" : "noindex,follow"' name='robots')
+
+  //- Open Graph (recomendado)
+  meta(expr:content='not data:view.isSingleItem ? "article" : "website"' property='og:type')
+  b:include(cond='not data:view.isError' name='openGraphMetaData')
+
+  //- Especificar tipo de Twitter Card (recomendado)
+  meta(expr:content='data:cardType ?: "summary_large_image"' name='twitter:card')
+
