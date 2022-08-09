@@ -1,35 +1,34 @@
-//- Widget Blog
-//-
-//- Genera el contenido de las entradas
+//- Contenido de las entradas
 //- @author zkreations
-//- @link https://www.zkreations.com
 
-+widget("Blog", { showCommentLink: "true" })(locked="true")
++widget("Blog", { showCommentLink: "true" })(locked='true')
   //- La variable "this" almacenará datos de este widget
   b:includable#main(var='this')
 
-    //- Bucle con la tabla posts
-    b:loop(values='data:posts', var='post')
-      b:include(data='post', name='bylineRegion')
+    b:with(value='data:widgets.Blog.first.allBylineItems' var='show')
+      //- Bucle con la tabla posts
+      b:loop(values='data:posts' var='post')
+        b:include(data='post' name='post')
 
-    //- Incluye la paginación solo en el feed
-    b:include(cond=view.feed name='postPagination')
+      //- Incluye la paginación solo en el feed
+      b:include(cond='data:view.isMultipleItems' name='postPagination')
 
   //- Incluye las entradas
   b:includable#post(var='post')
 
-    b:if(cond=view.feed)
+    b:if(cond='data:view.isMultipleItems')
       include content/feed
 
-      b:elseif(cond=view.post)
+      b:elseif(cond='data:view.isPost')
       include content/post
 
-      b:elseif(cond=view.page)
+      b:elseif(cond='data:view.isPage')
       include content/page
 
-  //- Inclusiones adicionales
+  //- Superior
+  include /lib/markups/Blog/postMetadataJSONImage
+
+  //- Inclusiones propias
   include includes/inlineAd
-  include includes/bylineRegion
   include includes/comments
   include includes/pagination
-  include includes/metajson

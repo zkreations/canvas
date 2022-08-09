@@ -1,114 +1,22 @@
-//- Blogger Comments Core
-//-
-//- Estructura los comentarios para el correcto funcionamiento
+//- Comentarios de Blogger
 //- @author zkreations
-//- @link https://www.zkreations.com
 
-b:includable#commentAuthorAvatar
-  //- Imagen del autor del comentario
-  //- Reemplaza `blank.gif` por el avatar configurado por defecto
-  b:include(name="canvas:image",
-    data='{src: (data:comment.authorAvatarSrc contains "/img/bl" ?  data:skin.vars.d_avatar : data:comment.authorAvatarSrc), resize: 40, ratio: "1:1" }')
+//- Superior
+include /lib/markups/Blog/commentAvatar
+include /lib/markups/Blog/commentDeleteIcon
+include /lib/markups/Blog/commentReplyIcon
 
-b:includable#commentDeleteIcon
-  //- Agrega el boton solo si se trata del administrador
-  a(expr:class='data:comment.adminClass',
-    expr:href='data:comment.deleteUrl') <data:messages.deleteComment/>
+include /lib/markups/Blog/commentHeader
+include /lib/markups/Blog/commentBody
 
-b:includable#commentReplyIcon
-  //- Agregamos el boton de responder solo si:
-  //-   * No se trata de una respuesta
-  //-   * Los nuevos comentarios estan permitidos
-  //-   * Las respuestas estan permitidas
-  b:if(cond='not data:reply and data:post.allowNewComments and data:skin.vars.c_replies')
-    a(expr:data-parent-id="data:comment.id",  href="#reply") <data:skin.vars.t_reply/>
+include /lib/markups/Blog/commentList
+include /lib/markups/Blog/commentItem
 
-b:includable#commentForm
-  iframe(expr:src=`data:post.commentFormIframeSrc params {skin: "${blogger.commentsTheme}", blogID: data:blog.blogId }`, frameborder='0', width='100%', height="200", loading="lazy")#comment-editor
+include /lib/markups/Blog/commentForm
+include /lib/markups/Blog/commentPaging
 
-b:includable#comments(var='post')
-  b:if(cond='not data:view.isPreview and data:post.allowComments')
-    b:switch(var="data:skin.vars.c_comments")
-      //- Blogger
-      b:case(value='blogger')
-      b:include(data='post', name='commentList')
+include /lib/markups/Blog/threadedCommentJs
 
-      //- Disqus
-      b:default
-      #disqus_thread(expr:data-post-url='data:view.url.canonical',
-        expr:data-post-id='data:post.id',
-        expr:data-shortname="data:skin.vars.c_comments")
+include /lib/markups/Blog/comments
 
-//- Blogger Comments List
-//-
-//- Estructura de los comentarios para el correcto funcionamiento
-//- @author zkreations
-//- @link https://www.zkreations.com
 
-b:includable#commentList(var='post')
-  .comments#comments
-    .comments-content
-      //- Filtramos comentarios segun el criterio
-      b:loop(expr:reverse="data:skin.vars.c_newFirst",
-          values='data:post.comments where (c => (data:skin.vars.c_replies ? not c.inReplyTo : c.id))',
-          var='comment')
-
-        .comments-item
-          b:include(name='commentItem', data='comment')
-
-          //- Si las respuestas estan habilitadas
-          b:if(cond="data:skin.vars.c_replies")
-            .comments-replies
-              //- Filtramos las respuestas que corresponden al comentario principal
-              b:loop(values="data:post.comments where (c => c.inReplyTo == data:comment.id)", var='reply')
-                b:include(name='commentItem', data='reply')
-
-              //- Contenedor para formulario de respuestas
-              .comment-replies-form(expr:id='"c" + data:comment.id + "-ce"')
-
-    //- Insertamos paginación si hay más de 200 comentarios (incluyendo respuestas)
-    b:if(cond='data:post.commentPagingRequired')
-      .comments-paging
-        b:if(cond='data:post.hasOlderLinks')
-          a(expr:href='data:post.oldestLinkUrl') <data:messages.oldest/>
-          a(expr:href='data:post.olderLinkUrl') <data:messages.older/>
-        
-        <data:post.commentRangeText/>
-
-        b:if(cond='data:post.hasNewerLinks')
-          a(expr:href='data:post.newerLinkUrl') <data:messages.newer/>
-          a(expr:href='data:post.newestLinkUrl') <data:messages.newest/>
-
-    //- Insertamos el formulario solo si esta permitido comentar
-    .comments-form#comment-form-thread
-      b:include(cond='data:post.allowNewComments', data='post', name='commentForm')
-
-//- Blogger Comments Item
-//-
-//- Cuerpo de comentarios y respuestas (si aplica)
-//- @author zkreations
-//- @link https://www.zkreations.com
-
-//- COMENTARIOS
-b:includable#commentItem(var='comment')
-  .comment(expr:id="data:comment.cmtBodyIdPostfix")
-    //- Avatar
-    .comment-avatar
-      b:include(name="commentAuthorAvatar")
-
-    //- Comentario
-    .comment-block
-      .comment-header
-        b:tag(name='a', cond='data:comment.authorUrl', expr:href='data:comment.authorUrl') <data:comment.author/>
-        <data:comment.timestamp/>
-
-      .comment-body
-        //- Si el contenido se borró, pero no el comentario, agregamos una clase
-        b:class(cond='data:comment.isDeleted', name='comment-deleted')
-
-        //- Comprobamos si el filtro de enlaces está disponible
-        b:eval(expr='data:skin.vars.c_linkFilter and data:comment.body contains "</a>" ? data:skin.vars.t_nolinks : data:comment.body')
-
-      .comment-footer
-        b:include(name="commentReplyIcon")
-        b:include(name="commentDeleteIcon")
