@@ -1,0 +1,20 @@
+//- Elementos de marcado predeterminado de Blogger
+//- @author zkreations
+//- @param {string} [type="Common"] - Tipo de marcado predeterminado
+
+mixin markup(type="Common")
+  //- Comprobamos si el nombre es estrictamente un marcado predeterminado válido
+  if (/All|Common|AdSense|Blog|BlogArchive|BlogList|BlogSearch|ContactForm|FeaturedPost|Feed|Header|HTML|Image|Label|LinkList|PageList|PopularPosts|Profile|Stats|Subscribe|Text|TextList|Translate|Wikipedia/.test(type))
+
+    //- Remueve espacios del tipo ya que no son válidos
+    - let widgetType = type.trim()
+
+    b:defaultmarkup(type=widgetType)
+      //- Contenido (b:includable)
+      if block
+        block
+
+  else if(/Followers|Navbar|Attribution/.test(type))
+    - console.warn(`El tipo "${type}" es de solo lectura, no se puede modificar`)
+  else
+    - console.warn(`El tipo "${type}" no es un marcado predeterminado válido en Blogger`)

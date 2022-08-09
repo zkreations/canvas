@@ -1,0 +1,15 @@
+//- Marcado predeterminado de Blogger
+//- @author zkreations
+//- @param {object} [object={}] - Objeto de marcados e inclusiones
+
+mixin markups(object={})
+  b:defaultmarkups
+    //- Cerramos las inclusiones definidas en un objeto
+    if Object.keys(object).length !== 0
+      each includables, key in object
+        b:defaultmarkup(type=key)
+          each includable in includables
+            b:includable(id=includable)/
+    //- Contenido (b:defaultmarkup)
+    if block
+      block

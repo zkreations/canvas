@@ -1,0 +1,46 @@
+//- Estructura de widgets de Blogger
+//- @author zkreations
+//- @param {string} [type="HTML"] - Tipo de widget
+//- @param {object} [settings={}] - Objeto de opciones del widget
+//- @param {number} [number] - Numero arbitrario del widget
+
+mixin widget(type="HTML", settings={}, number)
+  //- Comprobamos si el nombre es estrictamente un widget de Blogger válido
+  if (/AdSense|Blog|BlogArchive|BlogList|BlogSearch|ContactForm|FeaturedPost|Feed|Header|HTML|Image|Label|LinkList|PageList|PopularPosts|Profile|Stats|Subscribe|Text|TextList|Translate|Wikipedia/.test(type))
+    -
+      //- Remueve espacios ya que no son válidos
+      let widgetType = type.trim()
+
+      //- Cuando la variable `widgets` no existe en `locals` (null) lo creamos con un objeto vació
+      null == locals.widgets && (locals.widgets = {});
+
+      //- Si el nombre no existe dentro del objeto `widgets`, lo creamos
+      //- Si ya existe, le sumamos 1, esto es un contador simple
+      if (locals.widgets[widgetType] == null) {
+        locals.widgets[widgetType] = 1
+      } else {
+        locals.widgets[widgetType] = (locals.widgets[widgetType] + 1)
+      }
+
+      //- Se compone del nombre mas un numero del 1 al 999
+      //- El numero se obtiene del objeto `widgets`
+      //- Definir un numero arbitrario o un contador inicial también es posible
+      let instanceId = widgetType + ((number ?? locals.widgets[widgetType]) + (initCall ?? 0))
+
+    //- Creamos la etiqueta b:widget con la información hasta el momento
+    b:widget(id=instanceId type=widgetType version=2)&attributes(attributes)
+
+      //- Opciones predeterminadas
+      if Object.keys(settings).length !== 0
+        b:widget-settings
+          each items, key in settings
+            b:widget-setting(name=key) #{items}
+
+      //- Contenido (b:includable)
+      if block
+        block
+
+  else if(/Followers|Navbar|Attribution/.test(type))
+    - console.warn(`El tipo "${type}" es de solo lectura, no se puede modificar`)
+  else
+    - console.warn(`El tipo "${type}" no es un widget válido en Blogger`)

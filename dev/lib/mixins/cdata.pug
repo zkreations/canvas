@@ -1,0 +1,18 @@
+//- Etiquetas que no interpretan Data XML de Blogger
+//- @author zkreations
+//- @param {string} [tag=style] - Nombre de etiqueta HTML
+
+mixin cdata(tag="style")
+  #{tag}&attributes(attributes)
+    if ['style','script'].includes(tag)
+      | /*<![CDATA[*/
+    else
+      | <![CDATA[
+
+    if block
+      block
+
+    if ['style','script'].includes(tag)
+      | /*]]>*/
+    else
+      | ]]>
