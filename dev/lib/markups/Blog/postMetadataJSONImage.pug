@@ -1,0 +1,14 @@
+//- Reemplaza imagen de Blogger en postMetadataJSON
+//- @author zkreations
+//- @param {image} defaultImage - Imagen por defecto
+
+b:includable#postMetadataJSONImage
+  b:with(value='resizeImage((data:post.featuredImage ?: data:defaultImage), 1200, "1200:630")', var='image')
+    b:if(cond='data:image').
+      "image": {
+        "@type": "ImageObject",
+        "url": "<b:eval expr='data:image.jsonEscaped'/>",
+        "width": <b:eval expr='data:image.width'/>,
+        "height":  <b:eval expr='data:image.height'/>
+      },
+  //- End ImageObject
