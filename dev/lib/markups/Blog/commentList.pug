@@ -1,0 +1,19 @@
+//- Estructura de la lista de comentarios
+//- @author zkreations
+//- @param {number} minDepth - Nivel mínimo
+//- @param {number} [maxDepth=5] - Nivel máximo
+//- @param {boolean} [newestFirst=false] - Más nuevos primero
+
+b:includable#commentList(var='post')
+  b:with(value='data:minDepth >= (data:maxDepth ?: 5) ? (data:maxDepth ?: 5) : data:minDepth' var='depth')
+    .comments-content
+      b:loop(expr:reverse="data:newestFirst ?: false" values='data:post.comments where (c => ((data:depth > 0) ? not c.inReplyTo : c.id))' var='comment')
+        .comments-item
+          b:include(name='commentItem' data='comment')
+
+    //- Insertamos paginación si hay más de 200 comentarios (incluyendo respuestas)
+    b:include(cond='data:post.commentPagingRequired' name='commentPaging')
+    //- Insertamos el formulario solo si esta permitido comentar
+    b:include(cond='data:post.allowNewComments' name='commentForm')
+    //- Insertamos código javascript solo si hay niveles
+    b:include(cond='data:depth > 0' name='threadedCommentJs')

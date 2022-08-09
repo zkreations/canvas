@@ -1,0 +1,8 @@
+//- Encabezado de comentarios
+//- @author zkreations
+
+b:includable#commentHeader
+  b:tag(expr:name='data:comment.authorUrl ? "a" : "span"' expr:href='data:comment.authorUrl').comment-author <data:comment.author/>
+  b:if(cond='data:comment.extraIconClass')
+    span.comment-badge
+  span.comment-time <data:comment.timestamp/>
