@@ -2,10 +2,10 @@ const { src, dest, series, watch } = require('gulp')
 
 // Rutas
 const dir = {
-  allFolders: 'dev/**/',
-  allFiles: 'dev/**/*',
-  templates: 'dev/themes/*/*.pug',
-  xml: 'dev/themes/*/*.xml'
+  allFolders: './**/',
+  allFiles: './**/*',
+  themes: './themes/*/*.pug',
+  xml: './themes/*/*.xml'
 }
 
 // Plugins
@@ -13,10 +13,10 @@ const rename = require("gulp-rename")
 const pug = require('gulp-pug')
 
 const build = () => {
-  return src( [dir.templates, `!${dir.allFolders}_*`], { base: "." } )
+  return src( [dir.themes, `!${dir.allFolders}_*`], { base: "." } )
     .pipe(pug({
       pretty: true,
-      basedir: "./dev/"
+      basedir: "./"
     }))
     .pipe( rename( { extname: '.xml' } ) )
     .pipe( dest( './' ) )

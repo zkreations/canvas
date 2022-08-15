@@ -373,7 +373,7 @@
           <script src="https://cdn.jsdelivr.net/gh/zkreations/canvas-assets@1/dist/js/comments.min.js" crossorigin="anonymous" defer="defer"></script>
           <script>
             /*<![CDATA[*/
-            window.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('DOMContentLoaded', () => {
               commentsReply();
             });
             /*]]>*/
