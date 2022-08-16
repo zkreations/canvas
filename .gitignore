@@ -19,14 +19,23 @@
 *.tar.gz
 *.rar
 
+# Ignore docs files
+/_site/
+
+# Hugo files
+.hugo_build.lock
+config.toml
+/resources/
+/site
+
 # Ignore files and folders
-_site
 package-lock.json
 .vscode
-node_modules/
-ignore/
-themes/*
+/node_modules/
+/resources/
+/site/
+/themes/*
 
 # But not these files
-!themes/canvas
-!themes/blank
+!/themes/canvas
+!/themes/blank

@@ -13,7 +13,7 @@
 //- @param {string} [lazyload] - Clase CSS para lazyload
 //- @param {string} [loading] - Atributo loading
 
-b:includable(id='$:image')
+b:includable(id='@:image')
 
   b:with(value='resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)', var='image')
     b:tag(expr:alt='data:alt ?: data:messages.image', name='img')
