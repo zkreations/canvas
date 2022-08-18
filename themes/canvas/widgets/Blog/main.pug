@@ -6,6 +6,13 @@
   b:includable#main(var='this')
 
     b:with(value='data:widgets.Blog.first.allBylineItems' var='show')
+      //- data:show.share (Botones de compartir)
+      //- data:show.author (Perfil del author)
+      //- data:show.timestamp (Fecha de publicación)
+      //- data:show.comments (Comentarios)
+      //- data:show.labels (Etiquetas)
+      //- data:show.icons (Botón enviar por email)
+
       //- Bucle con la tabla posts
       b:loop(values='data:posts' var='post')
         b:include(data='post' name='post')

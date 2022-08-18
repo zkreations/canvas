@@ -21,7 +21,8 @@ b:includable#commentItem(var='comment')
           b:include(name="commentReplyIcon")
           .comments-replies
             //- Filtramos las respuestas que corresponden al comentario padre
-            b:loop(values="data:post.comments where (c => c.inReplyTo == data:comment.id)", var='reply')
+            b:loop(values="data:post.comments where (c => c.inReplyTo == data:comment.id)" var='reply')
               b:include(name='commentItem' data='reply')
+
             //- Contenedor del formulario para responder
-            .comment-replies-form(expr:id='"c" + data:comment.id + "-ce"')
+            b:include(cond='data:post.allowNewComments' name='commentForm' data='{ isReply: true }')

@@ -27,7 +27,17 @@
       <Group description="Backgrounds" selector="body">
         <Variable name="body.background" description="Background" type="background" default="$(color) none repeat scroll top center" color="$(body.background.color)" value="$(color) none repeat scroll top center"/>
         <Variable name="body.background.color" description="Body background color" type="color" default="#fff" value="#fff"/>
-      </Group>*/ 
+      </Group>
+
+      Personalizar comentarios
+      =====================
+      <Variable name="posts.text.color" description="Text color" type="string" value="#777"/>
+      <Variable name="posts.text.font" description="Font family" type="string" value="15px Roboto"/>
+      <Variable name="posts.background.color" description="Background" type="string" value="transparent"/>
+      <Variable name="posts.link.color" description="0" type="string" value="0"/>
+      <Variable name="posts.title.color" description="1" type="string" value="0"/>
+      <Variable name="body.link.color" description="2" type="string" value="0"/>
+      <Variable name="body.text.font" description="3" type="string" value="0"/>*/ 
 /*! skin.css */ :where(.item-control){ display: none }]]>
     </b:skin>
     <style>/*<![CDATA[*//*! main.css *//*]]>*/
@@ -319,16 +329,15 @@
         </b:includable>
         <b:includable id="commentList" var="post">
           <b:with value="data:minDepth &gt;= (data:maxDepth ?: 5) ? (data:maxDepth ?: 5) : data:minDepth" var="depth">
+            <b:include cond="data:newestFirst and data:post.allowNewComments" name="commentForm"></b:include>
             <div class="comments-content">
               <b:loop expr:reverse="data:newestFirst ?: false" values="data:post.comments where (c =&gt; ((data:depth &gt; 0) ? not c.inReplyTo : c.id))" var="comment">
-                <div class="comments-item">
-                  <b:include name="commentItem" data="comment"></b:include>
-                </div>
+                <b:include name="commentItem" data="comment"></b:include>
               </b:loop>
             </div>
+            <b:include cond="!data:newestFirst and data:post.allowNewComments" name="commentForm"></b:include>
             <b:include cond="data:post.commentPagingRequired" name="commentPaging"></b:include>
-            <b:include cond="data:post.allowNewComments" name="commentForm"></b:include>
-            <b:include cond="data:depth &gt; 0" name="threadedCommentJs"></b:include>
+            <b:include cond="data:depth &gt; 0 and data:post.allowNewComments" name="threadedCommentJs"></b:include>
           </b:with>
         </b:includable>
         <b:includable id="commentItem" var="comment">
@@ -351,7 +360,7 @@
                     <b:loop values="data:post.comments where (c =&gt; c.inReplyTo == data:comment.id)" var="reply">
                       <b:include name="commentItem" data="reply"></b:include>
                     </b:loop>
-                    <div class="comment-replies-form" expr:id="&quot;c&quot; + data:comment.id + &quot;-ce&quot;"></div>
+                    <b:include cond="data:post.allowNewComments" name="commentForm" data="{ isReply: true }"></b:include>
                   </div>
                 </b:if>
               </div>
@@ -360,7 +369,12 @@
         </b:includable>
         <b:includable id="commentForm">
           <div class="comments-form" id="comment-form-thread">
-            <iframe expr:src="data:post.commentFormIframeSrc params {skin: &quot;emporio&quot;, blogID: data:blog.blogId }" frameborder="0" width="100%" height="200" loading="lazy"></iframe>
+            <b:if cond="data:isReply">
+              <b:attr name="id" expr:value="&quot;c&quot; + data:comment.id + &quot;-ce&quot;"></b:attr>
+              <b:class name="comment-replies-form"></b:class>
+              <b:else></b:else>
+              <iframe expr:src="data:post.commentFormIframeSrc params {skin: &quot;emporio&quot;, blogID: data:blog.blogId }" frameborder="0" width="100%" height="200" loading="lazy"></iframe>
+            </b:if>
           </div>
         </b:includable>
         <b:includable id="commentPaging">

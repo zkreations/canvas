@@ -3,4 +3,9 @@
 
 b:includable#commentForm
   .comments-form#comment-form-thread
-    iframe(expr:src='data:post.commentFormIframeSrc params {skin: "emporio", blogID: data:blog.blogId }' frameborder='0' width='100%' height="200" loading="lazy")
+    b:if(cond='data:isReply' )
+      b:attr(name='id' expr:value='"c" + data:comment.id + "-ce"')
+      b:class(name='comment-replies-form')
+      b:else
+      iframe(expr:src='data:post.commentFormIframeSrc params {skin: "emporio", blogID: data:blog.blogId }' frameborder='0' width='100%' height="200" loading="lazy")
+
