@@ -34,8 +34,3 @@ package-lock.json
 /node_modules/
 /resources/
 /site/
-/themes/*
-
-# But not these files
-!/themes/canvas
-!/themes/blank
