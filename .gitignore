@@ -19,18 +19,14 @@
 *.tar.gz
 *.rar
 
-# Ignore docs files
-/_site/
-
 # Hugo files
+/_site/
 .hugo_build.lock
 config.toml
 /resources/
-/site
+/site/
 
 # Ignore files and folders
 package-lock.json
 .vscode
 /node_modules/
-/resources/
-/site/
