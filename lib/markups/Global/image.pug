@@ -9,53 +9,42 @@
 //- @param {number} [resize=1280] - Cambiar el tamaño
 //- @param {string} [ratio] - Relación de aspecto
 //- @param {string} [sizes] - Valor del atributo sizes
-//- @param {Array} [srcset] - Matriz de tamaños
-//- @param {string} [lazyload] - Clase CSS para lazyload
+//- @param {array} [srcset] - Matriz de tamaños
 //- @param {string} [loading] - Atributo loading
+//- @param {string} [params] - Parámetros adicionales de imágenes de Google
 
 b:includable(id='@:image')
+  b:with(value='data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src' var='source')
+    b:with(value='(data:resize ? resizeImage(data:src, data:resize, data:ratio) : (data:source))' var='image')
+      b:tag(expr:alt='data:alt ?: data:messages.image' name='img')
+        //- Cerrar etiqueta
+        b:attr(name='b:whitespace' value='remove')
 
-  b:with(value='resizeImage((data:src.isYoutube ? data:src.youtubeMaxResDefaultUrl : data:src), (data:resize ?: 1280), data:ratio)', var='image')
-    b:tag(expr:alt='data:alt ?: data:messages.image', name='img')
-      //- Cerrar etiqueta
-      b:attr(name='b:whitespace', value='remove')
+        //- Asigna una ID unica
+        b:attr(name='id' expr:value='data:id')
 
-      //- Asigna una ID unica
-      b:attr(name='id', expr:value='data:id')
+        //- Obtiene el ancho si existe
+        b:attr(name='width' expr:value='data:width ?: data:image.width')
 
-      //- Obtiene el ancho si existe
-      b:attr(name='width', expr:value='data:width ?: data:image.width')
+        //- Obtiene el alto si existe
+        b:attr(name='height' expr:value='data:height ?: data:image.height')
 
-      //- Obtiene el alto si existe
-      b:attr(name='height', expr:value='data:height ?: data:image.height')
+        //- Agrega las especificaciones del atributo sizes
+        b:attr(cond='data:sizes' name='sizes' expr:value='data:sizes')
 
-      //- Agrega las especificaciones del atributo sizes
-      b:attr(name='sizes', expr:value='data:sizes')
+        //- Atributo loading
+        b:attr(cond='data:loading' name='loading' expr:value='data:loading')
 
-      //- Atributo loading
-      b:attr(name='loading', expr:value='data:loading')
+        //- Agrega clases adicionales
+        b:class(cond='data:class' expr:name='data:class')
 
-      //- Agrega clases adicionales
-      b:class(cond='data:class', expr:name='data:class')
+        //- Servidor de imagen sin nombre (permite agregar mas parámetros)
+        b:with(value='"blogger.googleusercontent.com/img/a/"' var='serve')
 
-      //- Agrega la clase lazyload
-      b:class(cond='data:lazyload', expr:name='data:lazyload')
+          //- Si srcset existe, el valor de "src" equivale a la primera resolución
+          //- Agregamos parámetros adicionales si están disponible
+          b:attr(name='src' expr:value='(data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image) + ((data:image contains data:serve) and data:params ? ("-" + data:params) : "")')
 
-      //- Si lazyload existe, la variable data es igual a "data-", caso contrario "vacío"
-      b:with(value='data:lazyload ? "data-" : ""', var='data')
-
-        //- Si lazyload existe, "src" contiene la imagen de respaldo
-        b:attr(cond='data:data',
-            name='src',
-            value='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==')
-
-        //- Si srcset existe, genera las variantes de tamaños especificados
-        //- Si lazyload existe, "srcset" pasa a "data-srcset"
-        b:attr(cond='data:srcset',
-            expr:name='data:data + "srcset"',
-            expr:value='sourceSet(data:image, (data:srcset ?: []), data:ratio)')
-
-        //- Si srcset existe, el valor de "src" equivale a la primera resolución
-        //- Si lazyload existe, "src" pasa a "data-src"
-        b:attr(expr:name='data:data + "src"',
-            expr:value='data:srcset ? resizeImage(data:image, data:srcset.first, data:ratio) : data:image')
+          //- Si srcset existe, genera las variantes de tamaños especificados
+          b:if(cond='data:srcset')
+            b:attr(name='srcset' expr:value='sourceSet(data:image, data:srcset, data:ratio)')
