@@ -1,0 +1,49 @@
+//- Metadatos de cabecera
+//- @author zkreations
+//- @param {string} [cardType="summary_large_image"] - Tipo de tarjeta de Twitter
+//- @param {image} [favicon] - Url de favicon de multiples resoluciones
+//- @param {array} [favSizes="[32,96,180,192]"] - Tabla de números/tamaños para favicons
+//- @param {string} [robots] - Especificaciones meta robots personalizadas
+
+b:includable(id='@:meta')
+  //- Dados comunes (obligatorio)
+  meta(expr:charset='data:blog.encoding')
+  meta(content='width=device-width,initial-scale=1' name='viewport')
+
+  b:if(cond='data:favicon')
+    b:loop(values='(data:favSizes ?: [32,96,180,192])' var='size')
+      link(expr:href='resizeImage(data:favicon, data:size, "1:1")' rel='icon' expr:sizes='data:size + "x" + data:size' type='image/png')
+    b:else
+    link(expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon')
+
+  //- Información básica (recomendado)
+  meta(expr:content='data:view.description.escaped' name='description')
+  
+  //- Canonical Url
+  b:with(value='data:https ? data:view.url.canonical.https : data:view.url.canonical', var='canonical')
+    link(expr:href='data:canonical' rel='canonical')
+    meta(expr:content='data:canonical' property='og:url')
+    meta(expr:content="data:canonical" name="twitter:url")
+
+  //- Robots (recomendado)
+  meta(expr:content='data:view.isHomepage or data:view.isSingleItem ? (data:robots ?: "index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1") : "noindex,follow"' name='robots')
+
+  //- Open Graph (recomendado)
+  meta(expr:content='not data:view.isSingleItem ? "article" : "website"' property='og:type')
+  meta(expr:content='data:view.title.escaped' property='og:title')
+  meta(expr:content='data:view.description.escaped' property='og:description')
+
+  b:if(cond='data:view.featuredImage or data:ogImage or data:widgets.Blog.first.posts.first.featuredImage')
+    b:with(value='resizeImage((data:view.featuredImage ?: (data:ogImage != "" ? data:ogImage : data:widgets.Blog.first.posts.first.featuredImage)), 1200, "1200:630")', var='image')
+      meta(expr:content='data:image' property='og:image')
+      meta(expr:content='data:image' name='twitter:image')
+      b:if(cond='data:image.isResizable')
+        meta(expr:content="data:image.width" property="og:image:width")
+        meta(expr:content="data:image.height" property="og:image:height")
+
+  //- Twitter Card (recomendado)
+  meta(expr:content='data:cardType ?: "summary_large_image"' name='twitter:card')
+  meta(expr:content='data:view.description.escaped' name='twitter:description')
+  
+
+
