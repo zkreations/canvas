@@ -1,9 +1,0 @@
-//- Lista de entradas
-//- @author zkreations
-
-b:comment Feed
-
-article
-  a(expr:href='data:post.url.canonical')
-    b:include(cond='data:post.featuredImage' name='@:image' data='{ src: data:post.featuredImage, resize: 300, loading: "lazy" }')
-    h2 <data:post.title/>

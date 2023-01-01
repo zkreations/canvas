@@ -1,0 +1,13 @@
+//- Entrada individual
+//- @author zkreations
+
+article.post
+  header.post-header
+    h1.post-title <data:post.title.escaped/>
+    time.post-date(expr:datetime='data:post.date.iso8601') <data:post.date/>
+
+  section.post-body
+    <data:post.body/>
+
+  section.post-comment
+    b:include(name="comment:main"  data='{ minDepth: 2 }')

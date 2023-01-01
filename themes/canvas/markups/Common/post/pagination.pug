@@ -1,0 +1,10 @@
+//- Paginación de entradas
+//- @author zkreations
+
+b:includable(id="post:pagination")
+  b:tag.blog-pager#blog-pager(cond='data:newerPageUrl or data:olderPageUrl', name='div')
+    b:if(cond='data:newerPageUrl')
+      a(expr:href='data:newerPageUrl').pager-button <data:messages.newerPosts/>
+
+    b:if(cond='data:olderPageUrl')
+      a(expr:href='data:olderPageUrl').pager-button <data:messages.olderPosts/>

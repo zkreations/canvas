@@ -1,0 +1,24 @@
+//- Cuerpo de comentarios y respuestas
+//- @author zkreations
+
+b:includable(id="comment:item" var='comment')
+  b:with(value='(data:currentDepth ?: -1) + 1' var='currentDepth')
+
+    .comment(expr:id='"c" + data:comment.id' expr:data-depth='data:currentDepth')
+
+      //- Comentario
+      .comment-block
+        b:include(name="comment:header")
+        b:include(name="comment:body")
+        .comment-footer
+          b:if(cond="(data:depth gt 0) and (data:currentDepth lt data:depth)")
+            b:include(name="comment:replyButton")
+          b:include(name="comment:deleteButton")
+
+        //- Filtramos las respuestas que corresponden al comentario padre
+        b:with(value='data:post.comments where (c => c.inReplyTo == data:comment.id)' var='replies')
+          b:if(cond="(data:depth gt 0) and (data:currentDepth lt data:depth)")
+            .comments-replies
+              b:if(cond='data:replies.any')
+                b:loop(expr:reverse='data:newestFirst ?: false' values="data:replies" var='reply')
+                  b:include(name='comment:item' data='reply')

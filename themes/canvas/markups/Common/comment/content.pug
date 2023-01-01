@@ -1,0 +1,9 @@
+//- Cuerpo del comentario
+//- @param {boolean} [newestFirst=false] - Organizar comentarios del mas nuevo al mas antiguo
+//- @author zkreations
+
+b:includable(id="comment:content")
+  b:if(cond='data:post.comments.any')
+    .comments-content
+      b:loop(expr:reverse='data:newestFirst ?: false' values='data:post.comments where (c => ((data:depth > 0) ? not c.inReplyTo : c.id))' var='comment')
+        b:include(name='comment:item' data='comment')

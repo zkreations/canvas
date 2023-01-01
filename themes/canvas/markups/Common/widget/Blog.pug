@@ -1,0 +1,21 @@
+//- Widget Blog
+//- @author zkreations
+//- @data {string} data:show.share - Botones de compartir
+//- @data {string} data:show.author - Perfil del author
+//- @data {string} data:show.timestamp - Fecha de publicación
+//- @data {string} data:show.comments - Comentarios
+//- @data {string} data:show.labels - Etiquetas
+//- @data {string} data:show.icons - Botón enviar por email
+
+b:includable(id='widget:Blog')
+
+  //- Alias de configuraciones del usuario
+  b:with(value='data:widgets.Blog1.allBylineItems' var='show')
+
+    //- Bucle con la tabla posts
+    b:tag.cards(cond='data:view.isMultipleItems' name='div')
+      b:loop(values='data:posts' var='post')
+        b:include(data='post' name='post:view')
+
+    //- Incluye la paginación solo en el feed
+    b:include(cond='data:view.isMultipleItems' name='post:pagination')

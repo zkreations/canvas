@@ -1,11 +1,40 @@
 +markups(includable.compact)
   +markup
     //- Superior
-    include /lib/markups/Common/ads
-    include /lib/markups/Common/adsense
-    include /lib/markups/Common/image
-    include /lib/markups/Common/kind
-    include /lib/markups/Common/meta
+    +default-tools
 
-    //- Marcado propio
-    include Common/head
+    //- Head
+    include Common/head/content
+
+    //- Comentarios
+    include Common/comment/avatar
+    include Common/comment/body
+    include Common/comment/buttons
+    include Common/comment/content
+    include Common/comment/form
+    include Common/comment/header
+    include Common/comment/item
+    include Common/comment/main
+    include Common/comment/pagination
+
+    //- Entradas
+    include Common/post/view
+    include Common/post/pagination
+
+    //- Widgets
+    include Common/widget/Blog
+    include Common/widget/Header
+    include Common/widget/HTML
+
+  +markup("All")
+    b:includable#main
+      b:include(name='widget-title')
+      b:include(name='content')
+    b:includable#content
+      .widget-content
+        b:include(expr:name='"widget:" + data:widget.type')
+
+  +markup("Header,Blog")
+    b:includable#content
+    b:includable#main
+      b:include(expr:name='"widget:" + data:widget.type')

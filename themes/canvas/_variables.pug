@@ -1,21 +1,4 @@
 
-| Comentarios
-| =====================
-+variables({
-  "c.depth" : { description: "Replies level", value: "2" },
-  "c.newer" : { description: "New comments first", value: "true" },
-  "c.filter": { description: "Enable link filter", value: "true" },
-}) 
-| #{'\n'}
-
-| Recursos por defecto
-| =====================
-+variables({
-  "d.image"  : { description: "Imagen", value: ""},
-  "d.avatar" : { description: "Avatar", value: "https://lh3.googleusercontent.com/a/default-user"},
-})
-| #{'\n'}
-
 | Personalizar
 | =====================
 Group(description="Backgrounds" selector="body")
@@ -29,20 +12,34 @@ Group(description="Backgrounds" selector="body")
     "body.background.color": {
       description: "Body background color",
       type: "color",
-      value: "#fff"
+      value: "#f8fafc"
     },
+    "bg.page": { description: "Page Background Color", type: "color", value: "#fff" },
+    "bg.post": { description: "Post background color", type: "color", value: "#f1f5f9" },
+    "bg.header": { description: "Header Background", type: "color", value: "#0f172a" },
   })
 | #{'\n'}
 
+Group(description="Color")
+  +variables({ 
+    "color.text": { description: "Text color", type: "color", value: "#334155" },
+    "color.border": { description: "Border color", type: "color", value: "#e2e8f0" },
+    "color.header": { description: "Header color", type: "color", value: "#fff" },
+  })
 
 | Personalizar comentarios
 | =====================
 +variables({
-  "posts.text.color": { description: "Text color", value: "#777" },
-  "posts.text.font": { description: "Font family", value: "15px Roboto" },
-  "posts.background.color": { description: "Background", value: "transparent" },
-  "posts.link.color": { description: "0", value: "0" },
-  "posts.title.color": { description: "1", value: "0" },
-  "body.link.color": { description: "2", value: "0" },
-  "body.text.font": { description: "3", value: "0" },
+  "posts.text.color" : {
+      description: "Content color",
+      type: "color",
+      value: "#666",
+      hideEditor: "true"
+    },
+  "posts.link.color" : { value: "#666"},
+  "posts.text.font" : { value: "15px Roboto"},
+  "posts.background.color" : { value: "transparent"},
+  "posts.title.color" : { value: "false"},
+  "body.link.color" : { value: "false"},
+  "body.text.font" : { value: "false"},
 })

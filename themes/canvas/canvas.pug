@@ -1,0 +1,45 @@
+
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+include /node_modules/@zkreations/canvas/init
+
+html&attributes(html.layout3)(b:css='false' b:js='true')
+  head
+    title <data:view.title.escaped/>
+    b:include(name='head:content')
+    //- Aquí empieza b:skin
+    b:if(cond='!data:view.isLayoutMode')
+      +cdata("b:skin")
+        | /*!
+        |  * Name      : Nombre del Tema
+        |  * Version   : 1.0.0
+        |  * Author    : Tu nombre
+        |  * License   : GNU General Public License v2 or later
+        |  *//* #{"\n"}
+        include _variables
+        include assets/skin.css
+
+      //- Estilos del modo Diseño
+      b:else
+      +cdata("b:template-skin")
+        //- Elimina este comentario si deseas usar el Modo Diseño estilo WordPress
+        //- include /node_modules/@zkreations/canvas/dist/css/wp-style.min.css
+
+    b:comment CORE
+    include markups/init
+    b:comment /END CORE
+
+  body
+    b:include(name='@:kind')
+
+    .template
+      header.header
+        b:section#header
+          include sections/header
+
+      main.main
+        b:section#content
+          include sections/content
+
+      footer.footer <data:blog.title/>
+

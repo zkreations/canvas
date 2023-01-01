@@ -1,0 +1,21 @@
+//- Formulario de comentarios
+//- @author zkreations
+
+b:includable(id="comment:form")
+  b:if(cond='!data:post.allowNewComments')
+    .comment-alert <data:post.noNewCommentsText/>
+
+    b:else
+    #comment-form
+      b:include(name='comment:restore')
+
+       #comment-iframe.comment-iframe
+        //- Formulario
+        iframe#comment-editor(expr:src='data:post.commentFormIframeSrc params { skin: "emporio" }' width='100%' height="66")
+
+      //- Obtenemos el código javascript para insertarlo después.
+      textarea#cmtfpIframe(readonly hidden) <data:post.cmtfpIframe/>
+
+    b:if(cond='data:this.messages.blogComment')
+      .comment-messages <data:this.messages.blogComment/>
+

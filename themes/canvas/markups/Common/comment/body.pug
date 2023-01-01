@@ -1,0 +1,8 @@
+//- Cuerpo del comentario
+//- @author zkreations
+
+b:includable(id="comment:body")
+  .comment-content
+    //- Clase si el contenido esta borrado
+    b:class(cond='data:comment.isDeleted' name='comment-deleted')
+    <data:comment.body/>

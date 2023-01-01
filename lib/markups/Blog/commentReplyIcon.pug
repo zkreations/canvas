@@ -1,8 +1,0 @@
-//- Botones responder comentario
-//- @author zkreations
-//- @param {string} [replyText=data:messages.postAComment] - Texto del botón eliminar
-
-b:includable#commentReplyIcon
-  b:if(cond='data:post.allowNewComments')
-    button(expr:data-parent-id="data:comment.id")
-      b:eval(expr='data:replyText ?: data:messages.postAComment')

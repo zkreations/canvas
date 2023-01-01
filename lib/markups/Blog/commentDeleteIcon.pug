@@ -1,8 +1,0 @@
-//- Botones eliminar comentario
-//- @author zkreations
-//- @param {string} [deleteText=data:messages.deleteComment] - Texto del botón eliminar
-
-b:includable#commentDeleteIcon
-  span(expr:class='"item-control " + data:comment.adminClass')
-    a(expr:href='data:comment.deleteUrl')
-      b:eval(expr='data:deleteText ?: data:messages.deleteComment')

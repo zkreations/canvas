@@ -1,0 +1,11 @@
+//- Avatar del autor del comentario
+//- @author zkreations
+//- @param {number} [avatarSize=40] - Tamaño del avatar
+//- @param {image} [avatarImage=https://lh3.googleusercontent.com/a/default-user] - Avatar por defecto
+
+b:includable(id="comment:avatar")
+  b:with(value='{ image: (data:comment.authorAvatarSrc contains "/img/bl" ? (data:avatarImage ?: "https://lh3.googleusercontent.com/a/default-user") : data:comment.authorAvatarSrc), size: (data:avatarSize ?: 40) }', var='avatar')
+    img(expr:src='resizeImage(data:avatar.image, data:avatar.size, "1:1")'
+        expr:width='data:avatar.size',
+        expr:height='data:avatar.size',
+        expr:alt='data:comment.author')

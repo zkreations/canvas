@@ -1,8 +1,0 @@
-//- Cuerpo del comentario
-//- @author zkreations
-//- @param {boolean} [filterLinks=false] - Filtrar enlaces
-//- @param {string} [hiddenText=data:messages.hidden] - Texto del filtro
-
-b:includable#commentBody
-  b:class(cond='data:comment.isDeleted' name='comment-deleted')
-  b:eval(expr='(data:filterLinks ?: false) and data:comment.body contains "href=\\"http" ? (data:hiddenText ?: data:messages.hidden) : data:comment.body')
