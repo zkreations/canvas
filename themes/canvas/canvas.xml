@@ -104,10 +104,10 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word }
   padding: 3rem 0;
   font-size: 1.75rem;
   text-align: center;
-  background-color: #0f172a;
+  background-color: var(--bg-header);
 }
 
-.header a { color: #fff }
+.header a { color: var(--color-header) }
 .main { margin: 2rem 0 }
 
 /* Cards */
