@@ -1,5 +1,7 @@
 <div align="center">
 
+  <img width='192' src="https://raw.githubusercontent.com/zkreations/canvas/master/.github/canvas.png" align="center" />
+
   # Canvas 
 
   <p>Punto de partida construido con pugjs, que brinda facilidades para desarrollar un tema para Blogger.</p>
