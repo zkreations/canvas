@@ -1,0 +1,12 @@
+//- Vista post y página
+//- @author zkreations
+
+b:includable(id="post:view" var='post')
+  b:if(cond='data:view.isMultipleItems')
+    include content/feed
+
+    b:elseif(cond='data:view.isPost')
+    include content/post
+
+    b:elseif(cond='data:view.isPage')
+    include content/page

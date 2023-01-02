@@ -1,0 +1,31 @@
+//- Inclusion principal de comentarios
+//- @author zkreations
+//- @param {number} [avatarSize=40] - Tamaño del avatar
+//- @param {image} [avatarImage=https://lh3.googleusercontent.com/a/default-user] - Avatar por defecto
+//- @param {string} [deleteText=data:messages.deleteComment] - Texto del botón eliminar
+//- @param {string} [replyText=data:messages.postAComment] - Texto del botón responder
+//- @param {string} [restoreText=data:messages.postAComment] - Texto del botón "restaurar"
+//- @param {number} [minDepth=1] - Nivel mínimo
+//- @param {number} [maxDepth=5] - Nivel máximo
+//- @param {boolean} [formFirst=false] - insertar formulario primero
+//- @param {boolean} [newestFirst=false] - Organizar comentarios del mas nuevo al mas antiguo
+
+b:includable(id="comment:main")
+  b:if(cond='not data:view.isPreview and data:post.allowComments')
+    .comments-title
+      b:message(name='messages.numberOfComments')
+        b:param(expr:value='data:post.numberOfComments' name='numComments')
+
+    .comments#comments
+      b:with(value='{ min: (data:minDepth ?: 1), max: (data:maxDepth ?: 5) }' var='depth')
+        b:with(value='data:depth.min >= data:depth.max ? data:depth.max : data:depth.min' var='depth')
+
+          //- Orden del formulario
+          b:loop(values='(data:formFirst ?: false) ? ["form","content"] : ["content","form"]' var='order')
+            b:include(expr:name='"comment:" + data:order')
+
+          //- Paginación si hay más de 200 comentarios (incluye respuestas)
+          b:include(cond='data:post.commentPagingRequired' name='comment:pagination')
+
+  +cdata("script")
+    include ../../../assets/comments.js

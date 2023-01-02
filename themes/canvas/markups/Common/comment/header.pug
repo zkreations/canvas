@@ -1,0 +1,18 @@
+//- Encabezado de comentarios
+//- @author zkreations
+
+b:includable(id="comment:header")
+  .comment-header
+    .comment-avatar
+      b:include(name="comment:avatar")
+
+    .comment-meta
+      b:tag.comment-author(expr:name='data:comment.authorUrl ? "a" : "span"')
+        b:attr(name='href' expr:value='data:comment.authorUrl')
+        <data:comment.author/>
+
+        //- Icono que destaca al author del articulo
+        b:if(cond='data:comment.extraIconClass')
+          span.comment-badge ☑️
+
+      span.comment-time <data:comment.timestamp/>

@@ -1,0 +1,20 @@
+//- Contenido del widget Header
+//- @author zkreations
+//- MODOS DEL LOGO
+//- * BEHIND: Detrás del título y la descripción
+//- * REPLACE: En lugar del título y la descripción
+//- * BEFORE_DESCRIPTION: Ubicar la descripción después de la imagen
+
+b:includable(id='widget:Header')
+  b:if(cond='data:image')
+    a(expr:href='data:blog.homepageUrl')
+      img(expr:alt='data:title',
+          expr:height='data:height',
+          expr:src='data:image',
+          expr:width='data:width')
+
+  b:if(cond='data:imagePlacement == "BEHIND"')
+    a(expr:href='data:blog.homepageUrl') <data:title/>
+
+  b:if(cond='data:imagePlacement == "BEHIND"')
+    <data:description/>

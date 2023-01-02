@@ -1,0 +1,45 @@
+
+| Personalizar
+| =====================
+Group(description="Backgrounds" selector="body")
+  +variables({ 
+    "body.background": {
+      description: "Background",
+      type: "background",
+      color: "$(body.background.color)",
+      value: "$(color) none repeat scroll top center"
+    },
+    "body.background.color": {
+      description: "Body background color",
+      type: "color",
+      value: "#f8fafc"
+    },
+    "bg.page": { description: "Page Background Color", type: "color", value: "#fff" },
+    "bg.post": { description: "Post background color", type: "color", value: "#f1f5f9" },
+    "bg.header": { description: "Header Background", type: "color", value: "#0f172a" },
+  })
+| #{'\n'}
+
+Group(description="Color")
+  +variables({ 
+    "color.text": { description: "Text color", type: "color", value: "#334155" },
+    "color.border": { description: "Border color", type: "color", value: "#e2e8f0" },
+    "color.header": { description: "Header color", type: "color", value: "#fff" },
+  })
+
+| Personalizar comentarios
+| =====================
++variables({
+  "posts.text.color" : {
+      description: "Content color",
+      type: "color",
+      value: "#666",
+      hideEditor: "true"
+    },
+  "posts.link.color" : { value: "#666"},
+  "posts.text.font" : { value: "15px Roboto"},
+  "posts.background.color" : { value: "transparent"},
+  "posts.title.color" : { value: "false"},
+  "body.link.color" : { value: "false"},
+  "body.text.font" : { value: "false"},
+})
