@@ -33,15 +33,17 @@ Ejecuta el comando `gulp` para empezar a escuchar los cambios de la carpeta "**t
 
 ## Mixins
 
+Una de las grandes ventajas de usar PugJS es que puedes crear mixins, que son bloques de código reutilizables. Canvas cuenta con algunos bloques escritos exclusivamente para facilitar algunas tareas en Blogger:
+
 ### variables
 
-Crea variables de Blogger, para usarlas dentro de una etiqueta `b:skin` con el siguiente mixin:
+Crea variables de Blogger, para usarlas dentro de una etiqueta `b:skin`:
 
 ```pug
 mixin variables(object)
 ```
 
-Como único parámetro se requiere un objeto que contendrá los atributos aceptados en [variables de Blogger](https://bloggercode-blogconnexion.blogspot.com/2014/06/tag-b-skin-b-template-skin.html). Por ejemplo:
+El parámetro del mixin requiere un [objeto](https://lenguajejs.com/javascript/objetos/que-son/), los cuales deben contener atributos de [variables de Blogger](https://bloggercode-blogconnexion.blogspot.com/2014/06/tag-b-skin-b-template-skin.html). Por ejemplo
 
 ```pug
 +variables({ 
@@ -54,7 +56,7 @@ Como único parámetro se requiere un objeto que contendrá los atributos acepta
 })
 ```
 
-Solo el campo `value` es obligatorio, todos los demás son opcionales. Si el campo `type` no se especifica se usará por defecto "**string**". Ejemplo de variables con los datos mínimos:
+El campo `value` es obligatorio, todos los demás son opcionales. Si el campo `type` no se especifica se usará por defecto "**string**". Un ejemplo de variables con los datos mínimos aceptables:
 
 ```pug
 +variables({
@@ -72,13 +74,13 @@ El código resultante sería:
 
 ### cdata
 
-Este mixin crea etiquetas html cuyo contenido siempre estará dentro de etiquetas Character DATA.
+Este mixin genera etiquetas html en donde el contenido estará rodeado de etiquetas [Character DATA](https://bloggercode-blogconnexion.blogspot.com/2016/03/tag-cdata.html). Estas etiquetas evitan que el lenguaje de Blogger sea interpretado.
 
 ```pug
 mixin cdata(tag="style")
 ```
 
-Como único parámetro acepta el nombre de una etiqueta html. Si no se especifica la etiqueta html por defecto sera `<style>`, por ejemplo:
+Como único parámetro acepta el nombre de una etiqueta html. Si no se especifica la etiqueta html por defecto será `<style>`, por ejemplo:
 
 ```pug
 +cdata
@@ -98,7 +100,7 @@ Crea las etiquetas `b:defaultmarkups` necesarias para configurar inclusiones pre
 mixin markups(object={})
 ```
 
-Como único parámetro opcional acepta un objeto de matrices string, las cuales deben corresponder a inclusiones de widgets.
+Como único parámetro acepta un objeto de matrices string, las cuales deben corresponder a inclusiones de widgets, por ejemplo:
 
 ```pug
 +markups({
@@ -126,7 +128,7 @@ Crea el marcado predeterminado para widgets, requiere el mixin `+markups` como p
 mixin markup(type="Common")
 ```
 
-Como único parámetro especifica un tipo de widget valido de Blogger, si no se especifica se usara "**Common**" por ejemplo:
+Como único parámetro escribe el nombre de un tipo de widget válido de Blogger, si no se especifica se usará "**Common**". Si el tipo especificado no es válido o si es un widget de **solo lectura**, verás un aviso en la consola al compilar.
 
 ```pug
 +markups
@@ -141,16 +143,14 @@ El código resultante será:
 </b:defaultmarkups>
 ```
 
-> **Nota:** Si el tipo especificado no es válido o si el tipo especificado es un widget de **solo lectura** de Blogger, veras un aviso en la consola al compilar.
-
 ### default-tools
 
-Crea inclusiones globales que sirven para ayudar en la construcción de temas, requiere el mixin `+markups` como padre para su correcta interpretación en Blogger.
+Importa las inclusiones globales de canvas, requiere el mixin `+markups` como padre para su correcta interpretación en Blogger.
 
 ```pug
 mixin default-tools(tools=defaultTools)
 ```
-Las herramientas disponibles (y que se incluyen por defecto) son:
+Como único parámetro acepta acepta una matriz de string que contiene el nombre de las inclusiones disponibles. Puedes elegir las que necesites (por defecto se incluyen todas):
 
 ```js
 [ "ads", "adsense", "attr", "image", "kind", "meta" ]
@@ -178,7 +178,7 @@ El código resultante será:
 
 ### widget
 
-Crea una etiqueta `b:widget` que requiera las veces que ha sido llamado, incrementando su contador en 1 tras cada inclusion.
+Crea una etiqueta `b:widget` que recuerda las veces que ha sido llamado, incrementando su contador en 1 tras cada inclusion.
 
 ```pug
 mixin widget(type="HTML", settings={}, number)
@@ -202,16 +202,19 @@ El código resultante será:
 </b:widget>
 ```
 
-> **Nota:** por defecto el contador de widgets comienza desde el número `1`, pero puedes establecer el numero inicial del contador declarando la variable `initCall`.
+Por defecto el contador de widgets comienza desde el número `1`, pero puedes establecer el numero inicial del contador declarando la variable `initCall`.
 
+```js
+- let initCall = 20
+```
 
 ## Tools
 
-Estas inclusiones facilitan algunas tareas en la creación de plantillas, para ello solo debes incluirlas en donde las necesitas.
+Estas inclusiones son las que se obtienen del mixin `default-tools` y facilitan algunas tareas en la creación de plantillas, para ello solo debes incluirlas en donde las necesites utilizando la [etiqueta b:include](https://bloggercode-blogconnexion.blogspot.com/2016/03/tag-b-includable-b-include.html).
 
 ### @:ads
 
-Genera código de adsense que siempre es responsive, para ello se ignorara cualquier configuración del usuario. También acepta código de anuncios personalizados:
+Genera código de adsense que **siempre es responsive**, para ello se ignorará cualquier configuración del usuario. También acepta código de anuncios personalizados:
 
 ```xml
 <b:include name='@:ads'/>
@@ -225,7 +228,7 @@ Genera código de adsense que siempre es responsive, para ello se ignorara cualq
 
 ### @:adsense
 
-Agrega la etiqueta que incluye el código javascript de ADsense, la cual esta actualizada y solo carga si AdSense esta habilitado en el blog:
+Agrega la etiqueta que incluye el código JavaScript de AdSense, la cual está actualizada y solo cargará si AdSense esta habilitado en el blog:
 
 ```xml
 <b:include name='@:adsense'/>
@@ -233,7 +236,7 @@ Agrega la etiqueta que incluye el código javascript de ADsense, la cual esta ac
 
 ### @:attr
 
-Agrega o remueve multiples atributos al nodo superior. Cada matriz debe estar conformada por dos elementos tipo `string`, el primer elemento sera el nombre del atributo, el segundo elemento corresponderá a su valor, pero si está vació o no está presente, el atributo especificado se borrara del nodo superior:
+Agrega o remueve multiples atributos al nodo superior. Cada matriz debe estar conformada por dos elementos tipo `string`, el primer elemento sera el nombre del atributo, el segundo elemento corresponderá a su valor. Si el valor está vació o no está presente, el atributo especificado se borrará del nodo superior:
 
 ```xml
 <b:include name='@:attr'/>
@@ -245,7 +248,7 @@ Agrega o remueve multiples atributos al nodo superior. Cada matriz debe estar co
 
 ### @:image
 
-Manipula imágenes alojadas en los servidores de Google, principalmente trabaja con [datos de Blogger tipo imagen](https://bloggercode-blogconnexion.blogspot.com/2016/04/typeof-image.html):
+Manipula imágenes alojadas en los servidores de Google, principalmente trabaja con [datos de Blogger tipo imagen](https://bloggercode-blogconnexion.blogspot.com/2016/04/typeof-image.html). También permite agregarle nuevos atributos a las imágenes usando los [parámetros de imágenes de Blogger](https://www.zkreations.com/2022/11/parametros-de-imagenes-de-blogger.html):
 
 ```xml
 <b:include name='@:image'/>
@@ -266,11 +269,9 @@ Manipula imágenes alojadas en los servidores de Google, principalmente trabaja 
 | `loading` | `string`   | Atributo loading                | opcional         |
 | `params`  | `string`   | Parámetros adicionales          | opcional         |
 
-> **Nota:** los parámetros adicionales son exclusivos de imágenes alojadas en blogger y puedes [conocerlos aqui](https://zkreations.com/2022/11/parametros-de-imagenes-de-blogger.html).
-
 ### @:kind
 
-Agrega clases al nodo superior que contiene información según el tipo de página visualizado.
+Agrega clases al nodo superior que contiene información del tipo de página visualizado.
 
 ```xml
 <b:include name='@:kind'/>
