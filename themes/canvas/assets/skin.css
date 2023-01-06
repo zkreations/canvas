@@ -1,5 +1,5 @@
 /*! skin.css */
-:where(.item-control) { display: none }
+:where(.item-control, .blog-admin) { display: none }
 
 /* Dev */
 :root {
