@@ -12,6 +12,12 @@
   </p>
 </div>
 
+## Demos
+
+- [Blank](https://blank-dev.blogspot.com/)
+- [Canvas](https://canvas-dev.blogspot.com/)
+- [Bison](https://bison.zkreations.com/)
+
 ## Características
 
 - Código limpio sin CSS ni JS de Blogger 🚀 
