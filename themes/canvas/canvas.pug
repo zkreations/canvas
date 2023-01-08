@@ -7,7 +7,7 @@ html&attributes(html.layout3)(b:css='false' b:js='true')
   head
     title <data:view.title.escaped/>
     b:include(name='head:content')
-    //- Aquí empieza b:skin
+    //- Aqui empieza b:skin
     b:if(cond='!data:view.isLayoutMode')
       +cdata("b:skin")
         | /*!
@@ -19,10 +19,10 @@ html&attributes(html.layout3)(b:css='false' b:js='true')
         include _variables
         include assets/skin.css
 
-      //- Estilos del modo Diseño
+      //- Estilos del Modo Layout
       b:else
       +cdata("b:template-skin")
-        //- Elimina este comentario si deseas usar el Modo Diseño estilo WordPress
+        //- Elimina este comentario si deseas usar el Modo Layout estilo WordPress
         //- include /node_modules/@zkreations/canvas/dist/css/wp-style.min.css
 
     b:comment CORE

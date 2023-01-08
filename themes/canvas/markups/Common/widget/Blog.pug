@@ -2,10 +2,10 @@
 //- @author zkreations
 //- @data {string} data:show.share - Botones de compartir
 //- @data {string} data:show.author - Perfil del author
-//- @data {string} data:show.timestamp - Fecha de publicación
+//- @data {string} data:show.timestamp - Fecha de publicacion
 //- @data {string} data:show.comments - Comentarios
 //- @data {string} data:show.labels - Etiquetas
-//- @data {string} data:show.icons - Botón enviar por email
+//- @data {string} data:show.icons - Boton enviar por email
 
 b:includable(id='widget:Blog')
 
@@ -17,5 +17,5 @@ b:includable(id='widget:Blog')
       b:loop(values='data:posts' var='post')
         b:include(data='post' name='post:view')
 
-    //- Incluye la paginación solo en el feed
+    //- Incluye la paginacion solo en el feed
     b:include(cond='data:view.isMultipleItems' name='post:pagination')

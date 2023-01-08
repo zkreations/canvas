@@ -13,7 +13,7 @@ b:includable(id="comment:form")
         //- Formulario
         iframe#comment-editor(expr:src='data:post.commentFormIframeSrc params { skin: "emporio" }' width='100%' height="66")
 
-      //- Obtenemos el código javascript para insertarlo después.
+      //- Obtenemos el codigo javascript para insertarlo despues.
       textarea#cmtfpIframe(readonly hidden) <data:post.cmtfpIframe/>
 
     b:if(cond='data:this.messages.blogComment')
