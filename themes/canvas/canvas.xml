@@ -36,7 +36,7 @@
         <Variable name="posts.title.color" description="posts.title.color" type="string" value="false"/>
         <Variable name="body.link.color" description="body.link.color" type="string" value="false"/>
         <Variable name="body.text.font" description="body.text.font" type="string" value="false"/>/*! skin.css */
-:where(.item-control) { display: none }
+:where(.item-control, .blog-admin) { display: none }
 
 /* Dev */
 :root {
