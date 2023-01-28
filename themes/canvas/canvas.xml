@@ -338,6 +338,17 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word }
             <b:tag async="async" name="script" cond="data:blog.adsenseClientId and data:blog.adsenseHasAds" expr:src="&quot;//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js&quot; params {client: data:blog.adsenseClientId}" crossorigin="anonymous"></b:tag>
           </b:if>
         </b:includable>
+        <b:includable id="@:analytics">
+          <b:if cond="data:blog.analyticsAccountNumber">
+            <script async="async" expr:src="params(&quot;https://www.googletagmanager.com/gtag/js&quot;,{id: data:blog.analyticsAccountNumber})"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config','<data:blog.analyticsAccountNumber/>');
+            </script>
+          </b:if>
+        </b:includable>
         <b:includable id="@:attr">
           <b:loop values="data:" var="i">
             <b:attr expr:name="data:i[0] ?: &quot;null&quot;" expr:value="data:i[1]"></b:attr>
@@ -414,6 +425,7 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word }
         <b:includable id="head:content">
           <b:include name="@:meta"></b:include>
           <b:include name="@:adsense"></b:include>
+          <b:include name="@:analytics"></b:include>
         </b:includable>
         <b:includable id="comment:avatar">
           <b:with value="{ image: (data:comment.authorAvatarSrc contains &quot;/img/bl&quot; ? (data:avatarImage ?: &quot;https://lh3.googleusercontent.com/a/default-user&quot;) : data:comment.authorAvatarSrc), size: (data:avatarSize ?: 40) }" var="avatar"><img expr:src="resizeImage(data:avatar.image, data:avatar.size, &quot;1:1&quot;)" expr:width="data:avatar.size" expr:height="data:avatar.size" expr:alt="data:comment.author"/></b:with>

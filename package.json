@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/zkreations/canvas#readme",
   "devDependencies": {
-    "@zkreations/canvas": "^1.0.2",
+    "@zkreations/canvas": "^1.0.4",
     "gulp": "^4.0.2",
     "gulp-cli": "^2.3.0",
     "gulp-pug": "^5.0.0",
