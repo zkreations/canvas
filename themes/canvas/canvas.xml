@@ -654,6 +654,9 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word }
             <b:if cond="data:olderPageUrl"><a class="pager-button" expr:href="data:olderPageUrl"><data:messages.olderPosts/></a></b:if>
           </b:tag>
         </b:includable>
+        <b:includable id="widget:AdSense">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
         <b:includable id="widget:Blog">
           <b:with value="data:widgets.Blog1.allBylineItems" var="show">
             <b:tag class="cards" cond="data:view.isMultipleItems" name="div">
@@ -664,12 +667,54 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word }
             <b:include cond="data:view.isMultipleItems" name="post:pagination"></b:include>
           </b:with>
         </b:includable>
+        <b:includable id="widget:BlogArchive">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:BlogList">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:BlogSearch">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:ContactForm">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:FeaturedPost">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:Feed">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
         <b:includable id="widget:Header">
           <b:if cond="data:image"><a expr:href="data:blog.homepageUrl"><img expr:alt="data:title" expr:height="data:height" expr:src="data:image" expr:width="data:width"/></a></b:if>
           <b:if cond="data:imagePlacement == &quot;BEHIND&quot;"><a expr:href="data:blog.homepageUrl"><data:title/></a></b:if>
           <b:if cond="data:imagePlacement == &quot;BEHIND&quot;"><data:description/></b:if>
         </b:includable>
         <b:includable id="widget:HTML"><data:content/></b:includable>
+        <b:includable id="widget:Image">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:Label">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:LinkList">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:PageList">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:PopularPosts">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:Profile">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:Text">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
+        <b:includable id="widget:TextList">
+          <b:comment>El código de tu widget Aquí</b:comment>
+        </b:includable>
       </b:defaultmarkup>
       <b:defaultmarkup type="All">
         <b:includable id="main">
