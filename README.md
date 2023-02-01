@@ -16,7 +16,11 @@
 
 - [Blank](https://blank-dev.blogspot.com/)
 - [Canvas](https://canvas-dev.blogspot.com/)
-- [Bison](https://bison.zkreations.com/)
+
+## Basado en este repositorio
+
+- [Bison](https://github.com/zkreations/bison)
+- [Maily](https://github.com/zkreations/maily)
 
 ## Características
 
