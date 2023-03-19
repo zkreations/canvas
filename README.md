@@ -1,3 +1,5 @@
+> Este proyecto ha sido archivado y reemplazado por [Hamlet](https://github.com/zkreations/hamlet), otro entorno de desarrollo para crear plantillas de Blogger usando Handlebars. Recomiendo usar **Hamlet** en su lugar.
+
 <div align="center">
 
   <img width='192' src="https://raw.githubusercontent.com/zkreations/canvas/master/.github/canvas.png" align="center" />
