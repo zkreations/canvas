@@ -14,16 +14,6 @@
   </p>
 </div>
 
-## Demos
-
-- [Blank](https://blank-dev.blogspot.com/)
-- [Canvas](https://canvas-dev.blogspot.com/)
-
-## Basado en este repositorio
-
-- [Bison](https://github.com/zkreations/bison)
-- [Maily](https://github.com/zkreations/maily)
-
 ## Características
 
 - Código limpio sin CSS ni JS de Blogger 🚀 
